@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import growveloMark from "../../assets/growvelo-mark.png.asset.json";
 
 /* ---------- helpers ---------- */
 
@@ -33,11 +34,11 @@ export function Nav() {
   return (
     <div className="sticky top-4 z-50 flex justify-center px-4">
       <header className="glass flex w-full max-w-6xl items-center justify-between px-4 py-2.5 sm:px-6">
-        <Link to="/" className="flex items-center gap-2">
-          <span className="relative inline-flex h-8 w-8 items-center justify-center rounded-xl gradient-accent text-sm font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]">
-            F
+        <Link to="/" className="flex items-center gap-2.5">
+          <img src={growveloMark.url} alt="growVelo" className="h-9 w-9 rounded-xl" />
+          <span className="font-display text-base font-semibold tracking-tight">
+            grow<span className="text-gradient-accent">Velo</span>
           </span>
-          <span className="font-display text-base font-semibold tracking-tight">Framecut</span>
         </Link>
         <nav className="hidden items-center gap-6 text-sm text-white/75 lg:flex">
           {NAV_ITEMS.map((n) => (
@@ -190,7 +191,7 @@ export function Hero() {
           <span className="text-gradient-accent">unmissable</span>.
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-white/70">
-          Framecut is a boutique editing agency for creators, brands, and filmmakers.
+          growVelo is a boutique editing agency for creators, brands, and filmmakers.
           Pair with a specialist editor, drop your footage, and get scroll-stopping cuts back.
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -262,7 +263,7 @@ export function Portfolio({ limit }: { limit?: number } = {}) {
         <div>
           <Eyebrow>Portfolio</Eyebrow>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-            Recent work from the <span className="text-gradient-accent">Framecut</span> desk.
+            Recent work from the <span className="text-gradient-accent">growVelo</span> desk.
           </h2>
         </div>
         {limit && (
@@ -484,7 +485,7 @@ export function Courses({ limit }: { limit?: number } = {}) {
         <div>
           <Eyebrow>Courses</Eyebrow>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-            Learn from the <span className="text-gradient">Framecut</span> desk.
+            Learn from the <span className="text-gradient">growVelo</span> desk.
           </h2>
         </div>
         {limit && <Link to="/courses" className="btn-ghost text-sm">Browse all courses →</Link>}
@@ -517,7 +518,7 @@ export function Courses({ limit }: { limit?: number } = {}) {
 /* ---------- reviews ---------- */
 
 const REVIEWS = [
-  { name: "Ayaan Malik", role: "Creator · 1.2M subs", body: "Framecut cuts my long-form videos with taste — retention went up 22% in a month.", stars: 5, avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)" },
+  { name: "Ayaan Malik", role: "Creator · 1.2M subs", body: "growVelo cuts my long-form videos with taste — retention went up 22% in a month.", stars: 5, avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)" },
   { name: "Lena Park", role: "Founder · Nova Labs", body: "Our brand film landed exactly the mood we wanted. Professional, on-time, and thoughtful.", stars: 5, avatar: "linear-gradient(135deg,#ec4899,#f97316)" },
   { name: "Rohan Das", role: "Head of Marketing · Stackly", body: "The motion team delivered a SaaS explainer that outperformed our old one 3x in demos booked.", stars: 5, avatar: "linear-gradient(135deg,#22c55e,#0ea5e9)" },
   { name: "Zara Ahmed", role: "Bride · Wedding Film", body: "Sadia captured emotions we didn't even know were on camera. We cried. Twice.", stars: 5, avatar: "linear-gradient(135deg,#f43f5e,#a78bfa)" },
@@ -573,12 +574,12 @@ export function About() {
     <section className="relative mx-auto max-w-7xl px-5 py-20">
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
         <div>
-          <Eyebrow>About Framecut</Eyebrow>
+          <Eyebrow>About growVelo</Eyebrow>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
             A boutique <span className="text-gradient">editing studio</span>, built by editors.
           </h2>
           <p className="mt-5 text-white/75">
-            Framecut started in 2020 as three editors sharing a Notion doc and a shared love
+            growVelo started in 2020 as three editors sharing a Notion doc and a shared love
             for cuts that make people <em>feel</em> something. Five years later we're a team of
             twelve — cinematic editors, short-form specialists, motion designers, and colorists —
             working with creators and brands across four continents.
@@ -622,7 +623,7 @@ export function Contact() {
             few hours during working days.
           </p>
           <div className="mt-8 space-y-3 text-sm text-white/80">
-            <div><span className="text-white/50">Email · </span>hello@framecut.studio</div>
+            <div><span className="text-white/50">Email · </span>hello@growvelo.studio</div>
             <div><span className="text-white/50">Studio · </span>Dhaka · Remote worldwide</div>
             <div><span className="text-white/50">Hours · </span>Sun–Thu · 10:00–19:00 (GMT+6)</div>
           </div>
@@ -697,11 +698,11 @@ export function Footer() {
     <footer className="relative border-t border-white/10 py-14">
       <div className="mx-auto flex max-w-7xl flex-col items-start gap-8 px-5 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl gradient-accent text-base font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]">
-            F
-          </span>
+          <img src={growveloMark.url} alt="growVelo" className="h-11 w-11 rounded-xl" />
           <div>
-            <div className="font-display text-base font-semibold">Framecut</div>
+            <div className="font-display text-base font-semibold">
+              grow<span className="text-gradient-accent">Velo</span>
+            </div>
             <div className="text-xs text-white/50">A boutique editing studio.</div>
           </div>
         </div>
@@ -714,7 +715,7 @@ export function Footer() {
         </div>
       </div>
       <div className="mt-10 border-t border-white/10 pt-6 text-center text-xs text-white/40">
-        © 2026 Framecut Studio · Crafted frame by frame.
+        © 2026 growVelo Studio · Crafted frame by frame.
       </div>
     </footer>
   );

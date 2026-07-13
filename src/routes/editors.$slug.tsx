@@ -9,12 +9,12 @@ export const Route = createFileRoute("/editors/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Editor not found — Framecut" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Editor not found — growVelo" }, { name: "robots", content: "noindex" }] };
     }
     const e = loaderData.editor;
     return {
       meta: [
-        { title: `${e.name} — ${e.role} · Framecut` },
+        { title: `${e.name} — ${e.role} · growVelo` },
         { name: "description", content: e.bio },
         { property: "og:title", content: `${e.name} — ${e.role}` },
         { property: "og:description", content: e.bio },

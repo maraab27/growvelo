@@ -4,10 +4,10 @@ import { SiteShell, Reviews, BigCTA } from "../components/site/sections";
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: "Reviews — Framecut" },
-      { name: "description", content: "What creators and brands say about working with the Framecut editing team." },
-      { property: "og:title", content: "Reviews — Framecut" },
-      { property: "og:description", content: "What creators and brands say about Framecut." },
+      { title: "Reviews — growVelo" },
+      { name: "description", content: "What creators and brands say about working with the growVelo editing team." },
+      { property: "og:title", content: "Reviews — growVelo" },
+      { property: "og:description", content: "What creators and brands say about growVelo." },
     ],
   }),
   component: () => (

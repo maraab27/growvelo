@@ -4,10 +4,10 @@ import { SiteShell, Courses, BigCTA } from "../components/site/sections";
 export const Route = createFileRoute("/courses")({
   head: () => ({
     meta: [
-      { title: "Courses — Framecut" },
-      { name: "description", content: "Editing courses taught by Framecut editors — Premiere, DaVinci, After Effects and more." },
-      { property: "og:title", content: "Courses — Framecut" },
-      { property: "og:description", content: "Editing courses taught by Framecut editors." },
+      { title: "Courses — growVelo" },
+      { name: "description", content: "Editing courses taught by growVelo editors — Premiere, DaVinci, After Effects and more." },
+      { property: "og:title", content: "Courses — growVelo" },
+      { property: "og:description", content: "Editing courses taught by growVelo editors." },
     ],
   }),
   component: () => (

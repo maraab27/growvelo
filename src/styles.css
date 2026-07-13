@@ -35,14 +35,14 @@
 :root {
   --radius: 1.25rem;
 
-  /* Dark base — near black with a hint of blue */
-  --bg-0: oklch(0.14 0.02 265);
-  --bg-1: oklch(0.18 0.03 265);
+  /* GrowVelo dark base — deep indigo/navy from the brand */
+  --bg-0: oklch(0.13 0.05 285);
+  --bg-1: oklch(0.18 0.07 285);
 
-  /* Signature accent gradient — violet → cyan */
-  --accent-1: oklch(0.68 0.22 295); /* violet */
-  --accent-2: oklch(0.72 0.18 250); /* indigo/blue */
-  --accent-3: oklch(0.82 0.15 200); /* cyan */
+  /* GrowVelo signature accent — deep violet → vivid purple → magenta */
+  --accent-1: oklch(0.55 0.28 295); /* deep purple */
+  --accent-2: oklch(0.62 0.30 300); /* vivid violet */
+  --accent-3: oklch(0.72 0.24 315); /* magenta highlight */
 
   --background: var(--bg-0);
   --foreground: oklch(0.98 0.005 260);
