@@ -1,24 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteShell, BigCTA, Testimonials } from "../components/site/sections";
+import { SiteShell, Pricing, BigCTA } from "../components/site/sections";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — Scrapbook" },
-      { name: "description", content: "Free forever plan. No credit card. Start using Scrapbook in 30 seconds." },
-      { property: "og:title", content: "Pricing — Scrapbook" },
-      { property: "og:description", content: "Free forever plan. No credit card. Start using Scrapbook in 30 seconds." },
+      { title: "Pricing — Framecut" },
+      { name: "description", content: "Transparent editing rates by format — short-form, YouTube, cinematic and retainers." },
+      { property: "og:title", content: "Pricing — Framecut" },
+      { property: "og:description", content: "Transparent editing rates by format." },
     ],
   }),
-  component: PricingPage,
-});
-
-function PricingPage() {
-  return (
+  component: () => (
     <SiteShell>
       <div className="pt-16" />
+      <Pricing />
       <BigCTA />
-      <Testimonials />
     </SiteShell>
-  );
-}
+  ),
+});
