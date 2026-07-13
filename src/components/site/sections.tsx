@@ -707,7 +707,7 @@ export function Footer() {
         </div>
         <div className="grid grid-cols-2 gap-x-10 gap-y-2 text-sm sm:grid-cols-4">
           {NAV_ITEMS.filter((n) => n.to !== "/").map((n) => (
-            <Link key={n.to} to={n.to} className="text-white/80 transition hover:text-white">
+            <Link key={n.to} to={n.to as "/"} className="text-white/80 transition hover:text-white">
               {n.label}
             </Link>
           ))}
