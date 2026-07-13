@@ -199,6 +199,26 @@
   }
 }
 
+@utility glass-input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: white;
+  font-size: 0.875rem;
+  backdrop-filter: blur(10px);
+  transition: border-color 180ms ease, background 180ms ease;
+  &::placeholder { color: rgba(255, 255, 255, 0.4); }
+  &:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+
+
 /* ---------- Ambient blobs ---------- */
 @utility blob {
   position: absolute;
