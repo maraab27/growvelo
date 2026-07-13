@@ -214,27 +214,26 @@ export function getEditor(slug: string) {
 
 export function Hero() {
   return (
-    <section className="relative mx-auto max-w-7xl px-5 pt-20 pb-24 md:pt-28 md:pb-32">
-      <Blob className="animate-float left-[-8%] top-16 h-[28rem] w-[28rem]" color="color-mix(in oklab, var(--accent-1) 70%, transparent)" />
-      <Blob className="animate-float right-[-6%] top-40 h-[26rem] w-[26rem]" color="color-mix(in oklab, var(--accent-3) 65%, transparent)" />
+    <section className="relative mx-auto max-w-7xl px-4 pt-14 pb-20 sm:px-5 sm:pt-20 sm:pb-24 md:pt-28 md:pb-32">
+      <Blob className="animate-float left-[-20%] top-8 h-[20rem] w-[20rem] sm:left-[-8%] sm:top-16 sm:h-[28rem] sm:w-[28rem]" color="color-mix(in oklab, var(--accent-1) 70%, transparent)" />
+      <Blob className="animate-float right-[-20%] top-24 h-[18rem] w-[18rem] sm:right-[-6%] sm:top-40 sm:h-[26rem] sm:w-[26rem]" color="color-mix(in oklab, var(--accent-3) 65%, transparent)" />
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <Eyebrow>Video Editing Studio · Est. 2020</Eyebrow>
-        <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.02] tracking-tight sm:text-6xl md:text-7xl">
+        <h1 className="font-display text-[2.25rem] font-semibold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
           <span className="text-gradient">Cinematic edits</span>
           <br />
           that make you{" "}
           <span className="text-gradient-accent">unmissable</span>.
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-white/70">
+        <p className="mx-auto mt-5 max-w-2xl text-base text-white/70 sm:mt-6 sm:text-lg">
           growVelo is a boutique editing agency for creators, brands, and filmmakers.
           Pair with a specialist editor, drop your footage, and get scroll-stopping cuts back.
         </p>
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <Link to="/contact" className="btn-primary">Start a project</Link>
-          <Link to="/portfolio" className="btn-ghost">See our work</Link>
+        <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center">
+          <Link to="/contact" className="btn-primary justify-center">Start a project</Link>
+          <Link to="/portfolio" className="btn-ghost justify-center">See our work</Link>
         </div>
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs uppercase tracking-[0.2em] text-white/50">
+        <div className="mt-8 flex flex-col items-center justify-center gap-2 text-[10px] uppercase tracking-[0.18em] text-white/50 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-6 sm:text-xs sm:tracking-[0.2em]">
           <span>600+ projects delivered</span>
           <span className="hidden sm:inline">·</span>
           <span>24h avg turnaround</span>
@@ -245,6 +244,7 @@ export function Hero() {
     </section>
   );
 }
+
 
 /* ---------- portfolio ---------- */
 
