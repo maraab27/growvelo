@@ -16,7 +16,7 @@ export function Blob({ className = "", color }: { className?: string; color: str
   return <div className={`blob ${className}`} style={{ background: color }} />;
 }
 
-const NAV_ITEMS = [
+const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
   { to: "/", label: "Home", exact: true },
   { to: "/portfolio", label: "Portfolio" },
   { to: "/editors", label: "Editors" },
@@ -25,7 +25,7 @@ const NAV_ITEMS = [
   { to: "/reviews", label: "Reviews" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
-] as const;
+];
 
 /* ---------- nav ---------- */
 
