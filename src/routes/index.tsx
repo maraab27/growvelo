@@ -298,36 +298,104 @@ function Features() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((it) => (
-            <div key={it.title} className="glass glass-hover group relative overflow-hidden p-6">
+        <div className="mt-16 grid gap-6 lg:grid-cols-[1fr_360px]">
+          {/* Feature cards grid */}
+          <div className="grid gap-6 sm:grid-cols-2">
+            {items.map((it, idx) => (
               <div
-                aria-hidden
-                className="pointer-events-none absolute inset-x-0 top-0 h-24 opacity-70"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(255,255,255,0.14), transparent 80%)",
-                }}
-              />
-              <div className="relative">
-                <div className="glass-chip inline-flex h-11 w-11 items-center justify-center text-lg">
-                  {it.icon}
+                key={it.title}
+                className={`glass glass-hover group relative overflow-hidden p-6 ${
+                  idx === 1 ? "tilt-sm-r" : idx === 2 ? "tilt-sm-l" : ""
+                }`}
+              >
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 top-0 h-24 opacity-70"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(255,255,255,0.14), transparent 80%)",
+                  }}
+                />
+                <div className="relative">
+                  <div className="flex items-center justify-between">
+                    <div className="glass-chip inline-flex h-11 w-11 items-center justify-center text-lg">
+                      {it.icon}
+                    </div>
+                    <span className="mono-readout">
+                      {String(idx + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <div className="mt-5 text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
+                    {it.tag}
+                  </div>
+                  <h3 className="mt-1.5 font-display text-xl font-semibold text-white">
+                    {it.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">{it.body}</p>
                 </div>
-                <div className="mt-5 text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
-                  {it.tag}
-                </div>
-                <h3 className="mt-1.5 font-display text-xl font-semibold text-white">
-                  {it.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/70">{it.body}</p>
               </div>
+            ))}
+          </div>
+
+          {/* Layers panel — editor-tool sidebar */}
+          <aside className="glass relative overflow-hidden p-4">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div className="flex items-center gap-1.5">
+                {["Layers", "Effects"].map((t, i) => (
+                  <span
+                    key={t}
+                    className={`rounded-md px-2.5 py-1 text-[11px] font-medium tracking-wide ${
+                      i === 0
+                        ? "bg-white/12 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
+                        : "text-white/55"
+                    }`}
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <span className="mono-readout">4 items</span>
             </div>
-          ))}
+            <ul className="mt-3 space-y-1.5">
+              {items.map((it, i) => (
+                <li
+                  key={it.tag}
+                  className="group/row flex items-center gap-3 rounded-lg px-2 py-2 transition hover:bg-white/8"
+                >
+                  <span className="glass-chip flex h-7 w-7 items-center justify-center rounded-md text-sm">
+                    {it.icon}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="truncate text-sm text-white/90">{it.tag}</div>
+                    <div className="mono-readout">L0{i + 1} · 100%</div>
+                  </div>
+                  <button
+                    aria-label="toggle visibility"
+                    className="text-white/50 transition hover:text-white"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.6">
+                      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+                      <circle cx="12" cy="12" r="2.5" />
+                    </svg>
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3">
+              <span className="mono-readout">OPACITY</span>
+              <div className="relative h-1.5 w-32 rounded-full bg-white/10">
+                <div className="absolute inset-y-0 left-0 w-3/4 rounded-full gradient-accent" />
+                <div className="absolute -top-1 left-3/4 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+              </div>
+              <span className="mono-readout">75%</span>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
   );
 }
+
 
 /* ---------- showcase ---------- */
 
@@ -348,10 +416,81 @@ function Showcase() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-5 md:grid-cols-6">
-          <BoardTile className="md:col-span-4">
-            <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
-              Sprint 24 · Live board
+        {/* Tab strip + timeline "editor panel" header */}
+        <div className="mt-14">
+          <div className="glass flex items-center justify-between gap-4 px-4 py-3">
+            <div className="flex items-center gap-2">
+              {["Timeline", "Boards", "Assets"].map((t, i) => (
+                <span
+                  key={t}
+                  className={`rounded-full px-3 py-1 text-xs font-medium tracking-wide transition ${
+                    i === 0
+                      ? "bg-white/15 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
+                      : "text-white/60 hover:text-white/85"
+                  }`}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="rec-dot" aria-hidden />
+              <span className="mono-readout">REC · 00:12:04:11</span>
+              <span className="mono-readout hidden sm:inline">1920×1080 · 60fps</span>
+            </div>
+          </div>
+
+          {/* Timeline track */}
+          <div className="mt-3 glass px-4 py-3">
+            <div className="flex items-center gap-3">
+              <span className="mono-readout w-14 shrink-0">V1</span>
+              <div className="relative flex-1 h-6 rounded-md bg-black/40 border border-white/10 overflow-hidden">
+                {[
+                  { l: 6, w: 18, c: "var(--accent-1)" },
+                  { l: 27, w: 14, c: "var(--accent-3)" },
+                  { l: 44, w: 22, c: "var(--accent-2)" },
+                  { l: 70, w: 12, c: "var(--accent-1)" },
+                  { l: 85, w: 10, c: "var(--accent-3)" },
+                ].map((s, i) => (
+                  <div
+                    key={i}
+                    className="absolute top-1 bottom-1 rounded-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]"
+                    style={{
+                      left: `${s.l}%`,
+                      width: `${s.w}%`,
+                      background: `linear-gradient(180deg, ${s.c}, color-mix(in oklab, ${s.c} 55%, black))`,
+                    }}
+                  />
+                ))}
+                <div
+                  className="absolute inset-y-0 w-px bg-white/80 shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+                  style={{ left: "38%" }}
+                />
+              </div>
+              <span className="mono-readout w-16 shrink-0 text-right">00:38</span>
+            </div>
+            <div className="mt-2 flex items-center gap-3">
+              <span className="mono-readout w-14 shrink-0">A1</span>
+              <div className="relative flex-1 h-4 rounded-md bg-black/40 border border-white/10 overflow-hidden">
+                <div
+                  className="absolute top-0.5 bottom-0.5 rounded-sm bg-white/15"
+                  style={{ left: "6%", width: "78%" }}
+                />
+              </div>
+              <span className="mono-readout w-16 shrink-0 text-right">STEREO</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 grid gap-5 md:grid-cols-6">
+          <BoardTile className="md:col-span-4 corner-frame" editor>
+            <span className="corner-tr" />
+            <span className="corner-bl" />
+            <div className="flex items-center justify-between">
+              <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
+                Sprint 24 · Live board
+              </div>
+              <span className="mono-readout">CLIP_024 · 00:00:12:04</span>
             </div>
             <h4 className="mt-2 font-display text-2xl font-semibold text-white">
               Launch playbook
@@ -378,29 +517,39 @@ function Showcase() {
             </div>
           </BoardTile>
 
-          <BoardTile className="md:col-span-2" gradient>
-            <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/70">
-              Goal
-            </div>
-            <div className="mt-2 font-display text-xl font-semibold text-white">
-              Hit 50k signups by Q3
-            </div>
-            <div className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-white/15">
-              <div className="h-full w-2/3 rounded-full bg-white/90" />
-            </div>
-            <div className="mt-2 text-xs text-white/80">67% there</div>
-          </BoardTile>
+          <div className="md:col-span-2 tilt-sm-r">
+            <BoardTile gradient>
+              <div className="flex items-center justify-between">
+                <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/70">
+                  Goal
+                </div>
+                <span className="mono-readout text-white/70">67%</span>
+              </div>
+              <div className="mt-2 font-display text-xl font-semibold text-white">
+                Hit 50k signups by Q3
+              </div>
+              <div className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-white/15">
+                <div className="h-full w-2/3 rounded-full bg-white/90" />
+              </div>
+              <div className="mt-2 text-xs text-white/80">67% there</div>
+            </BoardTile>
+          </div>
+
+          <div className="md:col-span-2 tilt-sm-l">
+            <BoardTile>
+              <div className="font-display text-lg font-medium leading-snug text-white">
+                &ldquo;Feels like magic — my team actually opens it on Mondays.&rdquo;
+              </div>
+              <div className="mt-4 text-xs text-white/60">— Ada, Design Lead</div>
+            </BoardTile>
+          </div>
 
           <BoardTile className="md:col-span-2">
-            <div className="font-display text-lg font-medium leading-snug text-white">
-              &ldquo;Feels like magic — my team actually opens it on Mondays.&rdquo;
-            </div>
-            <div className="mt-4 text-xs text-white/60">— Ada, Design Lead</div>
-          </BoardTile>
-
-          <BoardTile className="md:col-span-2">
-            <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
-              Reminder
+            <div className="flex items-center justify-between">
+              <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
+                Reminder
+              </div>
+              <span className="mono-readout">10:00 AM</span>
             </div>
             <div className="mt-2 font-display text-lg font-semibold text-white">
               Standup at 10:00
@@ -408,14 +557,16 @@ function Showcase() {
             <div className="mt-1 text-sm text-white/60">Bring the doughnuts.</div>
           </BoardTile>
 
-          <BoardTile className="md:col-span-2">
-            <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
-              Idea
-            </div>
-            <div className="mt-2 font-display text-lg font-semibold text-white">
-              Send stickers to top users
-            </div>
-          </BoardTile>
+          <div className="md:col-span-2 tilt-sm-r">
+            <BoardTile>
+              <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
+                Idea
+              </div>
+              <div className="mt-2 font-display text-lg font-semibold text-white">
+                Send stickers to top users
+              </div>
+            </BoardTile>
+          </div>
         </div>
       </div>
     </section>
@@ -425,15 +576,17 @@ function Showcase() {
 function BoardTile({
   className = "",
   gradient,
+  editor,
   children,
 }: {
   className?: string;
   gradient?: boolean;
+  editor?: boolean;
   children: ReactNode;
 }) {
   return (
     <div
-      className={`glass glass-hover relative overflow-hidden p-6 ${className}`}
+      className={`glass glass-hover relative overflow-hidden ${editor ? "p-8" : "p-6"} ${className}`}
       style={
         gradient
           ? {
@@ -455,6 +608,7 @@ function BoardTile({
     </div>
   );
 }
+
 
 /* ---------- categories ---------- */
 
@@ -537,8 +691,13 @@ function Testimonials() {
         </div>
 
         <div className="mt-16 grid gap-6 md:grid-cols-3">
-          {quotes.map((t) => (
-            <figure key={t.who} className="glass glass-hover relative overflow-hidden p-7">
+          {quotes.map((t, i) => (
+            <figure
+              key={t.who}
+              className={`glass glass-hover relative overflow-hidden p-7 ${
+                i === 0 ? "tilt-sm-l" : i === 2 ? "tilt-sm-r" : ""
+              }`}
+            >
               <div
                 aria-hidden
                 className="pointer-events-none absolute inset-x-0 top-0 h-24 opacity-60"
