@@ -698,11 +698,11 @@ export function Footer() {
     <footer className="relative border-t border-white/10 py-14">
       <div className="mx-auto flex max-w-7xl flex-col items-start gap-8 px-5 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl gradient-accent text-base font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]">
-            F
-          </span>
+          <img src={growveloMark.url} alt="growVelo" className="h-11 w-11 rounded-xl" />
           <div>
-            <div className="font-display text-base font-semibold">Framecut</div>
+            <div className="font-display text-base font-semibold">
+              grow<span className="text-gradient-accent">Velo</span>
+            </div>
             <div className="text-xs text-white/50">A boutique editing studio.</div>
           </div>
         </div>
