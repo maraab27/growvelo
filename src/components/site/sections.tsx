@@ -34,11 +34,11 @@ export function Nav() {
   return (
     <div className="sticky top-4 z-50 flex justify-center px-4">
       <header className="glass flex w-full max-w-6xl items-center justify-between px-4 py-2.5 sm:px-6">
-        <Link to="/" className="flex items-center gap-2">
-          <span className="relative inline-flex h-8 w-8 items-center justify-center rounded-xl gradient-accent text-sm font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]">
-            F
+        <Link to="/" className="flex items-center gap-2.5">
+          <img src={growveloMark.url} alt="growVelo" className="h-9 w-9 rounded-xl" />
+          <span className="font-display text-base font-semibold tracking-tight">
+            grow<span className="text-gradient-accent">Velo</span>
           </span>
-          <span className="font-display text-base font-semibold tracking-tight">Framecut</span>
         </Link>
         <nav className="hidden items-center gap-6 text-sm text-white/75 lg:flex">
           {NAV_ITEMS.map((n) => (
