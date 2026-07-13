@@ -715,7 +715,7 @@ export function Footer() {
         </div>
       </div>
       <div className="mt-10 border-t border-white/10 pt-6 text-center text-xs text-white/40">
-        © 2026 Framecut Studio · Crafted frame by frame.
+        © 2026 growVelo Studio · Crafted frame by frame.
       </div>
     </footer>
   );
