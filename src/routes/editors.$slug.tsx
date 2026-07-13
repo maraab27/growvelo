@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { SiteShell, Eyebrow, getEditor, editors } from "../components/site/sections";
+import { SiteShell, Eyebrow, getEditor, editors, type Editor } from "../components/site/sections";
 
 export const Route = createFileRoute("/editors/$slug")({
   loader: ({ params }) => {
