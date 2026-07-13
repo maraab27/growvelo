@@ -4,9 +4,9 @@ import { SiteShell, Pricing, BigCTA } from "../components/site/sections";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — Framecut" },
+      { title: "Pricing — growVelo" },
       { name: "description", content: "Transparent editing rates by format — short-form, YouTube, cinematic and retainers." },
-      { property: "og:title", content: "Pricing — Framecut" },
+      { property: "og:title", content: "Pricing — growVelo" },
       { property: "og:description", content: "Transparent editing rates by format." },
     ],
   }),

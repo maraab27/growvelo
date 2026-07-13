@@ -4,10 +4,10 @@ import { SiteShell, Contact } from "../components/site/sections";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Framecut" },
-      { name: "description", content: "Start a project with Framecut — share your footage, format and deadline." },
-      { property: "og:title", content: "Contact — Framecut" },
-      { property: "og:description", content: "Start a project with Framecut." },
+      { title: "Contact — growVelo" },
+      { name: "description", content: "Start a project with growVelo — share your footage, format and deadline." },
+      { property: "og:title", content: "Contact — growVelo" },
+      { property: "og:description", content: "Start a project with growVelo." },
     ],
   }),
   component: () => (
