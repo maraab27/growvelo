@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import growveloMark from "../../assets/growvelo-mark.png.asset.json";
 
 /* ---------- helpers ---------- */
@@ -31,37 +31,73 @@ const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
 /* ---------- nav ---------- */
 
 export function Nav() {
+  const [open, setOpen] = useState(false);
   return (
-    <div className="sticky top-4 z-50 flex justify-center px-4">
-      <header className="glass flex w-full max-w-6xl items-center justify-between px-4 py-2.5 sm:px-6">
-        <Link to="/" className="flex items-center gap-2.5">
-          <img src={growveloMark.url} alt="growVelo" className="h-9 w-9 rounded-xl" />
-          <span className="font-display text-base font-semibold tracking-tight">
-            grow<span className="text-gradient-accent">Velo</span>
-          </span>
-        </Link>
-        <nav className="hidden items-center gap-6 text-sm text-white/75 lg:flex">
-          {NAV_ITEMS.map((n) => (
-            <Link
-              key={n.to}
-              to={n.to as "/"}
-              activeOptions={n.exact ? { exact: true } : undefined}
-              className="transition hover:text-white"
-              activeProps={{ className: "text-white" }}
-            >
-              {n.label}
-            </Link>
-          ))}
-        </nav>
-        <div className="flex items-center gap-2">
-          <Link to="/contact" className="btn-primary text-sm !py-2 !px-4">
-            Hire us
+    <div className="sticky top-3 z-50 flex justify-center px-3 sm:top-4 sm:px-4">
+      <header className="glass flex w-full max-w-6xl flex-col overflow-hidden px-3 py-2 sm:px-6 sm:py-2.5">
+        <div className="flex w-full items-center justify-between gap-3">
+          <Link to="/" className="flex min-w-0 items-center gap-2 sm:gap-2.5" onClick={() => setOpen(false)}>
+            <img src={growveloMark.url} alt="growVelo" className="h-8 w-8 shrink-0 rounded-lg sm:h-9 sm:w-9 sm:rounded-xl" />
+            <span className="truncate font-display text-sm font-semibold tracking-tight sm:text-base">
+              grow<span className="text-gradient-accent">Velo</span>
+            </span>
           </Link>
+
+          <nav className="hidden items-center gap-6 text-sm text-white/75 lg:flex">
+            {NAV_ITEMS.map((n) => (
+              <Link
+                key={n.to}
+                to={n.to as "/"}
+                activeOptions={n.exact ? { exact: true } : undefined}
+                className="transition hover:text-white"
+                activeProps={{ className: "text-white" }}
+              >
+                {n.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+            <Link to="/contact" className="btn-primary !py-1.5 !px-3 text-xs sm:!py-2 sm:!px-4 sm:text-sm">
+              Hire us
+            </Link>
+            <button
+              type="button"
+              aria-label="Toggle menu"
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/85 transition hover:bg-white/10 lg:hidden"
+            >
+              {open ? (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 6l12 12M6 18L18 6" /></svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+              )}
+            </button>
+          </div>
         </div>
+
+        {open && (
+          <nav className="mt-3 grid grid-cols-2 gap-1 border-t border-white/10 pt-3 text-sm text-white/80 lg:hidden">
+            {NAV_ITEMS.map((n) => (
+              <Link
+                key={n.to}
+                to={n.to as "/"}
+                activeOptions={n.exact ? { exact: true } : undefined}
+                onClick={() => setOpen(false)}
+                className="rounded-lg px-3 py-2 transition hover:bg-white/5 hover:text-white"
+                activeProps={{ className: "bg-white/5 text-white" }}
+              >
+                {n.label}
+              </Link>
+            ))}
+          </nav>
+        )}
       </header>
     </div>
   );
 }
+
 
 /* ---------- editors data ---------- */
 
@@ -178,27 +214,26 @@ export function getEditor(slug: string) {
 
 export function Hero() {
   return (
-    <section className="relative mx-auto max-w-7xl px-5 pt-20 pb-24 md:pt-28 md:pb-32">
-      <Blob className="animate-float left-[-8%] top-16 h-[28rem] w-[28rem]" color="color-mix(in oklab, var(--accent-1) 70%, transparent)" />
-      <Blob className="animate-float right-[-6%] top-40 h-[26rem] w-[26rem]" color="color-mix(in oklab, var(--accent-3) 65%, transparent)" />
+    <section className="relative mx-auto max-w-7xl px-4 pt-14 pb-20 sm:px-5 sm:pt-20 sm:pb-24 md:pt-28 md:pb-32">
+      <Blob className="animate-float left-[-20%] top-8 h-[20rem] w-[20rem] sm:left-[-8%] sm:top-16 sm:h-[28rem] sm:w-[28rem]" color="color-mix(in oklab, var(--accent-1) 70%, transparent)" />
+      <Blob className="animate-float right-[-20%] top-24 h-[18rem] w-[18rem] sm:right-[-6%] sm:top-40 sm:h-[26rem] sm:w-[26rem]" color="color-mix(in oklab, var(--accent-3) 65%, transparent)" />
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <Eyebrow>Video Editing Studio · Est. 2020</Eyebrow>
-        <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.02] tracking-tight sm:text-6xl md:text-7xl">
+        <h1 className="font-display text-[2.25rem] font-semibold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
           <span className="text-gradient">Cinematic edits</span>
           <br />
           that make you{" "}
           <span className="text-gradient-accent">unmissable</span>.
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-white/70">
+        <p className="mx-auto mt-5 max-w-2xl text-base text-white/70 sm:mt-6 sm:text-lg">
           growVelo is a boutique editing agency for creators, brands, and filmmakers.
           Pair with a specialist editor, drop your footage, and get scroll-stopping cuts back.
         </p>
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <Link to="/contact" className="btn-primary">Start a project</Link>
-          <Link to="/portfolio" className="btn-ghost">See our work</Link>
+        <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center">
+          <Link to="/contact" className="btn-primary justify-center">Start a project</Link>
+          <Link to="/portfolio" className="btn-ghost justify-center">See our work</Link>
         </div>
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs uppercase tracking-[0.2em] text-white/50">
+        <div className="mt-8 flex flex-col items-center justify-center gap-2 text-[10px] uppercase tracking-[0.18em] text-white/50 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-6 sm:text-xs sm:tracking-[0.2em]">
           <span>600+ projects delivered</span>
           <span className="hidden sm:inline">·</span>
           <span>24h avg turnaround</span>
@@ -209,6 +244,7 @@ export function Hero() {
     </section>
   );
 }
+
 
 /* ---------- portfolio ---------- */
 
