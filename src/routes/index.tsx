@@ -348,10 +348,81 @@ function Showcase() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-5 md:grid-cols-6">
-          <BoardTile className="md:col-span-4">
-            <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
-              Sprint 24 · Live board
+        {/* Tab strip + timeline "editor panel" header */}
+        <div className="mt-14">
+          <div className="glass flex items-center justify-between gap-4 px-4 py-3">
+            <div className="flex items-center gap-2">
+              {["Timeline", "Boards", "Assets"].map((t, i) => (
+                <span
+                  key={t}
+                  className={`rounded-full px-3 py-1 text-xs font-medium tracking-wide transition ${
+                    i === 0
+                      ? "bg-white/15 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
+                      : "text-white/60 hover:text-white/85"
+                  }`}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="rec-dot" aria-hidden />
+              <span className="mono-readout">REC · 00:12:04:11</span>
+              <span className="mono-readout hidden sm:inline">1920×1080 · 60fps</span>
+            </div>
+          </div>
+
+          {/* Timeline track */}
+          <div className="mt-3 glass px-4 py-3">
+            <div className="flex items-center gap-3">
+              <span className="mono-readout w-14 shrink-0">V1</span>
+              <div className="relative flex-1 h-6 rounded-md bg-black/40 border border-white/10 overflow-hidden">
+                {[
+                  { l: 6, w: 18, c: "var(--accent-1)" },
+                  { l: 27, w: 14, c: "var(--accent-3)" },
+                  { l: 44, w: 22, c: "var(--accent-2)" },
+                  { l: 70, w: 12, c: "var(--accent-1)" },
+                  { l: 85, w: 10, c: "var(--accent-3)" },
+                ].map((s, i) => (
+                  <div
+                    key={i}
+                    className="absolute top-1 bottom-1 rounded-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]"
+                    style={{
+                      left: `${s.l}%`,
+                      width: `${s.w}%`,
+                      background: `linear-gradient(180deg, ${s.c}, color-mix(in oklab, ${s.c} 55%, black))`,
+                    }}
+                  />
+                ))}
+                <div
+                  className="absolute inset-y-0 w-px bg-white/80 shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+                  style={{ left: "38%" }}
+                />
+              </div>
+              <span className="mono-readout w-16 shrink-0 text-right">00:38</span>
+            </div>
+            <div className="mt-2 flex items-center gap-3">
+              <span className="mono-readout w-14 shrink-0">A1</span>
+              <div className="relative flex-1 h-4 rounded-md bg-black/40 border border-white/10 overflow-hidden">
+                <div
+                  className="absolute top-0.5 bottom-0.5 rounded-sm bg-white/15"
+                  style={{ left: "6%", width: "78%" }}
+                />
+              </div>
+              <span className="mono-readout w-16 shrink-0 text-right">STEREO</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 grid gap-5 md:grid-cols-6">
+          <BoardTile className="md:col-span-4 corner-frame" editor>
+            <span className="corner-tr" />
+            <span className="corner-bl" />
+            <div className="flex items-center justify-between">
+              <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
+                Sprint 24 · Live board
+              </div>
+              <span className="mono-readout">CLIP_024 · 00:00:12:04</span>
             </div>
             <h4 className="mt-2 font-display text-2xl font-semibold text-white">
               Launch playbook
@@ -378,29 +449,39 @@ function Showcase() {
             </div>
           </BoardTile>
 
-          <BoardTile className="md:col-span-2" gradient>
-            <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/70">
-              Goal
-            </div>
-            <div className="mt-2 font-display text-xl font-semibold text-white">
-              Hit 50k signups by Q3
-            </div>
-            <div className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-white/15">
-              <div className="h-full w-2/3 rounded-full bg-white/90" />
-            </div>
-            <div className="mt-2 text-xs text-white/80">67% there</div>
-          </BoardTile>
+          <div className="md:col-span-2 tilt-sm-r">
+            <BoardTile gradient>
+              <div className="flex items-center justify-between">
+                <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/70">
+                  Goal
+                </div>
+                <span className="mono-readout text-white/70">67%</span>
+              </div>
+              <div className="mt-2 font-display text-xl font-semibold text-white">
+                Hit 50k signups by Q3
+              </div>
+              <div className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-white/15">
+                <div className="h-full w-2/3 rounded-full bg-white/90" />
+              </div>
+              <div className="mt-2 text-xs text-white/80">67% there</div>
+            </BoardTile>
+          </div>
+
+          <div className="md:col-span-2 tilt-sm-l">
+            <BoardTile>
+              <div className="font-display text-lg font-medium leading-snug text-white">
+                &ldquo;Feels like magic — my team actually opens it on Mondays.&rdquo;
+              </div>
+              <div className="mt-4 text-xs text-white/60">— Ada, Design Lead</div>
+            </BoardTile>
+          </div>
 
           <BoardTile className="md:col-span-2">
-            <div className="font-display text-lg font-medium leading-snug text-white">
-              &ldquo;Feels like magic — my team actually opens it on Mondays.&rdquo;
-            </div>
-            <div className="mt-4 text-xs text-white/60">— Ada, Design Lead</div>
-          </BoardTile>
-
-          <BoardTile className="md:col-span-2">
-            <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
-              Reminder
+            <div className="flex items-center justify-between">
+              <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
+                Reminder
+              </div>
+              <span className="mono-readout">10:00 AM</span>
             </div>
             <div className="mt-2 font-display text-lg font-semibold text-white">
               Standup at 10:00
@@ -408,14 +489,16 @@ function Showcase() {
             <div className="mt-1 text-sm text-white/60">Bring the doughnuts.</div>
           </BoardTile>
 
-          <BoardTile className="md:col-span-2">
-            <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
-              Idea
-            </div>
-            <div className="mt-2 font-display text-lg font-semibold text-white">
-              Send stickers to top users
-            </div>
-          </BoardTile>
+          <div className="md:col-span-2 tilt-sm-r">
+            <BoardTile>
+              <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
+                Idea
+              </div>
+              <div className="mt-2 font-display text-lg font-semibold text-white">
+                Send stickers to top users
+              </div>
+            </BoardTile>
+          </div>
         </div>
       </div>
     </section>
@@ -425,15 +508,17 @@ function Showcase() {
 function BoardTile({
   className = "",
   gradient,
+  editor,
   children,
 }: {
   className?: string;
   gradient?: boolean;
+  editor?: boolean;
   children: ReactNode;
 }) {
   return (
     <div
-      className={`glass glass-hover relative overflow-hidden p-6 ${className}`}
+      className={`glass glass-hover relative overflow-hidden ${editor ? "p-8" : "p-6"} ${className}`}
       style={
         gradient
           ? {
@@ -455,6 +540,7 @@ function BoardTile({
     </div>
   );
 }
+
 
 /* ---------- categories ---------- */
 
