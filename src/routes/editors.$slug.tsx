@@ -34,7 +34,7 @@ export const Route = createFileRoute("/editors/$slug")({
 });
 
 function EditorDetail() {
-  const { editor: e } = Route.useLoaderData();
+  const { editor: e } = Route.useLoaderData() as { editor: Editor };
 
   const otherEditors = editors.filter((x) => x.slug !== e.slug).slice(0, 3);
 
