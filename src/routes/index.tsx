@@ -691,8 +691,13 @@ function Testimonials() {
         </div>
 
         <div className="mt-16 grid gap-6 md:grid-cols-3">
-          {quotes.map((t) => (
-            <figure key={t.who} className="glass glass-hover relative overflow-hidden p-7">
+          {quotes.map((t, i) => (
+            <figure
+              key={t.who}
+              className={`glass glass-hover relative overflow-hidden p-7 ${
+                i === 0 ? "tilt-sm-l" : i === 2 ? "tilt-sm-r" : ""
+              }`}
+            >
               <div
                 aria-hidden
                 className="pointer-events-none absolute inset-x-0 top-0 h-24 opacity-60"
