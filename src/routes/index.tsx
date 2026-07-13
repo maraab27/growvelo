@@ -298,36 +298,104 @@ function Features() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((it) => (
-            <div key={it.title} className="glass glass-hover group relative overflow-hidden p-6">
+        <div className="mt-16 grid gap-6 lg:grid-cols-[1fr_360px]">
+          {/* Feature cards grid */}
+          <div className="grid gap-6 sm:grid-cols-2">
+            {items.map((it, idx) => (
               <div
-                aria-hidden
-                className="pointer-events-none absolute inset-x-0 top-0 h-24 opacity-70"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(255,255,255,0.14), transparent 80%)",
-                }}
-              />
-              <div className="relative">
-                <div className="glass-chip inline-flex h-11 w-11 items-center justify-center text-lg">
-                  {it.icon}
+                key={it.title}
+                className={`glass glass-hover group relative overflow-hidden p-6 ${
+                  idx === 1 ? "tilt-sm-r" : idx === 2 ? "tilt-sm-l" : ""
+                }`}
+              >
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 top-0 h-24 opacity-70"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(255,255,255,0.14), transparent 80%)",
+                  }}
+                />
+                <div className="relative">
+                  <div className="flex items-center justify-between">
+                    <div className="glass-chip inline-flex h-11 w-11 items-center justify-center text-lg">
+                      {it.icon}
+                    </div>
+                    <span className="mono-readout">
+                      {String(idx + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <div className="mt-5 text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
+                    {it.tag}
+                  </div>
+                  <h3 className="mt-1.5 font-display text-xl font-semibold text-white">
+                    {it.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">{it.body}</p>
                 </div>
-                <div className="mt-5 text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
-                  {it.tag}
-                </div>
-                <h3 className="mt-1.5 font-display text-xl font-semibold text-white">
-                  {it.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/70">{it.body}</p>
               </div>
+            ))}
+          </div>
+
+          {/* Layers panel — editor-tool sidebar */}
+          <aside className="glass relative overflow-hidden p-4">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div className="flex items-center gap-1.5">
+                {["Layers", "Effects"].map((t, i) => (
+                  <span
+                    key={t}
+                    className={`rounded-md px-2.5 py-1 text-[11px] font-medium tracking-wide ${
+                      i === 0
+                        ? "bg-white/12 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
+                        : "text-white/55"
+                    }`}
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <span className="mono-readout">4 items</span>
             </div>
-          ))}
+            <ul className="mt-3 space-y-1.5">
+              {items.map((it, i) => (
+                <li
+                  key={it.tag}
+                  className="group/row flex items-center gap-3 rounded-lg px-2 py-2 transition hover:bg-white/8"
+                >
+                  <span className="glass-chip flex h-7 w-7 items-center justify-center rounded-md text-sm">
+                    {it.icon}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="truncate text-sm text-white/90">{it.tag}</div>
+                    <div className="mono-readout">L0{i + 1} · 100%</div>
+                  </div>
+                  <button
+                    aria-label="toggle visibility"
+                    className="text-white/50 transition hover:text-white"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.6">
+                      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+                      <circle cx="12" cy="12" r="2.5" />
+                    </svg>
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3">
+              <span className="mono-readout">OPACITY</span>
+              <div className="relative h-1.5 w-32 rounded-full bg-white/10">
+                <div className="absolute inset-y-0 left-0 w-3/4 rounded-full gradient-accent" />
+                <div className="absolute -top-1 left-3/4 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+              </div>
+              <span className="mono-readout">75%</span>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
   );
 }
+
 
 /* ---------- showcase ---------- */
 
