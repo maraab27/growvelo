@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import growveloMark from "../../assets/growvelo-mark.png.asset.json";
 
 /* ---------- helpers ---------- */
