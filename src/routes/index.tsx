@@ -2,11 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   SiteShell,
   Hero,
-  TrustStrip,
-  Features,
-  Showcase,
-  Categories,
-  Testimonials,
+  Portfolio,
+  Editors,
+  Pricing,
+  Courses,
+  Reviews,
+  About,
+  Contact,
   BigCTA,
 } from "../components/site/sections";
 
@@ -18,11 +20,13 @@ function Index() {
   return (
     <SiteShell>
       <Hero />
-      <TrustStrip />
-      <Features />
-      <Showcase />
-      <Categories />
-      <Testimonials />
+      <Portfolio limit={6} />
+      <Editors limit={3} />
+      <Pricing />
+      <Courses limit={3} />
+      <Reviews limit={3} />
+      <About />
+      <Contact />
       <BigCTA />
     </SiteShell>
   );
