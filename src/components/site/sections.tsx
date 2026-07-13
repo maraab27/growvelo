@@ -43,7 +43,7 @@ export function Nav() {
           {NAV_ITEMS.map((n) => (
             <Link
               key={n.to}
-              to={n.to}
+              to={n.to as "/"}
               activeOptions={n.exact ? { exact: true } : undefined}
               className="transition hover:text-white"
               activeProps={{ className: "text-white" }}
