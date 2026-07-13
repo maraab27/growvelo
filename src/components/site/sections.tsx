@@ -37,6 +37,7 @@ export function Nav() {
           </span>
         </Link>
         <nav className="hidden items-center gap-8 text-sm text-white/75 md:flex">
+          <Link to="/" className="transition hover:text-white" activeOptions={{ exact: true }} activeProps={{ className: "text-white" }}>Home</Link>
           <Link to="/product" className="transition hover:text-white" activeProps={{ className: "text-white" }}>Product</Link>
           <Link to="/showcase" className="transition hover:text-white" activeProps={{ className: "text-white" }}>Showcase</Link>
           <Link to="/templates" className="transition hover:text-white" activeProps={{ className: "text-white" }}>Templates</Link>
