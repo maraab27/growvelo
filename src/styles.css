@@ -221,3 +221,96 @@
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
+
+/* ---------- Editor-panel: corner-bracket frame ---------- */
+@utility corner-frame {
+  position: relative;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-color: color-mix(in oklab, var(--accent-3) 85%, white);
+    pointer-events: none;
+  }
+  &::before {
+    top: 10px;
+    left: 10px;
+    border-top: 1.5px solid;
+    border-left: 1.5px solid;
+  }
+  &::after {
+    bottom: 10px;
+    right: 10px;
+    border-bottom: 1.5px solid;
+    border-right: 1.5px solid;
+  }
+  & > .corner-tr,
+  & > .corner-bl {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    pointer-events: none;
+    border-color: color-mix(in oklab, var(--accent-3) 85%, white);
+  }
+  & > .corner-tr {
+    top: 10px;
+    right: 10px;
+    border-top: 1.5px solid;
+    border-right: 1.5px solid;
+  }
+  & > .corner-bl {
+    bottom: 10px;
+    left: 10px;
+    border-bottom: 1.5px solid;
+    border-left: 1.5px solid;
+  }
+}
+
+/* ---------- Monospace readout ---------- */
+@utility mono-readout {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- REC dot ---------- */
+@keyframes rec-blink {
+  0%, 60% { opacity: 1; }
+  70%, 100% { opacity: 0.25; }
+}
+@utility rec-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #ff4d6d;
+  box-shadow: 0 0 12px #ff4d6d;
+  animation: rec-blink 1.6s ease-in-out infinite;
+}
+
+/* ---------- Tilt utilities with straighten-on-hover ---------- */
+@utility tilt-l {
+  transform: rotate(-4deg);
+  transition: transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 350ms ease;
+  &:hover { transform: rotate(0deg) translateY(-6px) scale(1.02); }
+}
+@utility tilt-r {
+  transform: rotate(5deg);
+  transition: transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 350ms ease;
+  &:hover { transform: rotate(0deg) translateY(-6px) scale(1.02); }
+}
+@utility tilt-sm-l {
+  transform: rotate(-2deg);
+  transition: transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  &:hover { transform: rotate(0deg) translateY(-4px); }
+}
+@utility tilt-sm-r {
+  transform: rotate(3deg);
+  transition: transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  &:hover { transform: rotate(0deg) translateY(-4px); }
+}
+
