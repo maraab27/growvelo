@@ -214,31 +214,113 @@ export function getEditor(slug: string) {
 
 export function Hero() {
   return (
-    <section className="relative mx-auto max-w-7xl px-4 pt-14 pb-20 sm:px-5 sm:pt-20 sm:pb-24 md:pt-28 md:pb-32">
-      <Blob className="animate-float left-[-20%] top-8 h-[20rem] w-[20rem] sm:left-[-8%] sm:top-16 sm:h-[28rem] sm:w-[28rem]" color="color-mix(in oklab, var(--accent-1) 70%, transparent)" />
-      <Blob className="animate-float right-[-20%] top-24 h-[18rem] w-[18rem] sm:right-[-6%] sm:top-40 sm:h-[26rem] sm:w-[26rem]" color="color-mix(in oklab, var(--accent-3) 65%, transparent)" />
+    <section className="relative mx-auto max-w-7xl px-4 pt-14 pb-16 sm:px-5 sm:pt-20 sm:pb-20 md:pt-24 md:pb-24">
+      <Blob className="animate-float left-[-20%] top-8 h-[20rem] w-[20rem] sm:left-[-8%] sm:top-16 sm:h-[32rem] sm:w-[32rem]" color="color-mix(in oklab, var(--accent-1) 75%, transparent)" />
+      <Blob className="animate-float right-[-20%] top-28 h-[18rem] w-[18rem] sm:right-[-6%] sm:top-40 sm:h-[30rem] sm:w-[30rem]" color="color-mix(in oklab, var(--accent-3) 70%, transparent)" />
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <h1 className="font-display text-[2.25rem] font-semibold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-          <span className="text-gradient">Cinematic edits</span>
+        <Eyebrow>New · Showreel 2026</Eyebrow>
+        <h1 className="mt-6 font-display text-[2.5rem] font-semibold leading-[1.02] tracking-tight sm:text-6xl md:text-7xl lg:text-[5.5rem]">
+          <span className="text-gradient">The edits</span>
           <br />
-          that make you{" "}
-          <span className="text-gradient-accent">unmissable</span>.
+          that feel <span className="text-gradient-accent">alive</span>.
         </h1>
-        <p className="mx-auto mt-5 max-w-2xl text-base text-white/70 sm:mt-6 sm:text-lg">
-          growVelo is a boutique editing agency for creators, brands, and filmmakers.
-          Pair with a specialist editor, drop your footage, and get scroll-stopping cuts back.
+        <p className="mx-auto mt-6 max-w-xl text-base text-white/70 sm:text-lg">
+          Cinematic cuts, short-form reels, and motion — layered by a boutique team of editors.
+          Fast, focused, and quietly powerful.
         </p>
-        <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center">
-          <Link to="/contact" className="btn-primary justify-center">Start a project</Link>
-          <Link to="/portfolio" className="btn-ghost justify-center">See our work</Link>
+        <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center">
+          <Link to="/contact" className="btn-primary justify-center">Start free →</Link>
+          <Link to="/portfolio" className="btn-ghost justify-center">
+            <span className="text-xs">▶</span> Watch the reel
+          </Link>
         </div>
-        <div className="mt-8 flex flex-col items-center justify-center gap-2 text-[10px] uppercase tracking-[0.18em] text-white/50 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-6 sm:text-xs sm:tracking-[0.2em]">
-          <span>600+ projects delivered</span>
-          <span className="hidden sm:inline">·</span>
-          <span>24h avg turnaround</span>
-          <span className="hidden sm:inline">·</span>
-          <span>Trusted by 90+ brands</span>
+        <div className="mono-readout mt-6 sm:mt-8">
+          24h first cut · no commitment
+        </div>
+      </div>
+
+      {/* Floating glass showcase card */}
+      <div className="relative z-10 mx-auto mt-14 max-w-5xl sm:mt-20">
+        <div className="glass-strong relative overflow-hidden rounded-3xl p-3 sm:p-4">
+          <div className="mb-3 flex items-center gap-1.5 px-2 pt-1">
+            <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
+            <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
+            <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
+          </div>
+          <div className="grid grid-cols-1 gap-3 p-1 sm:grid-cols-3 sm:gap-4">
+            {/* Card 1 — Project checklist */}
+            <div className="glass rounded-2xl p-5 text-left">
+              <div className="mono-readout mb-3">Sprint · Week 24</div>
+              <div className="font-semibold">Brand film — Nova</div>
+              <ul className="mt-4 space-y-2 text-sm text-white/80">
+                <li className="flex items-center gap-2">
+                  <span className="flex h-4 w-4 items-center justify-center rounded-full gradient-accent text-[10px] text-white">✓</span>
+                  <span className="text-white/60 line-through">Ingest &amp; sync footage</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="flex h-4 w-4 items-center justify-center rounded-full gradient-accent text-[10px] text-white">✓</span>
+                  <span className="text-white/60 line-through">Rough cut · v1</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-4 w-4 rounded-full border border-white/25" />
+                  <span>Color grade</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-4 w-4 rounded-full border border-white/25" />
+                  <span>Sound design + mix</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Card 2 — Goal */}
+            <div className="glass rounded-2xl p-5 text-left">
+              <div className="mono-readout mb-3">Goal</div>
+              <div className="font-semibold">Deliver in 48 hours</div>
+              <div className="mt-6">
+                <div className="flex items-end justify-between">
+                  <span className="font-display text-3xl font-semibold text-gradient-accent">67%</span>
+                  <span className="text-xs text-white/50">32h left</span>
+                </div>
+                <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full w-2/3 rounded-full gradient-accent" />
+                </div>
+                <div className="mt-4 flex items-center gap-2 text-xs text-white/60">
+                  <span className="rec-dot" /> Recording session 03
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3 — Idea */}
+            <div
+              className="rounded-2xl p-5 text-left"
+              style={{
+                background:
+                  "linear-gradient(135deg, color-mix(in oklab, var(--accent-1) 55%, transparent), color-mix(in oklab, var(--accent-3) 45%, transparent))",
+                border: "1px solid rgba(255,255,255,0.18)",
+              }}
+            >
+              <div className="mono-readout mb-3 !text-white/85">Idea</div>
+              <div className="font-semibold">Layer a slow zoom on the founder close-up — echoes the opening line.</div>
+              <div className="mt-6 flex items-center gap-2 text-xs text-white/80">
+                <div className="h-6 w-6 rounded-full ring-2 ring-white/30" style={{ background: "linear-gradient(135deg,#ec4899,#f97316)" }} />
+                <span>Nusrat · 2 min ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Trust strip */}
+      <div className="relative z-10 mt-16 sm:mt-24">
+        <div className="mono-readout text-center">Trusted by 90+ creators &amp; brands</div>
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-[0.22em] text-white/45 sm:gap-x-12 sm:text-sm">
+          <span>Northwind</span>
+          <span>Pixelmob</span>
+          <span>Oatfield</span>
+          <span>Kuro&amp;Co</span>
+          <span>Studio 88</span>
+          <span>Brightly</span>
         </div>
       </div>
     </section>
