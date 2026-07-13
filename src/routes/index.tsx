@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   SiteShell,
   Hero,
+  Services,
   Portfolio,
   Editors,
   Pricing,
@@ -20,6 +21,7 @@ function Index() {
   return (
     <SiteShell>
       <Hero />
+      <Services />
       <Portfolio limit={6} />
       <Editors limit={3} />
       <Pricing />
@@ -31,3 +33,4 @@ function Index() {
     </SiteShell>
   );
 }
+
