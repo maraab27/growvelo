@@ -35,14 +35,14 @@
 :root {
   --radius: 1.25rem;
 
-  /* GrowVelo dark base — deep indigo/navy from the brand */
-  --bg-0: oklch(0.13 0.05 285);
-  --bg-1: oklch(0.18 0.07 285);
+  /* GrowVelo dark base — deep near-black indigo */
+  --bg-0: oklch(0.10 0.04 285);
+  --bg-1: oklch(0.14 0.05 285);
 
   /* GrowVelo signature accent — deep violet → vivid purple → magenta */
-  --accent-1: oklch(0.55 0.28 295); /* deep purple */
-  --accent-2: oklch(0.62 0.30 300); /* vivid violet */
-  --accent-3: oklch(0.72 0.24 315); /* magenta highlight */
+  --accent-1: oklch(0.50 0.26 295); /* deep purple */
+  --accent-2: oklch(0.55 0.28 300); /* vivid violet */
+  --accent-3: oklch(0.62 0.22 315); /* soft magenta */
 
   --background: var(--bg-0);
   --foreground: oklch(0.98 0.005 260);
@@ -73,9 +73,9 @@
   }
   body {
     background-image:
-      radial-gradient(60rem 60rem at 10% -10%, color-mix(in oklab, var(--accent-1) 35%, transparent), transparent 60%),
-      radial-gradient(50rem 50rem at 110% 10%, color-mix(in oklab, var(--accent-3) 30%, transparent), transparent 60%),
-      radial-gradient(60rem 60rem at 50% 120%, color-mix(in oklab, var(--accent-2) 30%, transparent), transparent 60%);
+      radial-gradient(60rem 60rem at 10% -10%, color-mix(in oklab, var(--accent-1) 16%, transparent), transparent 60%),
+      radial-gradient(50rem 50rem at 110% 10%, color-mix(in oklab, var(--accent-3) 12%, transparent), transparent 60%),
+      radial-gradient(60rem 60rem at 50% 120%, color-mix(in oklab, var(--accent-2) 14%, transparent), transparent 60%);
     background-attachment: fixed;
   }
   h1, h2, h3, h4 {
@@ -223,8 +223,8 @@
 @utility blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(70px);
-  opacity: 0.55;
+  filter: blur(90px);
+  opacity: 0.28;
   pointer-events: none;
 }
 
