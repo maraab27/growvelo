@@ -326,9 +326,6 @@ export function Hero() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-3xl text-center">
-          <Chip color="brand" icon={<Sparkles className="h-3.5 w-3.5" />}>
-            New · Showreel 2026
-          </Chip>
           <h1
             className="mt-6 font-display font-semibold tracking-tight text-foreground"
             style={{ fontSize: "clamp(2.75rem, 8vw, 7rem)", lineHeight: 0.98, letterSpacing: "-0.035em" }}
