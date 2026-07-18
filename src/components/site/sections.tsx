@@ -417,8 +417,9 @@ export function Hero() {
                       Enroll now <ArrowRight className="h-4 w-4" />
                     </Link>
                     <div className="flex items-baseline gap-2">
-                      <span className="font-display text-lg font-semibold">$149</span>
-                      <span className="text-xs text-foreground/50 line-through">$249</span>
+                      <span className="font-display text-lg font-semibold">৳4,000</span>
+                      <span className="text-xs text-foreground/50 line-through">৳5,000</span>
+                      <span className="text-[10px] font-medium uppercase tracking-wide text-foreground/60">Early Bird</span>
                       <span className="mono-readout">early-bird</span>
                     </div>
                   </div>
