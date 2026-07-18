@@ -428,13 +428,14 @@ export function Hero() {
                 <div className="sticky-card tint-lemon p-4 tilt-xs-r sm:col-span-2">
                   <Chip color="lemon">Instructor</Chip>
                   <div className="mt-3 flex items-center gap-3">
-                    <div
-                      className="h-12 w-12 shrink-0 rounded-full ring-2 ring-white"
-                      style={{ background: "linear-gradient(135deg,#7c5cff,#22d3ee)" }}
+                    <img
+                      src={instructorAtaullah.url}
+                      alt="Muhammad Ataullah"
+                      className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-white"
                     />
                     <div className="min-w-0">
-                      <div className="font-display text-base font-semibold leading-tight">Arif Rahman</div>
-                      <div className="mono-readout truncate">Lead Editor · 8 yrs</div>
+                      <div className="font-display text-base font-semibold leading-tight">Muhammad Ataullah</div>
+                      <div className="mono-readout truncate">Lead Editor</div>
                     </div>
                   </div>
                   <p className="mt-3 font-serif text-[13px] italic leading-snug text-foreground/80">
