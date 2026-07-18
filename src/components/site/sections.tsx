@@ -679,19 +679,17 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
           }}
         >
           {playing && item.youtubeId ? (
-            <>
+            <div className="absolute inset-0 overflow-hidden">
+              {/* Scale iframe larger than the container so YouTube's title bar (top)
+                  and control buttons + logo (bottom) sit outside the visible area. */}
               <iframe
-                className="absolute inset-0 h-full w-full"
-                src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&playsinline=1&color=red`}
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                style={{ width: "170%", height: "170%" }}
+                src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&controls=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&playsinline=1&disablekb=1&fs=0`}
                 title={item.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
               />
-              {/* Transparent overlays block hover/clicks on YouTube's title bar & logo watermark
-                  so those UI elements never activate — video stays fully visible underneath. */}
-              <div className="pointer-events-auto absolute inset-x-0 top-0 h-12 bg-transparent" aria-hidden />
-              <div className="pointer-events-auto absolute bottom-2 right-0 h-8 w-20 bg-transparent" aria-hidden />
-            </>
+            </div>
           ) : (
             <>
               <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
