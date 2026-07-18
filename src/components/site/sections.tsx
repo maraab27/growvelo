@@ -686,7 +686,8 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
                   we only need to crop the top — keeps the video near full size. */}
               <iframe
                 className="absolute"
-                style={{ width: "118%", height: "140%", left: "-9%", top: "-32%" }}
+                style={{ width: "118%", height: "118%", left: "-9%", top: "-18%" }}
+
                 src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&controls=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&playsinline=1&disablekb=1&fs=0`}
                 title={item.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
