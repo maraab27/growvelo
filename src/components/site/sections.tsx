@@ -671,14 +671,14 @@ const PORTFOLIO_ITEMS: {
 function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; tilt: string }) {
   const [playing, setPlaying] = useState(false);
   const hasVideo = !!item.youtubeId;
-  const posterUrl = item.youtubeId ? `https://img.youtube.com/vi/${item.youtubeId}/maxresdefault.jpg` : undefined;
+  const posterUrl = item.youtubeId ? `https://img.youtube.com/vi/${item.youtubeId}/${item.reel ? "hqdefault" : "maxresdefault"}.jpg` : undefined;
 
   return (
     <div className="relative">
       <div className="pin" style={pinStyle(item.pin)} />
       <div className={`sticky-card tint-${item.tint} p-3 ${tilt}`}>
         <div
-          className="group relative aspect-video w-full overflow-hidden rounded-xl"
+          className={`group relative w-full overflow-hidden rounded-xl ${item.reel ? "aspect-[9/16] mx-auto max-w-[280px]" : "aspect-video"}`}
           style={{
             background: posterUrl ? `url(${posterUrl}) center/cover no-repeat, ${item.thumb}` : item.thumb,
           }}
