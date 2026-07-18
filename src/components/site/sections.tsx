@@ -351,7 +351,7 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Big sticky-card showcase panel */}
+        {/* Featured Course showcase panel */}
         <div className="relative z-10 mx-auto mt-16 max-w-5xl sm:mt-20">
           <div className="relative">
             <div className="pin" style={pinStyle("coral")} />
@@ -363,71 +363,78 @@ export function Hero() {
                   <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--mint)" }} />
                 </div>
                 <span className="mono-readout hidden sm:inline">
-                  Board · Sprint 24
+                  Featured Course · Enrolling Now
                 </span>
               </div>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
-                {/* Sprint card */}
-                <div className="sticky-card tint-mint p-5 tilt-xs-l">
-                  <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />}>Sprint · W24</Chip>
-                  <div className="mt-3 font-display text-lg font-semibold">Brand film — Nova</div>
-                  <ul className="mt-4 space-y-2 text-sm text-foreground/80">
-                    <li className="flex items-center gap-2">
-                      <span className="grid h-4 w-4 place-items-center rounded-full" style={{ background: "var(--mint)" }}>
-                        <Check className="h-2.5 w-2.5 text-foreground" strokeWidth={3} />
-                      </span>
-                      <span className="text-foreground/50 line-through">Ingest &amp; sync footage</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="grid h-4 w-4 place-items-center rounded-full" style={{ background: "var(--mint)" }}>
-                        <Check className="h-2.5 w-2.5 text-foreground" strokeWidth={3} />
-                      </span>
-                      <span className="text-foreground/50 line-through">Rough cut · v1</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="h-4 w-4 rounded-full border-2 border-foreground/25" />
-                      <span>Color grade</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="h-4 w-4 rounded-full border-2 border-foreground/25" />
-                      <span>Sound design + mix</span>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Goal card */}
-                <div className="sticky-card tint-lemon p-5">
-                  <Chip color="lemon">Goal</Chip>
-                  <div className="mt-3 font-display text-lg font-semibold">Deliver in 48 hours</div>
-                  <div className="mt-6 flex items-end justify-between">
-                    <span className="font-display text-4xl font-semibold">
-                      <span className="grad-text">67%</span>
-                    </span>
-                    <span className="mono-readout">32h left</span>
+                {/* Course main card */}
+                <div className="sticky-card tint-mint p-5 tilt-xs-l sm:col-span-2">
+                  <div className="flex items-center justify-between">
+                    <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />}>Most Popular · Cohort 07</Chip>
+                    <span className="mono-readout hidden sm:inline">4.9 ★ · 320+ students</span>
                   </div>
-                  <div className="mt-3 h-2 overflow-hidden rounded-full bg-foreground/10">
-                    <div className="h-full w-2/3 rounded-full" style={{ background: "linear-gradient(90deg, var(--brand), var(--coral))" }} />
+                  <div className="mt-3 font-display text-2xl font-semibold leading-tight sm:text-3xl">
+                    Cinematic Editing Masterclass — <span className="grad-text">Premiere Pro + DaVinci</span>
                   </div>
-                  <div className="mt-4 flex items-center gap-2 text-xs text-foreground/65">
-                    <span className="rec-dot" /> Recording session 03
+                  <p className="mt-2 text-sm text-foreground/70 sm:text-base">
+                    A 6-week hands-on course covering story-first editing, pro color grading, sound design, and
+                    delivery. Real client projects, live feedback, and a portfolio piece by the end.
+                  </p>
+                  <div className="mt-4 grid grid-cols-3 gap-2 text-xs">
+                    <div className="rounded-xl bg-white/60 p-2.5 text-center ring-1 ring-black/5">
+                      <div className="mono-readout">Duration</div>
+                      <div className="mt-0.5 font-display text-sm font-semibold">6 Weeks</div>
+                    </div>
+                    <div className="rounded-xl bg-white/60 p-2.5 text-center ring-1 ring-black/5">
+                      <div className="mono-readout">Format</div>
+                      <div className="mt-0.5 font-display text-sm font-semibold">Live + VOD</div>
+                    </div>
+                    <div className="rounded-xl bg-white/60 p-2.5 text-center ring-1 ring-black/5">
+                      <div className="mono-readout">Level</div>
+                      <div className="mt-0.5 font-display text-sm font-semibold">Intermediate</div>
+                    </div>
+                  </div>
+                  <div className="mt-5 flex flex-wrap items-center gap-3">
+                    <Link to="/courses" className="gloss-btn inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold">
+                      Enroll now <ArrowRight className="h-4 w-4" />
+                    </Link>
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-display text-xl font-semibold">$149</span>
+                      <span className="text-xs text-foreground/50 line-through">$249</span>
+                      <span className="mono-readout">early-bird</span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Idea card */}
-                <div className="sticky-card tint-coral p-5 tilt-xs-r">
-                  <Chip color="coral" icon={<Sparkles className="h-3.5 w-3.5" />}>Idea</Chip>
-                  <div className="mt-3 font-serif text-lg italic leading-tight text-foreground/85">
-                    "Layer a slow zoom on the founder close-up — it echoes the opening line."
+                {/* Instructor + start date card */}
+                <div className="sticky-card tint-lemon p-5 tilt-xs-r">
+                  <Chip color="lemon">Instructor</Chip>
+                  <div className="mt-3 flex items-center gap-3">
+                    <div
+                      className="h-14 w-14 shrink-0 rounded-full ring-2 ring-white"
+                      style={{ background: "linear-gradient(135deg,#7c5cff,#22d3ee)" }}
+                    />
+                    <div className="min-w-0">
+                      <div className="font-display text-base font-semibold leading-tight">Arif Rahman</div>
+                      <div className="mono-readout truncate">Lead Editor · 8 yrs</div>
+                    </div>
                   </div>
-                  <div className="mt-6 flex items-center gap-2 text-xs text-foreground/70">
-                    <div className="h-7 w-7 rounded-full ring-2 ring-white" style={{ background: "linear-gradient(135deg,#ec4899,#f97316)" }} />
-                    <span className="font-medium">Nusrat · 2 min ago</span>
+                  <p className="mt-3 font-serif text-sm italic leading-snug text-foreground/80">
+                    "I'll teach you the exact edit workflow I use on brand films for 7-figure creators."
+                  </p>
+                  <div className="mt-4 rounded-xl bg-white/60 p-3 ring-1 ring-black/5">
+                    <div className="mono-readout">Class starts</div>
+                    <div className="mt-0.5 font-display text-lg font-semibold">Jul 28, 2026</div>
+                    <div className="mt-1 flex items-center gap-2 text-xs text-foreground/70">
+                      <span className="rec-dot" /> 12 seats left
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
 
         {/* Trust strip */}
         <div className="relative z-10 mt-16 sm:mt-24">
