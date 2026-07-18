@@ -879,7 +879,7 @@ export function Portfolio({ limit }: { limit?: number } = {}) {
                       Short-form <span className="grad-text">hooks</span>.
                     </h4>
                   </div>
-                  <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                  <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                     {reels.map((p, i) => (
                       <ThumbCard key={p.title} item={p} tilt={i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} />
                     ))}
