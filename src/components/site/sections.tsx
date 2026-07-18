@@ -651,16 +651,21 @@ const PORTFOLIO_ITEMS: {
   title: string; cat: string; len: string; thumb: string; tag: string;
   tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor; chipColor: ChipColor;
   youtubeId?: string;
+  reel?: boolean;
 }[] = [
   { title: "growVelo · Featured Edit", cat: "YouTube", len: "Watch", thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)", tag: "Featured", tint: "brand", pin: "brand", chipColor: "brand", youtubeId: "daUeU1VtS_M" },
   { title: "growVelo · Cinematic Cut", cat: "YouTube", len: "Watch", thumb: "linear-gradient(135deg,#ec4899,#f472b6)", tag: "Cinematic", tint: "coral", pin: "coral", chipColor: "coral", youtubeId: "yDf03E_XWW4" },
+  { title: "Reel · Hook 01", cat: "Short-Form", len: "Reel", thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)", tag: "Reel", tint: "brand", pin: "brand", chipColor: "brand", youtubeId: "2vukCg-KKZU", reel: true },
+  { title: "Reel · Hook 02", cat: "Short-Form", len: "Reel", thumb: "linear-gradient(135deg,#ec4899,#f472b6)", tag: "Reel", tint: "coral", pin: "coral", chipColor: "coral", youtubeId: "PKtQUBdts9c", reel: true },
+  { title: "Reel · Hook 03", cat: "Short-Form", len: "Reel", thumb: "linear-gradient(135deg,#22d3ee,#a78bfa)", tag: "Reel", tint: "mint", pin: "mint", chipColor: "mint", youtubeId: "HJft21ln2pM", reel: true },
+  { title: "Reel · Hook 04", cat: "Short-Form", len: "Reel", thumb: "linear-gradient(135deg,#0ea5e9,#22d3ee)", tag: "Reel", tint: "sky", pin: "sky", chipColor: "sky", youtubeId: "uqVoftJ7vEk", reel: true },
+  { title: "Reel · Hook 05", cat: "Short-Form", len: "Reel", thumb: "linear-gradient(135deg,#f97316,#fbbf24)", tag: "Reel", tint: "lemon", pin: "lemon", chipColor: "lemon", youtubeId: "WNKTz82ag8A", reel: true },
+  { title: "Reel · Hook 06", cat: "Short-Form", len: "Reel", thumb: "linear-gradient(135deg,#ef4444,#ec4899)", tag: "Reel", tint: "blush", pin: "coral", chipColor: "coral", youtubeId: "z2VlD0k7I7A", reel: true },
   { title: "Nova Labs — Brand Film", cat: "Brand", len: "1:48", thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)", tag: "Cinematic", tint: "mint", pin: "mint", chipColor: "mint" },
-  { title: "Glowl Skincare · Reels Pack", cat: "Short-Form", len: "12 clips", thumb: "linear-gradient(135deg,#ec4899,#f472b6)", tag: "Reels", tint: "coral", pin: "coral", chipColor: "coral" },
   { title: "Stackly SaaS Explainer", cat: "Motion", len: "0:92", thumb: "linear-gradient(135deg,#0ea5e9,#22d3ee)", tag: "Motion", tint: "sky", pin: "sky", chipColor: "sky" },
   { title: "GearNerd — Tech Review", cat: "YouTube", len: "18:04", thumb: "linear-gradient(135deg,#ef4444,#f97316)", tag: "Long-form", tint: "lemon", pin: "lemon", chipColor: "lemon" },
   { title: "The Makers · Ep 04", cat: "Documentary", len: "22:11", thumb: "linear-gradient(135deg,#0ea5e9,#6366f1)", tag: "Narrative", tint: "brand", pin: "brand", chipColor: "brand" },
   { title: "Loop — Product Launch", cat: "Ad", len: "0:60", thumb: "linear-gradient(135deg,#22d3ee,#a78bfa)", tag: "Ad", tint: "mint", pin: "sky", chipColor: "mint" },
-  { title: "Rise — Fitness Hooks", cat: "Short-Form", len: "8 clips", thumb: "linear-gradient(135deg,#f97316,#fbbf24)", tag: "TikTok", tint: "coral", pin: "lemon", chipColor: "coral" },
 ];
 
 function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; tilt: string }) {
