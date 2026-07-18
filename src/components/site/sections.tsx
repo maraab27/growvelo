@@ -680,7 +680,7 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
       <div className="pin" style={pinStyle(item.pin)} />
       <div className={`sticky-card tint-${item.tint} p-3 ${tilt}`}>
         <div
-          className={`group relative w-full overflow-hidden rounded-xl ${item.reel ? "aspect-[9/16] mx-auto max-w-[280px]" : "aspect-video"}`}
+          className={`group relative w-full overflow-hidden rounded-xl ${item.reel ? "aspect-[9/16] mx-auto max-w-[200px]" : "aspect-video"}`}
           style={{ background: item.thumb }}
         >
           {posterUrl && (
