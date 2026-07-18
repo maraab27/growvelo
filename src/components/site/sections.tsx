@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useState, type ReactNode, type CSSProperties } from "react";
+import { useEffect, useState, type ReactNode, type CSSProperties } from "react";
 import {
   ArrowRight,
   Play,
@@ -666,8 +666,19 @@ const PORTFOLIO_ITEMS: {
 
 function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; tilt: string }) {
   const [playing, setPlaying] = useState(false);
+  const [showCleanVideo, setShowCleanVideo] = useState(false);
   const hasVideo = !!item.youtubeId;
   const posterUrl = item.youtubeId ? `https://img.youtube.com/vi/${item.youtubeId}/maxresdefault.jpg` : undefined;
+
+  useEffect(() => {
+    if (!playing) {
+      setShowCleanVideo(false);
+      return;
+    }
+
+    const revealTimer = window.setTimeout(() => setShowCleanVideo(true), 4200);
+    return () => window.clearTimeout(revealTimer);
+  }, [playing]);
 
   return (
     <div className="relative">
@@ -680,33 +691,41 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
           }}
         >
           {playing && item.youtubeId ? (
-            <div className="absolute inset-0 overflow-hidden">
-              {/* Scale iframe just enough to hide YouTube's title bar at the top.
-                  controls=0 removes the bottom control bar + logo entirely, so
-                  we only need to crop the top — keeps the video near full size. */}
+            <div className="absolute inset-0 overflow-hidden bg-black">
               <iframe
-                className="absolute"
-                style={{ width: "118%", height: "118%", left: "-9%", top: "-18%" }}
-
-                src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&controls=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&playsinline=1&disablekb=1&fs=0`}
+                className="pointer-events-none absolute inset-0 z-0 h-full w-full"
+                src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&playsinline=1&disablekb=1&fs=0&loop=1&playlist=${item.youtubeId}`}
                 title={item.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               />
-              {/* Transparent click-blocker so hover/click can't reach the iframe
-                  and pop the title/share UI or open YouTube. */}
-              <div className="absolute inset-0" />
+              <div
+                aria-hidden="true"
+                className={`pointer-events-none absolute inset-0 z-10 transition-opacity duration-500 ${showCleanVideo ? "opacity-0" : "opacity-100"}`}
+                style={{
+                  background: posterUrl ? `url(${posterUrl}) center/cover no-repeat, ${item.thumb}` : item.thumb,
+                }}
+              />
+              <button
+                type="button"
+                aria-label="Video playing"
+                className="absolute inset-0 z-20 cursor-default bg-transparent"
+              />
             </div>
           ) : (
 
 
             <>
-              <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
-              <div className="absolute left-2.5 top-2.5">
-                <Chip color={item.chipColor}>{item.tag}</Chip>
-              </div>
-              <div className="absolute right-2.5 top-2.5 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[10px] text-white backdrop-blur">
-                {item.len}
-              </div>
+              {!hasVideo && (
+                <>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
+                  <div className="absolute left-2.5 top-2.5">
+                    <Chip color={item.chipColor}>{item.tag}</Chip>
+                  </div>
+                  <div className="absolute right-2.5 top-2.5 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[10px] text-white backdrop-blur">
+                    {item.len}
+                  </div>
+                </>
+              )}
               <button
                 type="button"
                 onClick={() => hasVideo && setPlaying(true)}
@@ -721,12 +740,14 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
             </>
           )}
         </div>
-        <div className="flex items-center justify-between px-2 pt-4 pb-2">
-          <div>
-            <div className="text-sm font-semibold">{item.title}</div>
-            <div className="text-xs text-foreground/55">{item.cat}</div>
+        {!hasVideo && (
+          <div className="flex items-center justify-between px-2 pt-4 pb-2">
+            <div>
+              <div className="text-sm font-semibold">{item.title}</div>
+              <div className="text-xs text-foreground/55">{item.cat}</div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
