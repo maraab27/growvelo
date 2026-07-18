@@ -26,6 +26,8 @@ import {
 } from "lucide-react";
 
 import growveloMark from "../../assets/growvelo-mark.png.asset.json";
+import courseThumbnail from "../../assets/course-thumbnail.png.asset.json";
+import instructorAtaullah from "../../assets/instructor-ataullah.png.asset.json";
 
 /* ---------- helpers ---------- */
 
@@ -379,34 +381,24 @@ export function Hero() {
 
                   {/* Course thumbnail / poster */}
                   <div
-                    className="relative mt-3 aspect-[16/9] w-full overflow-hidden rounded-2xl ring-1 ring-black/10"
-                    style={{ background: "linear-gradient(135deg,#7c5cff 0%,#22d3ee 60%,#f472b6 100%)" }}
+                    className="relative mt-3 aspect-[4/5] w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black"
                     aria-label="Course poster"
                   >
-                    <div
-                      className="pointer-events-none absolute inset-0"
-                      style={{ background: "radial-gradient(120% 60% at 20% 0%, rgba(255,255,255,0.35), transparent 60%)" }}
+                    <img
+                      src={courseThumbnail.url}
+                      alt="Rising Editors — Video Editing Bootcamp poster"
+                      className="absolute inset-0 h-full w-full object-cover"
+                      loading="lazy"
                     />
                     <div className="absolute left-3 top-3">
-                      <span className="mono-readout rounded-md bg-black/40 px-2 py-1 text-white/90 backdrop-blur-sm">
+                      <span className="mono-readout rounded-md bg-black/50 px-2 py-1 text-white/90 backdrop-blur-sm">
                         <span className="rec-dot mr-1 align-middle" /> POSTER
                       </span>
                     </div>
                     <div className="absolute right-3 top-3">
-                      <span className="mono-readout rounded-md bg-black/40 px-2 py-1 text-white/90 backdrop-blur-sm">
+                      <span className="mono-readout rounded-md bg-black/50 px-2 py-1 text-white/90 backdrop-blur-sm">
                         06:12 · Preview
                       </span>
-                    </div>
-                    <div className="absolute inset-0 grid place-items-center">
-                      <div className="grid h-14 w-14 place-items-center rounded-full bg-white/90 ring-4 ring-white/40 backdrop-blur-sm">
-                        <Play className="h-6 w-6 translate-x-0.5 text-foreground" fill="currentColor" />
-                      </div>
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent p-3">
-                      <div className="font-display text-base font-semibold leading-tight text-white sm:text-lg">
-                        Cinematic Editing Masterclass
-                      </div>
-                      <div className="mono-readout mt-0.5 text-white/80">Premiere Pro · DaVinci · After Effects</div>
                     </div>
                   </div>
 
@@ -436,13 +428,14 @@ export function Hero() {
                 <div className="sticky-card tint-lemon p-4 tilt-xs-r sm:col-span-2">
                   <Chip color="lemon">Instructor</Chip>
                   <div className="mt-3 flex items-center gap-3">
-                    <div
-                      className="h-12 w-12 shrink-0 rounded-full ring-2 ring-white"
-                      style={{ background: "linear-gradient(135deg,#7c5cff,#22d3ee)" }}
+                    <img
+                      src={instructorAtaullah.url}
+                      alt="Muhammad Ataullah"
+                      className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-white"
                     />
                     <div className="min-w-0">
-                      <div className="font-display text-base font-semibold leading-tight">Arif Rahman</div>
-                      <div className="mono-readout truncate">Lead Editor · 8 yrs</div>
+                      <div className="font-display text-base font-semibold leading-tight">Muhammad Ataullah</div>
+                      <div className="mono-readout truncate">Lead Editor</div>
                     </div>
                   </div>
                   <p className="mt-3 font-serif text-[13px] italic leading-snug text-foreground/80">
