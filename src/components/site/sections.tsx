@@ -355,7 +355,7 @@ export function Hero() {
         </div>
 
         {/* Featured Course showcase panel */}
-        <div className="relative z-10 mx-auto mt-16 max-w-5xl sm:mt-20">
+        <div className="relative z-10 mx-auto mt-16 max-w-6xl sm:mt-20">
           <div className="relative">
             <div className="pin" style={pinStyle("coral")} />
             <div className="sticky-card p-4 sm:p-5">
@@ -369,26 +369,25 @@ export function Hero() {
                   Featured Course · Enrolling Now
                 </span>
               </div>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-5 sm:gap-4">
                 {/* Course main card */}
-                <div className="sticky-card tint-mint p-5 tilt-xs-l sm:col-span-2">
-                  <div className="flex items-center justify-between">
+                <div className="sticky-card tint-mint p-4 tilt-xs-l sm:col-span-3">
+                  <div className="flex items-center justify-between gap-2">
                     <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />}>Most Popular · Cohort 07</Chip>
-                    <span className="mono-readout hidden sm:inline">4.9 ★ · 320+ students</span>
+                    <span className="mono-readout hidden sm:inline">4.9 ★ · 320+</span>
                   </div>
 
                   {/* Course thumbnail / poster */}
                   <div
-                    className="relative mt-4 aspect-[16/9] w-full overflow-hidden rounded-2xl ring-1 ring-black/10"
+                    className="relative mt-3 aspect-[16/9] w-full overflow-hidden rounded-2xl ring-1 ring-black/10"
                     style={{ background: "linear-gradient(135deg,#7c5cff 0%,#22d3ee 60%,#f472b6 100%)" }}
                     aria-label="Course poster"
                   >
-                    {/* soft gloss */}
                     <div
                       className="pointer-events-none absolute inset-0"
                       style={{ background: "radial-gradient(120% 60% at 20% 0%, rgba(255,255,255,0.35), transparent 60%)" }}
                     />
-                    <div className="absolute left-3 top-3 flex items-center gap-2">
+                    <div className="absolute left-3 top-3">
                       <span className="mono-readout rounded-md bg-black/40 px-2 py-1 text-white/90 backdrop-blur-sm">
                         <span className="rec-dot mr-1 align-middle" /> POSTER
                       </span>
@@ -399,46 +398,34 @@ export function Hero() {
                       </span>
                     </div>
                     <div className="absolute inset-0 grid place-items-center">
-                      <div className="grid h-16 w-16 place-items-center rounded-full bg-white/90 ring-4 ring-white/40 backdrop-blur-sm">
-                        <Play className="h-7 w-7 translate-x-0.5 text-foreground" fill="currentColor" />
+                      <div className="grid h-14 w-14 place-items-center rounded-full bg-white/90 ring-4 ring-white/40 backdrop-blur-sm">
+                        <Play className="h-6 w-6 translate-x-0.5 text-foreground" fill="currentColor" />
                       </div>
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent p-4">
-                      <div className="font-display text-lg font-semibold leading-tight text-white sm:text-xl">
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent p-3">
+                      <div className="font-display text-base font-semibold leading-tight text-white sm:text-lg">
                         Cinematic Editing Masterclass
                       </div>
                       <div className="mono-readout mt-0.5 text-white/80">Premiere Pro · DaVinci · After Effects</div>
                     </div>
                   </div>
 
-                  <div className="mt-3 font-display text-2xl font-semibold leading-tight sm:text-3xl">
-                    Cinematic Editing Masterclass — <span className="grad-text">Premiere Pro + DaVinci</span>
-                  </div>
-                  <p className="mt-2 text-sm text-foreground/70 sm:text-base">
-                    A 6-week hands-on course covering story-first editing, pro color grading, sound design, and
-                    delivery. Real client projects, live feedback, and a portfolio piece by the end.
+                  <p className="mt-3 text-[13px] leading-relaxed text-foreground/70 sm:text-sm">
+                    ৬ সপ্তাহের hands-on কোর্স। Story-first editing, color grading, sound design আর delivery workflow।
                   </p>
 
-                  <div className="mt-4 grid grid-cols-3 gap-2 text-xs">
-                    <div className="rounded-xl bg-white/60 p-2.5 text-center ring-1 ring-black/5">
-                      <div className="mono-readout">Duration</div>
-                      <div className="mt-0.5 font-display text-sm font-semibold">6 Weeks</div>
-                    </div>
-                    <div className="rounded-xl bg-white/60 p-2.5 text-center ring-1 ring-black/5">
-                      <div className="mono-readout">Format</div>
-                      <div className="mt-0.5 font-display text-sm font-semibold">Live + VOD</div>
-                    </div>
-                    <div className="rounded-xl bg-white/60 p-2.5 text-center ring-1 ring-black/5">
-                      <div className="mono-readout">Level</div>
-                      <div className="mt-0.5 font-display text-sm font-semibold">Intermediate</div>
-                    </div>
+                  <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px]">
+                    <span className="mono-readout rounded-full bg-white/70 px-2.5 py-1 ring-1 ring-black/5">6 Weeks</span>
+                    <span className="mono-readout rounded-full bg-white/70 px-2.5 py-1 ring-1 ring-black/5">Live + VOD</span>
+                    <span className="mono-readout rounded-full bg-white/70 px-2.5 py-1 ring-1 ring-black/5">Intermediate</span>
                   </div>
-                  <div className="mt-5 flex flex-wrap items-center gap-3">
-                    <Link to="/courses" className="gloss-btn inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold">
+
+                  <div className="mt-4 flex flex-wrap items-center gap-3">
+                    <Link to="/courses" className="gloss-btn inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold">
                       Enroll now <ArrowRight className="h-4 w-4" />
                     </Link>
                     <div className="flex items-baseline gap-2">
-                      <span className="font-display text-xl font-semibold">$149</span>
+                      <span className="font-display text-lg font-semibold">$149</span>
                       <span className="text-xs text-foreground/50 line-through">$249</span>
                       <span className="mono-readout">early-bird</span>
                     </div>
@@ -446,11 +433,11 @@ export function Hero() {
                 </div>
 
                 {/* Instructor + start date card */}
-                <div className="sticky-card tint-lemon p-5 tilt-xs-r">
+                <div className="sticky-card tint-lemon p-4 tilt-xs-r sm:col-span-2">
                   <Chip color="lemon">Instructor</Chip>
                   <div className="mt-3 flex items-center gap-3">
                     <div
-                      className="h-14 w-14 shrink-0 rounded-full ring-2 ring-white"
+                      className="h-12 w-12 shrink-0 rounded-full ring-2 ring-white"
                       style={{ background: "linear-gradient(135deg,#7c5cff,#22d3ee)" }}
                     />
                     <div className="min-w-0">
@@ -458,14 +445,18 @@ export function Hero() {
                       <div className="mono-readout truncate">Lead Editor · 8 yrs</div>
                     </div>
                   </div>
-                  <p className="mt-3 font-serif text-sm italic leading-snug text-foreground/80">
+                  <p className="mt-3 font-serif text-[13px] italic leading-snug text-foreground/80">
                     "I'll teach you the exact edit workflow I use on brand films for 7-figure creators."
                   </p>
-                  <div className="mt-4 rounded-xl bg-white/60 p-3 ring-1 ring-black/5">
-                    <div className="mono-readout">Class starts</div>
-                    <div className="mt-0.5 font-display text-lg font-semibold">Jul 28, 2026</div>
-                    <div className="mt-1 flex items-center gap-2 text-xs text-foreground/70">
-                      <span className="rec-dot" /> 12 seats left
+                  <div className="mt-3 rounded-xl bg-white/60 p-3 ring-1 ring-black/5">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="mono-readout">Class starts</div>
+                        <div className="mt-0.5 font-display text-base font-semibold">Jul 28, 2026</div>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-[11px] text-foreground/70">
+                        <span className="rec-dot" /> 12 seats left
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -473,6 +464,7 @@ export function Hero() {
             </div>
           </div>
         </div>
+
 
 
         {/* Trust strip */}
