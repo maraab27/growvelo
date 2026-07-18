@@ -663,7 +663,7 @@ const PORTFOLIO_ITEMS: {
 ];
 
 function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; tilt: string }) {
-  const [playing, setPlaying] = React.useState(false);
+  const [playing, setPlaying] = useState(false);
   const hasVideo = !!item.youtubeId;
   const posterUrl = item.youtubeId ? `https://img.youtube.com/vi/${item.youtubeId}/maxresdefault.jpg` : undefined;
 
