@@ -1053,8 +1053,13 @@ export function Courses({ limit }: { limit?: number } = {}) {
                 <div className="p-4">
                   <div className="font-display text-lg font-semibold">{c.title}</div>
                   <p className="mt-1 text-sm text-foreground/65">{c.desc}</p>
-                  <div className="mt-4 flex items-center justify-between">
-                    <span className="font-display text-xl font-semibold">{c.price}</span>
+                  <div className="mt-4 flex items-center justify-between gap-3">
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-display text-xl font-semibold">{c.price}</span>
+                      {c.oldPrice && (
+                        <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
+                      )}
+                    </div>
                     <a href="#" className="gloss-btn !text-xs !py-2 !px-4">Enroll</a>
                   </div>
                 </div>
