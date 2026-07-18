@@ -680,7 +680,7 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
       <div className="pin" style={pinStyle(item.pin)} />
       <div className={`sticky-card tint-${item.tint} p-3 ${tilt}`}>
         <div
-          className={`group relative w-full overflow-hidden rounded-xl ${item.reel ? "aspect-[9/16] mx-auto max-w-[200px]" : "aspect-video"}`}
+          className={`group relative w-full overflow-hidden rounded-xl ${item.reel ? "aspect-[9/16] mx-auto max-w-[240px]" : "aspect-video"}`}
           style={{ background: item.thumb }}
         >
           {posterUrl && (
@@ -700,7 +700,7 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
           {playing && item.youtubeId ? (
             <iframe
               className="absolute inset-0 h-full w-full"
-              src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&rel=0`}
+              src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&rel=0&hd=1&vq=hd1080&modestbranding=1`}
               title={item.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -879,7 +879,7 @@ export function Portfolio({ limit }: { limit?: number } = {}) {
                       Short-form <span className="grad-text">hooks</span>.
                     </h4>
                   </div>
-                  <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                  <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                     {reels.map((p, i) => (
                       <ThumbCard key={p.title} item={p} tilt={i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} />
                     ))}
