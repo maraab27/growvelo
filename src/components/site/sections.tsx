@@ -568,30 +568,6 @@ const SERVICES: {
     grad: "linear-gradient(135deg, var(--blush), var(--coral))",
     tilt: "tilt-xs-r",
   },
-  {
-    key: "BONUS",
-    tag: "Motion",
-    chipColor: "lemon",
-    icon: <Wand2 className="h-3.5 w-3.5" />,
-    title: "মোশন গ্রাফিক্স",
-    body: "Kinetic typography, explainer animation আর brand-ready motion element — সব ভিডিওকে polished করার জন্য।",
-    tint: "lemon",
-    pin: "lemon",
-    grad: "linear-gradient(135deg, var(--lemon), var(--brand))",
-    tilt: "tilt-xs-l",
-  },
-  {
-    key: "BONUS",
-    tag: "Corporate",
-    chipColor: "sky",
-    icon: <Briefcase className="h-3.5 w-3.5" />,
-    title: "কর্পোরেট ও এক্সপ্লেইনার",
-    body: "Company intro, product demo, training video আর SaaS explainer — ক্লিন, প্রফেশনাল টোনে।",
-    tint: "sky",
-    pin: "sky",
-    grad: "linear-gradient(135deg, var(--sky), var(--mint))",
-    tilt: "tilt-xs-r",
-  },
 ];
 
 export function Services() {
