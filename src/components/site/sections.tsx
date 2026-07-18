@@ -859,11 +859,36 @@ export function Portfolio({ limit }: { limit?: number } = {}) {
             </Link>
           )}
         </div>
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((p, i) => (
-            <ThumbCard key={p.title} item={p} tilt={i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} />
-          ))}
-        </div>
+        {(() => {
+          const landscape = items.filter((p) => !p.reel);
+          const reels = items.filter((p) => p.reel);
+          return (
+            <>
+              {landscape.length > 0 && (
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                  {landscape.map((p, i) => (
+                    <ThumbCard key={p.title} item={p} tilt={i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} />
+                  ))}
+                </div>
+              )}
+              {reels.length > 0 && (
+                <div className="mt-12">
+                  <div className="mb-6">
+                    <Chip color="brand" icon={<Film className="h-3.5 w-3.5" />}>Reels · Shorts</Chip>
+                    <h4 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+                      Short-form <span className="grad-text">hooks</span>.
+                    </h4>
+                  </div>
+                  <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                    {reels.map((p, i) => (
+                      <ThumbCard key={p.title} item={p} tilt={i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          );
+        })()}
       </div>
     </section>
   );
