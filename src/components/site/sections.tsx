@@ -649,11 +649,13 @@ export function Services() {
 const PORTFOLIO_ITEMS: {
   title: string; cat: string; len: string; thumb: string; tag: string;
   tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor; chipColor: ChipColor;
+  youtubeId?: string;
 }[] = [
+  { title: "growVelo · Featured Edit", cat: "YouTube", len: "Watch", thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)", tag: "Featured", tint: "brand", pin: "brand", chipColor: "brand", youtubeId: "daUeU1VtS_M" },
+  { title: "growVelo · Cinematic Cut", cat: "YouTube", len: "Watch", thumb: "linear-gradient(135deg,#ec4899,#f472b6)", tag: "Cinematic", tint: "coral", pin: "coral", chipColor: "coral", youtubeId: "yDf03E_XWW4" },
   { title: "Nova Labs — Brand Film", cat: "Brand", len: "1:48", thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)", tag: "Cinematic", tint: "mint", pin: "mint", chipColor: "mint" },
   { title: "Glowl Skincare · Reels Pack", cat: "Short-Form", len: "12 clips", thumb: "linear-gradient(135deg,#ec4899,#f472b6)", tag: "Reels", tint: "coral", pin: "coral", chipColor: "coral" },
   { title: "Stackly SaaS Explainer", cat: "Motion", len: "0:92", thumb: "linear-gradient(135deg,#0ea5e9,#22d3ee)", tag: "Motion", tint: "sky", pin: "sky", chipColor: "sky" },
-  { title: "Zara & Farhan · Wedding Film", cat: "Wedding", len: "6:20", thumb: "linear-gradient(135deg,#f43f5e,#fb7185)", tag: "Emotive", tint: "blush", pin: "blush", chipColor: "blush" },
   { title: "GearNerd — Tech Review", cat: "YouTube", len: "18:04", thumb: "linear-gradient(135deg,#ef4444,#f97316)", tag: "Long-form", tint: "lemon", pin: "lemon", chipColor: "lemon" },
   { title: "The Makers · Ep 04", cat: "Documentary", len: "22:11", thumb: "linear-gradient(135deg,#0ea5e9,#6366f1)", tag: "Narrative", tint: "brand", pin: "brand", chipColor: "brand" },
   { title: "Loop — Product Launch", cat: "Ad", len: "0:60", thumb: "linear-gradient(135deg,#22d3ee,#a78bfa)", tag: "Ad", tint: "mint", pin: "sky", chipColor: "mint" },
@@ -661,26 +663,50 @@ const PORTFOLIO_ITEMS: {
 ];
 
 function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; tilt: string }) {
+  const [playing, setPlaying] = React.useState(false);
+  const hasVideo = !!item.youtubeId;
+  const posterUrl = item.youtubeId ? `https://img.youtube.com/vi/${item.youtubeId}/maxresdefault.jpg` : undefined;
+
   return (
     <div className="relative">
       <div className="pin" style={pinStyle(item.pin)} />
       <div className={`sticky-card tint-${item.tint} p-3 ${tilt}`}>
         <div
           className="group relative aspect-video w-full overflow-hidden rounded-xl"
-          style={{ background: item.thumb }}
+          style={{
+            background: posterUrl ? `url(${posterUrl}) center/cover no-repeat, ${item.thumb}` : item.thumb,
+          }}
         >
-          <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
-          <div className="absolute left-2.5 top-2.5">
-            <Chip color={item.chipColor}>{item.tag}</Chip>
-          </div>
-          <div className="absolute right-2.5 top-2.5 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[10px] text-white backdrop-blur">
-            {item.len}
-          </div>
-          <div className="absolute inset-0 grid place-items-center">
-            <div className="grid h-14 w-14 place-items-center rounded-full bg-white/80 shadow-lg transition group-hover:scale-110 group-hover:bg-white">
-              <Play className="h-5 w-5 text-foreground" fill="currentColor" />
-            </div>
-          </div>
+          {playing && item.youtubeId ? (
+            <iframe
+              className="absolute inset-0 h-full w-full"
+              src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&rel=0`}
+              title={item.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ) : (
+            <>
+              <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
+              <div className="absolute left-2.5 top-2.5">
+                <Chip color={item.chipColor}>{item.tag}</Chip>
+              </div>
+              <div className="absolute right-2.5 top-2.5 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[10px] text-white backdrop-blur">
+                {item.len}
+              </div>
+              <button
+                type="button"
+                onClick={() => hasVideo && setPlaying(true)}
+                aria-label={hasVideo ? `Play ${item.title}` : item.title}
+                className="absolute inset-0 grid place-items-center"
+                style={{ cursor: hasVideo ? "pointer" : "default" }}
+              >
+                <span className="grid h-14 w-14 place-items-center rounded-full bg-white/85 shadow-lg transition group-hover:scale-110 group-hover:bg-white">
+                  <Play className="h-5 w-5 text-foreground" fill="currentColor" />
+                </span>
+              </button>
+            </>
+          )}
         </div>
         <div className="flex items-center justify-between px-2 pt-4 pb-2">
           <div>
