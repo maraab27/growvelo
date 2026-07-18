@@ -992,7 +992,8 @@ const COURSE_CATEGORIES: { name: string; count: string; icon: ReactNode; tint: "
   { name: "Sound", count: "3 courses", icon: <AudioLines className="h-5 w-5 text-white" />, tint: "sky", pin: "sky", grad: "linear-gradient(135deg, var(--sky), var(--brand))" },
 ];
 
-const COURSES: { title: string; level: string; length: string; price: string; thumb: string; desc: string; tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor; chipColor: ChipColor }[] = [
+const COURSES: { title: string; level: string; length: string; price: string; oldPrice?: string; thumb: string; desc: string; tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor; chipColor: ChipColor; featured?: boolean }[] = [
+  { title: "১৫ দিনের ফ্রি ভিডিও এডিটিং বুটক্যাম্প", level: "Beginner → Pro", length: "15 days · Live", price: "৳4,000", oldPrice: "৳5,000", thumb: `url(${courseThumbnail.url}) center/cover no-repeat`, desc: "Rising Editors — Batch 1. প্রিমিয়ার প্রো দিয়ে প্রফেশনাল এডিটিং, একদম Beginner হলেও জয়েন করতে পারবেন।", tint: "brand", pin: "brand", chipColor: "brand", featured: true },
   { title: "Cinematic Editing in Premiere Pro", level: "Intermediate", length: "8h · 42 lessons", price: "$129", thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)", desc: "Learn our exact cinematic workflow — pacing, color, and sound design.", tint: "mint", pin: "mint", chipColor: "mint" },
   { title: "Reels & Shorts Mastery (CapCut + AE)", level: "Beginner → Pro", length: "5h · 28 lessons", price: "$79", thumb: "linear-gradient(135deg,#ec4899,#f97316)", desc: "Hook-driven vertical edits, trend-native pacing, and viral captions.", tint: "coral", pin: "coral", chipColor: "coral" },
   { title: "Motion Graphics for Brands", level: "Advanced", length: "10h · 55 lessons", price: "$179", thumb: "linear-gradient(135deg,#0ea5e9,#22d3ee)", desc: "Kinetic type, explainer animation, and clean brand-ready comps.", tint: "sky", pin: "sky", chipColor: "sky" },
