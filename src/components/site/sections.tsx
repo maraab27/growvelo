@@ -326,9 +326,6 @@ export function Hero() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-3xl text-center">
-          <Chip color="brand" icon={<Sparkles className="h-3.5 w-3.5" />}>
-            New · Showreel 2026
-          </Chip>
           <h1
             className="mt-6 font-display font-semibold tracking-tight text-foreground"
             style={{ fontSize: "clamp(2.75rem, 8vw, 7rem)", lineHeight: 0.98, letterSpacing: "-0.035em" }}
@@ -434,14 +431,12 @@ export function Hero() {
 
         {/* Trust strip */}
         <div className="relative z-10 mt-16 sm:mt-24">
-          <div className="mono-readout text-center">Trusted by 90+ creators &amp; brands</div>
+          <div className="mono-readout text-center">Trusted by creators &amp; brands</div>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-[0.22em] text-foreground/45 sm:gap-x-12 sm:text-sm">
-            <span>Northwind</span>
-            <span>Pixelmob</span>
-            <span>Oatfield</span>
-            <span>Kuro&amp;Co</span>
-            <span>Studio 88</span>
-            <span>Brightly</span>
+            <span>Abdullah Maraab</span>
+            <span>Tanvir Mahmud</span>
+            <span>Zaruun</span>
+            <span>Goldenrock FZCO</span>
           </div>
         </div>
       </div>
