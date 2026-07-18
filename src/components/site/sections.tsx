@@ -679,13 +679,19 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
           }}
         >
           {playing && item.youtubeId ? (
-            <iframe
-              className="absolute inset-0 h-full w-full"
-              src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&rel=0`}
-              title={item.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            <>
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&playsinline=1&color=red`}
+                title={item.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+              {/* Block top strip (YouTube title/logo & share buttons) from view and clicks */}
+              <div className="pointer-events-auto absolute inset-x-0 top-0 h-14 bg-black" />
+              {/* Block bottom-right YouTube logo watermark */}
+              <div className="pointer-events-auto absolute bottom-0 right-0 h-10 w-24 bg-black" />
+            </>
           ) : (
             <>
               <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
