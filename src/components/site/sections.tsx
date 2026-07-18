@@ -680,20 +680,24 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
           }}
         >
           {playing && item.youtubeId ? (
-            <div className="absolute inset-0 overflow-hidden bg-black">
+            <div className="absolute inset-0 overflow-hidden">
+              {/* Scale iframe just enough to hide YouTube's title bar at the top.
+                  controls=0 removes the bottom control bar + logo entirely, so
+                  we only need to crop the top — keeps the video near full size. */}
               <iframe
-                className="absolute inset-0 h-full w-full"
-                src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&controls=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&playsinline=1&disablekb=1&fs=0`}
+                className="absolute"
+                style={{ width: "118%", height: "118%", left: "-9%", top: "-18%" }}
+
+                src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&controls=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&playsinline=1&disablekb=1&fs=0`}
                 title={item.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               />
-              {/* Transparent click-blockers over YouTube's title bar (top) and
-                  logo/share area (bottom-right) so those UI bits can't be
-                  clicked through to YouTube. Fully transparent, no crop. */}
-              <div className="pointer-events-auto absolute inset-x-0 top-0 h-10" />
-              <div className="pointer-events-auto absolute bottom-0 right-0 h-10 w-28" />
+              {/* Transparent click-blocker so hover/click can't reach the iframe
+                  and pop the title/share UI or open YouTube. */}
+              <div className="absolute inset-0" />
             </div>
           ) : (
+
 
             <>
               <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
