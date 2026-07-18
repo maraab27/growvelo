@@ -496,10 +496,102 @@ const SERVICES: {
   key: string; title: string; grad: string; tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor;
   icon: ReactNode; body: string; tag: string; chipColor: ChipColor; tilt: string;
 }[] = [
-  { key: "01 / 04", tag: "Cinematic", chipColor: "mint", icon: <Film className="h-3.5 w-3.5" />, title: "Frames that breathe", body: "Long-form brand films with story-first pacing, color, and sound.", tint: "mint", pin: "mint", grad: "linear-gradient(135deg, var(--mint), var(--brand))", tilt: "tilt-xs-l" },
-  { key: "02 / 04", tag: "Short-Form", chipColor: "coral", icon: <Smartphone className="h-3.5 w-3.5" />, title: "Hooks that stick", body: "Reels, TikToks, and Shorts — trend-native pacing and punchy captions.", tint: "coral", pin: "coral", grad: "linear-gradient(135deg, var(--coral), var(--blush))", tilt: "tilt-xs-r" },
-  { key: "03 / 04", tag: "Motion", chipColor: "lemon", icon: <Wand2 className="h-3.5 w-3.5" />, title: "Ideas in motion", body: "Kinetic type, explainer animation, and clean brand-ready comps.", tint: "lemon", pin: "lemon", grad: "linear-gradient(135deg, var(--lemon), var(--coral))", tilt: "tilt-xs-r" },
-  { key: "04 / 04", tag: "Sound", chipColor: "sky", icon: <AudioLines className="h-3.5 w-3.5" />, title: "Sound that sits right", body: "Voice cleanup, layered SFX, and cinematic music beds that don't fight the cut.", tint: "sky", pin: "sky", grad: "linear-gradient(135deg, var(--sky), var(--brand))", tilt: "tilt-xs-l" },
+  {
+    key: "01 / 06",
+    tag: "YouTube",
+    chipColor: "coral",
+    icon: <Youtube className="h-3.5 w-3.5" />,
+    title: "ইউটিউব এডিটিং",
+    body: "Creator-দের জন্য long-form YouTube ভিডিও — hook, pacing, B-roll আর thumbnail-ready কাট।",
+    tint: "coral",
+    pin: "coral",
+    grad: "linear-gradient(135deg, var(--coral), var(--blush))",
+    tilt: "tilt-xs-l",
+  },
+  {
+    key: "02 / 06",
+    tag: "Short-Form",
+    chipColor: "mint",
+    icon: <Smartphone className="h-3.5 w-3.5" />,
+    title: "রিলস ও শর্টস",
+    body: "Reels, TikTok আর Shorts — trend-friendly দ্রুত pacing, punchy caption আর scroll-stopping hook।",
+    tint: "mint",
+    pin: "mint",
+    grad: "linear-gradient(135deg, var(--mint), var(--brand))",
+    tilt: "tilt-xs-r",
+  },
+  {
+    key: "03 / 06",
+    tag: "Podcast",
+    chipColor: "sky",
+    icon: <Mic className="h-3.5 w-3.5" />,
+    title: "পডকাস্ট এডিটিং",
+    body: "Podcast-এর video + audio — voice cleanup, multi-cam sync আর সাথে ছোট clip/reels কেটে দেওয়া।",
+    tint: "sky",
+    pin: "sky",
+    grad: "linear-gradient(135deg, var(--sky), var(--brand))",
+    tilt: "tilt-xs-l",
+  },
+  {
+    key: "04 / 06",
+    tag: "Ad",
+    chipColor: "lemon",
+    icon: <Megaphone className="h-3.5 w-3.5" />,
+    title: "অ্যাড ও কমার্শিয়াল",
+    body: "Brand ad, product launch, Facebook/YouTube ads — hook-first, conversion-focused কাট।",
+    tint: "lemon",
+    pin: "lemon",
+    grad: "linear-gradient(135deg, var(--lemon), var(--coral))",
+    tilt: "tilt-xs-r",
+  },
+  {
+    key: "05 / 06",
+    tag: "Color",
+    chipColor: "brand",
+    icon: <Palette className="h-3.5 w-3.5" />,
+    title: "কালার গ্রেডিং",
+    body: "শুধু কালার-এর কাজ — cinematic look, skin-tone ঠিক করা আর brand-consistent color pass।",
+    tint: "brand",
+    pin: "brand",
+    grad: "linear-gradient(135deg, var(--brand), var(--sky))",
+    tilt: "tilt-xs-l",
+  },
+  {
+    key: "06 / 06",
+    tag: "Cinematic",
+    chipColor: "blush",
+    icon: <Film className="h-3.5 w-3.5" />,
+    title: "ডকুমেন্টারি ও ব্র্যান্ড ফিল্ম",
+    body: "Story-first long-form — founder story, documentary আর cinematic brand film পুরো প্যাকেজে।",
+    tint: "blush",
+    pin: "blush",
+    grad: "linear-gradient(135deg, var(--blush), var(--coral))",
+    tilt: "tilt-xs-r",
+  },
+  {
+    key: "BONUS",
+    tag: "Motion",
+    chipColor: "lemon",
+    icon: <Wand2 className="h-3.5 w-3.5" />,
+    title: "মোশন গ্রাফিক্স",
+    body: "Kinetic typography, explainer animation আর brand-ready motion element — সব ভিডিওকে polished করার জন্য।",
+    tint: "lemon",
+    pin: "lemon",
+    grad: "linear-gradient(135deg, var(--lemon), var(--brand))",
+    tilt: "tilt-xs-l",
+  },
+  {
+    key: "BONUS",
+    tag: "Corporate",
+    chipColor: "sky",
+    icon: <Briefcase className="h-3.5 w-3.5" />,
+    title: "কর্পোরেট ও এক্সপ্লেইনার",
+    body: "Company intro, product demo, training video আর SaaS explainer — ক্লিন, প্রফেশনাল টোনে।",
+    tint: "sky",
+    pin: "sky",
+    grad: "linear-gradient(135deg, var(--sky), var(--mint))",
+    tilt: "tilt-xs-r",
+  },
 ];
 
 export function Services() {
@@ -507,19 +599,19 @@ export function Services() {
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
-          eyebrow="Features"
+          eyebrow="আমাদের সার্ভিস"
           eyebrowColor="lemon"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
-          before="Everything you need."
-          gradWord="Nothing"
-          after="you don't."
-          sub="Built for creators who want tools that feel as considered as the work they make."
+          before="যা যা দরকার,"
+          gradWord="সব"
+          after="এখানেই।"
+          sub="বাংলাদেশি creator, brand আর agency-দের জন্য সাজানো — এক ছাদের নিচে সব ধরনের এডিটিং সার্ভিস।"
         />
 
         <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2">
             {SERVICES.map((s) => (
-              <div key={s.key} className="relative">
+              <div key={s.title} className="relative">
                 <div className="pin" style={pinStyle(s.pin)} />
                 <div className={`sticky-card tint-${s.tint} p-6 ${s.tilt}`}>
                   <div className="flex items-start justify-between">
@@ -548,17 +640,19 @@ export function Services() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm">
                   <Layers className="h-4 w-4 text-foreground/70" />
-                  <span className="font-semibold">Layers</span>
+                  <span className="font-semibold">সার্ভিস লেয়ার</span>
                   <span className="text-foreground/40">Effects</span>
                 </div>
-                <span className="mono-readout">4 Items</span>
+                <span className="mono-readout">8 Items</span>
               </div>
               <div className="mt-5 space-y-2.5">
                 {[
-                  { name: "Cinematic", lv: "L01 · 100%", grad: "linear-gradient(135deg, var(--mint), var(--brand))" },
-                  { name: "Short-Form", lv: "L02 · 100%", grad: "linear-gradient(135deg, var(--coral), var(--blush))" },
-                  { name: "Motion", lv: "L03 · 100%", grad: "linear-gradient(135deg, var(--lemon), var(--coral))" },
-                  { name: "Sound", lv: "L04 · 100%", grad: "linear-gradient(135deg, var(--sky), var(--brand))" },
+                  { name: "ইউটিউব", lv: "L01 · 100%", grad: "linear-gradient(135deg, var(--coral), var(--blush))" },
+                  { name: "রিলস / শর্টস", lv: "L02 · 100%", grad: "linear-gradient(135deg, var(--mint), var(--brand))" },
+                  { name: "পডকাস্ট", lv: "L03 · 100%", grad: "linear-gradient(135deg, var(--sky), var(--brand))" },
+                  { name: "অ্যাড", lv: "L04 · 100%", grad: "linear-gradient(135deg, var(--lemon), var(--coral))" },
+                  { name: "কালার গ্রেড", lv: "L05 · 100%", grad: "linear-gradient(135deg, var(--brand), var(--sky))" },
+                  { name: "ডকুমেন্টারি", lv: "L06 · 100%", grad: "linear-gradient(135deg, var(--blush), var(--coral))" },
                 ].map((l) => (
                   <div key={l.name} className="flex items-center gap-3 rounded-xl border border-foreground/8 bg-white/60 p-2.5">
                     <div className="h-8 w-8 rounded-lg" style={{ background: l.grad }} />
@@ -573,10 +667,10 @@ export function Services() {
               <div className="mt-5 border-t border-foreground/10 pt-4">
                 <div className="mb-2 flex items-center justify-between text-xs">
                   <span className="mono-readout">Opacity</span>
-                  <span className="mono-readout">75%</span>
+                  <span className="mono-readout">100%</span>
                 </div>
                 <div className="h-1.5 rounded-full bg-foreground/10">
-                  <div className="h-full w-3/4 rounded-full" style={{ background: "linear-gradient(90deg, var(--brand), var(--coral))" }} />
+                  <div className="h-full w-full rounded-full" style={{ background: "linear-gradient(90deg, var(--brand), var(--coral))" }} />
                 </div>
               </div>
             </div>
@@ -586,6 +680,7 @@ export function Services() {
     </section>
   );
 }
+
 
 /* ---------- portfolio ---------- */
 
