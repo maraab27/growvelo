@@ -665,19 +665,8 @@ const PORTFOLIO_ITEMS: {
 
 function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; tilt: string }) {
   const [playing, setPlaying] = useState(false);
-  const [showCleanVideo, setShowCleanVideo] = useState(false);
   const hasVideo = !!item.youtubeId;
   const posterUrl = item.youtubeId ? `https://img.youtube.com/vi/${item.youtubeId}/maxresdefault.jpg` : undefined;
-
-  useEffect(() => {
-    if (!playing) {
-      setShowCleanVideo(false);
-      return;
-    }
-
-    const revealTimer = window.setTimeout(() => setShowCleanVideo(true), 4200);
-    return () => window.clearTimeout(revealTimer);
-  }, [playing]);
 
   return (
     <div className="relative">
@@ -690,27 +679,13 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
           }}
         >
           {playing && item.youtubeId ? (
-            <div className="absolute inset-0 overflow-hidden bg-black">
-              <iframe
-                className="absolute inset-0 z-0 h-full w-full"
-                src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&playsinline=1&loop=1&playlist=${item.youtubeId}`}
-                title={item.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              />
-              <div
-                aria-hidden="true"
-                className={`pointer-events-none absolute inset-0 z-10 transition-opacity duration-500 ${showCleanVideo ? "opacity-0" : "opacity-100"}`}
-                style={{
-                  background: posterUrl ? `url(${posterUrl}) center/cover no-repeat, ${item.thumb}` : item.thumb,
-                }}
-              />
-              {/* Block clicks on YouTube title / share bar area only */}
-              <div
-                aria-hidden="true"
-                onClick={(e) => e.stopPropagation()}
-                className="absolute left-0 right-0 top-0 z-20 h-10"
-              />
-            </div>
+            <iframe
+              className="absolute inset-0 h-full w-full"
+              src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&rel=0`}
+              title={item.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
           ) : (
             <>
               <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
@@ -744,6 +719,7 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
     </div>
   );
 }
+
 
 function TimelineShowcase() {
   return (
