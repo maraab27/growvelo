@@ -413,15 +413,14 @@ export function Hero() {
                     <span className="mono-readout rounded-full bg-white/70 px-2.5 py-1 ring-1 ring-black/5">Intermediate</span>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap items-center gap-3">
+                  <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
                     <Link to="/courses" className="gloss-btn inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold">
                       Enroll now <ArrowRight className="h-4 w-4" />
                     </Link>
-                    <div className="flex items-baseline gap-2">
-                      <span className="font-display text-lg font-semibold">৳4,000</span>
-                      <span className="text-xs text-foreground/50 line-through">৳5,000</span>
-                      <span className="text-[10px] font-medium uppercase tracking-wide text-foreground/60">Early Bird</span>
-                      <span className="mono-readout">early-bird</span>
+                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                      <span className="font-display text-lg font-semibold leading-none">৳4,000</span>
+                      <span className="text-xs text-foreground/50 line-through leading-none">৳5,000</span>
+                      <span className="whitespace-nowrap text-[10px] font-medium uppercase tracking-wide text-foreground/60">Early Bird</span>
                     </div>
                   </div>
                 </div>
