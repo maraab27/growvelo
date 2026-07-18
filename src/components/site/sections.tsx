@@ -575,39 +575,40 @@ export function Services() {
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
-          eyebrow="আমাদের সার্ভিস"
+          eyebrow="Our Services"
           eyebrowColor="lemon"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
-          before="যা যা দরকার,"
-          gradWord="সব"
-          after="এখানেই।"
+          before="Everything you"
+          gradWord="need,"
+          after="right here."
           sub="বাংলাদেশি creator, brand আর agency-দের জন্য সাজানো — এক ছাদের নিচে সব ধরনের এডিটিং সার্ভিস।"
         />
 
         <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-3">
             {SERVICES.map((s) => (
               <div key={s.title} className="relative">
                 <div className="pin" style={pinStyle(s.pin)} />
-                <div className={`sticky-card tint-${s.tint} p-6 ${s.tilt}`}>
+                <div className={`sticky-card tint-${s.tint} p-4 ${s.tilt}`}>
                   <div className="flex items-start justify-between">
                     <div
-                      className="grid h-11 w-11 place-items-center rounded-2xl text-white"
+                      className="grid h-9 w-9 place-items-center rounded-xl text-white"
                       style={{ background: s.grad, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5)" }}
                     >
                       {s.icon}
                     </div>
                     <span className="mono-readout">{s.key}</span>
                   </div>
-                  <div className="mt-6">
+                  <div className="mt-4">
                     <Chip color={s.chipColor}>{s.tag}</Chip>
                   </div>
-                  <div className="mt-2 font-display text-xl font-semibold">{s.title}</div>
-                  <p className="mt-2 text-sm text-foreground/65">{s.body}</p>
+                  <div className="mt-2 font-display text-base font-semibold leading-snug">{s.title}</div>
+                  <p className="mt-1.5 text-[13px] leading-relaxed text-foreground/65">{s.body}</p>
                 </div>
               </div>
             ))}
           </div>
+
 
           {/* Layers side panel */}
           <div className="relative">
