@@ -373,6 +373,41 @@ export function Hero() {
                     <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />}>Most Popular · Cohort 07</Chip>
                     <span className="mono-readout hidden sm:inline">4.9 ★ · 320+ students</span>
                   </div>
+
+                  {/* Course thumbnail / poster */}
+                  <div
+                    className="relative mt-4 aspect-[16/9] w-full overflow-hidden rounded-2xl ring-1 ring-black/10"
+                    style={{ background: "linear-gradient(135deg,#7c5cff 0%,#22d3ee 60%,#f472b6 100%)" }}
+                    aria-label="Course poster"
+                  >
+                    {/* soft gloss */}
+                    <div
+                      className="pointer-events-none absolute inset-0"
+                      style={{ background: "radial-gradient(120% 60% at 20% 0%, rgba(255,255,255,0.35), transparent 60%)" }}
+                    />
+                    <div className="absolute left-3 top-3 flex items-center gap-2">
+                      <span className="mono-readout rounded-md bg-black/40 px-2 py-1 text-white/90 backdrop-blur-sm">
+                        <span className="rec-dot mr-1 align-middle" /> POSTER
+                      </span>
+                    </div>
+                    <div className="absolute right-3 top-3">
+                      <span className="mono-readout rounded-md bg-black/40 px-2 py-1 text-white/90 backdrop-blur-sm">
+                        06:12 · Preview
+                      </span>
+                    </div>
+                    <div className="absolute inset-0 grid place-items-center">
+                      <div className="grid h-16 w-16 place-items-center rounded-full bg-white/90 ring-4 ring-white/40 backdrop-blur-sm">
+                        <Play className="h-7 w-7 translate-x-0.5 text-foreground" fill="currentColor" />
+                      </div>
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent p-4">
+                      <div className="font-display text-lg font-semibold leading-tight text-white sm:text-xl">
+                        Cinematic Editing Masterclass
+                      </div>
+                      <div className="mono-readout mt-0.5 text-white/80">Premiere Pro · DaVinci · After Effects</div>
+                    </div>
+                  </div>
+
                   <div className="mt-3 font-display text-2xl font-semibold leading-tight sm:text-3xl">
                     Cinematic Editing Masterclass — <span className="grad-text">Premiere Pro + DaVinci</span>
                   </div>
@@ -380,6 +415,7 @@ export function Hero() {
                     A 6-week hands-on course covering story-first editing, pro color grading, sound design, and
                     delivery. Real client projects, live feedback, and a portfolio piece by the end.
                   </p>
+
                   <div className="mt-4 grid grid-cols-3 gap-2 text-xs">
                     <div className="rounded-xl bg-white/60 p-2.5 text-center ring-1 ring-black/5">
                       <div className="mono-readout">Duration</div>
