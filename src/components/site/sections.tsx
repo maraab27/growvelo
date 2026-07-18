@@ -978,11 +978,11 @@ export function Pricing() {
               <div className={`sticky-card tint-${t.tint} p-6 flex flex-col ${i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} ${t.highlight ? "ring-2" : ""}`}
                    style={t.highlight ? { boxShadow: "inset 0 1.5px 0 rgba(255,255,255,1), 0 4px 6px color-mix(in oklab, var(--foreground) 10%, transparent), 0 30px 55px -18px color-mix(in oklab, var(--brand) 55%, transparent)" } : undefined}>
                 {t.highlight && (
-                  <span className="absolute -top-3 right-6">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap">
                     <Chip color="brand" icon={<Sparkles className="h-3.5 w-3.5" />}>Most popular</Chip>
                   </span>
                 )}
-                <Chip color={t.chipColor}>{t.name}</Chip>
+                <Chip color={t.chipColor} className="self-start">{t.name}</Chip>
                 <div className="mt-4 flex items-end gap-1">
                   <span className="font-display text-4xl font-semibold">{t.price}</span>
                   <span className="mb-1 text-xs text-foreground/55">{t.unit}</span>
