@@ -667,11 +667,6 @@ const PORTFOLIO_ITEMS: {
   { title: "Reel · Hook 10", cat: "Short-Form", len: "Reel", thumb: "linear-gradient(135deg,#a78bfa,#22d3ee)", tag: "Reel", tint: "mint", pin: "mint", chipColor: "mint", youtubeId: "DfWpX_XX38w", reel: true },
   { title: "Reel · Hook 11", cat: "Short-Form", len: "Reel", thumb: "linear-gradient(135deg,#ec4899,#f97316)", tag: "Reel", tint: "coral", pin: "coral", chipColor: "coral", youtubeId: "lBhHK5UIcHA", reel: true },
   { title: "Reel · Hook 12", cat: "Short-Form", len: "Reel", thumb: "linear-gradient(135deg,#0ea5e9,#a78bfa)", tag: "Reel", tint: "brand", pin: "sky", chipColor: "brand", youtubeId: "_1hgLpg7L3A", reel: true },
-  { title: "Nova Labs — Brand Film", cat: "Brand", len: "1:48", thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)", tag: "Cinematic", tint: "mint", pin: "mint", chipColor: "mint" },
-  { title: "Stackly SaaS Explainer", cat: "Motion", len: "0:92", thumb: "linear-gradient(135deg,#0ea5e9,#22d3ee)", tag: "Motion", tint: "sky", pin: "sky", chipColor: "sky" },
-  { title: "GearNerd — Tech Review", cat: "YouTube", len: "18:04", thumb: "linear-gradient(135deg,#ef4444,#f97316)", tag: "Long-form", tint: "lemon", pin: "lemon", chipColor: "lemon" },
-  { title: "The Makers · Ep 04", cat: "Documentary", len: "22:11", thumb: "linear-gradient(135deg,#0ea5e9,#6366f1)", tag: "Narrative", tint: "brand", pin: "brand", chipColor: "brand" },
-  { title: "Loop — Product Launch", cat: "Ad", len: "0:60", thumb: "linear-gradient(135deg,#22d3ee,#a78bfa)", tag: "Ad", tint: "mint", pin: "sky", chipColor: "mint" },
 ];
 
 function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; tilt: string }) {
