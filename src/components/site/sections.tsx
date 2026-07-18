@@ -692,8 +692,8 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
           {playing && item.youtubeId ? (
             <div className="absolute inset-0 overflow-hidden bg-black">
               <iframe
-                className="pointer-events-none absolute inset-0 z-0 h-full w-full"
-                src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&playsinline=1&disablekb=1&fs=0&loop=1&playlist=${item.youtubeId}`}
+                className="absolute inset-0 z-0 h-full w-full"
+                src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&playsinline=1&loop=1&playlist=${item.youtubeId}`}
                 title={item.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               />
@@ -704,27 +704,22 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
                   background: posterUrl ? `url(${posterUrl}) center/cover no-repeat, ${item.thumb}` : item.thumb,
                 }}
               />
-              <button
-                type="button"
-                aria-label="Video playing"
-                className="absolute inset-0 z-20 cursor-default bg-transparent"
+              {/* Block clicks on YouTube title / share bar area only */}
+              <div
+                aria-hidden="true"
+                onClick={(e) => e.stopPropagation()}
+                className="absolute left-0 right-0 top-0 z-20 h-10"
               />
             </div>
           ) : (
-
-
             <>
-              {!hasVideo && (
-                <>
-                  <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
-                  <div className="absolute left-2.5 top-2.5">
-                    <Chip color={item.chipColor}>{item.tag}</Chip>
-                  </div>
-                  <div className="absolute right-2.5 top-2.5 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[10px] text-white backdrop-blur">
-                    {item.len}
-                  </div>
-                </>
-              )}
+              <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
+              <div className="absolute left-2.5 top-2.5">
+                <Chip color={item.chipColor}>{item.tag}</Chip>
+              </div>
+              <div className="absolute right-2.5 top-2.5 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[10px] text-white backdrop-blur">
+                {item.len}
+              </div>
               <button
                 type="button"
                 onClick={() => hasVideo && setPlaying(true)}
@@ -739,14 +734,12 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
             </>
           )}
         </div>
-        {!hasVideo && (
-          <div className="flex items-center justify-between px-2 pt-4 pb-2">
-            <div>
-              <div className="text-sm font-semibold">{item.title}</div>
-              <div className="text-xs text-foreground/55">{item.cat}</div>
-            </div>
+        <div className="flex items-center justify-between px-2 pt-4 pb-2">
+          <div className="min-w-0">
+            <div className="truncate text-sm font-semibold">{item.title}</div>
+            <div className="text-xs text-foreground/55">{item.cat}</div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
