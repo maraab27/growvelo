@@ -693,14 +693,14 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
           {playing && item.youtubeId ? (
             <div className="absolute inset-0 overflow-hidden bg-black">
               <iframe
-                className="pointer-events-none absolute inset-0 h-full w-full"
+                className="pointer-events-none absolute inset-0 z-0 h-full w-full"
                 src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&playsinline=1&disablekb=1&fs=0&loop=1&playlist=${item.youtubeId}`}
                 title={item.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               />
               <div
                 aria-hidden="true"
-                className={`absolute inset-0 transition-opacity duration-500 ${showCleanVideo ? "opacity-0" : "opacity-100"}`}
+                className={`pointer-events-none absolute inset-0 z-10 transition-opacity duration-500 ${showCleanVideo ? "opacity-0" : "opacity-100"}`}
                 style={{
                   background: posterUrl ? `url(${posterUrl}) center/cover no-repeat, ${item.thumb}` : item.thumb,
                 }}
@@ -708,7 +708,7 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
               <button
                 type="button"
                 aria-label="Video playing"
-                className="absolute inset-0 cursor-default"
+                className="absolute inset-0 z-20 cursor-default bg-transparent"
               />
             </div>
           ) : (
