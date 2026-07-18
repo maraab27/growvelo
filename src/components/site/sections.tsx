@@ -715,13 +715,17 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
 
 
             <>
-              <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
-              <div className="absolute left-2.5 top-2.5">
-                <Chip color={item.chipColor}>{item.tag}</Chip>
-              </div>
-              <div className="absolute right-2.5 top-2.5 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[10px] text-white backdrop-blur">
-                {item.len}
-              </div>
+              {!hasVideo && (
+                <>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
+                  <div className="absolute left-2.5 top-2.5">
+                    <Chip color={item.chipColor}>{item.tag}</Chip>
+                  </div>
+                  <div className="absolute right-2.5 top-2.5 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[10px] text-white backdrop-blur">
+                    {item.len}
+                  </div>
+                </>
+              )}
               <button
                 type="button"
                 onClick={() => hasVideo && setPlaying(true)}
