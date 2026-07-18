@@ -687,10 +687,10 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
-              {/* Block top strip (YouTube title/logo & share buttons) from view and clicks */}
-              <div className="pointer-events-auto absolute inset-x-0 top-0 h-14 bg-black" />
-              {/* Block bottom-right YouTube logo watermark */}
-              <div className="pointer-events-auto absolute bottom-0 right-0 h-10 w-24 bg-black" />
+              {/* Transparent overlays block hover/clicks on YouTube's title bar & logo watermark
+                  so those UI elements never activate — video stays fully visible underneath. */}
+              <div className="pointer-events-auto absolute inset-x-0 top-0 h-12 bg-transparent" aria-hidden />
+              <div className="pointer-events-auto absolute bottom-2 right-0 h-8 w-20 bg-transparent" aria-hidden />
             </>
           ) : (
             <>
