@@ -85,18 +85,18 @@ export function SectionHead({
   align?: "center" | "left";
 }) {
   const wrap =
-    align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl text-left";
+    align === "center" ? "mx-auto max-w-5xl text-center" : "max-w-3xl text-left";
   return (
     <div className={wrap}>
       <Chip color={eyebrowColor} icon={eyebrowIcon}>{eyebrow}</Chip>
-      <h2 className="mt-5 font-display font-semibold tracking-tight text-foreground"
-          style={{ fontSize: "clamp(2.25rem, 5.5vw, 4rem)", lineHeight: 1.02 }}>
+      <h2 className="mt-5 font-display font-semibold tracking-tight text-foreground sm:whitespace-nowrap"
+          style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", lineHeight: 1.05 }}>
         {before}{" "}
         <span className="grad-text">{gradWord}</span>
         {after ? <> {after}</> : null}
       </h2>
       {sub && (
-        <p className="mx-auto mt-5 max-w-xl text-sm text-foreground/65 sm:text-base">
+        <p className="mx-auto mt-5 max-w-3xl text-sm text-foreground/65 sm:text-base sm:whitespace-nowrap">
           {sub}
         </p>
       )}
