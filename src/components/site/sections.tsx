@@ -26,6 +26,8 @@ import {
 } from "lucide-react";
 
 import growveloMark from "../../assets/growvelo-mark.png.asset.json";
+import courseThumbnail from "../../assets/course-thumbnail.png.asset.json";
+import instructorAtaullah from "../../assets/instructor-ataullah.png.asset.json";
 
 /* ---------- helpers ---------- */
 
