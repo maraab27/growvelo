@@ -1375,11 +1375,12 @@ export function Footer() {
 
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
-    <main className="relative min-h-screen overflow-x-hidden">
+    <main className="relative min-h-screen overflow-x-hidden pt-20 sm:pt-24">
       <Nav />
       {children}
       <Footer />
     </main>
+
   );
 }
 
