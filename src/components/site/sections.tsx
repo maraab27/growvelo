@@ -700,7 +700,7 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
           {playing && item.youtubeId ? (
             <iframe
               className="absolute inset-0 h-full w-full"
-              src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&rel=0`}
+              src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&rel=0&hd=1&vq=hd1080&modestbranding=1`}
               title={item.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
