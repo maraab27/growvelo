@@ -671,7 +671,9 @@ const PORTFOLIO_ITEMS: {
 function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; tilt: string }) {
   const [playing, setPlaying] = useState(false);
   const hasVideo = !!item.youtubeId;
-  const posterUrl = item.youtubeId ? `https://img.youtube.com/vi/${item.youtubeId}/${item.reel ? "hqdefault" : "maxresdefault"}.jpg` : undefined;
+  const posterUrl = item.youtubeId ? `https://i.ytimg.com/vi_webp/${item.youtubeId}/maxresdefault.webp` : undefined;
+  const posterFallback = item.youtubeId ? `https://i.ytimg.com/vi/${item.youtubeId}/maxresdefault.jpg` : undefined;
+  const posterFallback2 = item.youtubeId ? `https://i.ytimg.com/vi/${item.youtubeId}/hqdefault.jpg` : undefined;
 
   return (
     <div className="relative">
@@ -679,10 +681,22 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
       <div className={`sticky-card tint-${item.tint} p-3 ${tilt}`}>
         <div
           className={`group relative w-full overflow-hidden rounded-xl ${item.reel ? "aspect-[9/16] mx-auto max-w-[280px]" : "aspect-video"}`}
-          style={{
-            background: posterUrl ? `url(${posterUrl}) center/cover no-repeat, ${item.thumb}` : item.thumb,
-          }}
+          style={{ background: item.thumb }}
         >
+          {posterUrl && (
+            <img
+              src={posterUrl}
+              alt={item.title}
+              loading="lazy"
+              decoding="async"
+              onError={(e) => {
+                const img = e.currentTarget;
+                if (img.src.endsWith(".webp") && posterFallback) img.src = posterFallback;
+                else if (posterFallback2 && img.src !== posterFallback2) img.src = posterFallback2;
+              }}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          )}
           {playing && item.youtubeId ? (
             <iframe
               className="absolute inset-0 h-full w-full"
