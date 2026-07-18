@@ -600,13 +600,13 @@ export function Services() {
           <div className="relative">
             <div className="pin" style={pinStyle("brand")} />
             <div className="sticky-card p-5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-sm">
-                  <Layers className="h-4 w-4 text-foreground/70" />
-                  <span className="font-semibold">সার্ভিস লেয়ার</span>
-                  <span className="text-foreground/40">Effects</span>
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex min-w-0 items-center gap-2 text-sm">
+                  <Layers className="h-4 w-4 shrink-0 text-foreground/70" />
+                  <span className="truncate font-semibold">সার্ভিস লেয়ার</span>
+                  <span className="hidden text-foreground/40 sm:inline">Effects</span>
                 </div>
-                <span className="mono-readout">8 Items</span>
+                <span className="mono-readout shrink-0">8 Items</span>
               </div>
               <div className="mt-5 space-y-2.5">
                 {[
