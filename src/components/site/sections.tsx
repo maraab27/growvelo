@@ -413,15 +413,14 @@ export function Hero() {
                     <span className="mono-readout rounded-full bg-white/70 px-2.5 py-1 ring-1 ring-black/5">Intermediate</span>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap items-center gap-3">
+                  <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
                     <Link to="/courses" className="gloss-btn inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold">
                       Enroll now <ArrowRight className="h-4 w-4" />
                     </Link>
-                    <div className="flex items-baseline gap-2">
-                      <span className="font-display text-lg font-semibold">৳4,000</span>
-                      <span className="text-xs text-foreground/50 line-through">৳5,000</span>
-                      <span className="text-[10px] font-medium uppercase tracking-wide text-foreground/60">Early Bird</span>
-                      <span className="mono-readout">early-bird</span>
+                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                      <span className="font-display text-lg font-semibold leading-none">৳4,000</span>
+                      <span className="text-xs text-foreground/50 line-through leading-none">৳5,000</span>
+                      <span className="whitespace-nowrap text-[10px] font-medium uppercase tracking-wide text-foreground/60">Early Bird</span>
                     </div>
                   </div>
                 </div>
@@ -601,13 +600,13 @@ export function Services() {
           <div className="relative">
             <div className="pin" style={pinStyle("brand")} />
             <div className="sticky-card p-5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-sm">
-                  <Layers className="h-4 w-4 text-foreground/70" />
-                  <span className="font-semibold">সার্ভিস লেয়ার</span>
-                  <span className="text-foreground/40">Effects</span>
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex min-w-0 items-center gap-2 text-sm">
+                  <Layers className="h-4 w-4 shrink-0 text-foreground/70" />
+                  <span className="truncate font-semibold">সার্ভিস লেয়ার</span>
+                  <span className="hidden text-foreground/40 sm:inline">Effects</span>
                 </div>
-                <span className="mono-readout">8 Items</span>
+                <span className="mono-readout shrink-0">8 Items</span>
               </div>
               <div className="mt-5 space-y-2.5">
                 {[
@@ -979,11 +978,11 @@ export function Pricing() {
               <div className={`sticky-card tint-${t.tint} p-6 flex flex-col ${i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} ${t.highlight ? "ring-2" : ""}`}
                    style={t.highlight ? { boxShadow: "inset 0 1.5px 0 rgba(255,255,255,1), 0 4px 6px color-mix(in oklab, var(--foreground) 10%, transparent), 0 30px 55px -18px color-mix(in oklab, var(--brand) 55%, transparent)" } : undefined}>
                 {t.highlight && (
-                  <span className="absolute -top-3 right-6">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap">
                     <Chip color="brand" icon={<Sparkles className="h-3.5 w-3.5" />}>Most popular</Chip>
                   </span>
                 )}
-                <Chip color={t.chipColor}>{t.name}</Chip>
+                <Chip color={t.chipColor} className="self-start">{t.name}</Chip>
                 <div className="mt-4 flex items-end gap-1">
                   <span className="font-display text-4xl font-semibold">{t.price}</span>
                   <span className="mb-1 text-xs text-foreground/55">{t.unit}</span>
