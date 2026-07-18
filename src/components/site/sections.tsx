@@ -122,7 +122,7 @@ const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
 export function Nav() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="sticky top-3 z-50 flex justify-center px-3 sm:top-4 sm:px-4">
+    <div className="fixed inset-x-0 top-3 z-50 flex justify-center px-3 sm:top-4 sm:px-4">
       <header className="glass flex w-full max-w-6xl flex-col overflow-hidden !rounded-3xl px-3 py-2 sm:!rounded-full sm:px-5 sm:py-2">
         <div className="flex w-full items-center justify-between gap-3">
           <Link to="/" className="flex min-w-0 items-center gap-2 sm:gap-2.5" onClick={() => setOpen(false)}>
