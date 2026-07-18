@@ -431,14 +431,12 @@ export function Hero() {
 
         {/* Trust strip */}
         <div className="relative z-10 mt-16 sm:mt-24">
-          <div className="mono-readout text-center">Trusted by 90+ creators &amp; brands</div>
+          <div className="mono-readout text-center">Trusted by creators &amp; brands</div>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-[0.22em] text-foreground/45 sm:gap-x-12 sm:text-sm">
-            <span>Northwind</span>
-            <span>Pixelmob</span>
-            <span>Oatfield</span>
-            <span>Kuro&amp;Co</span>
-            <span>Studio 88</span>
-            <span>Brightly</span>
+            <span>Abdullah Maraab</span>
+            <span>Tanvir Mahmud</span>
+            <span>Zaruun</span>
+            <span>Goldenrock FZCO</span>
           </div>
         </div>
       </div>
