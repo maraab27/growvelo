@@ -20,8 +20,11 @@ import {
   Clock,
   Layers,
   Eye,
+  Megaphone,
+  Briefcase,
   Pin as PinIcon,
 } from "lucide-react";
+
 import growveloMark from "../../assets/growvelo-mark.png.asset.json";
 
 /* ---------- helpers ---------- */
