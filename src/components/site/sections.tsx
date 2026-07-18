@@ -381,13 +381,13 @@ export function Hero() {
 
                   {/* Course thumbnail / poster */}
                   <div
-                    className="relative mt-3 aspect-[4/5] w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black"
+                    className="relative mt-3 w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black"
                     aria-label="Course poster"
                   >
                     <img
                       src={courseThumbnail.url}
                       alt="Rising Editors — Video Editing Bootcamp poster"
-                      className="absolute inset-0 h-full w-full object-cover"
+                      className="block h-auto w-full object-contain"
                       loading="lazy"
                     />
                     <div className="absolute left-3 top-3">
@@ -401,6 +401,7 @@ export function Hero() {
                       </span>
                     </div>
                   </div>
+
 
                   <p className="mt-3 text-[13px] leading-relaxed text-foreground/70 sm:text-sm">
                     ৬ সপ্তাহের hands-on কোর্স। Story-first editing, color grading, sound design আর delivery workflow।
