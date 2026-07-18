@@ -577,12 +577,12 @@ export function Services() {
         <SectionHead
           eyebrow="Our Services"
           eyebrowColor="lemon"
-          eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
           before="Everything you"
           gradWord="need,"
           after="right here."
-          sub="বাংলাদেশি creator, brand আর agency-দের জন্য সাজানো — এক ছাদের নিচে সব ধরনের এডিটিং সার্ভিস।"
+          sub="বাংলাদেশি creator, brand আর agency-দের জন্য সাজানো। এক ছাদের নিচে সব ধরনের এডিটিং সার্ভিস।"
         />
+
 
         <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-3">
