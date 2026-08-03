@@ -1144,11 +1144,15 @@ export function Courses({ limit }: { limit?: number } = {}) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((c, i) => (
-            <div key={c.title} className="relative">
+        <div className="mx-auto grid max-w-[880px] grid-cols-1 gap-8 sm:grid-cols-2">
+          {items.map((c) => (
+            <div key={c.slug} className="relative">
               <div className="pin" style={pinStyle(c.pin)} />
-              <div className={`sticky-card tint-${c.tint} p-3 ${i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"}`}>
+              <Link
+                to="/courses/$slug"
+                params={{ slug: c.slug }}
+                className={`sticky-card tint-${c.tint} block p-3 transition-transform hover:-translate-y-1`}
+              >
                 <div className="relative aspect-[16/9] overflow-hidden rounded-xl" style={{ background: c.thumb }}>
                   <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
                   <div className="absolute left-2.5 top-2.5">
@@ -1166,10 +1170,11 @@ export function Courses({ limit }: { limit?: number } = {}) {
                         <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
                       )}
                     </div>
-                    <a href="#" className="gloss-btn !text-xs !py-2 !px-4">Enroll</a>
+                    <span className="gloss-btn !text-xs !py-2 !px-4">View details</span>
                   </div>
                 </div>
-              </div>
+              </Link>
+
             </div>
           ))}
         </div>
