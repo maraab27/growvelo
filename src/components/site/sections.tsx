@@ -1124,10 +1124,11 @@ export function Courses({ limit }: { limit?: number } = {}) {
         />
 
         <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-5">
-          {COURSE_CATEGORIES.map((c, i) => (
+          {COURSE_CATEGORIES.map((c) => (
             <div key={c.name} className="relative">
               <div className="pin" style={pinStyle(c.pin)} />
-              <div className={`sticky-card tint-${c.tint} p-5 text-center ${i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"}`}>
+              <div className={`sticky-card tint-${c.tint} p-5 text-center`}>
+
                 <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl" style={{ background: c.grad, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5)" }}>
                   {c.icon}
                 </div>
