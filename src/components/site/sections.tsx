@@ -614,12 +614,12 @@ export function Services() {
               </div>
               <div className="mt-5 space-y-2.5">
                 {[
-                  { name: "ইউটিউব", lv: "L01 · 100%", grad: "linear-gradient(135deg, var(--coral), var(--blush))" },
-                  { name: "রিলস / শর্টস", lv: "L02 · 100%", grad: "linear-gradient(135deg, var(--mint), var(--brand))" },
-                  { name: "পডকাস্ট", lv: "L03 · 100%", grad: "linear-gradient(135deg, var(--sky), var(--brand))" },
-                  { name: "অ্যাড", lv: "L04 · 100%", grad: "linear-gradient(135deg, var(--lemon), var(--coral))" },
-                  { name: "কালার গ্রেড", lv: "L05 · 100%", grad: "linear-gradient(135deg, var(--brand), var(--sky))" },
-                  { name: "ডকুমেন্টারি", lv: "L06 · 100%", grad: "linear-gradient(135deg, var(--blush), var(--coral))" },
+                  { name: "YouTube", lv: "L01 · 100%", grad: "linear-gradient(135deg, var(--coral), var(--blush))" },
+                  { name: "Reels / Shorts", lv: "L02 · 100%", grad: "linear-gradient(135deg, var(--mint), var(--brand))" },
+                  { name: "Podcast", lv: "L03 · 100%", grad: "linear-gradient(135deg, var(--sky), var(--brand))" },
+                  { name: "Ads", lv: "L04 · 100%", grad: "linear-gradient(135deg, var(--lemon), var(--coral))" },
+                  { name: "Color Grade", lv: "L05 · 100%", grad: "linear-gradient(135deg, var(--brand), var(--sky))" },
+                  { name: "Documentary", lv: "L06 · 100%", grad: "linear-gradient(135deg, var(--blush), var(--coral))" },
                 ].map((l) => (
                   <div key={l.name} className="flex items-center gap-3 rounded-xl border border-foreground/8 bg-white/60 p-2.5">
                     <div className="h-8 w-8 rounded-lg" style={{ background: l.grad }} />
