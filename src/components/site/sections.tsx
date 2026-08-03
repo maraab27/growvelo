@@ -155,6 +155,7 @@ export function Nav() {
           </nav>
 
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+            <ThemeToggle />
             <Link to="/contact" className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm">
               Hire us <ArrowRight className="h-4 w-4" />
             </Link>
@@ -163,11 +164,12 @@ export function Nav() {
               aria-label="Toggle menu"
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
-              className="grid h-9 w-9 place-items-center rounded-full border border-foreground/10 bg-white/60 text-foreground transition hover:bg-white lg:hidden"
+              className="grid h-9 w-9 place-items-center rounded-full border border-foreground/10 bg-foreground/5 text-foreground transition hover:bg-foreground/10 lg:hidden"
             >
               {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
           </div>
+
         </div>
 
         {open && (
