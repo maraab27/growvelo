@@ -491,7 +491,7 @@ const SERVICES: {
     tag: "YouTube",
     chipColor: "coral",
     icon: <Youtube className="h-3.5 w-3.5" />,
-    title: "ইউটিউব এডিটিং",
+    title: "YouTube Editing",
     body: "Creator-দের জন্য long-form YouTube ভিডিও। Hook, pacing, B-roll আর thumbnail-ready কাট।",
     tint: "coral",
     pin: "coral",
@@ -503,7 +503,7 @@ const SERVICES: {
     tag: "Short-Form",
     chipColor: "mint",
     icon: <Smartphone className="h-3.5 w-3.5" />,
-    title: "রিলস ও শর্টস",
+    title: "Reels & Shorts",
     body: "Reels, TikTok আর Shorts। Trend-friendly দ্রুত pacing, punchy caption আর scroll-stopping hook।",
     tint: "mint",
     pin: "mint",
@@ -515,7 +515,7 @@ const SERVICES: {
     tag: "Podcast",
     chipColor: "sky",
     icon: <Mic className="h-3.5 w-3.5" />,
-    title: "পডকাস্ট এডিটিং",
+    title: "Podcast Editing",
     body: "Podcast-এর video + audio। Voice cleanup, multi-cam sync আর সাথে ছোট clip/reels কেটে দেওয়া।",
     tint: "sky",
     pin: "sky",
@@ -527,7 +527,7 @@ const SERVICES: {
     tag: "Ad",
     chipColor: "lemon",
     icon: <Megaphone className="h-3.5 w-3.5" />,
-    title: "অ্যাড ও কমার্শিয়াল",
+    title: "Ads & Commercial",
     body: "Brand ad, product launch, Facebook/YouTube ads। Hook-first, conversion-focused কাট।",
     tint: "lemon",
     pin: "lemon",
@@ -539,7 +539,7 @@ const SERVICES: {
     tag: "Color",
     chipColor: "brand",
     icon: <Palette className="h-3.5 w-3.5" />,
-    title: "কালার গ্রেডিং",
+    title: "Color Grading",
     body: "শুধু কালার-এর কাজ। Cinematic look, skin-tone ঠিক করা আর brand-consistent color pass।",
     tint: "brand",
     pin: "brand",
@@ -551,7 +551,7 @@ const SERVICES: {
     tag: "Cinematic",
     chipColor: "blush",
     icon: <Film className="h-3.5 w-3.5" />,
-    title: "ডকুমেন্টারি ও ব্র্যান্ড ফিল্ম",
+    title: "Documentary & Brand Film",
     body: "Story-first long-form। Founder story, documentary আর cinematic brand film পুরো প্যাকেজে।",
     tint: "blush",
     pin: "blush",
@@ -607,19 +607,19 @@ export function Services() {
               <div className="flex items-center justify-between gap-2">
                 <div className="flex min-w-0 items-center gap-2 text-sm">
                   <Layers className="h-4 w-4 shrink-0 text-foreground/70" />
-                  <span className="truncate font-semibold">সার্ভিস লেয়ার</span>
+                  <span className="truncate font-semibold">Service Layers</span>
                   <span className="hidden text-foreground/40 sm:inline">Effects</span>
                 </div>
                 <span className="mono-readout shrink-0">8 Items</span>
               </div>
               <div className="mt-5 space-y-2.5">
                 {[
-                  { name: "ইউটিউব", lv: "L01 · 100%", grad: "linear-gradient(135deg, var(--coral), var(--blush))" },
-                  { name: "রিলস / শর্টস", lv: "L02 · 100%", grad: "linear-gradient(135deg, var(--mint), var(--brand))" },
-                  { name: "পডকাস্ট", lv: "L03 · 100%", grad: "linear-gradient(135deg, var(--sky), var(--brand))" },
-                  { name: "অ্যাড", lv: "L04 · 100%", grad: "linear-gradient(135deg, var(--lemon), var(--coral))" },
-                  { name: "কালার গ্রেড", lv: "L05 · 100%", grad: "linear-gradient(135deg, var(--brand), var(--sky))" },
-                  { name: "ডকুমেন্টারি", lv: "L06 · 100%", grad: "linear-gradient(135deg, var(--blush), var(--coral))" },
+                  { name: "YouTube", lv: "L01 · 100%", grad: "linear-gradient(135deg, var(--coral), var(--blush))" },
+                  { name: "Reels / Shorts", lv: "L02 · 100%", grad: "linear-gradient(135deg, var(--mint), var(--brand))" },
+                  { name: "Podcast", lv: "L03 · 100%", grad: "linear-gradient(135deg, var(--sky), var(--brand))" },
+                  { name: "Ads", lv: "L04 · 100%", grad: "linear-gradient(135deg, var(--lemon), var(--coral))" },
+                  { name: "Color Grade", lv: "L05 · 100%", grad: "linear-gradient(135deg, var(--brand), var(--sky))" },
+                  { name: "Documentary", lv: "L06 · 100%", grad: "linear-gradient(135deg, var(--blush), var(--coral))" },
                 ].map((l) => (
                   <div key={l.name} className="flex items-center gap-3 rounded-xl border border-foreground/8 bg-white/60 p-2.5">
                     <div className="h-8 w-8 rounded-lg" style={{ background: l.grad }} />
