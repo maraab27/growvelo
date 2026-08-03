@@ -607,7 +607,7 @@ export function Services() {
               <div className="flex items-center justify-between gap-2">
                 <div className="flex min-w-0 items-center gap-2 text-sm">
                   <Layers className="h-4 w-4 shrink-0 text-foreground/70" />
-                  <span className="truncate font-semibold">সার্ভিস লেয়ার</span>
+                  <span className="truncate font-semibold">Service Layers</span>
                   <span className="hidden text-foreground/40 sm:inline">Effects</span>
                 </div>
                 <span className="mono-readout shrink-0">8 Items</span>
