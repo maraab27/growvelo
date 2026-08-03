@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { themeInitScript } from "../components/site/theme-toggle";
+
 
 function NotFoundComponent() {
   return (
@@ -103,6 +105,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body>
         {children}
@@ -111,6 +114,7 @@ function RootShell({ children }: { children: ReactNode }) {
     </html>
   );
 }
+
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
