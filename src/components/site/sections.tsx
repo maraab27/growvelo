@@ -1038,15 +1038,75 @@ const COURSE_CATEGORIES: { name: string; count: string; icon: ReactNode; tint: "
   { name: "Sound", count: "3 courses", icon: <AudioLines className="h-5 w-5 text-white" />, tint: "sky", pin: "sky", grad: "linear-gradient(135deg, var(--sky), var(--brand))" },
 ];
 
-const COURSES: { title: string; level: string; length: string; price: string; oldPrice?: string; thumb: string; desc: string; tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor; chipColor: ChipColor; featured?: boolean }[] = [
-  { title: "১৫ দিনের ফ্রি ভিডিও এডিটিং বুটক্যাম্প", level: "Beginner → Pro", length: "15 days · Live", price: "৳4,000", oldPrice: "৳5,000", thumb: `url(${courseThumbnail.url}) center/cover no-repeat`, desc: "Rising Editors — Batch 1. প্রিমিয়ার প্রো দিয়ে প্রফেশনাল এডিটিং, একদম Beginner হলেও জয়েন করতে পারবেন।", tint: "brand", pin: "brand", chipColor: "brand", featured: true },
-  { title: "Cinematic Editing in Premiere Pro", level: "Intermediate", length: "8h · 42 lessons", price: "$129", thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)", desc: "Learn our exact cinematic workflow — pacing, color, and sound design.", tint: "mint", pin: "mint", chipColor: "mint" },
-  { title: "Reels & Shorts Mastery (CapCut + AE)", level: "Beginner → Pro", length: "5h · 28 lessons", price: "$79", thumb: "linear-gradient(135deg,#ec4899,#f97316)", desc: "Hook-driven vertical edits, trend-native pacing, and viral captions.", tint: "coral", pin: "coral", chipColor: "coral" },
-  { title: "Motion Graphics for Brands", level: "Advanced", length: "10h · 55 lessons", price: "$179", thumb: "linear-gradient(135deg,#0ea5e9,#22d3ee)", desc: "Kinetic type, explainer animation, and clean brand-ready comps.", tint: "sky", pin: "sky", chipColor: "sky" },
-  { title: "Color Grading with DaVinci Resolve", level: "Intermediate", length: "6h · 30 lessons", price: "$99", thumb: "linear-gradient(135deg,#f43f5e,#a78bfa)", desc: "From node basics to full-film grades that hold up on any screen.", tint: "blush", pin: "blush", chipColor: "blush" },
-  { title: "YouTube Editing for Retention", level: "All levels", length: "4h · 22 lessons", price: "$69", thumb: "linear-gradient(135deg,#ef4444,#eab308)", desc: "Structure, jump cuts, b-roll and thumbnail synergy — the retention stack.", tint: "lemon", pin: "lemon", chipColor: "lemon" },
-  { title: "Sound Design & Mixing", level: "Intermediate", length: "5h · 26 lessons", price: "$89", thumb: "linear-gradient(135deg,#8b5cf6,#0ea5e9)", desc: "Voice cleanup, layered SFX, and cinematic music beds.", tint: "brand", pin: "brand", chipColor: "brand" },
+export type CourseLesson = { title: string; length: string; free?: boolean };
+export type CourseModule = { title: string; lessons: CourseLesson[] };
+export type Course = {
+  slug: string; title: string; level: string; length: string; price: string; oldPrice?: string;
+  thumb: string; desc: string; tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand";
+  pin: ChipColor; chipColor: ChipColor; featured?: boolean;
+  start: string; instructor: string; about: string; outcomes: string[]; modules: CourseModule[];
+};
+
+export const COURSES: Course[] = [
+  {
+    slug: "video-editing-bootcamp",
+    title: "১৫ দিনের ফ্রি ভিডিও এডিটিং বুটক্যাম্প",
+    level: "Beginner → Pro",
+    length: "15 days · Live",
+    price: "৳4,000",
+    oldPrice: "৳5,000",
+    thumb: `url(${courseThumbnail.url}) center/cover no-repeat`,
+    desc: "Rising Editors — Batch 1. প্রিমিয়ার প্রো দিয়ে প্রফেশনাল এডিটিং, একদম Beginner হলেও জয়েন করতে পারবেন।",
+    tint: "brand", pin: "brand", chipColor: "brand", featured: true,
+    start: "Batch 1 · শীঘ্রই শুরু",
+    instructor: "Muhammad Ataullah",
+    about:
+      "একদম শূন্য থেকে শুরু করে প্রফেশনাল ভিডিও এডিটর হওয়ার সম্পূর্ণ রোডম্যাপ। Live class, practice project আর personal feedback — সব মিলিয়ে ১৫ দিনের হাতে-কলমে ট্রেনিং।",
+    outcomes: [
+      "Premiere Pro-তে A থেকে Z প্রফেশনাল workflow",
+      "YouTube long-form + Reels/Shorts দুই ধরনের এডিটিং",
+      "Color grading, sound design আর motion basics",
+      "Client কীভাবে পাবেন — portfolio ও pricing গাইড",
+    ],
+    modules: [
+      {
+        title: "Module 1 · Introduction",
+        lessons: [
+          { title: "কোর্স পরিচিতি ও রোডম্যাপ", length: "12:40", free: true },
+          { title: "Premiere Pro setup ও interface tour", length: "18:05", free: true },
+          { title: "প্রথম টাইমলাইন — cut, trim, export", length: "21:30", free: true },
+        ],
+      },
+      {
+        title: "Module 2 · Core Editing",
+        lessons: [
+          { title: "Pacing ও rhythm — কাট কোথায় বসাবেন", length: "24:10" },
+          { title: "B-roll, J/L cut আর transition", length: "19:55" },
+          { title: "Text, caption ও lower third", length: "17:20" },
+          { title: "Practice project 1 — YouTube vlog edit", length: "32:00" },
+        ],
+      },
+      {
+        title: "Module 3 · Short-Form",
+        lessons: [
+          { title: "Hook তৈরির ফর্মুলা", length: "15:40" },
+          { title: "Reels/Shorts vertical workflow", length: "22:15" },
+          { title: "Auto caption ও trend-native pacing", length: "16:50" },
+        ],
+      },
+      {
+        title: "Module 4 · Color, Sound & Delivery",
+        lessons: [
+          { title: "Color correction vs grading", length: "26:30" },
+          { title: "Voice cleanup ও music mixing", length: "20:05" },
+          { title: "Export settings — YouTube, FB, Insta", length: "13:45" },
+          { title: "Client work, pricing ও portfolio", length: "28:10" },
+        ],
+      },
+    ],
+  },
 ];
+
 
 export function Courses({ limit }: { limit?: number } = {}) {
   const items = limit ? COURSES.slice(0, limit) : COURSES;
@@ -1064,10 +1124,11 @@ export function Courses({ limit }: { limit?: number } = {}) {
         />
 
         <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-5">
-          {COURSE_CATEGORIES.map((c, i) => (
+          {COURSE_CATEGORIES.map((c) => (
             <div key={c.name} className="relative">
               <div className="pin" style={pinStyle(c.pin)} />
-              <div className={`sticky-card tint-${c.tint} p-5 text-center ${i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"}`}>
+              <div className={`sticky-card tint-${c.tint} p-5 text-center`}>
+
                 <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl" style={{ background: c.grad, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5)" }}>
                   {c.icon}
                 </div>
@@ -1084,11 +1145,15 @@ export function Courses({ limit }: { limit?: number } = {}) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((c, i) => (
-            <div key={c.title} className="relative">
+        <div className="mx-auto grid max-w-[880px] grid-cols-1 gap-8 sm:grid-cols-2">
+          {items.map((c) => (
+            <div key={c.slug} className="relative">
               <div className="pin" style={pinStyle(c.pin)} />
-              <div className={`sticky-card tint-${c.tint} p-3 ${i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"}`}>
+              <Link
+                to="/courses/$slug"
+                params={{ slug: c.slug }}
+                className={`sticky-card tint-${c.tint} block p-3 transition-transform hover:-translate-y-1`}
+              >
                 <div className="relative aspect-[16/9] overflow-hidden rounded-xl" style={{ background: c.thumb }}>
                   <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
                   <div className="absolute left-2.5 top-2.5">
@@ -1106,10 +1171,11 @@ export function Courses({ limit }: { limit?: number } = {}) {
                         <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
                       )}
                     </div>
-                    <a href="#" className="gloss-btn !text-xs !py-2 !px-4">Enroll</a>
+                    <span className="gloss-btn !text-xs !py-2 !px-4">View details</span>
                   </div>
                 </div>
-              </div>
+              </Link>
+
             </div>
           ))}
         </div>
