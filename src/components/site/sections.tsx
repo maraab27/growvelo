@@ -25,9 +25,11 @@ import {
   Pin as PinIcon,
 } from "lucide-react";
 
+import { ThemeToggle } from "./theme-toggle";
 import growveloMark from "../../assets/growvelo-mark.png.asset.json";
 import courseThumbnail from "../../assets/course-thumbnail.png.asset.json";
 import instructorAtaullah from "../../assets/instructor-ataullah.png.asset.json";
+
 
 /* ---------- helpers ---------- */
 
