@@ -18,6 +18,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EditorsSlugRouteImport } from './routes/editors.$slug'
+import { Route as CoursesSlugRouteImport } from './routes/courses.$slug'
 
 const ReviewsRoute = ReviewsRouteImport.update({
   id: '/reviews',
@@ -64,27 +65,34 @@ const EditorsSlugRoute = EditorsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => EditorsRoute,
 } as any)
+const CoursesSlugRoute = CoursesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CoursesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/courses': typeof CoursesRoute
+  '/courses': typeof CoursesRouteWithChildren
   '/editors': typeof EditorsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/pricing': typeof PricingRoute
   '/reviews': typeof ReviewsRoute
+  '/courses/$slug': typeof CoursesSlugRoute
   '/editors/$slug': typeof EditorsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/courses': typeof CoursesRoute
+  '/courses': typeof CoursesRouteWithChildren
   '/editors': typeof EditorsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/pricing': typeof PricingRoute
   '/reviews': typeof ReviewsRoute
+  '/courses/$slug': typeof CoursesSlugRoute
   '/editors/$slug': typeof EditorsSlugRoute
 }
 export interface FileRoutesById {
@@ -92,11 +100,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/courses': typeof CoursesRoute
+  '/courses': typeof CoursesRouteWithChildren
   '/editors': typeof EditorsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/pricing': typeof PricingRoute
   '/reviews': typeof ReviewsRoute
+  '/courses/$slug': typeof CoursesSlugRoute
   '/editors/$slug': typeof EditorsSlugRoute
 }
 export interface FileRouteTypes {
@@ -110,6 +119,7 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/pricing'
     | '/reviews'
+    | '/courses/$slug'
     | '/editors/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/pricing'
     | '/reviews'
+    | '/courses/$slug'
     | '/editors/$slug'
   id:
     | '__root__'
@@ -132,6 +143,7 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/pricing'
     | '/reviews'
+    | '/courses/$slug'
     | '/editors/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -139,7 +151,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
-  CoursesRoute: typeof CoursesRoute
+  CoursesRoute: typeof CoursesRouteWithChildren
   EditorsRoute: typeof EditorsRouteWithChildren
   PortfolioRoute: typeof PortfolioRoute
   PricingRoute: typeof PricingRoute
@@ -211,8 +223,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EditorsSlugRouteImport
       parentRoute: typeof EditorsRoute
     }
+    '/courses/$slug': {
+      id: '/courses/$slug'
+      path: '/$slug'
+      fullPath: '/courses/$slug'
+      preLoaderRoute: typeof CoursesSlugRouteImport
+      parentRoute: typeof CoursesRoute
+    }
   }
 }
+
+interface CoursesRouteChildren {
+  CoursesSlugRoute: typeof CoursesSlugRoute
+}
+
+const CoursesRouteChildren: CoursesRouteChildren = {
+  CoursesSlugRoute: CoursesSlugRoute,
+}
+
+const CoursesRouteWithChildren =
+  CoursesRoute._addFileChildren(CoursesRouteChildren)
 
 interface EditorsRouteChildren {
   EditorsSlugRoute: typeof EditorsSlugRoute
@@ -229,7 +259,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
-  CoursesRoute: CoursesRoute,
+  CoursesRoute: CoursesRouteWithChildren,
   EditorsRoute: EditorsRouteWithChildren,
   PortfolioRoute: PortfolioRoute,
   PricingRoute: PricingRoute,
