@@ -1151,18 +1151,18 @@ export function Courses({ limit }: { limit?: number } = {}) {
               <Link
                 to="/courses/$slug"
                 params={{ slug: c.slug }}
-                className={`sticky-card tint-${c.tint} block p-3 transition-transform hover:-translate-y-1 cursor-pointer`}
+                className={`sticky-card tint-${c.tint} block p-3 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl active:scale-[0.98] cursor-pointer group`}
               >
                 <div className="relative aspect-[16/9] overflow-hidden rounded-xl" style={{ background: c.thumb }}>
-                  <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
                   <div className="absolute left-2.5 top-2.5">
                     <Chip color={c.chipColor}>{c.level}</Chip>
                   </div>
-                  <div className="absolute bottom-2.5 left-3 text-xs font-medium text-white">{c.length}</div>
+                  <div className="absolute bottom-2.5 left-3 text-xs font-medium text-white drop-shadow-sm">{c.length}</div>
                 </div>
                 <div className="p-4">
-                  <div className="font-display text-lg font-semibold">{c.title}</div>
-                  <p className="mt-1 text-sm text-foreground/65">{c.desc}</p>
+                  <div className="font-display text-lg font-semibold group-hover:text-[var(--brand)] transition-colors">{c.title}</div>
+                  <p className="mt-1 text-sm text-foreground/65 line-clamp-2">{c.desc}</p>
                   <div className="mt-4 flex items-center justify-between gap-3">
                     <div className="flex items-baseline gap-2">
                       <span className="font-display text-xl font-semibold">{c.price}</span>
@@ -1170,11 +1170,10 @@ export function Courses({ limit }: { limit?: number } = {}) {
                         <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
                       )}
                     </div>
-                    <span className="gloss-btn !text-xs !py-2 !px-4 pointer-events-none">View details</span>
+                    <span className="gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none">View details</span>
                   </div>
                 </div>
               </Link>
-
             </div>
           ))}
         </div>

@@ -1,5 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { SiteShell, Courses, BigCTA } from "../components/site/sections";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/courses")({
   head: () => ({
@@ -10,11 +9,5 @@ export const Route = createFileRoute("/courses")({
       { property: "og:description", content: "Editing courses taught by growVelo editors." },
     ],
   }),
-  component: () => (
-    <SiteShell>
-      <div className="pt-16" />
-      <Courses />
-      <BigCTA />
-    </SiteShell>
-  ),
+  component: () => <Outlet />,
 });
