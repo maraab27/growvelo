@@ -131,6 +131,22 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    const removeBadge = () => {
+      const badge = document.querySelector('#lovable-badge') || 
+                    document.querySelector('[id*="lovable-badge"]') ||
+                    document.querySelector('a[href*="lovable.app/?utm_source=badge"]');
+      if (badge) {
+        badge.remove();
+      }
+    };
+
+    removeBadge();
+    const observer = new MutationObserver(removeBadge);
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
