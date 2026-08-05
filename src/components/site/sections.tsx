@@ -377,7 +377,7 @@ export function Hero() {
               </div>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-5 sm:gap-4">
                 {/* Course main card */}
-                <div className="sticky-card tint-mint p-4 tilt-xs-l sm:col-span-3">
+                <div className="sticky-card tint-mint p-4 sm:col-span-3">
                   <div className="flex items-center justify-between gap-2">
                     <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />}>Most Popular · Cohort 07</Chip>
                     <span className="mono-readout hidden sm:inline">4.9 ★ · 320+</span>
@@ -951,7 +951,7 @@ export function Editors({ limit }: { limit?: number } = {}) {
         />
         <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((e, i) => (
-            <EditorCard key={e.slug} e={e} tilt={i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} />
+            <EditorCard key={e.slug} e={e} tilt="" />
           ))}
         </div>
         {limit && (
