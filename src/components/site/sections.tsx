@@ -1188,8 +1188,8 @@ const REVIEWS: {
   name: string; role: string; body: string; initial: string; avatar: string;
   tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor;
 }[] = [
-  { name: "Ayaan Malik", role: "Creator · 1.2M subs", body: "growVelo cuts my long-form videos with taste — retention went up 22% in a month.", initial: "A", avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)", tint: "mint", pin: "mint" },
-  { name: "Lena Park", role: "Founder · Nova Labs", body: "Our brand film landed exactly the mood we wanted. Professional, on-time, and thoughtful.", initial: "L", avatar: "linear-gradient(135deg,#ec4899,#f97316)", tint: "coral", pin: "coral" },
+  { name: "Tanvir Mahmud", role: "Founder and Creator", body: "growVelo cuts my long-form videos with taste — retention went up 22% in a month.", initial: "T", avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)", tint: "mint", pin: "mint" },
+  { name: "Abdullah Maraab", role: "Creator", body: "Our brand film landed exactly the mood we wanted. Professional, on-time, and thoughtful.", initial: "A", avatar: "linear-gradient(135deg,#ec4899,#f97316)", tint: "coral", pin: "coral" },
   { name: "Rohan Das", role: "Head of Marketing · Stackly", body: "The motion team delivered a SaaS explainer that outperformed our old one 3x in demos booked.", initial: "R", avatar: "linear-gradient(135deg,#22c55e,#0ea5e9)", tint: "lemon", pin: "lemon" },
   { name: "Zara Ahmed", role: "Bride · Wedding Film", body: "Sadia captured emotions we didn't even know were on camera. We cried. Twice.", initial: "Z", avatar: "linear-gradient(135deg,#f43f5e,#a78bfa)", tint: "blush", pin: "blush" },
   { name: "Miguel Torres", role: "Podcaster · InsideOut", body: "Turnaround is unreal. Full episode edits in under 48 hours, every week.", initial: "M", avatar: "linear-gradient(135deg,#0ea5e9,#8b5cf6)", tint: "sky", pin: "sky" },
@@ -1218,7 +1218,7 @@ export function Reviews({ limit }: { limit?: number } = {}) {
                     <Star key={k} className="h-4 w-4" fill="currentColor" strokeWidth={0} />
                   ))}
                 </div>
-                <blockquote className="mt-4 font-serif text-lg italic leading-snug text-foreground/85">
+                <blockquote className="mt-4 text-base leading-relaxed text-foreground/85">
                   "{r.body}"
                 </blockquote>
                 <figcaption className="mt-6 flex items-center gap-3 border-t border-foreground/10 pt-4">
