@@ -166,59 +166,90 @@ function CourseDetail() {
         </div>
       )}
 
-      <section className="aurora-soft py-16 sm:py-20">
-        <div className="mx-auto max-w-[1100px] px-5">
-          <Link to="/courses" className="mono-readout inline-flex items-center gap-2 hover:opacity-70">
+      <section className="aurora-soft min-h-screen py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <Link to="/courses" className="mono-readout mb-8 inline-flex items-center gap-2 transition-opacity hover:opacity-70">
             <ArrowLeft className="h-3.5 w-3.5" /> All courses
           </Link>
 
-          <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-[1.35fr_1fr]">
-            <div className="sticky-card tint-brand p-3">
-              <div className="aspect-[16/9] w-full overflow-hidden rounded-xl" style={{ background: course.thumb }} />
-              <div className="p-4 sm:p-5">
-                <h1 className="font-display text-2xl font-semibold leading-tight sm:text-3xl">{course.title}</h1>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/70">{course.about}</p>
-                <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                  {course.outcomes.map((o) => (
-                    <div key={o} className="flex items-start gap-2 text-sm text-foreground/75">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand)]" />
-                      <span>{o}</span>
-                    </div>
-                  ))}
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.5fr_1fr] lg:gap-10">
+            {/* Left Column: Course Main Info */}
+            <div className="flex flex-col gap-6">
+              <div className="sticky-card tint-brand overflow-hidden p-0">
+                <div className="aspect-video w-full overflow-hidden" style={{ background: course.thumb }}>
+                   {/* Fallback color/gradient if image fails, or just keep it as is if course.thumb is a color */}
+                </div>
+                <div className="p-6 sm:p-8">
+                  <h1 className="font-display text-2xl font-bold leading-tight tracking-tight sm:text-4xl">
+                    {course.title}
+                  </h1>
+                  <p className="mt-4 text-base leading-relaxed text-foreground/75">
+                    {course.about}
+                  </p>
+                  
+                  <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                    {course.outcomes.map((o) => (
+                      <div key={o} className="flex items-start gap-3 rounded-xl bg-foreground/5 p-3 text-sm text-foreground/80 ring-1 ring-black/5">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand)]" />
+                        <span>{o}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="sticky-card tint-mint h-fit p-5">
-              <div className="flex items-baseline gap-2">
-                <span className="font-display text-3xl font-semibold">{course.price}</span>
-                {course.oldPrice && <span className="text-sm text-foreground/50 line-through">{course.oldPrice}</span>}
-              </div>
-              <div className="mt-4 space-y-2 text-sm text-foreground/70">
-                <div className="flex items-center gap-2"><CalendarDays className="h-4 w-4" /> {course.start}</div>
-                <div className="flex items-center gap-2"><Clock className="h-4 w-4" /> {course.length}</div>
-                <div className="flex items-center gap-2"><User className="h-4 w-4" /> {course.instructor}</div>
-                <div className="flex items-center gap-2"><Play className="h-4 w-4" /> {totalLessons} lessons · {freeLessons} free preview</div>
-              </div>
-              {enrolled ? (
-                <div className="mt-5 rounded-xl bg-[var(--mint)]/25 px-4 py-3 text-sm font-medium">
-                  ✅ Payment clear — সব class unlock হয়ে গেছে।
+            {/* Right Column: Pricing & Enrollment */}
+            <div className="flex flex-col gap-6">
+              <div className="sticky-card tint-mint h-fit p-6 sm:p-8">
+                <div className="flex items-baseline gap-3">
+                  <span className="font-display text-4xl font-bold">{course.price}</span>
+                  {course.oldPrice && (
+                    <span className="text-lg text-foreground/40 line-through decoration-coral/30">
+                      {course.oldPrice}
+                    </span>
+                  )}
                 </div>
-              ) : (
-                <>
-                  <button 
-                    onClick={() => setShowModal(true)}
-                    className="gloss-btn mt-5 w-full justify-center"
-                  >
-                    Enroll now
-                  </button>
-                  <p className="mt-3 text-xs text-foreground/55">
-                    বিকাশ পেমেন্ট কনফার্ম হওয়ার পরে আপনার ইমেলটি ডাটাবেজে যুক্ত করা হবে এবং কোর্সটি আনলক হবে।
-                  </p>
-                </>
-              )}
+                
+                <div className="mt-8 space-y-4">
+                  {[
+                    { icon: CalendarDays, text: course.start },
+                    { icon: Clock, text: course.length },
+                    { icon: User, text: course.instructor },
+                    { icon: Play, text: `${totalLessons} lessons · ${freeLessons} free preview` }
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-3 text-sm font-medium text-foreground/70">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60">
+                        <item.icon className="h-4 w-4" />
+                      </div>
+                      {item.text}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-10">
+                  {enrolled ? (
+                    <div className="rounded-2xl bg-[var(--mint)]/20 px-5 py-4 text-center text-sm font-semibold text-[var(--mint)] ring-1 ring-[var(--mint)]/20">
+                      ✅ Payment confirmed! Access unlocked.
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <button 
+                        onClick={() => setShowModal(true)}
+                        className="gloss-btn w-full justify-center !py-4 text-base font-bold"
+                      >
+                        Enroll Now
+                      </button>
+                      <p className="text-center text-xs leading-relaxed text-foreground/50">
+                        বিকাশ পেমেন্ট কনফার্ম হওয়ার পরে আপনার ইমেলটি ডাটাবেজে যুক্ত করা হবে এবং কোর্সটি আনলক হবে।
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
+
 
           <div className="mt-14">
             <h2 className="font-display text-xl font-semibold sm:text-2xl">Course curriculum</h2>
