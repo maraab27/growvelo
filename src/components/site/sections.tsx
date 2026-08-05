@@ -418,7 +418,7 @@ export function Hero() {
                   </div>
 
                   <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <Link to="/courses" className="gloss-btn inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold">
+                    <Link to="/courses/$slug" params={{ slug: "video-editing-bootcamp" }} className="gloss-btn inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold">
                       Enroll now <ArrowRight className="h-4 w-4" />
                     </Link>
                     <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
