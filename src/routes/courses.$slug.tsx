@@ -301,10 +301,14 @@ function CourseDetail() {
                       return (
                         <div 
                           key={l.title} 
-                          onClick={() => open && l.videoId && setActiveVideo(l.videoId)}
-                          className={`flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:py-3 sm:gap-3 group transition-colors ${
-                            open ? "cursor-pointer hover:bg-foreground/5" : "cursor-not-allowed"
-                          }`}
+                          onClick={() => {
+                            if (open) {
+                              l.videoId && setActiveVideo(l.videoId);
+                            } else {
+                              setShowLockedModal(true);
+                            }
+                          }}
+                          className={`flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:py-3 sm:gap-3 group transition-colors cursor-pointer hover:bg-foreground/5`}
                         >
                           <div className="flex items-center gap-3 min-w-0 flex-1">
                             <div
