@@ -1038,7 +1038,7 @@ const COURSE_CATEGORIES: { name: string; count: string; icon: ReactNode; tint: "
   { name: "Sound", count: "3 courses", icon: <AudioLines className="h-5 w-5 text-white" />, tint: "sky", pin: "sky", grad: "linear-gradient(135deg, var(--sky), var(--brand))" },
 ];
 
-export type CourseLesson = { title: string; length: string; free?: boolean };
+export type CourseLesson = { title: string; length: string; free?: boolean; videoId?: string };
 export type CourseModule = { title: string; lessons: CourseLesson[] };
 export type Course = {
   slug: string; title: string; level: string; length: string; price: string; oldPrice?: string;
