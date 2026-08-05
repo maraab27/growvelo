@@ -1218,7 +1218,7 @@ export function Reviews({ limit }: { limit?: number } = {}) {
                     <Star key={k} className="h-4 w-4" fill="currentColor" strokeWidth={0} />
                   ))}
                 </div>
-                <blockquote className="mt-4 font-serif text-lg italic leading-snug text-foreground/85">
+                <blockquote className="mt-4 text-base leading-relaxed text-foreground/85">
                   "{r.body}"
                 </blockquote>
                 <figcaption className="mt-6 flex items-center gap-3 border-t border-foreground/10 pt-4">
