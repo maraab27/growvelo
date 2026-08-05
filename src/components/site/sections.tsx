@@ -1151,7 +1151,7 @@ export function Courses({ limit }: { limit?: number } = {}) {
               <Link
                 to="/courses/$slug"
                 params={{ slug: c.slug }}
-                className={`sticky-card tint-${c.tint} block p-3 transition-transform hover:-translate-y-1`}
+                className={`sticky-card tint-${c.tint} block p-3 transition-transform hover:-translate-y-1 cursor-pointer`}
               >
                 <div className="relative aspect-[16/9] overflow-hidden rounded-xl" style={{ background: c.thumb }}>
                   <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
@@ -1170,7 +1170,7 @@ export function Courses({ limit }: { limit?: number } = {}) {
                         <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
                       )}
                     </div>
-                    <span className="gloss-btn !text-xs !py-2 !px-4">View details</span>
+                    <span className="gloss-btn !text-xs !py-2 !px-4 pointer-events-none">View details</span>
                   </div>
                 </div>
               </Link>

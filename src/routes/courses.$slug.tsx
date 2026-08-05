@@ -118,7 +118,8 @@ function CourseDetail() {
 
 export const Route = createFileRoute("/courses/$slug")({
   beforeLoad: ({ params }) => {
-    if (!COURSES.some((c) => c.slug === params.slug)) throw notFound();
+    const exists = COURSES.some((c) => c.slug === params.slug);
+    if (!exists) throw notFound();
   },
   head: ({ params }) => {
     const c = COURSES.find((x) => x.slug === params.slug);
