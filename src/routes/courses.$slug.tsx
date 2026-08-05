@@ -172,7 +172,7 @@ function CourseDetail() {
             <ArrowLeft className="h-3.5 w-3.5" /> All courses
           </Link>
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.5fr_1fr] lg:gap-10">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.6fr_1fr] lg:gap-12">
             {/* Left Column: Course Main Info */}
             <div className="flex flex-col gap-6">
               <div className="sticky-card tint-brand overflow-hidden p-0">
@@ -180,10 +180,10 @@ function CourseDetail() {
                    {/* Fallback color/gradient if image fails, or just keep it as is if course.thumb is a color */}
                 </div>
                 <div className="p-6 sm:p-8">
-                  <h1 className="font-display text-2xl font-bold leading-tight tracking-tight sm:text-4xl">
+                  <h1 className="font-display text-2xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
                     {course.title}
                   </h1>
-                  <p className="mt-4 text-base leading-relaxed text-foreground/75">
+                  <p className="mt-4 text-sm leading-relaxed text-foreground/75 sm:text-base">
                     {course.about}
                   </p>
                   
@@ -201,7 +201,7 @@ function CourseDetail() {
 
             {/* Right Column: Pricing & Enrollment */}
             <div className="flex flex-col gap-6">
-              <div className="sticky-card tint-mint h-fit p-6 sm:p-8">
+              <div className="sticky-card tint-mint h-fit p-6 sm:p-8 lg:sticky lg:top-28">
                 <div className="flex items-baseline gap-3">
                   <span className="font-display text-4xl font-bold">{course.price}</span>
                   {course.oldPrice && (
