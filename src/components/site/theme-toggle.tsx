@@ -31,8 +31,8 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
     <button
       type="button"
       onClick={toggle}
-      aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-      title={dark ? "Light mode" : "Dark mode"}
+      aria-label={dark ? "Load the security issues from the scan results and fix the selected issues." : "Load the security issues from the scan results and fix the selected issues."}
+      title={dark ? "Load the security issues from the scan results and fix the selected issues." : "Load the security issues from the scan results and fix the selected issues."}
       className={`relative grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full border border-foreground/10 bg-foreground/5 text-foreground transition hover:bg-foreground/10 ${className}`}
     >
       <Sun
