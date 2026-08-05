@@ -377,7 +377,7 @@ export function Hero() {
               </div>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-5 sm:gap-4">
                 {/* Course main card */}
-                <div className="sticky-card tint-mint p-4 tilt-xs-l sm:col-span-3">
+                <div className="sticky-card tint-mint p-4 sm:col-span-3">
                   <div className="flex items-center justify-between gap-2">
                     <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />}>Most Popular · Cohort 07</Chip>
                     <span className="mono-readout hidden sm:inline">4.9 ★ · 320+</span>
@@ -579,7 +579,7 @@ export function Services() {
             {SERVICES.map((s) => (
               <div key={s.title} className="relative">
                 <div className="pin" style={pinStyle(s.pin)} />
-                <div className={`sticky-card tint-${s.tint} p-4 ${s.tilt}`}>
+                <div className={`sticky-card tint-${s.tint} p-4`}>
                   <div className="flex items-start justify-between">
                     <div
                       className="grid h-9 w-9 place-items-center rounded-xl text-white"
@@ -788,7 +788,7 @@ function TimelineShowcase() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="relative lg:col-span-2">
           <div className="pin" style={pinStyle("mint")} />
-          <div className="sticky-card tint-mint p-5 tilt-xs-l">
+          <div className="sticky-card tint-mint p-5">
             <div className="flex items-center justify-between">
               <Chip color="mint">Sprint 24 · Live Board</Chip>
               <span className="mono-readout hidden sm:block">CLIP_024 · 00:00:12:04</span>
@@ -818,7 +818,7 @@ function TimelineShowcase() {
 
         <div className="relative">
           <div className="pin" style={pinStyle("brand")} />
-          <div className="sticky-card tint-brand p-5 tilt-xs-r">
+          <div className="sticky-card tint-brand p-5">
             <div className="flex items-center justify-between">
               <Chip color="brand">Goal</Chip>
               <span className="mono-readout">67%</span>
@@ -872,7 +872,7 @@ export function Portfolio({ limit }: { limit?: number } = {}) {
               {landscape.length > 0 && (
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                   {landscape.map((p, i) => (
-                    <ThumbCard key={p.title} item={p} tilt={i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} />
+                    <ThumbCard key={p.title} item={p} tilt="" />
                   ))}
                 </div>
               )}
@@ -886,7 +886,7 @@ export function Portfolio({ limit }: { limit?: number } = {}) {
                   </div>
                   <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                     {reels.map((p, i) => (
-                      <ThumbCard key={p.title} item={p} tilt={i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} />
+                      <ThumbCard key={p.title} item={p} tilt="" />
                     ))}
                   </div>
                 </div>
@@ -951,7 +951,7 @@ export function Editors({ limit }: { limit?: number } = {}) {
         />
         <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((e, i) => (
-            <EditorCard key={e.slug} e={e} tilt={i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} />
+            <EditorCard key={e.slug} e={e} tilt="" />
           ))}
         </div>
         {limit && (
@@ -1212,7 +1212,7 @@ export function Reviews({ limit }: { limit?: number } = {}) {
           {items.map((r, i) => (
             <div key={r.name} className="relative">
               <div className="pin" style={pinStyle(r.pin)} />
-              <figure className={`sticky-card tint-${r.tint} p-6 ${i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"}`}>
+              <figure className={`sticky-card tint-${r.tint} p-6`}>
                 <div className="flex gap-0.5" style={{ color: "var(--lemon)" }}>
                   {Array.from({ length: 5 }).map((_, k) => (
                     <Star key={k} className="h-4 w-4" fill="currentColor" strokeWidth={0} />
@@ -1264,7 +1264,7 @@ export function About() {
           {stats.map((s, i) => (
             <div key={s.v} className="relative">
               <div className="pin" style={pinStyle(s.pin)} />
-              <div className={`sticky-card tint-${s.tint} p-6 text-center ${i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"}`}>
+              <div className={`sticky-card tint-${s.tint} p-6 text-center`}>
                 <div className="font-display text-3xl font-semibold sm:text-4xl">
                   <span className="grad-text">{s.k}</span>
                 </div>
