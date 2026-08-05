@@ -579,7 +579,7 @@ export function Services() {
             {SERVICES.map((s) => (
               <div key={s.title} className="relative">
                 <div className="pin" style={pinStyle(s.pin)} />
-                <div className={`sticky-card tint-${s.tint} p-4 ${s.tilt}`}>
+                <div className={`sticky-card tint-${s.tint} p-4`}>
                   <div className="flex items-start justify-between">
                     <div
                       className="grid h-9 w-9 place-items-center rounded-xl text-white"
@@ -1212,7 +1212,7 @@ export function Reviews({ limit }: { limit?: number } = {}) {
           {items.map((r, i) => (
             <div key={r.name} className="relative">
               <div className="pin" style={pinStyle(r.pin)} />
-              <figure className={`sticky-card tint-${r.tint} p-6 ${i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"}`}>
+              <figure className={`sticky-card tint-${r.tint} p-6`}>
                 <div className="flex gap-0.5" style={{ color: "var(--lemon)" }}>
                   {Array.from({ length: 5 }).map((_, k) => (
                     <Star key={k} className="h-4 w-4" fill="currentColor" strokeWidth={0} />
