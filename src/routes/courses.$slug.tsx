@@ -264,8 +264,8 @@ function CourseDetail() {
                     {m.lessons.map((l: any) => {
                       const open = l.free || enrolled;
                       return (
-                        <div key={l.title} className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:py-3">
-                          <div className="flex items-center gap-3">
+                        <div key={l.title} className="flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:py-3 sm:gap-3">
+                          <div className="flex items-center gap-3 min-w-0 flex-1">
                             <button
                               onClick={() => open && l.videoId && setActiveVideo(l.videoId)}
                               disabled={!open}
@@ -275,12 +275,12 @@ function CourseDetail() {
                             >
                               {open ? <Play className="h-4 w-4 fill-current" /> : <Lock className="h-4 w-4" />}
                             </button>
-                            <span className={`flex-1 text-sm font-medium leading-tight sm:text-base ${open ? "text-foreground" : "text-foreground/40"}`}>
+                            <span className={`text-sm font-medium leading-tight sm:text-base line-clamp-2 ${open ? "text-foreground" : "text-foreground/40"}`}>
                               {l.title}
                             </span>
                           </div>
                           
-                          <div className="flex items-center justify-between pl-13 sm:ml-auto sm:pl-0">
+                          <div className="flex items-center justify-between pl-[52px] sm:ml-auto sm:pl-0 sm:shrink-0">
                             {l.free && !enrolled && (
                               <span className="rounded-full bg-[var(--mint)]/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--mint)] ring-1 ring-[var(--mint)]/20">
                                 Free
