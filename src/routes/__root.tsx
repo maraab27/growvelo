@@ -106,6 +106,18 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <style dangerouslySetInnerHTML={{ __html: `
+          #lovable-badge, 
+          [id*="lovable-badge"], 
+          a[href*="lovable.app/?utm_source=badge"] { 
+            display: none !important; 
+            visibility: hidden !important; 
+            pointer-events: none !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            width: 0 !important;
+          }
+        ` }} />
       </head>
       <body>
         {children}
@@ -118,6 +130,22 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    const removeBadge = () => {
+      const badge = document.querySelector('#lovable-badge') || 
+                    document.querySelector('[id*="lovable-badge"]') ||
+                    document.querySelector('a[href*="lovable.app/?utm_source=badge"]');
+      if (badge) {
+        badge.remove();
+      }
+    };
+
+    removeBadge();
+    const observer = new MutationObserver(removeBadge);
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
