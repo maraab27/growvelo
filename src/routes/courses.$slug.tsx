@@ -114,6 +114,7 @@ function CourseDetail() {
   const course = COURSES.find((c) => c.slug === slug)!;
   const [enrolled, setEnrolled] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showLockedModal, setShowLockedModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   useEffect(() => {
@@ -145,6 +146,40 @@ function CourseDetail() {
           onClose={() => setShowModal(false)} 
           onSuccess={() => setShowModal(false)}
         />
+      )}
+
+      {showLockedModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+          <div className="sticky-card tint-brand relative w-full max-w-md overflow-hidden p-6 sm:p-8">
+            <button onClick={() => setShowLockedModal(false)} className="absolute right-4 top-4 text-foreground/40 hover:text-foreground">
+              <X className="h-5 w-5" />
+            </button>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--brand)]/10 text-[var(--brand)]">
+              <Lock className="h-6 w-6" />
+            </div>
+            <h2 className="mt-4 font-display text-xl font-bold">এই লেসনটি লক করা আছে</h2>
+            <p className="mt-2 text-sm text-foreground/70">
+              পুরো কোর্সের এক্সেস পেতে এবং এই লেসনটি দেখতে আপনাকে কোর্সে এনরোল করতে হবে। এই কোর্সে আপনি পাবেন {totalLessons}টি লেসন, লাইভ সাপোর্ট এবং আরও অনেক কিছু।
+            </p>
+            <div className="mt-8 space-y-3">
+              <button 
+                onClick={() => {
+                  setShowLockedModal(false);
+                  setShowModal(true);
+                }}
+                className="gloss-btn w-full justify-center"
+              >
+                এখনই এনরোল করুন
+              </button>
+              <button 
+                onClick={() => setShowLockedModal(false)}
+                className="w-full py-2 text-sm font-medium text-foreground/50 hover:text-foreground"
+              >
+                পরে দেখব
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {activeVideo && (
@@ -266,10 +301,14 @@ function CourseDetail() {
                       return (
                         <div 
                           key={l.title} 
-                          onClick={() => open && l.videoId && setActiveVideo(l.videoId)}
-                          className={`flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:py-3 sm:gap-3 group transition-colors ${
-                            open ? "cursor-pointer hover:bg-foreground/5" : "cursor-not-allowed"
-                          }`}
+                          onClick={() => {
+                            if (open) {
+                              l.videoId && setActiveVideo(l.videoId);
+                            } else {
+                              setShowLockedModal(true);
+                            }
+                          }}
+                          className={`flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:py-3 sm:gap-3 group transition-colors cursor-pointer hover:bg-foreground/5`}
                         >
                           <div className="flex items-center gap-3 min-w-0 flex-1">
                             <div
