@@ -418,7 +418,7 @@ export function Hero() {
                   </div>
 
                   <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <Link to="/courses" className="gloss-btn inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold">
+                    <Link to="/courses/$slug" params={{ slug: "video-editing-bootcamp" }} className="gloss-btn inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold">
                       Enroll now <ArrowRight className="h-4 w-4" />
                     </Link>
                     <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
@@ -1125,17 +1125,16 @@ export function Courses({ limit }: { limit?: number } = {}) {
 
         <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-5">
           {COURSE_CATEGORIES.map((c) => (
-            <div key={c.name} className="relative">
+            <Link key={c.name} to="/courses" className="relative block transition-transform hover:-translate-y-1">
               <div className="pin" style={pinStyle(c.pin)} />
-              <div className={`sticky-card tint-${c.tint} p-5 text-center`}>
-
+              <div className={`sticky-card tint-${c.tint} p-5 text-center h-full`}>
                 <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl" style={{ background: c.grad, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5)" }}>
                   {c.icon}
                 </div>
                 <div className="mt-4 font-display text-base font-semibold">{c.name}</div>
                 <div className="mono-readout mt-1">{c.count}</div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
