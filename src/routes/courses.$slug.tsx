@@ -251,9 +251,10 @@ function CourseDetail() {
           </div>
 
 
-          <div className="mt-14">
-            <h2 className="font-display text-xl font-semibold sm:text-2xl">Course curriculum</h2>
-            <p className="mono-readout mt-1">{course.modules.length} modules · {totalLessons} lessons</p>
+          <div className="mt-16 sm:mt-24">
+            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">Course curriculum</h2>
+            <p className="mono-readout mt-2">{course.modules.length} modules · {totalLessons} lessons</p>
+
 
             <div className="mt-6 space-y-5">
               {course.modules.map((m) => (
