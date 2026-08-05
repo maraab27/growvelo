@@ -1264,7 +1264,7 @@ export function About() {
           {stats.map((s, i) => (
             <div key={s.v} className="relative">
               <div className="pin" style={pinStyle(s.pin)} />
-              <div className={`sticky-card tint-${s.tint} p-6 text-center ${i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"}`}>
+              <div className={`sticky-card tint-${s.tint} p-6 text-center`}>
                 <div className="font-display text-3xl font-semibold sm:text-4xl">
                   <span className="grad-text">{s.k}</span>
                 </div>
