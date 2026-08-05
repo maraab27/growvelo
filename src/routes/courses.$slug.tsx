@@ -264,18 +264,24 @@ function CourseDetail() {
                     {m.lessons.map((l: any) => {
                       const open = l.free || enrolled;
                       return (
-                        <div key={l.title} className="flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:py-3 sm:gap-3">
+                        <div 
+                          key={l.title} 
+                          onClick={() => open && l.videoId && setActiveVideo(l.videoId)}
+                          className={`flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:py-3 sm:gap-3 group transition-colors ${
+                            open ? "cursor-pointer hover:bg-foreground/5" : "cursor-not-allowed"
+                          }`}
+                        >
                           <div className="flex items-center gap-3 min-w-0 flex-1">
-                            <button
-                              onClick={() => open && l.videoId && setActiveVideo(l.videoId)}
-                              disabled={!open}
-                              className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all active:scale-90 ${
-                                open ? "bg-[var(--brand)]/15 text-[var(--brand)] hover:scale-110" : "bg-foreground/5 text-foreground/30"
+                            <div
+                              className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all group-active:scale-90 ${
+                                open ? "bg-[var(--brand)]/15 text-[var(--brand)] group-hover:scale-110" : "bg-foreground/5 text-foreground/30"
                               }`}
                             >
                               {open ? <Play className="h-4 w-4 fill-current" /> : <Lock className="h-4 w-4" />}
-                            </button>
-                            <span className={`text-sm font-medium leading-tight sm:text-base line-clamp-2 ${open ? "text-foreground" : "text-foreground/40"}`}>
+                            </div>
+                            <span className={`text-sm font-medium leading-tight sm:text-base line-clamp-2 transition-colors ${
+                              open ? "text-foreground group-hover:text-[var(--brand)]" : "text-foreground/40"
+                            }`}>
                               {l.title}
                             </span>
                           </div>
