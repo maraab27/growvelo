@@ -114,6 +114,7 @@ function CourseDetail() {
   const course = COURSES.find((c) => c.slug === slug)!;
   const [enrolled, setEnrolled] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showLockedModal, setShowLockedModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   useEffect(() => {
