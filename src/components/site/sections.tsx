@@ -788,7 +788,7 @@ function TimelineShowcase() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="relative lg:col-span-2">
           <div className="pin" style={pinStyle("mint")} />
-          <div className="sticky-card tint-mint p-5 tilt-xs-l">
+          <div className="sticky-card tint-mint p-5">
             <div className="flex items-center justify-between">
               <Chip color="mint">Sprint 24 · Live Board</Chip>
               <span className="mono-readout hidden sm:block">CLIP_024 · 00:00:12:04</span>
@@ -818,7 +818,7 @@ function TimelineShowcase() {
 
         <div className="relative">
           <div className="pin" style={pinStyle("brand")} />
-          <div className="sticky-card tint-brand p-5 tilt-xs-r">
+          <div className="sticky-card tint-brand p-5">
             <div className="flex items-center justify-between">
               <Chip color="brand">Goal</Chip>
               <span className="mono-readout">67%</span>
