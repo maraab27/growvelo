@@ -327,11 +327,11 @@ export function Hero() {
     <section className="aurora-bg relative overflow-hidden">
       <div className="mx-auto max-w-[1200px] px-5 pt-16 pb-24 sm:pt-24 sm:pb-28">
         {/* floating chip stickers */}
-        <div className="pointer-events-none absolute inset-0 hidden sm:block">
-          <div className="absolute left-[6%] top-[18%] tilt-l"><Chip color="mint" icon={<Sparkles className="h-3.5 w-3.5" />}>48h first cut</Chip></div>
-          <div className="absolute right-[7%] top-[14%] tilt-r"><Chip color="lemon">✂ Sound-designed</Chip></div>
-          <div className="absolute left-[4%] top-[62%] tilt-xs-r"><Chip color="blush">♥ 600+ delivered</Chip></div>
-          <div className="absolute right-[5%] top-[58%] tilt-xs-l"><Chip color="sky">▶ Color graded</Chip></div>
+        <div className="pointer-events-none absolute inset-0 hidden xl:block">
+          <div className="absolute left-[2%] top-[18%] tilt-l"><Chip color="mint" icon={<Sparkles className="h-3.5 w-3.5" />}>48h first cut</Chip></div>
+          <div className="absolute right-[2%] top-[14%] tilt-r"><Chip color="lemon">✂ Sound-designed</Chip></div>
+          <div className="absolute left-[1%] top-[62%] tilt-xs-r"><Chip color="blush">♥ 600+ delivered</Chip></div>
+          <div className="absolute right-[2%] top-[58%] tilt-xs-l"><Chip color="sky">▶ Color graded</Chip></div>
         </div>
 
         <div className="relative z-10 mx-auto max-w-3xl text-center">
