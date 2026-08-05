@@ -872,7 +872,7 @@ export function Portfolio({ limit }: { limit?: number } = {}) {
               {landscape.length > 0 && (
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                   {landscape.map((p, i) => (
-                    <ThumbCard key={p.title} item={p} tilt={i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} />
+                    <ThumbCard key={p.title} item={p} tilt="" />
                   ))}
                 </div>
               )}
@@ -886,7 +886,7 @@ export function Portfolio({ limit }: { limit?: number } = {}) {
                   </div>
                   <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                     {reels.map((p, i) => (
-                      <ThumbCard key={p.title} item={p} tilt={i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} />
+                      <ThumbCard key={p.title} item={p} tilt="" />
                     ))}
                   </div>
                 </div>
