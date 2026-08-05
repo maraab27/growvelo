@@ -264,23 +264,35 @@ function CourseDetail() {
                     {m.lessons.map((l: any) => {
                       const open = l.free || enrolled;
                       return (
-                        <div key={l.title} className="flex items-center gap-3 py-2.5">
-                          <button
-                            onClick={() => open && l.videoId && setActiveVideo(l.videoId)}
-                            disabled={!open}
-                            className={`grid h-8 w-8 shrink-0 place-items-center rounded-full transition-transform active:scale-90 ${
-                              open ? "bg-[var(--brand)]/15 text-[var(--brand)] hover:scale-110" : "bg-foreground/8 text-foreground/45"
-                            }`}
-                          >
-                            {open ? <Play className="h-3.5 w-3.5" /> : <Lock className="h-3.5 w-3.5" />}
-                          </button>
-                          <span className={`flex-1 text-sm ${open ? "" : "text-foreground/55"}`}>{l.title}</span>
-                          {l.free && !enrolled && (
-                            <span className="rounded-full bg-[var(--mint)]/30 px-2 py-0.5 text-[11px] font-medium">Free</span>
-                          )}
-                          <span className="mono-readout shrink-0">{l.length}</span>
+                        <div key={l.title} className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:py-3">
+                          <div className="flex items-center gap-3">
+                            <button
+                              onClick={() => open && l.videoId && setActiveVideo(l.videoId)}
+                              disabled={!open}
+                              className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all active:scale-90 ${
+                                open ? "bg-[var(--brand)]/15 text-[var(--brand)] hover:scale-110" : "bg-foreground/5 text-foreground/30"
+                              }`}
+                            >
+                              {open ? <Play className="h-4 w-4 fill-current" /> : <Lock className="h-4 w-4" />}
+                            </button>
+                            <span className={`flex-1 text-sm font-medium leading-tight sm:text-base ${open ? "text-foreground" : "text-foreground/40"}`}>
+                              {l.title}
+                            </span>
+                          </div>
+                          
+                          <div className="flex items-center justify-between pl-13 sm:ml-auto sm:pl-0">
+                            {l.free && !enrolled && (
+                              <span className="rounded-full bg-[var(--mint)]/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--mint)] ring-1 ring-[var(--mint)]/20">
+                                Free
+                              </span>
+                            )}
+                            <span className="mono-readout text-xs font-semibold text-foreground/40 sm:ml-4">
+                              {l.length}
+                            </span>
+                          </div>
                         </div>
                       );
+
                     })}
                   </div>
                 </div>
