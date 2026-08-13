@@ -267,23 +267,23 @@ export function Hero() {
         </div>
 
         {/* Featured Course showcase panel */}
-        <div className="relative z-10 mx-auto mt-16 max-w-6xl sm:mt-20">
+        <div className="relative z-10 mx-auto mt-16 max-w-6xl sm:mt-24">
           <div className="relative">
             <div className="pin" style={pinStyle("coral")} />
-            <div className="sticky-card p-4 sm:p-5">
-              <div className="mb-3 flex items-center justify-between px-2 pt-1">
+            <div className="sticky-card p-4 sm:p-8">
+              <div className="mb-6 flex items-center justify-between px-2 pt-1">
                 <div className="flex items-center gap-1.5">
                   <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--coral)" }} />
                   <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--lemon)" }} />
                   <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--mint)" }} />
                 </div>
                 <span className="mono-readout hidden sm:inline">
-                  কোর্স · এনরোল চলছে
+                  Featured Course · Enrolling Now
                 </span>
               </div>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-5 sm:gap-4">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-5 sm:gap-10">
                 {/* Course main card */}
-                <div className="sticky-card tint-mint p-4 sm:col-span-3">
+                <div className="sticky-card tint-mint p-6 sm:col-span-3">
                   <div className="flex items-center justify-between gap-2">
                     <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />}>জনপ্রিয় কোর্স · ব্যাচ ০৭</Chip>
                   </div>
@@ -335,7 +335,7 @@ export function Hero() {
                 </div>
 
                 {/* Instructor + start date card */}
-                <div className="sticky-card tint-lemon p-4 tilt-xs-r sm:col-span-2">
+                <div className="sticky-card tint-lemon p-6 tilt-xs-r sm:col-span-2">
                   <Chip color="lemon">Instructor</Chip>
                   <div className="mt-3 flex items-center gap-3">
                     <img
