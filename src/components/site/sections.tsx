@@ -109,13 +109,13 @@ export function SectionHead({
 }
 
 const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
-  { to: "/", label: "Home", exact: true },
-  { to: "/portfolio", label: "Portfolio" },
-  { to: "/editors", label: "Editors" },
-  { to: "/courses", label: "Courses" },
-  { to: "/reviews", label: "Reviews" },
-  { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
+  { to: "/", label: "হোম", exact: true },
+  { to: "/portfolio", label: "পোর্টফোলিও" },
+  { to: "/editors", label: "এডিটরস" },
+  { to: "/courses", label: "কোর্স" },
+  { to: "/reviews", label: "রিভিউ" },
+  { to: "/about", label: "আমাদের সম্পর্কে" },
+  { to: "/contact", label: "যোগাযোগ" },
 ];
 
 /* ---------- nav ---------- */
@@ -158,7 +158,7 @@ export function Nav() {
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <ThemeToggle />
             <Link to="/contact" className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm">
-              Hire us <ArrowRight className="h-4 w-4" />
+              হায়ার করুন <ArrowRight className="h-4 w-4" />
             </Link>
             <button
               type="button"
