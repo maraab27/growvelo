@@ -457,14 +457,14 @@ export function Hero() {
 
 
 
-        {/* Trust strip */}
+        {/* Social Proof */}
         <div className="relative z-10 mt-16 sm:mt-24">
-          <div className="mono-readout text-center">Trusted by creators &amp; brands</div>
+          <div className="mono-readout text-center">Learn Tools Trusted By Professionals</div>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-[0.22em] text-foreground/45 sm:gap-x-12 sm:text-sm">
-            <span>Abdullah Maraab</span>
-            <span>Tanvir Mahmud</span>
-            <span>Zaruun</span>
-            <span>Goldenrock FZCO</span>
+            <span>Premiere Pro</span>
+            <span>DaVinci Resolve</span>
+            <span>After Effects</span>
+            <span>CapCut Pro</span>
           </div>
         </div>
       </div>
