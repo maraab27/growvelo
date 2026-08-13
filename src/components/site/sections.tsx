@@ -1007,6 +1007,22 @@ export const COURSES: Course[] = [
       },
     ],
   },
+  {
+    slug: "advanced-cinematic-storytelling",
+    title: "Advanced Cinematic Storytelling",
+    level: "Pro",
+    length: "30 days · VOD",
+    price: "৳8,000",
+    oldPrice: "৳10,000",
+    thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)",
+    desc: "Master the art of high-end cinematic edits, complex transitions, and deep color grading.",
+    tint: "sky", pin: "sky", chipColor: "sky",
+    start: "Self-paced",
+    instructor: "Muhammad Ataullah",
+    about: "This course is for editors who want to take their work to the next level and work on high-budget projects.",
+    outcomes: ["Advanced narrative pacing", "Complex masking & VFX", "Commercial grade color grading"],
+    modules: [],
+  },
 ];
 
 
