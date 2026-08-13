@@ -20,7 +20,6 @@ function Index() {
   return (
     <SiteShell>
       <Hero />
-      <Services />
       <Portfolio limit={6} />
       <Editors limit={3} />
       <Courses limit={3} />

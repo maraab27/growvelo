@@ -111,11 +111,9 @@ export function SectionHead({
 const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
   { to: "/", label: "হোম", exact: true },
   { to: "/portfolio", label: "পোর্টফোলিও" },
-  { to: "/editors", label: "এডিটরস" },
   { to: "/courses", label: "কোর্স" },
   { to: "/reviews", label: "রিভিউ" },
   { to: "/about", label: "আমাদের সম্পর্কে" },
-  { to: "/contact", label: "যোগাযোগ" },
 ];
 
 /* ---------- nav ---------- */
@@ -157,8 +155,8 @@ export function Nav() {
 
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <ThemeToggle />
-            <Link to="/contact" className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm">
-              Hire us <ArrowRight className="h-4 w-4" />
+            <Link to="/courses" className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm">
+              কোর্স দেখুন <ArrowRight className="h-4 w-4" />
             </Link>
             <button
               type="button"
@@ -214,12 +212,12 @@ export const editors: Editor[] = [
   {
     slug: "arif-hasan",
     name: "Arif Hasan",
-    role: "Lead Cinematic Editor",
+    role: "Cinematic Video Mentor",
     avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)",
     bio: "Cinematic long-form and brand storytelling. 6+ years cutting for creators with 1M+ audiences.",
     skills: ["Premiere Pro", "DaVinci Resolve", "Color Grading", "Sound Design"],
     years: 6,
-    rate: "$45/hr",
+    rate: "Mentor",
     tint: "mint",
     pin: "brand",
     works: [
@@ -231,12 +229,12 @@ export const editors: Editor[] = [
   {
     slug: "nusrat-jahan",
     name: "Nusrat Jahan",
-    role: "Short-Form & Reels Specialist",
+    role: "Short-Form Specialist Mentor",
     avatar: "linear-gradient(135deg,#ec4899,#f97316)",
     bio: "Hook-driven vertical edits for TikTok, Reels & Shorts. Trend-native pacing and captions.",
     skills: ["CapCut Pro", "After Effects", "Motion Captions", "Trend Editing"],
     years: 4,
-    rate: "$30/hr",
+    rate: "Mentor",
     tint: "coral",
     pin: "coral",
     works: [
@@ -248,12 +246,12 @@ export const editors: Editor[] = [
   {
     slug: "rakib-ahmed",
     name: "Rakib Ahmed",
-    role: "Motion Graphics & VFX",
+    role: "Motion Graphics Mentor",
     avatar: "linear-gradient(135deg,#22c55e,#0ea5e9)",
     bio: "Kinetic typography, explainer animations and clean VFX comps for tech brands.",
     skills: ["After Effects", "Cinema 4D", "Element 3D", "Kinetic Type"],
     years: 5,
-    rate: "$55/hr",
+    rate: "Instructor",
     tint: "lemon",
     pin: "lemon",
     works: [
@@ -265,12 +263,12 @@ export const editors: Editor[] = [
   {
     slug: "sadia-karim",
     name: "Sadia Karim",
-    role: "Wedding & Event Editor",
+    role: "Wedding Storytelling Mentor",
     avatar: "linear-gradient(135deg,#f43f5e,#a78bfa)",
     bio: "Emotive wedding films and event highlight reels. Warm color, story-first pacing.",
     skills: ["Premiere Pro", "Color Grading", "Music Sync", "Storytelling"],
     years: 7,
-    rate: "$40/hr",
+    rate: "Instructor",
     tint: "blush",
     pin: "blush",
     works: [
@@ -282,12 +280,12 @@ export const editors: Editor[] = [
   {
     slug: "tanvir-rahman",
     name: "Tanvir Rahman",
-    role: "YouTube Long-Form Editor",
+    role: "YouTube Growth Mentor",
     avatar: "linear-gradient(135deg,#eab308,#ef4444)",
     bio: "Retention-optimized YouTube edits — commentary, tech reviews, and vlogs.",
     skills: ["Premiere Pro", "B-roll Sourcing", "Jump Cuts", "Thumbnail Support"],
     years: 5,
-    rate: "$35/hr",
+    rate: "Instructor",
     tint: "sky",
     pin: "sky",
     works: [
@@ -299,12 +297,12 @@ export const editors: Editor[] = [
   {
     slug: "mahi-chowdhury",
     name: "Mahi Chowdhury",
-    role: "Documentary & Podcast Editor",
+    role: "Docu-Style Mentor",
     avatar: "linear-gradient(135deg,#0ea5e9,#8b5cf6)",
     bio: "Long-form narrative editing with clean audio mixing. Doc series and interview shows.",
     skills: ["DaVinci Resolve", "Audio Mixing", "Interview Cutting", "Subtitles"],
     years: 8,
-    rate: "$50/hr",
+    rate: "Instructor",
     tint: "brand",
     pin: "mint",
     works: [
@@ -347,11 +345,11 @@ export function Hero() {
             by a boutique team of editors.
           </p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center">
-            <Link to="/contact" className="gloss-btn">
-              Start free <ArrowRight className="h-5 w-5" />
+            <Link to="/courses" className="gloss-btn">
+              এনরোল করুন <ArrowRight className="h-5 w-5" />
             </Link>
             <Link to="/portfolio" className="gloss-btn-ghost">
-              <Play className="h-5 w-5" /> Watch the reel
+              <Play className="h-5 w-5" /> পোর্টফোলিও দেখুন
             </Link>
           </div>
         </div>
@@ -836,13 +834,13 @@ export function Portfolio({ limit }: { limit?: number } = {}) {
     <section className="aurora-bg py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
-          eyebrow="Live Boards"
+          eyebrow="Timeline"
           eyebrowColor="mint"
           eyebrowIcon={<PinIcon className="h-3.5 w-3.5" />}
-          before="One canvas."
-          gradWord="A hundred"
-          after="wins."
-          sub="A glimpse at how the growVelo desk launches, plans, and celebrates every cut."
+          before="আমাদের"
+          gradWord="জার্নি"
+          after="দেখুন"
+          sub="আমাদের শিক্ষার্থীদের সফল প্রজেক্ট এবং এডিটিং টাইমলাইনের এক ঝলক।"
         />
         <TimelineShowcase />
 
@@ -921,7 +919,7 @@ function EditorCard({ e, tilt }: { e: Editor; tilt: string }) {
           ))}
         </div>
         <div className="mt-5 flex items-center justify-between border-t border-foreground/10 pt-4 text-xs">
-          <span className="text-foreground/55">{e.years}+ years · from {e.rate}</span>
+          <span className="text-foreground/55">{e.years}+ years · {e.rate}</span>
           <span className="flex items-center gap-1 font-semibold text-foreground/85">
             View <ArrowRight className="h-3.5 w-3.5" />
           </span>
@@ -937,12 +935,13 @@ export function Editors({ limit }: { limit?: number } = {}) {
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
-          eyebrow="Our Editors"
+          eyebrow="Mentors"
           eyebrowColor="blush"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
-          before="Pick your"
-          gradWord="specialist."
-          sub="Hand-picked editors across cinematic, short-form, motion, and documentary."
+          before="আমাদের"
+          gradWord="মেন্টরদের"
+          after="সাথে পরিচিত হোন"
+          sub="সিনেমাটিক, শর্ট-ফর্ম এবং মোশন এডিটিংয়ে দক্ষ মেন্টরদের কাছ থেকে শিখুন।"
         />
         <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((e, i) => (
@@ -1178,12 +1177,12 @@ export function Reviews({ limit }: { limit?: number } = {}) {
 /* ---------- about ---------- */
 
 export function About() {
-  const stats: { k: string; v: string; tint: "mint" | "coral" | "lemon" | "blush"; pin: ChipColor }[] = [
-    { k: "150+", v: "Happy clients", tint: "mint", pin: "mint" },
-    { k: "90+", v: "Brand clients", tint: "coral", pin: "coral" },
-    { k: "12", v: "In-house editors", tint: "lemon", pin: "lemon" },
-    { k: "24h", v: "Avg. turnaround", tint: "blush", pin: "blush" },
-  ];
+    const stats: { k: string; v: string; tint: "mint" | "coral" | "lemon" | "blush"; pin: ChipColor }[] = [
+      { k: "৫০০+", v: "মোট শিক্ষার্থী", tint: "mint", pin: "mint" },
+      { k: "৫০+", v: "সফল ব্যাচ", tint: "coral", pin: "coral" },
+      { k: "১২", v: "দক্ষ মেন্টর", tint: "lemon", pin: "lemon" },
+      { k: "৯২%", v: "সফলতা হার", tint: "blush", pin: "blush" },
+    ];
   return (
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
@@ -1191,10 +1190,10 @@ export function About() {
           eyebrow="About growVelo"
           eyebrowColor="mint"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
-          before="A boutique studio,"
-          gradWord="built"
-          after="by editors."
-          sub="growVelo started in 2020 as three editors sharing a Notion doc and a shared love for cuts that make people feel something."
+          before="আমাদের"
+          gradWord="একাডেমি"
+          after="সম্পর্কে"
+          sub="growVelo একাডেমি শুরু হয়েছিল একদল দক্ষ মেন্টরদের নিয়ে, যাদের মূল লক্ষ্য শিক্ষার্থীদের প্রফেশনাল এডিটর হিসেবে গড়ে তোলা।"
         />
         <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-4">
           {stats.map((s, i) => (
@@ -1211,16 +1210,14 @@ export function About() {
         </div>
         <div className="mx-auto mt-14 max-w-2xl text-center text-foreground/70">
           <p className="font-serif text-xl italic leading-snug">
-            Five years later we're a team of twelve — cinematic editors, short-form specialists,
-            motion designers, and colorists — working with creators and brands across four continents.
+            বিগত বছরগুলোতে আমরা ৫০০ এর বেশি শিক্ষার্থীকে ভিডিও এডিটিংয়ের বিভিন্ন সেক্টরে দক্ষ করে তুলেছি। আমাদের মেন্টররা প্রফেশনাল ফিল্ডে কাজ করার পাশাপাশি শিক্ষার্থীদের হাতে-কলমে শেখান।
           </p>
           <p className="mt-4 text-sm">
-            We're picky about pacing, obsessive about sound, and quietly proud of the fact that most
-            of our clients stay for years.
+            আমরা শিক্ষার্থীদের কোয়ালিটি এবং স্কিল ডেভেলপমেন্টের ওপর সবচেয়ে বেশি গুরুত্ব দেই।
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link to="/portfolio" className="gloss-btn">See the work <ArrowRight className="h-4 w-4" /></Link>
-            <Link to="/contact" className="gloss-btn-ghost">Work with us</Link>
+            <Link to="/courses" className="gloss-btn">কোর্সগুলো দেখুন <ArrowRight className="h-4 w-4" /></Link>
+            <Link to="/portfolio" className="gloss-btn-ghost">পোর্টফোলিও</Link>
           </div>
         </div>
       </div>

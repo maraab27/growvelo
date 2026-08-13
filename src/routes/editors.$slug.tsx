@@ -78,11 +78,11 @@ function EditorDetail() {
               </div>
               <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-foreground/70">
                 <span><span className="mono-readout">Experience </span>{e.years}+ years</span>
-                <span><span className="mono-readout">From </span>{e.rate}</span>
+                <span><span className="mono-readout">Role </span>{e.rate}</span>
               </div>
               <div className="mt-8 flex flex-wrap gap-3">
-                <Link to="/contact" className="gloss-btn !text-sm">
-                  Request {e.name.split(" ")[0]} <ArrowRight className="h-4 w-4" />
+                <Link to="/courses" className="gloss-btn !text-sm">
+                  কোর্স দেখুন <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
