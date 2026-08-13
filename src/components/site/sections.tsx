@@ -1017,31 +1017,6 @@ export function CourseCategories() {
   );
 }
 
-        <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
-          {COURSE_CATEGORIES.map((c) => (
-            <Link key={c.name} to="/courses" className="relative block group">
-              <div className="pin" style={pinStyle(c.pin)} />
-              <div className={`sticky-card tint-${c.tint} p-6 text-center h-full transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-xl`}>
-                <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl transition-transform group-hover:scale-110" style={{ background: c.grad, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5)" }}>
-                  {c.icon}
-                </div>
-                <div className="mt-4 font-display text-lg font-bold tracking-tight">{c.name}</div>
-                <div className="mono-readout mt-1 text-[9px] opacity-60">{c.count} projects</div>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        <div className="mt-10 mb-14 text-center">
-          <Link to="/courses" className="gloss-btn-ghost !text-sm">
-            Explore all 120+ courses <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function Courses({ limit }: { limit?: number } = {}) {
   return (
     <section className="aurora-soft py-24 sm:py-28">
