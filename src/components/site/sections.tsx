@@ -121,7 +121,7 @@ const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
 export function Nav() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="fixed inset-x-0 top-3 z-50 flex justify-center px-3 sm:top-4 sm:px-4">
+    <div className="fixed inset-x-0 top-0 z-50 flex justify-center px-0 pt-3 sm:px-4 sm:pt-4">
       <header className="glass flex w-full max-w-6xl flex-col overflow-hidden !rounded-3xl px-3 py-2 sm:!rounded-full sm:px-5 sm:py-2">
         <div className="flex w-full items-center justify-between gap-3">
           <Link to="/" className="flex min-w-0 items-center gap-2 sm:gap-2.5" onClick={() => setOpen(false)}>
@@ -129,7 +129,7 @@ export function Nav() {
               className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-xl sm:h-10 sm:w-10"
               style={{
                 background: "linear-gradient(135deg, var(--brand), var(--coral))",
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5), 0 6px 14px -4px color-mix(in oklab, var(--brand) 55%, transparent)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 10px -4px color-mix(in oklab, var(--brand) 40%, transparent)",
               }}
             >
               <img src={growveloMark.url} alt="growVelo" className="h-full w-full object-cover" />
