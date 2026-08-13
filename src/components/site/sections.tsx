@@ -973,21 +973,40 @@ export const COURSES: Course[] = [
 ];
 
 
-export function FeaturedCourses({ limit }: { limit?: number } = {}) {
-  const items = limit ? COURSES.slice(0, limit) : COURSES;
+export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomePage?: boolean } = {}) {
+  // If home page, show only the latest course (e.g., Batch 03)
+  const items = isHomePage 
+    ? COURSES.filter(c => c.slug === 'video-editing-batch-3')
+    : (limit ? COURSES.slice(0, limit) : COURSES);
+
   return (
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
-        <SectionHead
-          eyebrow="Courses"
-          eyebrowColor="brand"
-          eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
-          before="Master the art of"
-          gradWord="Story"
-          after="first editing."
-          sub="Explore our specialized training programs designed to take you from beginner to professional."
-        />
-        <div className="mt-14 mx-auto grid max-w-[880px] grid-cols-1 gap-8 sm:grid-cols-2">
+        <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:items-end">
+          <SectionHead
+            eyebrow="Courses"
+            eyebrowColor="brand"
+            eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
+            before={isHomePage ? "Featured" : "Master the art of"}
+            gradWord={isHomePage ? "Latest Course" : "Story"}
+            after={isHomePage ? "" : "first editing."}
+            sub={isHomePage 
+              ? "আমাদের সর্বশেষ ব্যাচে যুক্ত হয়ে আপনার ক্যারিয়ার শুরু করুন।" 
+              : "Explore our specialized training programs designed to take you from beginner to professional."
+            }
+            align="left"
+          />
+          {isHomePage && (
+            <Link 
+              to="/courses" 
+              className="gloss-btn mb-1 flex items-center gap-2"
+            >
+              View All Courses <ArrowRight className="h-4 w-4" />
+            </Link>
+          )}
+        </div>
+
+        <div className={`mt-14 mx-auto grid grid-cols-1 gap-8 ${isHomePage ? 'max-w-xl' : 'max-w-[880px] sm:grid-cols-2'}`}>
           {items.map((c) => (
             <div key={c.slug} className="relative">
               <div className="pin" style={pinStyle(c.pin)} />
@@ -1013,9 +1032,9 @@ export function FeaturedCourses({ limit }: { limit?: number } = {}) {
                         <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
                       )}
                     </div>
-                <span className={`gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none ${(c.slug === 'video-editing-bootcamp' || c.slug === 'video-editing-batch-2') ? 'grayscale opacity-70 cursor-not-allowed' : ''}`}>
-                  {c.slug === 'video-editing-bootcamp' ? 'Batch Completed' : c.slug === 'video-editing-batch-2' ? 'Batch Running' : 'View details'}
-                </span>
+                    <span className={`gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none ${(c.slug === 'video-editing-bootcamp' || c.slug === 'video-editing-batch-2') ? 'grayscale opacity-70 cursor-not-allowed' : ''}`}>
+                      {c.slug === 'video-editing-bootcamp' ? 'Batch Completed' : c.slug === 'video-editing-batch-2' ? 'Batch Running' : 'Enroll Now'}
+                    </span>
                   </div>
                 </div>
               </Link>
