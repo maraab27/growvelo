@@ -275,14 +275,16 @@ function CourseDetail() {
                   ) : (
                     <div className="space-y-4">
                       <button 
-                        onClick={() => setShowModal(true)}
-                        className="gloss-btn w-full justify-center !py-4 text-base font-bold"
+                        onClick={() => {
+                          if (slug === 'video-editing-batch-3') {
+                            setShowModal(true);
+                          }
+                        }}
+                        disabled={slug !== 'video-editing-batch-3'}
+                        className={`gloss-btn w-full justify-center !py-4 text-base font-bold ${slug !== 'video-editing-batch-3' ? 'grayscale opacity-70 cursor-not-allowed' : ''}`}
                       >
-                        Enroll Now
+                        {slug === 'video-editing-bootcamp' ? 'Batch Completed' : slug === 'video-editing-batch-2' ? 'Batch Running' : 'Enroll Now'}
                       </button>
-                      <p className="text-center text-xs leading-relaxed text-foreground/50">
-                        বিকাশ পেমেন্ট কনফার্ম হওয়ার পরে আপনার ইমেলটি ডাটাবেজে যুক্ত করা হবে এবং কোর্সটি আনলক হবে।
-                      </p>
                     </div>
                   )}
                 </div>
