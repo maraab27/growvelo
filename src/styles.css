@@ -46,7 +46,11 @@
 :root {
   --radius: 1rem;
 
-  --background: oklch(0.985 0.012 170);      /* restored soft mint canvas */
+  --background: oklch(0.985 0.012 170);      /* base mint */
+  --bg-gradient: radial-gradient(45rem 30rem at 5% 0%, color-mix(in oklab, var(--mint) 15%, transparent), transparent 75%),
+    radial-gradient(50rem 35rem at 100% 5%, color-mix(in oklab, var(--brand) 12%, transparent), transparent 75%),
+    radial-gradient(40rem 30rem at 0% 100%, color-mix(in oklab, var(--coral) 12%, transparent), transparent 75%),
+    radial-gradient(45rem 30rem at 100% 100%, color-mix(in oklab, var(--lemon) 12%, transparent), transparent 75%);
   --foreground: oklch(0.14 0.02 280);
 
   --brand: oklch(0.58 0.24 295);             /* electric violet */
@@ -81,7 +85,11 @@
 
 /* ---------- Dark theme ---------- */
 .dark {
-  --background: oklch(0.12 0.015 285);      /* deeper, softer ink background */
+  --background: oklch(0.12 0.015 285);      /* dark ink */
+  --bg-gradient: radial-gradient(45rem 30rem at 5% 0%, color-mix(in oklab, var(--mint) 20%, transparent), transparent 68%),
+    radial-gradient(50rem 35rem at 100% 5%, color-mix(in oklab, var(--brand) 30%, transparent), transparent 68%),
+    radial-gradient(40rem 30rem at 0% 100%, color-mix(in oklab, var(--coral) 18%, transparent), transparent 68%),
+    radial-gradient(45rem 30rem at 100% 100%, color-mix(in oklab, var(--lemon) 14%, transparent), transparent 68%);
   --foreground: oklch(0.85 0.01 260);       /* softened white text */
 
   --brand: oklch(0.60 0.14 296);             /* desaturated violet for dark mode */
@@ -118,7 +126,9 @@
     border-color: var(--color-border);
   }
   html, body {
-    background-color: var(--background);
+    background: var(--background);
+    background-image: var(--bg-gradient);
+    background-attachment: fixed;
     color: var(--foreground);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
