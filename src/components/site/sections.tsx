@@ -1021,44 +1021,6 @@ export const COURSES: Course[] = [
 export function FeaturedCourses({ limit }: { limit?: number } = {}) {
   const items = limit ? COURSES.slice(0, limit) : COURSES;
   return (
-    <div className="mx-auto grid max-w-[880px] grid-cols-1 gap-8 sm:grid-cols-2">
-      {items.map((c) => (
-        <div key={c.slug} className="relative">
-          <div className="pin" style={pinStyle(c.pin)} />
-          <Link
-            to="/courses/$slug"
-            params={{ slug: c.slug }}
-            className={`sticky-card tint-${c.tint} block p-3 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl active:scale-[0.98] cursor-pointer group`}
-          >
-            <div className="relative aspect-[16/9] overflow-hidden rounded-xl" style={{ background: c.thumb }}>
-              <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-              <div className="absolute left-2.5 top-2.5">
-                <Chip color={c.chipColor}>{c.level}</Chip>
-              </div>
-              <div className="absolute bottom-2.5 left-3 text-xs font-medium text-white drop-shadow-sm">{c.length}</div>
-            </div>
-            <div className="p-4">
-              <div className="font-display text-lg font-semibold group-hover:text-[var(--brand)] transition-colors">{c.title}</div>
-              <p className="mt-1 text-sm text-foreground/65 line-clamp-2">{c.desc}</p>
-              <div className="mt-4 flex items-center justify-between gap-3">
-                <div className="flex items-baseline gap-2">
-                  <span className="font-display text-xl font-semibold">{c.price}</span>
-                  {c.oldPrice && (
-                    <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
-                  )}
-                </div>
-                <span className="gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none">View details</span>
-              </div>
-            </div>
-          </Link>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-export function CourseCategories() {
-  return (
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
@@ -1070,12 +1032,46 @@ export function CourseCategories() {
           after="first editing."
           sub="Explore our specialized training programs designed to take you from beginner to professional."
         />
-        <div className="mt-16">
-          <FeaturedCourses />
+        <div className="mt-14 mx-auto grid max-w-[880px] grid-cols-1 gap-8 sm:grid-cols-2">
+          {items.map((c) => (
+            <div key={c.slug} className="relative">
+              <div className="pin" style={pinStyle(c.pin)} />
+              <Link
+                to="/courses/$slug"
+                params={{ slug: c.slug }}
+                className={`sticky-card tint-${c.tint} block p-3 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl active:scale-[0.98] cursor-pointer group`}
+              >
+                <div className="relative aspect-[16/9] overflow-hidden rounded-xl" style={{ background: c.thumb }}>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                  <div className="absolute left-2.5 top-2.5">
+                    <Chip color={c.chipColor}>{c.level}</Chip>
+                  </div>
+                  <div className="absolute bottom-2.5 left-3 text-xs font-medium text-white drop-shadow-sm">{c.length}</div>
+                </div>
+                <div className="p-4">
+                  <div className="font-display text-lg font-semibold group-hover:text-[var(--brand)] transition-colors">{c.title}</div>
+                  <p className="mt-1 text-sm text-foreground/65 line-clamp-2">{c.desc}</p>
+                  <div className="mt-4 flex items-center justify-between gap-3">
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-display text-xl font-semibold">{c.price}</span>
+                      {c.oldPrice && (
+                        <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
+                      )}
+                    </div>
+                    <span className="gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none">View details</span>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
+}
+
+export function CourseCategories() {
+  return <FeaturedCourses />;
 }
 
 export function Courses({ limit }: { limit?: number } = {}) {
