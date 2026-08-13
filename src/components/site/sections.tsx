@@ -112,7 +112,6 @@ const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
   { to: "/", label: "Home", exact: true },
   { to: "/portfolio", label: "Portfolio" },
   { to: "/editors", label: "Editors" },
-  { to: "/pricing", label: "Pricing" },
   { to: "/courses", label: "Courses" },
   { to: "/reviews", label: "Reviews" },
   { to: "/about", label: "About" },
