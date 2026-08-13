@@ -1254,83 +1254,44 @@ export function About() {
   );
 }
 
-/* ---------- contact ---------- */
-
-export function Contact() {
+export function FAQ() {
+  const faqs = [
+    { q: "কোর্সটি কি একদম বিগিনারদের জন্য?", a: "হ্যাঁ, আমরা একদম শূন্য থেকে শুরু করি যাতে যে কেউ শিখতে পারে।" },
+    { q: "পিসি কনফিগারেশন কেমন লাগবে?", a: "ন্যূনতম 8GB RAM এবং একটি ডেডিকেটেড গ্রাফিক্স কার্ড থাকলে ভালো হয়, তবে সাধারণ ল্যাপটপেও শুরু করা সম্ভব।" },
+    { q: "লাইফটাইম এক্সেস পাবো কি না?", a: "হ্যাঁ, একবার এনরোল করলে আপনি কোর্সের সমস্ত ম্যাটেরিয়াল আজীবন এক্সেস করতে পারবেন।" },
+    { q: "সাপোর্ট কীভাবে পাবো?", a: "আমাদের ডেডিকেটেড ফেসবুক গ্রুপ এবং ডিসকর্ড সার্ভারে আপনি যেকোনো সময় সাপোর্ট পাবেন।" },
+  ];
   return (
     <section className="aurora-bg py-24 sm:py-28">
-      <div className="mx-auto max-w-[1200px] px-5">
+      <div className="mx-auto max-w-[800px] px-5">
         <SectionHead
-          eyebrow="Contact"
+          eyebrow="FAQ"
           eyebrowColor="sky"
-          eyebrowIcon={<Mail className="h-3.5 w-3.5" />}
-          before="Let's build something"
-          gradWord="worth"
-          after="watching."
-          sub="Tell us about your project — footage, format, deadline. We usually reply within a few hours during working days."
+          eyebrowIcon={<PinIcon className="h-3.5 w-3.5" />}
+          before="সাধারণ"
+          gradWord="জিজ্ঞাসা"
+          sub="আপনার মনে থাকা সাধারণ কিছু প্রশ্নের উত্তর এখানে দেওয়া হলো।"
         />
-        <div className="mx-auto mt-14 grid max-w-4xl grid-cols-1 gap-6 lg:grid-cols-5">
-          <div className="space-y-4 lg:col-span-2">
-            {[
-              { icon: <Mail className="h-4 w-4" />, label: "Email", value: "hello@growvelo.studio", tint: "mint" as const, pin: "mint" as ChipColor, tilt: "tilt-xs-l" },
-              { icon: <MapPin className="h-4 w-4" />, label: "Studio", value: "Dhaka · Remote worldwide", tint: "coral" as const, pin: "coral" as ChipColor, tilt: "tilt-xs-r" },
-              { icon: <Clock className="h-4 w-4" />, label: "Hours", value: "Sun–Thu · 10:00–19:00 (GMT+6)", tint: "lemon" as const, pin: "lemon" as ChipColor, tilt: "tilt-xs-l" },
-            ].map((c) => (
-              <div key={c.label} className="relative">
-                <div className="pin" style={pinStyle(c.pin)} />
-                <div className={`sticky-card tint-${c.tint} p-5 ${c.tilt}`}>
-                  <div className="flex items-center gap-2 text-foreground/60">
-                    {c.icon}
-                    <span className="mono-readout">{c.label}</span>
-                  </div>
-                  <div className="mt-2 font-display text-lg font-semibold">{c.value}</div>
-                </div>
+        <div className="mt-14 space-y-4">
+          {faqs.map((f, i) => (
+            <div key={i} className="relative">
+              <div className="pin" style={pinStyle("sky")} />
+              <div className="sticky-card p-6">
+                <h4 className="font-display text-lg font-semibold">{f.q}</h4>
+                <p className="mt-2 text-sm text-foreground/70">{f.a}</p>
               </div>
-            ))}
-          </div>
-
-          <div className="relative lg:col-span-3">
-            <div className="pin" style={pinStyle("brand")} />
-            <form
-              className="sticky-card p-6 sm:p-8"
-              onSubmit={(e) => { e.preventDefault(); alert("Thanks! We'll be in touch shortly."); }}
-            >
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <label className="flex flex-col gap-1.5 text-sm">
-                  <span className="mono-readout">Name</span>
-                  <input required maxLength={100} className="sticky-input" placeholder="Your name" />
-                </label>
-                <label className="flex flex-col gap-1.5 text-sm">
-                  <span className="mono-readout">Email</span>
-                  <input required type="email" maxLength={255} className="sticky-input" placeholder="you@company.com" />
-                </label>
-                <label className="flex flex-col gap-1.5 text-sm sm:col-span-2">
-                  <span className="mono-readout">Project type</span>
-                  <select className="sticky-input" defaultValue="">
-                    <option value="" disabled>Select a type…</option>
-                    <option>Short-form (Reels / TikTok / Shorts)</option>
-                    <option>YouTube long-form</option>
-                    <option>Brand film / Ad</option>
-                    <option>Wedding / Event</option>
-                    <option>Motion graphics / Explainer</option>
-                    <option>Documentary / Podcast</option>
-                    <option>Other</option>
-                  </select>
-                </label>
-                <label className="flex flex-col gap-1.5 text-sm sm:col-span-2">
-                  <span className="mono-readout">Tell us about your project</span>
-                  <textarea required maxLength={1000} rows={5} className="sticky-input" placeholder="Length, deadline, style references…" />
-                </label>
-              </div>
-              <button type="submit" className="gloss-btn mt-6">
-                Send message <ArrowRight className="h-4 w-4" />
-              </button>
-            </form>
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
+}
+
+/* ---------- contact ---------- */
+
+export function Contact() {
+  return null;
 }
 
 /* ---------- Big CTA ---------- */
