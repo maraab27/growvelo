@@ -13,7 +13,7 @@ export const Route = createFileRoute("/editors")({
   component: () => (
     <SiteShell>
       <div className="pt-16" />
-      <Editors />
+      <Instructors />
       <BigCTA />
     </SiteShell>
   ),
