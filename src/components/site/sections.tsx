@@ -942,7 +942,7 @@ function EditorCard({ e, tilt }: { e: Editor; tilt: string }) {
   );
 }
 
-export function Editors({ limit }: { limit?: number } = {}) {
+export function Instructors({ limit }: { limit?: number } = {}) {
   const items = limit ? editors.slice(0, limit) : editors;
   return (
     <section className="aurora-soft py-24 sm:py-28">
