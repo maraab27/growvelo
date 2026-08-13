@@ -1114,9 +1114,8 @@ export function StudentReviews({ limit }: { limit?: number } = {}) {
           eyebrow="Reviews"
           eyebrowColor="coral"
           eyebrowIcon={<Star className="h-3.5 w-3.5" />}
-          before="শিক্ষার্থীদের"
-          gradWord="সাকসেস স্টোরি"
-        />
+          before="Success"
+          gradWord="Reviews"
         <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {items.map((r, i) => (
             <div key={r.name} className="relative">
@@ -1164,9 +1163,8 @@ export function About() {
           eyebrow="About growVelo"
           eyebrowColor="mint"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
-          before="আমাদের"
-          gradWord="একাডেমি"
-          after="সম্পর্কে"
+          before="Our"
+          gradWord="Academy"
           sub="growVelo একাডেমি শুরু হয়েছিল একদল দক্ষ মেন্টরদের নিয়ে, যাদের মূল লক্ষ্য শিক্ষার্থীদের প্রফেশনাল এডিটর হিসেবে গড়ে তোলা।"
         />
         <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-4">
@@ -1213,8 +1211,8 @@ export function FAQ() {
           eyebrow="FAQ"
           eyebrowColor="sky"
           eyebrowIcon={<PinIcon className="h-3.5 w-3.5" />}
-          before="সাধারণ"
-          gradWord="জিজ্ঞাসা"
+          before="General"
+          gradWord="FAQ"
           sub="আপনার মনে থাকা সাধারণ কিছু প্রশ্নের উত্তর এখানে দেওয়া হলো।"
         />
         <div className="mt-14 space-y-4">
