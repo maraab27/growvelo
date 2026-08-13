@@ -345,7 +345,7 @@ export function Hero() {
           </p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center">
             <Link to="/courses" className="gloss-btn">
-              এনরোল করুন <ArrowRight className="h-5 w-5" />
+              Explore Courses <ArrowRight className="h-5 w-5" />
             </Link>
             <Link to="/courses" className="gloss-btn-ghost">
               <Play className="h-5 w-5" /> Watch Free Masterclass
@@ -1152,12 +1152,12 @@ const REVIEWS: {
   name: string; role: string; body: string; initial: string; avatar: string;
   tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor;
 }[] = [
-  { name: "Tanvir Mahmud", role: "Founder and Creator", body: "growVelo cuts my long-form videos with taste — retention went up 22% in a month.", initial: "T", avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)", tint: "mint", pin: "mint" },
-  { name: "Abdullah Maraab", role: "Creator", body: "Our brand film landed exactly the mood we wanted. Professional, on-time, and thoughtful.", initial: "A", avatar: "linear-gradient(135deg,#ec4899,#f97316)", tint: "coral", pin: "coral" },
-  { name: "Rohan Das", role: "Head of Marketing · Stackly", body: "The motion team delivered a SaaS explainer that outperformed our old one 3x in demos booked.", initial: "R", avatar: "linear-gradient(135deg,#22c55e,#0ea5e9)", tint: "lemon", pin: "lemon" },
-  { name: "Zara Ahmed", role: "Bride · Wedding Film", body: "Sadia captured emotions we didn't even know were on camera. We cried. Twice.", initial: "Z", avatar: "linear-gradient(135deg,#f43f5e,#a78bfa)", tint: "blush", pin: "blush" },
-  { name: "Miguel Torres", role: "Podcaster · InsideOut", body: "Turnaround is unreal. Full episode edits in under 48 hours, every week.", initial: "M", avatar: "linear-gradient(135deg,#0ea5e9,#8b5cf6)", tint: "sky", pin: "sky" },
-  { name: "Priya Sen", role: "DTC Founder · Glowl", body: "Our Reels are unrecognizable now — hooks land, captions pop, sales followed.", initial: "P", avatar: "linear-gradient(135deg,#eab308,#ef4444)", tint: "brand", pin: "brand" },
+  { name: "Tanvir Mahmud", role: "Student · Batch 01", body: "growVelo থেকে এডিটিং শিখে আমি এখন প্রফেশনাল ফিল্ডে কাজ করছি। মেন্টরদের গাইডেন্স ছিল অসাধারণ।", initial: "T", avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)", tint: "mint", pin: "mint" },
+  { name: "Abdullah Maraab", role: "Student · Batch 02", body: "কোর্সের মডিউলগুলো খুব সুন্দরভাবে সাজানো। বিগিনার হিসেবে আমার জন্য শেখাটা অনেক সহজ হয়েছে।", initial: "A", avatar: "linear-gradient(135deg,#ec4899,#f97316)", tint: "coral", pin: "coral" },
+  { name: "Rohan Das", role: "Student · Batch 01", body: "মোশন গ্রাফিক্সের মডিউলটি ছিল আমার প্রিয়। এখন আমি নিজে থেকেই অনেক জটিল এনিমেশন তৈরি করতে পারি।", initial: "R", avatar: "linear-gradient(135deg,#22c55e,#0ea5e9)", tint: "lemon", pin: "lemon" },
+  { name: "Zara Ahmed", role: "Student · Batch 03", body: "মেন্টররা সবসময় প্রশ্নের উত্তর দেন এবং পার্সোনাল ফিডব্যাক দেন, যা শেখার গতিকে অনেক বাড়িয়ে দেয়।", initial: "Z", avatar: "linear-gradient(135deg,#f43f5e,#a78bfa)", tint: "blush", pin: "blush" },
+  { name: "Miguel Torres", role: "Student · Batch 04", body: "সিনেমাটিক এডিটিংয়ের টেকনিকগুলো আগে জানতাম না। এই কোর্সটি আমার দেখার দৃষ্টিভঙ্গি বদলে দিয়েছে।", initial: "M", avatar: "linear-gradient(135deg,#0ea5e9,#8b5cf6)", tint: "sky", pin: "sky" },
+  { name: "Priya Sen", role: "Student · Batch 02", body: "কমিউনিটি সাপোর্ট খুব ভালো। গ্রুপে অন্যদের কাজ দেখে আরও অনেক কিছু শিখতে পারছি।", initial: "P", avatar: "linear-gradient(135deg,#eab308,#ef4444)", tint: "brand", pin: "brand" },
 ];
 
 export function StudentReviews({ limit }: { limit?: number } = {}) {
@@ -1166,11 +1166,11 @@ export function StudentReviews({ limit }: { limit?: number } = {}) {
     <section className="aurora-bg py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
-          eyebrow="Love Notes"
+          eyebrow="Reviews"
           eyebrowColor="coral"
           eyebrowIcon={<Star className="h-3.5 w-3.5" />}
-          before="Clients are"
-          gradWord="obsessed."
+          before="শিক্ষার্থীদের"
+          gradWord="সাকসেস স্টোরি"
         />
         <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {items.map((r, i) => (
