@@ -850,25 +850,20 @@ export function Instructors({ limit }: { limit?: number } = {}) {
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
-          eyebrow="Mentors"
+          eyebrow="Mentor"
           eyebrowColor="blush"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
           before="Meet Your"
           gradWord="Mentor"
-          sub="সিনেমাটিক, শর্ট-ফর্ম এবং মোশন এডিটিংয়ে দক্ষ মেন্টরদের কাছ থেকে শিখুন।"
+          sub="সিনেমাটিক এবং মোশন এডিটিংয়ে দক্ষ মেন্টরের কাছ থেকে সরাসরি শিখুন।"
         />
-        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((e, i) => (
-            <EditorCard key={e.slug} e={e} tilt="" />
-          ))}
-        </div>
-        {limit && (
-          <div className="mt-12 text-center">
-            <Link to="/editors" className="gloss-btn-ghost">
-              Meet the full team <ArrowRight className="h-4 w-4" />
-            </Link>
+        <div className="mt-14 flex justify-center">
+          <div className="max-w-md w-full">
+            {items.map((e, i) => (
+              <EditorCard key={e.slug} e={e} tilt="" />
+            ))}
           </div>
-        )}
+        </div>
       </div>
     </section>
   );
