@@ -1302,33 +1302,25 @@ export function BigCTA() {
       <div className="mx-auto max-w-[1200px] px-5">
         <div className="aurora-dark relative overflow-hidden rounded-[32px] p-12 text-center sm:p-20"
              style={{ boxShadow: "0 40px 80px -30px color-mix(in oklab, var(--brand) 60%, transparent)" }}>
-          {/* floating chips */}
-          <div className="pointer-events-none absolute left-6 top-8 tilt-l opacity-90">
-            <Chip color="mint">✂ 48h first cut</Chip>
-          </div>
-          <div className="pointer-events-none absolute right-6 top-10 tilt-r opacity-90">
-            <Chip color="lemon">♥ Free consult</Chip>
-          </div>
-
           <div className="relative z-10 mx-auto max-w-2xl">
             <h3
               className="font-display font-semibold tracking-tight text-white"
               style={{ fontSize: "clamp(2.25rem, 6vw, 4.5rem)", lineHeight: 1.02, letterSpacing: "-0.03em" }}
             >
-              Ready to make edits
+              Ready to start your
               <br />
-              that feel <span className="grad-text-gold">like yours</span>?
+              editing <span className="grad-text-gold">journey</span>?
             </h3>
             <p className="mx-auto mt-5 max-w-lg text-sm text-white/70 sm:text-base">
-              Send us your footage, pick an editor, and get a first cut back. Takes 30 seconds to start.
+              ৫০০+ সফল শিক্ষার্থীর সাথে আপনিও শুরু করুন আপনার এডিটিং ক্যারিয়ার। আজই এনরোল করুন।
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
-              <Link to="/contact" className="gloss-btn">
-                Start free <ArrowRight className="h-5 w-5" />
+              <Link to="/courses" className="gloss-btn">
+                এনরোল করুন <ArrowRight className="h-5 w-5" />
               </Link>
             </div>
             <div className="mono-readout mt-6 !text-white/60">
-              No commitment · Free first consultation
+              Life-time access · Community Support
             </div>
           </div>
         </div>
