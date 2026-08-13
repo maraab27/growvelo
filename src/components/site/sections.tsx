@@ -846,6 +846,9 @@ function EditorCard({ e, tilt }: { e: Editor; tilt: string }) {
 
 export function Instructors({ limit }: { limit?: number } = {}) {
   const items = limit ? editors.slice(0, limit) : editors;
+  const e = items[0]; // Take the main mentor
+  if (!e) return null;
+
   return (
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
@@ -857,11 +860,66 @@ export function Instructors({ limit }: { limit?: number } = {}) {
           gradWord="Mentor"
           sub="সিনেমাটিক এবং মোশন এডিটিংয়ে দক্ষ মেন্টরের কাছ থেকে সরাসরি শিখুন।"
         />
-        <div className="mt-14 flex justify-center">
-          <div className="max-w-md w-full">
-            {items.map((e, i) => (
-              <EditorCard key={e.slug} e={e} tilt="" />
-            ))}
+        <div className="mt-14 flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-center">
+          <div className="relative max-w-sm w-full">
+            <div className="pin" style={pinStyle(e.pin)} />
+            <div className={`sticky-card tint-${e.tint} p-8`}>
+              <div className="flex items-center gap-5">
+                <div className="h-20 w-20 shrink-0 rounded-full ring-4 ring-white shadow-lg" style={{ background: e.avatar }} />
+                <div className="min-w-0">
+                  <div className="font-display text-2xl font-bold leading-tight">{e.name}</div>
+                  <div className="mono-readout mt-1 text-xs">{e.role}</div>
+                </div>
+              </div>
+              <p className="mt-6 text-base leading-relaxed text-foreground/80">{e.bio}</p>
+              
+              <div className="mt-8">
+                <div className="mono-readout mb-3 text-[11px]">Specialized Skills</div>
+                <div className="flex flex-wrap gap-2">
+                  {e.skills.map((s) => (
+                    <span key={s} className="rounded-full border border-foreground/10 bg-white/70 px-3 py-1 text-xs font-medium text-foreground/75">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-8 flex items-center justify-between border-t border-foreground/10 pt-6">
+                <div className="text-sm font-medium text-foreground/60">
+                  <span className="block text-xl font-bold text-foreground">{e.years}+ Years</span>
+                  Industry Experience
+                </div>
+                <Link to="/about" className="gloss-btn !px-5 !py-2.5 !text-sm">
+                  Learn More
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="max-w-md space-y-6">
+            <div className="relative">
+              <div className="pin" style={pinStyle("sky")} />
+              <div className="sticky-card p-6">
+                <h4 className="font-display text-lg font-semibold flex items-center gap-2">
+                  <Wand2 className="h-5 w-5 text-sky-500" /> Professional Experience
+                </h4>
+                <p className="mt-3 text-sm text-foreground/70 leading-relaxed">
+                  Muhammad Ataullah has worked with over 50+ international brands and creators, delivering high-end cinematic content that converts.
+                </p>
+              </div>
+            </div>
+            
+            <div className="relative">
+              <div className="pin" style={pinStyle("mint")} />
+              <div className={`sticky-card tint-mint p-6`}>
+                <h4 className="font-display text-lg font-semibold flex items-center gap-2">
+                  <AudioLines className="h-5 w-5 text-mint-500" /> Teaching Philosophy
+                </h4>
+                <p className="mt-3 text-sm text-foreground/70 leading-relaxed">
+                  "I don't just teach tools; I teach the art of storytelling. My goal is to help you find your unique voice in the world of video editing."
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
