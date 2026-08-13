@@ -110,9 +110,9 @@ export function SectionHead({
 
 const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
   { to: "/", label: "Home", exact: true },
-  { to: "/portfolio", label: "Portfolio", exact: true },
   { to: "/courses", label: "Courses", exact: true },
   { to: "/reviews", label: "Reviews", exact: true },
+  { to: "/portfolio", label: "Portfolio", exact: true },
   { to: "/about", label: "About", exact: true },
 ];
 
