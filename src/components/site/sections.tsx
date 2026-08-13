@@ -847,11 +847,11 @@ export function StudentShowcase({ limit }: { limit?: number } = {}) {
     <section className="aurora-bg py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
-          eyebrow="Timeline"
+          eyebrow="Showcase"
           eyebrowColor="mint"
           eyebrowIcon={<PinIcon className="h-3.5 w-3.5" />}
-          before="আমাদের"
-          gradWord="জার্নি"
+          before="স্টুডেন্টদের তৈরি"
+          gradWord="মাস্টারপিস"
           after="দেখুন"
           sub="আমাদের শিক্ষার্থীদের সফল প্রজেক্ট এবং এডিটিং টাইমলাইনের এক ঝলক।"
         />
