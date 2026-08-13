@@ -109,13 +109,13 @@ export function SectionHead({
 }
 
 const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
-  { to: "/", label: "Home", exact: true },
-  { to: "/portfolio", label: "Portfolio" },
-  { to: "/editors", label: "Editors" },
-  { to: "/courses", label: "Courses" },
-  { to: "/reviews", label: "Reviews" },
-  { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
+  { to: "/", label: "হোম", exact: true },
+  { to: "/portfolio", label: "পোর্টফোলিও" },
+  { to: "/editors", label: "এডিটরস" },
+  { to: "/courses", label: "কোর্স" },
+  { to: "/reviews", label: "রিভিউ" },
+  { to: "/about", label: "আমাদের সম্পর্কে" },
+  { to: "/contact", label: "যোগাযোগ" },
 ];
 
 /* ---------- nav ---------- */
@@ -158,7 +158,7 @@ export function Nav() {
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <ThemeToggle />
             <Link to="/contact" className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm">
-              Hire us <ArrowRight className="h-4 w-4" />
+              হায়ার করুন <ArrowRight className="h-4 w-4" />
             </Link>
             <button
               type="button"
@@ -327,10 +327,10 @@ export function Hero() {
       <div className="mx-auto max-w-[1200px] px-5 pt-16 pb-24 sm:pt-24 sm:pb-28">
         {/* floating chip stickers */}
         <div className="pointer-events-none absolute inset-0 hidden xl:block">
-          <div className="absolute left-[2%] top-[18%] tilt-l"><Chip color="mint" icon={<Sparkles className="h-3.5 w-3.5" />}>48h first cut</Chip></div>
-          <div className="absolute right-[2%] top-[14%] tilt-r"><Chip color="lemon">✂ Sound-designed</Chip></div>
-          <div className="absolute left-[1%] top-[62%] tilt-xs-r"><Chip color="blush">♥ 600+ delivered</Chip></div>
-          <div className="absolute right-[2%] top-[58%] tilt-xs-l"><Chip color="sky">▶ Color graded</Chip></div>
+          <div className="absolute left-[2%] top-[18%] tilt-l"><Chip color="mint" icon={<Sparkles className="h-3.5 w-3.5" />}>৪৮ ঘণ্টায় প্রথম ড্রাফট</Chip></div>
+          <div className="absolute right-[2%] top-[14%] tilt-r"><Chip color="lemon">✂ সাউন্ড ডিজাইন্ড</Chip></div>
+          <div className="absolute left-[1%] top-[62%] tilt-xs-r"><Chip color="blush">♥ ৬০০+ ডেলিভারি</Chip></div>
+          <div className="absolute right-[2%] top-[58%] tilt-xs-l"><Chip color="sky">▶ কালার গ্রেডেড</Chip></div>
         </div>
 
         <div className="relative z-10 mx-auto max-w-3xl text-center">
@@ -343,19 +343,15 @@ export function Hero() {
             that feel <span className="grad-text">alive</span>.
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-base text-foreground/65 sm:text-lg">
-            Cinematic cuts, short-form reels, and motion — pinned together on one glossy canvas
-            by a boutique team of editors.
+            সিনেমাটিক কাট, শর্ট-ফর্ম রিলস এবং মোশন — সবকিছুই এক জায়গায়। আমাদের দক্ষ এডিটররা আপনার ভিডিওকে দিবে নতুন প্রাণ।
           </p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center">
             <Link to="/contact" className="gloss-btn">
-              Start free <ArrowRight className="h-5 w-5" />
+              ফ্রি শুরু করুন <ArrowRight className="h-5 w-5" />
             </Link>
             <Link to="/portfolio" className="gloss-btn-ghost">
-              <Play className="h-5 w-5" /> Watch the reel
+              <Play className="h-5 w-5" /> রিল দেখুন
             </Link>
-          </div>
-          <div className="mono-readout mt-6 sm:mt-8">
-            24h first cut · no commitment
           </div>
         </div>
 
@@ -371,15 +367,14 @@ export function Hero() {
                   <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--mint)" }} />
                 </div>
                 <span className="mono-readout hidden sm:inline">
-                  Featured Course · Enrolling Now
+                  কোর্স · এনরোল চলছে
                 </span>
               </div>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-5 sm:gap-4">
                 {/* Course main card */}
                 <div className="sticky-card tint-mint p-4 sm:col-span-3">
                   <div className="flex items-center justify-between gap-2">
-                    <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />}>Most Popular · Cohort 07</Chip>
-                    <span className="mono-readout hidden sm:inline">4.9 ★ · 320+</span>
+                    <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />}>জনপ্রিয় কোর্স · ব্যাচ ০৭</Chip>
                   </div>
 
                   {/* Course thumbnail / poster */}
@@ -418,12 +413,12 @@ export function Hero() {
 
                   <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
                     <Link to="/courses/$slug" params={{ slug: "video-editing-bootcamp" }} className="gloss-btn inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold">
-                      Enroll now <ArrowRight className="h-4 w-4" />
+                      এনরোল করুন <ArrowRight className="h-4 w-4" />
                     </Link>
                     <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                      <span className="font-display text-lg font-semibold leading-none">৳4,000</span>
-                      <span className="text-xs text-foreground/50 line-through leading-none">৳5,000</span>
-                      <span className="whitespace-nowrap text-[10px] font-medium uppercase tracking-wide text-foreground/60">Early Bird</span>
+                      <span className="font-display text-lg font-semibold leading-none">৳৪,০০০</span>
+                      <span className="text-xs text-foreground/50 line-through leading-none">৳৫,০০০</span>
+                      <span className="whitespace-nowrap text-[10px] font-medium uppercase tracking-wide text-foreground/60">আর্লি বার্ড</span>
                     </div>
                   </div>
                 </div>
