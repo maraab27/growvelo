@@ -272,7 +272,7 @@ export function Hero() {
             {/* Course main card - Styled like Mentor card */}
             <div className="relative max-w-lg w-full">
               <div className="pin" style={pinStyle("mint")} />
-              <div className="sticky-card p-6 sm:p-8 flex flex-col h-full">
+              <div className="sticky-card p-6 sm:p-8 flex flex-col h-full bg-linear-to-b from-[var(--paper)] to-color-mix(in oklab, var(--mint) 12%, var(--paper))">
                 <div className="flex items-center justify-between gap-2">
                   <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />} className="!whitespace-nowrap">জনপ্রিয় কোর্স · ব্যাচ ০৭</Chip>
                 </div>
@@ -322,7 +322,7 @@ export function Hero() {
             <div className="max-w-sm w-full space-y-6 flex flex-col justify-center">
               <div className="relative">
                 <div className="pin" style={pinStyle("lemon")} />
-                <div className="sticky-card p-6">
+                <div className="sticky-card p-6 bg-linear-to-b from-[var(--paper)] to-color-mix(in oklab, var(--lemon) 12%, var(--paper))">
                   <h4 className="font-display text-lg font-semibold flex items-center gap-2">
                     <Sparkles className="h-5 w-5 text-lemon-500" /> Instructor
                   </h4>
@@ -342,7 +342,7 @@ export function Hero() {
               
               <div className="relative">
                 <div className="pin" style={pinStyle("sky")} />
-                <div className="sticky-card p-6">
+                <div className="sticky-card p-6 bg-linear-to-b from-[var(--paper)] to-color-mix(in oklab, var(--sky) 12%, var(--paper))">
                   <h4 className="font-display text-lg font-semibold flex items-center gap-2">
                     <Clock className="h-5 w-5 text-sky-500" /> Batch Schedule
                   </h4>
@@ -1080,13 +1080,9 @@ export function CourseCategories() {
 
 export function Courses({ limit }: { limit?: number } = {}) {
   return (
-    <section className="aurora-soft py-24 sm:py-28">
-      <div className="mx-auto max-w-[1200px] px-5">
-        <CourseCategories />
-        <div className="mt-16" />
-        <FeaturedCourses limit={limit} />
-      </div>
-    </section>
+    <div className="mx-auto max-w-[1200px] px-5">
+      <FeaturedCourses limit={limit} />
+    </div>
   );
 }
 
