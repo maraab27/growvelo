@@ -23,6 +23,7 @@ import {
   Megaphone,
   Briefcase,
   Pin as PinIcon,
+  Plus,
 } from "lucide-react";
 
 import { ThemeToggle } from "./theme-toggle";
