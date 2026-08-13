@@ -1340,10 +1340,10 @@ export function BigCTA() {
 /* ---------- footer ---------- */
 
 const FOOTER_COLS: { title: string; links: { to: string; label: string }[] }[] = [
-  { title: "Studio", links: [{ to: "/portfolio", label: "Portfolio" }, { to: "/editors", label: "Editors" }] },
-  { title: "Learn", links: [{ to: "/courses", label: "Courses" }, { to: "/reviews", label: "Reviews" }] },
-  { title: "Company", links: [{ to: "/about", label: "About" }, { to: "/pricing", label: "Pricing" }] },
-  { title: "Get in touch", links: [{ to: "/contact", label: "Contact" }] },
+  { title: "একাডেমি", links: [{ to: "/portfolio", label: "স্টুডেন্ট শোকেস" }, { to: "/editors", label: "মেন্টরস" }] },
+  { title: "শিখুন", links: [{ to: "/courses", label: "সবগুলো কোর্স" }, { to: "/reviews", label: "রিভিউ" }] },
+  { title: "পলিসি", links: [{ to: "/about", label: "আমাদের সম্পর্কে" }, { to: "/", label: "রিফান্ড পলিসি" }] },
+  { title: "কমিউনিটি", links: [{ to: "/", label: "ফেসবুক গ্রুপ" }, { to: "/", label: "ডিসকর্ড" }] },
 ];
 
 export function Footer() {
