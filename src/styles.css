@@ -196,7 +196,7 @@
 
 /* ---------- Glass ---------- */
 @utility glass {
-  background: color-mix(in oklab, var(--paper) 25%, transparent);
+  background: color-mix(in oklab, var(--paper) 75%, transparent);
   backdrop-filter: blur(12px) saturate(160%);
   border: 1px solid color-mix(in oklab, var(--paper) 15%, transparent);
   border-radius: 1.25rem;
