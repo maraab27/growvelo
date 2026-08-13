@@ -347,8 +347,8 @@ export function Hero() {
             <Link to="/courses" className="gloss-btn">
               এনরোল করুন <ArrowRight className="h-5 w-5" />
             </Link>
-            <Link to="/portfolio" className="gloss-btn-ghost">
-              <Play className="h-5 w-5" /> পোর্টফোলিও দেখুন
+            <Link to="/courses" className="gloss-btn-ghost">
+              <Play className="h-5 w-5" /> Watch Free Masterclass
             </Link>
           </div>
         </div>
