@@ -253,7 +253,7 @@ export function Hero() {
             <br />
             into Profession.
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-base text-foreground/65 sm:text-lg">
+          <p className="mx-auto mt-6 max-w-lg text-base text-foreground/65 sm:text-lg">
             Master the art of cinematic video editing and short-form storytelling from industry experts.
           </p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center">
@@ -285,7 +285,7 @@ export function Hero() {
                 {/* Course main card */}
                 <div className="sticky-card p-5 sm:col-span-3">
                   <div className="flex items-center justify-between gap-2">
-                    <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />}>জনপ্রিয় কোর্স · ব্যাচ ০৭</Chip>
+                    <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />} className="!whitespace-nowrap">জনপ্রিয় কোর্স · ব্যাচ ০৭</Chip>
                   </div>
 
                   {/* Course thumbnail / poster */}
