@@ -186,20 +186,20 @@
 
 /* ---------- Glass ---------- */
 @utility glass {
-  background: color-mix(in oklab, var(--paper) 45%, transparent);
-  backdrop-filter: blur(18px) saturate(160%);
-  border: 1px solid color-mix(in oklab, var(--paper) 40%, transparent);
+  background: color-mix(in oklab, var(--paper) 25%, transparent);
+  backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid color-mix(in oklab, var(--paper) 15%, transparent);
   border-radius: 1.25rem;
   box-shadow:
-    inset 0 1px 0 var(--hl),
-    0 10px 30px -15px color-mix(in oklab, var(--brand) 15%, transparent);
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 4px 20px -10px color-mix(in oklab, var(--brand) 10%, transparent);
 }
 .dark .glass {
-  background: color-mix(in oklab, var(--paper) 72%, transparent);
-  border-color: color-mix(in oklab, white 12%, transparent);
+  background: color-mix(in oklab, var(--paper) 40%, transparent);
+  border-color: color-mix(in oklab, white 8%, transparent);
   box-shadow:
-    inset 0 1px 0 var(--hl),
-    0 20px 46px -18px rgba(0, 0, 0, 0.7);
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 10px 30px -15px rgba(0, 0, 0, 0.5);
 }
 
 @utility glass-strong {

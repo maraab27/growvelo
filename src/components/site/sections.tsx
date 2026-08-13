@@ -121,8 +121,8 @@ const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
 export function Nav() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="fixed inset-x-0 top-0 z-50 flex justify-center px-0 pt-3 sm:px-4 sm:pt-4">
-      <header className="glass flex w-full max-w-6xl flex-col overflow-hidden !rounded-3xl px-3 py-2 sm:!rounded-full sm:px-5 sm:py-2">
+    <div className="fixed inset-x-0 top-0 z-50 flex justify-center px-0 pt-0 sm:px-4 sm:pt-4">
+      <header className="glass flex w-full max-w-6xl flex-col overflow-hidden !rounded-none border-x-0 border-t-0 bg-transparent px-3 py-2 sm:!rounded-full sm:border sm:bg-color-mix(in oklab, var(--paper) 25%, transparent) sm:px-5 sm:py-2">
         <div className="flex w-full items-center justify-between gap-3">
           <Link to="/" className="flex min-w-0 items-center gap-2 sm:gap-2.5" onClick={() => setOpen(false)}>
             <div
