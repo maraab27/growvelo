@@ -5,7 +5,6 @@ import {
   Services,
   Portfolio,
   Editors,
-  Pricing,
   Courses,
   Reviews,
   About,
