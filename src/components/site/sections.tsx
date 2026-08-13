@@ -370,12 +370,12 @@ export function Hero() {
 
 export function SocialProof() {
   return (
-    <div className="relative z-10 mt-16 sm:mt-24">
-      <div className="mono-readout text-center">Learn Tools Trusted By Professionals</div>
-      <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-[0.22em] text-foreground/45 sm:gap-x-12 sm:text-sm">
-        <span>Premiere Pro</span>
-        <span>DaVinci Resolve</span>
-        <span>After Effects</span>
+    <div className="relative z-10 mt-16 sm:mt-24 pb-8 sm:pb-12">
+      <div className="mono-readout text-center opacity-60">Learn Tools Trusted By Professionals</div>
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-xs font-semibold uppercase tracking-[0.25em] text-foreground/45 sm:gap-x-16 sm:text-sm">
+        <span className="transition-opacity hover:opacity-100">Premiere Pro</span>
+        <span className="transition-opacity hover:opacity-100">DaVinci Resolve</span>
+        <span className="transition-opacity hover:opacity-100">After Effects</span>
       </div>
     </div>
   );
@@ -462,6 +462,47 @@ const SERVICES: {
 ];
 
 export function Services() {
+  return (
+    <section className="aurora-soft py-24 sm:py-32">
+      <div className="mx-auto max-w-[1200px] px-5">
+        <SectionHead
+          eyebrow="Our Academy"
+          eyebrowColor="brand"
+          eyebrowIcon={<Layers className="h-3.5 w-3.5" />}
+          before="আপনার সৃজনশীল যাত্রার"
+          gradWord="সহযাত্রী"
+          sub="আমরা শুধু এডিটিং শেখাই না, আমরা আপনাকে একজন পেশাদার এডিটর হিসেবে গড়ে তুলি।"
+        />
+
+        <div className="mt-16 grid grid-cols-1 gap-6 sm:mt-20 md:grid-cols-2 lg:grid-cols-3">
+          {SERVICES.map((s) => (
+            <div key={s.title} className="relative group">
+              <div className="pin" style={pinStyle(s.pin)} />
+              <div className={`sticky-card flex h-full flex-col p-6 tint-${s.tint} transition-transform duration-300 group-hover:-translate-y-1`}>
+                <div className="flex items-center justify-between">
+                  <Chip color={s.chipColor} icon={s.icon}>{s.tag}</Chip>
+                  <span className="mono-readout text-[10px] opacity-40">{s.key}</span>
+                </div>
+                
+                <h3 className="mt-5 font-display text-xl font-bold">{s.title}</h3>
+                <p className="mt-3 flex-grow text-sm leading-relaxed text-foreground/70">
+                  {s.body}
+                </p>
+                
+                <div className="mt-6 flex items-center justify-between border-t border-foreground/10 pt-4">
+                  <div className="h-1.5 w-16 overflow-hidden rounded-full bg-foreground/10">
+                    <div className="h-full w-2/3 rounded-full" style={{ background: s.grad }} />
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-foreground/40">Active Service</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
   return (
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
