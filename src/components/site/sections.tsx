@@ -1012,6 +1012,10 @@ export function CourseCategories() {
         <div className="mt-16">
           <FeaturedCourses />
         </div>
+      </div>
+    </section>
+  );
+}
 
         <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
           {COURSE_CATEGORIES.map((c) => (
