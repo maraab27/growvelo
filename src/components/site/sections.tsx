@@ -93,8 +93,8 @@ export function SectionHead({
   return (
     <div className={wrap}>
       <Chip color={eyebrowColor} icon={eyebrowIcon}>{eyebrow}</Chip>
-      <h2 className="mt-5 font-display font-semibold tracking-tight text-foreground sm:whitespace-nowrap"
-          style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", lineHeight: 1.05 }}>
+      <h2 className="mt-5 font-display font-bold tracking-tight text-foreground sm:whitespace-nowrap"
+          style={{ fontSize: "clamp(2.5rem, 8vw, 5rem)", lineHeight: 1.0, letterSpacing: "-0.04em" }}>
         {before}{" "}
         <span className="grad-text">{gradWord}</span>
         {after ? <> {after}</> : null}
@@ -327,10 +327,10 @@ export function Hero() {
       <div className="mx-auto max-w-[1200px] px-5 pt-16 pb-24 sm:pt-24 sm:pb-28">
         {/* floating chip stickers */}
         <div className="pointer-events-none absolute inset-0 hidden xl:block">
-          <div className="absolute left-[2%] top-[18%] tilt-l"><Chip color="mint" icon={<Sparkles className="h-3.5 w-3.5" />}>৪৮ ঘণ্টায় প্রথম ড্রাফট</Chip></div>
-          <div className="absolute right-[2%] top-[14%] tilt-r"><Chip color="lemon">✂ সাউন্ড ডিজাইন্ড</Chip></div>
-          <div className="absolute left-[1%] top-[62%] tilt-xs-r"><Chip color="blush">♥ ৬০০+ ডেলিভারি</Chip></div>
-          <div className="absolute right-[2%] top-[58%] tilt-xs-l"><Chip color="sky">▶ কালার গ্রেডেড</Chip></div>
+          <div className="absolute left-[2%] top-[18%] tilt-l"><Chip color="mint" icon={<Sparkles className="h-3.5 w-3.5" />}>48h first cut</Chip></div>
+          <div className="absolute right-[2%] top-[14%] tilt-r"><Chip color="lemon">✂ Sound-designed</Chip></div>
+          <div className="absolute left-[1%] top-[62%] tilt-xs-r"><Chip color="blush">♥ Fast Turnaround</Chip></div>
+          <div className="absolute right-[2%] top-[58%] tilt-xs-l"><Chip color="sky">▶ Color graded</Chip></div>
         </div>
 
         <div className="relative z-10 mx-auto max-w-3xl text-center">
@@ -1050,25 +1050,25 @@ export function Courses({ limit }: { limit?: number } = {}) {
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
-          eyebrow="Templates"
+          eyebrow="Courses"
           eyebrowColor="blush"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
-          before="Pick a starting point."
-          gradWord="Ship"
-          after="in seconds."
-          sub="Editing courses taught by growVelo editors — pick a specialty and start shipping better cuts."
+          before="Learn the art of"
+          gradWord="Story"
+          after="first editing."
+          sub="Master cinematic storytelling and high-retention editing with the experts at growVelo."
         />
 
-        <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-5">
+        <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
           {COURSE_CATEGORIES.map((c) => (
-            <Link key={c.name} to="/courses" className="relative block transition-transform hover:-translate-y-1">
+            <Link key={c.name} to="/courses" className="relative block group">
               <div className="pin" style={pinStyle(c.pin)} />
-              <div className={`sticky-card tint-${c.tint} p-5 text-center h-full`}>
-                <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl" style={{ background: c.grad, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5)" }}>
+              <div className={`sticky-card tint-${c.tint} p-6 text-center h-full transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-xl`}>
+                <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl transition-transform group-hover:scale-110" style={{ background: c.grad, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5)" }}>
                   {c.icon}
                 </div>
-                <div className="mt-4 font-display text-base font-semibold">{c.name}</div>
-                <div className="mono-readout mt-1">{c.count}</div>
+                <div className="mt-4 font-display text-lg font-bold tracking-tight">{c.name}</div>
+                <div className="mono-readout mt-1 text-[9px] opacity-60">{c.count} projects</div>
               </div>
             </Link>
           ))}
@@ -1179,7 +1179,7 @@ export function Reviews({ limit }: { limit?: number } = {}) {
 
 export function About() {
   const stats: { k: string; v: string; tint: "mint" | "coral" | "lemon" | "blush"; pin: ChipColor }[] = [
-    { k: "600+", v: "Projects delivered", tint: "mint", pin: "mint" },
+    { k: "150+", v: "Happy clients", tint: "mint", pin: "mint" },
     { k: "90+", v: "Brand clients", tint: "coral", pin: "coral" },
     { k: "12", v: "In-house editors", tint: "lemon", pin: "lemon" },
     { k: "24h", v: "Avg. turnaround", tint: "blush", pin: "blush" },
