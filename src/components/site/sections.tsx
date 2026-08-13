@@ -158,7 +158,7 @@ export function Nav() {
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <ThemeToggle />
             <Link to="/contact" className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm">
-              হায়ার করুন <ArrowRight className="h-4 w-4" />
+              Hire us <ArrowRight className="h-4 w-4" />
             </Link>
             <button
               type="button"
