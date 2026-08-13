@@ -68,25 +68,32 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
     return null;
   }
 
+  // We use useMemo to sanitize and prepare the CSS string
+  const css = React.useMemo(() => {
+    // Basic sanitization: ensure id only contains alphanumeric and hyphens
+    const safeId = id.replace(/[^a-zA-Z0-9-]/g, "");
+    
+    return Object.entries(THEMES)
+      .map(([theme, prefix]) => {
+        const styles = colorConfig
+          .map(([key, itemConfig]) => {
+            const color = itemConfig.theme?.[theme as keyof typeof itemConfig.theme] || itemConfig.color;
+            // Sanitizing the key and color value
+            const safeKey = key.replace(/[^a-zA-Z0-9-]/g, "");
+            // Basic color validation: check if it looks like a hex, rgb, hsl or named color
+            const isSafeColor = color && /^[#a-zA-Z0-9(),.%\s-]+$/.test(color);
+            return isSafeColor ? `  --color-${safeKey}: ${color};` : null;
+          })
+          .filter(Boolean)
+          .join("\n");
+        
+        return `${prefix} [data-chart=${safeId}] {\n${styles}\n}`;
+      })
+      .join("\n");
+  }, [id, colorConfig]);
+
   return (
-    <style
-      dangerouslySetInnerHTML={{
-        __html: Object.entries(THEMES)
-          .map(
-            ([theme, prefix]) => `
-${prefix} [data-chart=${id}] {
-${colorConfig
-  .map(([key, itemConfig]) => {
-    const color = itemConfig.theme?.[theme as keyof typeof itemConfig.theme] || itemConfig.color;
-    return color ? `  --color-${key}: ${color};` : null;
-  })
-  .join("\n")}
-}
-`,
-          )
-          .join("\n"),
-      }}
-    />
+    <style dangerouslySetInnerHTML={{ __html: css }} />
   );
 };
 

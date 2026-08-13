@@ -23,22 +23,27 @@ function EnrollmentModal({ courseSlug, onClose, onSuccess }: { courseSlug: strin
         return;
       }
 
-      const { error } = await supabase
-        .from('course_enrollments')
-        .insert([{
-          user_id: user.id,
-          email: email,
-          course_slug: courseSlug,
-          payment_method: 'bkash',
-          transaction_id: transactionId,
-          status: 'pending'
-        }]);
+      const response = await fetch('/api/public/enroll', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          courseSlug,
+          bkashNumber,
+          transactionId,
+          userId: user.id,
+        }),
+      });
 
-      if (error) {
-        if (error.code === '23505') {
+      const result = await response.json();
+
+      if (!response.ok) {
+        if (response.status === 409) {
           toast.error("আপনি ইতিমধ্যে এই কোর্সের জন্য আবেদন করেছেন।");
         } else {
-          toast.error("কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+          toast.error(result.error || "কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।");
         }
       } else {
         toast.success("আবেদন জমা হয়েছে! অনুমোদন হলে আপনাকে জানানো হবে।");
