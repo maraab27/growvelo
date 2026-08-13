@@ -1402,9 +1402,6 @@ export function BigCTA() {
               <Link to="/contact" className="gloss-btn">
                 Start free <ArrowRight className="h-5 w-5" />
               </Link>
-              <Link to="/pricing" className="gloss-btn-ghost !text-white !bg-white/10 !border-white/20 hover:!bg-white/15">
-                See pricing
-              </Link>
             </div>
             <div className="mono-readout mt-6 !text-white/60">
               No commitment · Free first consultation

@@ -84,7 +84,6 @@ function EditorDetail() {
                 <Link to="/contact" className="gloss-btn !text-sm">
                   Request {e.name.split(" ")[0]} <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link to="/pricing" className="gloss-btn-ghost !text-sm">See pricing</Link>
               </div>
             </div>
           </div>
