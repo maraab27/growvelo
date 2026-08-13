@@ -100,12 +100,12 @@
   --card-foreground: var(--foreground);
   --primary: var(--brand);
   --primary-foreground: oklch(0.14 0.02 285);
-  --secondary: oklch(0.26 0.025 286);
+  --secondary: oklch(0.24 0.02 286);
   --secondary-foreground: var(--foreground);
-  --muted: oklch(0.27 0.025 286);
-  --muted-foreground: oklch(0.75 0.02 280);
+  --muted: oklch(0.25 0.02 286);
+  --muted-foreground: oklch(0.7 0.02 280);
   --accent: var(--brand);
-  --accent-foreground: oklch(0.14 0.02 285);
+  --accent-foreground: oklch(0.99 0.005 260);
   --border: oklch(0.75 0.03 280 / 22%);
   --ring: var(--brand);
 
@@ -436,7 +436,9 @@
   box-shadow:
     inset 0 1px 0 var(--hl),
     0 3px 6px color-mix(in oklab, var(--chip-color, var(--mint)) 25%, transparent);
-  white-space: nowrap;
+  white-space: normal;
+  text-align: left;
+  line-height: 1.25;
 }
 .dark .chip {
   color: color-mix(in oklab, var(--chip-color, var(--mint)) 88%, white);

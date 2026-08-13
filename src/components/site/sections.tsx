@@ -100,7 +100,7 @@ export function SectionHead({
         {after ? <> {after}</> : null}
       </h2>
       {sub && (
-        <p className="mx-auto mt-5 max-w-3xl text-sm text-foreground/65 sm:text-base sm:whitespace-nowrap">
+        <p className="mx-auto mt-5 max-w-3xl text-sm text-foreground/65 sm:text-base">
           {sub}
         </p>
       )}
@@ -247,13 +247,13 @@ export function Hero() {
         <div className="relative z-10 mx-auto max-w-3xl text-center">
           <h1
             className="mt-6 font-display font-semibold tracking-tight text-foreground"
-            style={{ fontSize: "clamp(2.75rem, 8vw, 7rem)", lineHeight: 0.98, letterSpacing: "-0.035em" }}
+            style={{ fontSize: "clamp(2rem, 6vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-0.025em" }}
           >
             Turn Your <span className="grad-text">Passion</span>
             <br />
             into Profession.
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-base text-foreground/65 sm:text-lg">
+          <p className="mx-auto mt-6 max-w-lg text-base text-foreground/65 sm:text-lg">
             Master the art of cinematic video editing and short-form storytelling from industry experts.
           </p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center">
@@ -267,10 +267,10 @@ export function Hero() {
         </div>
 
         {/* Featured Course showcase panel */}
-        <div className="relative z-10 mx-auto mt-16 max-w-6xl sm:mt-24">
+        <div className="relative z-10 mx-auto mt-12 max-w-5xl sm:mt-16">
           <div className="relative">
             <div className="pin" style={pinStyle("coral")} />
-            <div className="sticky-card p-4 sm:p-8">
+            <div className="sticky-card p-4 sm:p-6 lg:p-8">
               <div className="mb-6 flex items-center justify-between px-2 pt-1">
                 <div className="flex items-center gap-1.5">
                   <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--coral)" }} />
@@ -283,9 +283,9 @@ export function Hero() {
               </div>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-5 sm:gap-10">
                 {/* Course main card */}
-                <div className="sticky-card tint-mint p-6 sm:col-span-3">
+                <div className="sticky-card p-5 sm:col-span-3">
                   <div className="flex items-center justify-between gap-2">
-                    <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />}>জনপ্রিয় কোর্স · ব্যাচ ০৭</Chip>
+                    <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />} className="!whitespace-nowrap">জনপ্রিয় কোর্স · ব্যাচ ০৭</Chip>
                   </div>
 
                   {/* Course thumbnail / poster */}
@@ -335,7 +335,7 @@ export function Hero() {
                 </div>
 
                 {/* Instructor + start date card */}
-                <div className="sticky-card tint-lemon p-6 tilt-xs-r sm:col-span-2">
+                <div className="sticky-card p-5 sm:col-span-2">
                   <Chip color="lemon">Instructor</Chip>
                   <div className="mt-3 flex items-center gap-3">
                     <img
