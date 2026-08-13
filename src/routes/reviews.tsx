@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteShell, Reviews, BigCTA } from "../components/site/sections";
+import { SiteShell, StudentReviews, BigCTA } from "../components/site/sections";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
