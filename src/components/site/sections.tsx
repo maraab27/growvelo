@@ -110,9 +110,9 @@ export function SectionHead({
 
 const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
   { to: "/", label: "Home", exact: true },
-  { to: "/portfolio", label: "Portfolio", exact: true },
   { to: "/courses", label: "Courses", exact: true },
   { to: "/reviews", label: "Reviews", exact: true },
+  { to: "/portfolio", label: "Portfolio", exact: true },
   { to: "/about", label: "About", exact: true },
 ];
 
@@ -272,18 +272,13 @@ export function Hero() {
             {/* Course main card - Styled like Mentor card */}
             <div className="relative max-w-lg w-full">
               <div className="pin" style={pinStyle("mint")} />
-              <div className="sticky-card p-6 sm:p-8 flex flex-col h-full tint-mint">
+              <div className="sticky-card p-6 sm:p-8 flex flex-col h-full tint-brand">
                 <div className="flex items-center justify-between gap-2">
-                  <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />} className="!whitespace-nowrap">জনপ্রিয় কোর্স · ব্যাচ ০৭</Chip>
+                  <Chip color="brand" icon={<Film className="h-3.5 w-3.5" />} className="!whitespace-nowrap">লেটেস্ট কোর্স · ব্যাচ ০৩</Chip>
                 </div>
                 
                 <div className="relative mt-5 w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black aspect-video">
-                  <img
-                    src={courseThumbnail.url}
-                    alt="Rising Editors — Video Editing Bootcamp poster"
-                    className="block h-full w-full object-cover"
-                    loading="lazy"
-                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-coral-500/20 to-brand-500/40 mix-blend-overlay" />
                   <div className="absolute left-3 top-3">
                     <span className="mono-readout rounded-md bg-black/50 px-2 py-1 text-white/90 backdrop-blur-sm">
                       <span className="rec-dot mr-1 align-middle" /> PREVIEW
@@ -292,13 +287,13 @@ export function Hero() {
                 </div>
 
                 <div className="mt-6 flex-grow">
-                  <h3 className="font-display text-2xl font-bold leading-tight">Video Editing Bootcamp</h3>
+                  <h3 className="font-display text-2xl font-bold leading-tight">Advanced Video Editing & Retelling</h3>
                   <p className="mt-3 text-sm leading-relaxed text-foreground/70">
-                    ৬ সপ্তাহের hands-on কোর্স। Story-first editing, color grading, sound design আর delivery workflow।
+                    আমাদের পরবর্তী ব্যাচে আমরা একদম জিরো থেকে অ্যাডভান্স লেভেল পর্যন্ত ভিডিও এডিটিং শিখবো। এনরোলমেন্ট চলছে।
                   </p>
                   
                   <div className="mt-5 flex flex-wrap items-center gap-2">
-                    {["6 Weeks", "Live + VOD", "Intermediate"].map((tag) => (
+                    {["30 Days", "Live Classes", "Upcoming"].map((tag) => (
                       <span key={tag} className="rounded-full border border-foreground/10 bg-white/70 px-3 py-1 text-[11px] font-medium text-foreground/75">
                         {tag}
                       </span>
@@ -308,10 +303,10 @@ export function Hero() {
 
                 <div className="mt-8 flex items-center justify-between border-t border-foreground/10 pt-6">
                   <div className="flex flex-col">
-                    <span className="text-xl font-bold text-foreground">FREE</span>
-                    <span className="text-xs text-foreground/50 line-through">৳৫,০০০</span>
+                    <span className="text-xl font-bold text-foreground">৳৬,০০০</span>
+                    <span className="text-xs text-foreground/50 line-through">৳৮,০০০</span>
                   </div>
-                  <Link to="/courses/$slug" params={{ slug: "video-editing-bootcamp" }} className="gloss-btn !px-5 !py-2.5 !text-sm">
+                  <Link to="/courses/$slug" params={{ slug: "video-editing-batch-3" }} className="gloss-btn !px-5 !py-2.5 !text-sm">
                     Enroll Now
                   </Link>
                 </div>
