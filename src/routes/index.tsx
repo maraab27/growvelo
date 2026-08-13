@@ -22,7 +22,7 @@ function Index() {
       <Hero />
       <SocialProof />
       <CourseCategories />
-      {/* Student showcase removed as requested */}
+      <StudentShowcase limit={5} />
       <Instructors />
       <StudentReviews />
       <FAQ />
