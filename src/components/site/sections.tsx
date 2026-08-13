@@ -93,8 +93,8 @@ export function SectionHead({
   return (
     <div className={wrap}>
       <Chip color={eyebrowColor} icon={eyebrowIcon}>{eyebrow}</Chip>
-      <h2 className="mt-5 font-display font-bold tracking-tight text-foreground sm:whitespace-nowrap"
-          style={{ fontSize: "clamp(2.5rem, 8vw, 5rem)", lineHeight: 1.0, letterSpacing: "-0.04em" }}>
+      <h2 className="mt-5 font-display font-bold tracking-tight text-foreground"
+          style={{ fontSize: "clamp(2rem, 6vw, 3.5rem)", lineHeight: 1.1, letterSpacing: "-0.03em" }}>
         {before}{" "}
         <span className="grad-text">{gradWord}</span>
         {after ? <> {after}</> : null}
@@ -109,11 +109,11 @@ export function SectionHead({
 }
 
 const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
-  { to: "/", label: "হোম", exact: true },
-  { to: "/portfolio", label: "পোর্টফোলিও", exact: true },
-  { to: "/courses", label: "কোর্স", exact: true },
-  { to: "/reviews", label: "রিভিউ", exact: true },
-  { to: "/about", label: "আমাদের সম্পর্কে", exact: true },
+  { to: "/", label: "Home", exact: true },
+  { to: "/portfolio", label: "Portfolio", exact: true },
+  { to: "/courses", label: "Courses", exact: true },
+  { to: "/reviews", label: "Reviews", exact: true },
+  { to: "/about", label: "About", exact: true },
 ];
 
 /* ---------- nav ---------- */
@@ -464,7 +464,6 @@ export function Hero() {
             <span>Premiere Pro</span>
             <span>DaVinci Resolve</span>
             <span>After Effects</span>
-            <span>CapCut Pro</span>
           </div>
         </div>
       </div>
@@ -473,17 +472,7 @@ export function Hero() {
 }
 
 export function SocialProof() {
-  return (
-    <div className="relative z-10 py-10 bg-white/30 backdrop-blur-sm border-y border-foreground/5">
-      <div className="mono-readout text-center opacity-60">Learn Tools Trusted By Professionals</div>
-      <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-[0.22em] text-foreground/45 sm:gap-x-12 sm:text-sm">
-        <span>Premiere Pro</span>
-        <span>DaVinci Resolve</span>
-        <span>After Effects</span>
-        <span>CapCut Pro</span>
-      </div>
-    </div>
-  );
+  return null;
 }
 
 /* ---------- services ---------- */
@@ -1213,7 +1202,7 @@ export function About() {
       { k: "৯২%", v: "সফলতা হার", tint: "blush", pin: "blush" },
     ];
   return (
-    <section className="aurora-soft py-24 sm:py-28">
+    <section className="aurora-bg py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="About growVelo"
