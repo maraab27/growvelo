@@ -459,7 +459,7 @@ const SERVICES: {
 
 export function Services() {
   return (
-    <section className="aurora-soft py-24 sm:py-32">
+    <section className="py-24 sm:py-32">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="Our Academy"
@@ -690,7 +690,7 @@ function TimelineShowcase() {
 export function StudentShowcase({ limit }: { limit?: number } = {}) {
   const items = limit ? PORTFOLIO_ITEMS.slice(0, limit) : PORTFOLIO_ITEMS;
   return (
-    <section className="aurora-bg py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="Showcase"
@@ -905,21 +905,13 @@ export const COURSES: Course[] = [
     tint: "brand", pin: "brand", chipColor: "brand", featured: false,
     start: "ব্যাচ ০১ · সম্পন্ন",
     instructor: "Muhammad Ataullah",
-    about: "একদম শূন্য থেকে শুরু করে প্রফেশনাল ভিডিও এডিটর হওয়ার সম্পূর্ণ রোডম্যাপ।",
+    about: "একদম শূন্য থেকে শুরু করে প্রফেশনাল ভিডিও এডিটর হওয়ার সম্পূর্ণ রোডম্যাপ। এটি আমাদের লাইভ ব্যাচ ছিল।",
     outcomes: [
       "Premiere Pro-তে A থেকে Z প্রফেশনাল workflow",
       "YouTube long-form + Reels/Shorts দুই ধরনের এডিটিং",
       "Color grading, sound design আর motion basics",
     ],
-    modules: [
-      {
-        title: "Introduction to Editing",
-        lessons: [
-          { title: "Interface & Workspace", length: "15:00", free: true },
-          { title: "Basic Cutting & Trimming", length: "20:00" },
-        ]
-      }
-    ],
+    modules: [],
   },
   {
     slug: "video-editing-batch-2",
@@ -990,7 +982,7 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
     : (limit ? COURSES.slice(0, limit) : COURSES);
 
   return (
-    <section className="aurora-soft py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:items-end">
           <SectionHead
@@ -1042,7 +1034,7 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
                         <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
                       )}
                     </div>
-                    <span className={`gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none ${(c.slug === 'video-editing-bootcamp' || c.slug === 'video-editing-batch-2') ? 'grayscale opacity-70 cursor-not-allowed' : ''}`}>
+                    <span className={`gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform ${(c.slug === 'video-editing-bootcamp' || c.slug === 'video-editing-batch-2') ? 'grayscale opacity-70 cursor-not-allowed pointer-events-none' : ''}`}>
                       {c.slug === 'video-editing-bootcamp' ? 'Batch Completed' : c.slug === 'video-editing-batch-2' ? 'Batch Running' : 'Enroll Now'}
                     </span>
                   </div>
@@ -1081,7 +1073,7 @@ const REVIEWS: {
 export function StudentReviews({ limit }: { limit?: number } = {}) {
   const items = limit ? REVIEWS.slice(0, limit) : REVIEWS;
   return (
-    <section className="aurora-bg py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="Reviews"
@@ -1131,7 +1123,7 @@ export function About() {
       { k: "৯২%", v: "সফলতা হার", tint: "blush", pin: "blush" },
     ];
   return (
-    <section className="aurora-bg py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="About growVelo"
