@@ -1144,7 +1144,7 @@ const REVIEWS: {
   { name: "Priya Sen", role: "DTC Founder · Glowl", body: "Our Reels are unrecognizable now — hooks land, captions pop, sales followed.", initial: "P", avatar: "linear-gradient(135deg,#eab308,#ef4444)", tint: "brand", pin: "brand" },
 ];
 
-export function Reviews({ limit }: { limit?: number } = {}) {
+export function StudentReviews({ limit }: { limit?: number } = {}) {
   const items = limit ? REVIEWS.slice(0, limit) : REVIEWS;
   return (
     <section className="aurora-bg py-24 sm:py-28">
