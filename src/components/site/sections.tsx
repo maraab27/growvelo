@@ -235,7 +235,7 @@ export function getEditor(slug: string) {
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div className="mx-auto max-w-[1200px] px-5 pt-16 pb-24 sm:pt-24 sm:pb-28">
+      <div className="mx-auto max-w-[1200px] px-5 pt-32 pb-24 sm:pt-40 sm:pb-28">
         {/* floating chip stickers */}
         <div className="pointer-events-none absolute inset-0 hidden xl:block">
           <div className="absolute left-[2%] top-[18%] tilt-l"><Chip color="mint" icon={<Sparkles className="h-3.5 w-3.5" />}>48h first cut</Chip></div>
@@ -1347,7 +1347,7 @@ export function Footer() {
 
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
-    <main className="relative min-h-screen overflow-x-hidden pt-20 sm:pt-24">
+    <main className="relative min-h-screen overflow-x-hidden">
       <Nav />
       {children}
       <Footer />
