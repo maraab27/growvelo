@@ -849,7 +849,7 @@ export function StudentShowcase({ limit }: { limit?: number } = {}) {
         <SectionHead
           eyebrow="Showcase"
           eyebrowColor="mint"
-          eyebrowIcon={<PinIcon className="h-3.5 w-3.5" />}
+          eyebrowIcon={<Layers className="h-3.5 w-3.5" />}
           before="স্টুডেন্টদের তৈরি"
           gradWord="মাস্টারপিস"
           after="দেখুন"
