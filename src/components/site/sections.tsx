@@ -110,10 +110,10 @@ export function SectionHead({
 
 const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
   { to: "/", label: "হোম", exact: true },
-  { to: "/portfolio", label: "পোর্টফোলিও" },
-  { to: "/courses", label: "কোর্স" },
-  { to: "/reviews", label: "রিভিউ" },
-  { to: "/about", label: "আমাদের সম্পর্কে" },
+  { to: "/portfolio", label: "পোর্টফোলিও", exact: true },
+  { to: "/courses", label: "কোর্স", exact: true },
+  { to: "/reviews", label: "রিভিউ", exact: true },
+  { to: "/about", label: "আমাদের সম্পর্কে", exact: true },
 ];
 
 /* ---------- nav ---------- */
@@ -336,20 +336,19 @@ export function Hero() {
             className="mt-6 font-display font-semibold tracking-tight text-foreground"
             style={{ fontSize: "clamp(2.75rem, 8vw, 7rem)", lineHeight: 0.98, letterSpacing: "-0.035em" }}
           >
-            The edits
+            Turn Your <span className="grad-text">Passion</span>
             <br />
-            that feel <span className="grad-text">alive</span>.
+            into Profession.
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-base text-foreground/65 sm:text-lg">
-            Cinematic cuts, short-form reels, and motion pinned together on one glossy canvas
-            by a boutique team of editors.
+            Master the art of cinematic video editing and short-form storytelling from industry experts.
           </p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center">
             <Link to="/courses" className="gloss-btn">
-              এনরোল করুন <ArrowRight className="h-5 w-5" />
+              Explore Courses <ArrowRight className="h-5 w-5" />
             </Link>
-            <Link to="/portfolio" className="gloss-btn-ghost">
-              <Play className="h-5 w-5" /> পোর্টফোলিও দেখুন
+            <Link to="/courses" className="gloss-btn-ghost">
+              <Play className="h-5 w-5" /> Watch Free Masterclass
             </Link>
           </div>
         </div>
@@ -458,18 +457,32 @@ export function Hero() {
 
 
 
-        {/* Trust strip */}
+        {/* Social Proof */}
         <div className="relative z-10 mt-16 sm:mt-24">
-          <div className="mono-readout text-center">Trusted by creators &amp; brands</div>
+          <div className="mono-readout text-center">Learn Tools Trusted By Professionals</div>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-[0.22em] text-foreground/45 sm:gap-x-12 sm:text-sm">
-            <span>Abdullah Maraab</span>
-            <span>Tanvir Mahmud</span>
-            <span>Zaruun</span>
-            <span>Goldenrock FZCO</span>
+            <span>Premiere Pro</span>
+            <span>DaVinci Resolve</span>
+            <span>After Effects</span>
+            <span>CapCut Pro</span>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+export function SocialProof() {
+  return (
+    <div className="relative z-10 py-10 bg-white/30 backdrop-blur-sm border-y border-foreground/5">
+      <div className="mono-readout text-center opacity-60">Learn Tools Trusted By Professionals</div>
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-[0.22em] text-foreground/45 sm:gap-x-12 sm:text-sm">
+        <span>Premiere Pro</span>
+        <span>DaVinci Resolve</span>
+        <span>After Effects</span>
+        <span>CapCut Pro</span>
+      </div>
+    </div>
   );
 }
 
@@ -828,17 +841,17 @@ function TimelineShowcase() {
   );
 }
 
-export function Portfolio({ limit }: { limit?: number } = {}) {
+export function StudentShowcase({ limit }: { limit?: number } = {}) {
   const items = limit ? PORTFOLIO_ITEMS.slice(0, limit) : PORTFOLIO_ITEMS;
   return (
     <section className="aurora-bg py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
-          eyebrow="Timeline"
+          eyebrow="Showcase"
           eyebrowColor="mint"
-          eyebrowIcon={<PinIcon className="h-3.5 w-3.5" />}
-          before="আমাদের"
-          gradWord="জার্নি"
+          eyebrowIcon={<Layers className="h-3.5 w-3.5" />}
+          before="স্টুডেন্টদের তৈরি"
+          gradWord="মাস্টারপিস"
           after="দেখুন"
           sub="আমাদের শিক্ষার্থীদের সফল প্রজেক্ট এবং এডিটিং টাইমলাইনের এক ঝলক।"
         />
@@ -848,7 +861,7 @@ export function Portfolio({ limit }: { limit?: number } = {}) {
           <div>
             <Chip color="coral" icon={<Film className="h-3.5 w-3.5" />}>Portfolio</Chip>
             <h3 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-              Recent work from the <span className="grad-text">growVelo</span> desk.
+              Student <span className="grad-text">Masterpieces</span>.
             </h3>
           </div>
           {limit && (
@@ -929,7 +942,7 @@ function EditorCard({ e, tilt }: { e: Editor; tilt: string }) {
   );
 }
 
-export function Editors({ limit }: { limit?: number } = {}) {
+export function Instructors({ limit }: { limit?: number } = {}) {
   const items = limit ? editors.slice(0, limit) : editors;
   return (
     <section className="aurora-soft py-24 sm:py-28">
@@ -1043,13 +1056,51 @@ export const COURSES: Course[] = [
 ];
 
 
-export function Courses({ limit }: { limit?: number } = {}) {
+export function FeaturedCourses({ limit }: { limit?: number } = {}) {
   const items = limit ? COURSES.slice(0, limit) : COURSES;
+  return (
+    <div className="mx-auto grid max-w-[880px] grid-cols-1 gap-8 sm:grid-cols-2">
+      {items.map((c) => (
+        <div key={c.slug} className="relative">
+          <div className="pin" style={pinStyle(c.pin)} />
+          <Link
+            to="/courses/$slug"
+            params={{ slug: c.slug }}
+            className={`sticky-card tint-${c.tint} block p-3 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl active:scale-[0.98] cursor-pointer group`}
+          >
+            <div className="relative aspect-[16/9] overflow-hidden rounded-xl" style={{ background: c.thumb }}>
+              <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+              <div className="absolute left-2.5 top-2.5">
+                <Chip color={c.chipColor}>{c.level}</Chip>
+              </div>
+              <div className="absolute bottom-2.5 left-3 text-xs font-medium text-white drop-shadow-sm">{c.length}</div>
+            </div>
+            <div className="p-4">
+              <div className="font-display text-lg font-semibold group-hover:text-[var(--brand)] transition-colors">{c.title}</div>
+              <p className="mt-1 text-sm text-foreground/65 line-clamp-2">{c.desc}</p>
+              <div className="mt-4 flex items-center justify-between gap-3">
+                <div className="flex items-baseline gap-2">
+                  <span className="font-display text-xl font-semibold">{c.price}</span>
+                  {c.oldPrice && (
+                    <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
+                  )}
+                </div>
+                <span className="gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none">View details</span>
+              </div>
+            </div>
+          </Link>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function CourseCategories() {
   return (
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
-          eyebrow="Courses"
+          eyebrow="Path"
           eyebrowColor="blush"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
           before="Learn the art of"
@@ -1078,40 +1129,18 @@ export function Courses({ limit }: { limit?: number } = {}) {
             Explore all 120+ courses <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
+      </div>
+    </section>
+  );
+}
 
-        <div className="mx-auto grid max-w-[880px] grid-cols-1 gap-8 sm:grid-cols-2">
-          {items.map((c) => (
-            <div key={c.slug} className="relative">
-              <div className="pin" style={pinStyle(c.pin)} />
-              <Link
-                to="/courses/$slug"
-                params={{ slug: c.slug }}
-                className={`sticky-card tint-${c.tint} block p-3 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl active:scale-[0.98] cursor-pointer group`}
-              >
-                <div className="relative aspect-[16/9] overflow-hidden rounded-xl" style={{ background: c.thumb }}>
-                  <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                  <div className="absolute left-2.5 top-2.5">
-                    <Chip color={c.chipColor}>{c.level}</Chip>
-                  </div>
-                  <div className="absolute bottom-2.5 left-3 text-xs font-medium text-white drop-shadow-sm">{c.length}</div>
-                </div>
-                <div className="p-4">
-                  <div className="font-display text-lg font-semibold group-hover:text-[var(--brand)] transition-colors">{c.title}</div>
-                  <p className="mt-1 text-sm text-foreground/65 line-clamp-2">{c.desc}</p>
-                  <div className="mt-4 flex items-center justify-between gap-3">
-                    <div className="flex items-baseline gap-2">
-                      <span className="font-display text-xl font-semibold">{c.price}</span>
-                      {c.oldPrice && (
-                        <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
-                      )}
-                    </div>
-                    <span className="gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none">View details</span>
-                  </div>
-                </div>
-              </Link>
-            </div>
-          ))}
-        </div>
+export function Courses({ limit }: { limit?: number } = {}) {
+  return (
+    <section className="aurora-soft py-24 sm:py-28">
+      <div className="mx-auto max-w-[1200px] px-5">
+        <CourseCategories />
+        <div className="mt-16" />
+        <FeaturedCourses limit={limit} />
       </div>
     </section>
   );
@@ -1123,25 +1152,25 @@ const REVIEWS: {
   name: string; role: string; body: string; initial: string; avatar: string;
   tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor;
 }[] = [
-  { name: "Tanvir Mahmud", role: "Founder and Creator", body: "growVelo cuts my long-form videos with taste — retention went up 22% in a month.", initial: "T", avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)", tint: "mint", pin: "mint" },
-  { name: "Abdullah Maraab", role: "Creator", body: "Our brand film landed exactly the mood we wanted. Professional, on-time, and thoughtful.", initial: "A", avatar: "linear-gradient(135deg,#ec4899,#f97316)", tint: "coral", pin: "coral" },
-  { name: "Rohan Das", role: "Head of Marketing · Stackly", body: "The motion team delivered a SaaS explainer that outperformed our old one 3x in demos booked.", initial: "R", avatar: "linear-gradient(135deg,#22c55e,#0ea5e9)", tint: "lemon", pin: "lemon" },
-  { name: "Zara Ahmed", role: "Bride · Wedding Film", body: "Sadia captured emotions we didn't even know were on camera. We cried. Twice.", initial: "Z", avatar: "linear-gradient(135deg,#f43f5e,#a78bfa)", tint: "blush", pin: "blush" },
-  { name: "Miguel Torres", role: "Podcaster · InsideOut", body: "Turnaround is unreal. Full episode edits in under 48 hours, every week.", initial: "M", avatar: "linear-gradient(135deg,#0ea5e9,#8b5cf6)", tint: "sky", pin: "sky" },
-  { name: "Priya Sen", role: "DTC Founder · Glowl", body: "Our Reels are unrecognizable now — hooks land, captions pop, sales followed.", initial: "P", avatar: "linear-gradient(135deg,#eab308,#ef4444)", tint: "brand", pin: "brand" },
+  { name: "Tanvir Mahmud", role: "Student · Batch 01", body: "growVelo থেকে এডিটিং শিখে আমি এখন প্রফেশনাল ফিল্ডে কাজ করছি। মেন্টরদের গাইডেন্স ছিল অসাধারণ।", initial: "T", avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)", tint: "mint", pin: "mint" },
+  { name: "Abdullah Maraab", role: "Student · Batch 02", body: "কোর্সের মডিউলগুলো খুব সুন্দরভাবে সাজানো। বিগিনার হিসেবে আমার জন্য শেখাটা অনেক সহজ হয়েছে।", initial: "A", avatar: "linear-gradient(135deg,#ec4899,#f97316)", tint: "coral", pin: "coral" },
+  { name: "Rohan Das", role: "Student · Batch 01", body: "মোশন গ্রাফিক্সের মডিউলটি ছিল আমার প্রিয়। এখন আমি নিজে থেকেই অনেক জটিল এনিমেশন তৈরি করতে পারি।", initial: "R", avatar: "linear-gradient(135deg,#22c55e,#0ea5e9)", tint: "lemon", pin: "lemon" },
+  { name: "Zara Ahmed", role: "Student · Batch 03", body: "মেন্টররা সবসময় প্রশ্নের উত্তর দেন এবং পার্সোনাল ফিডব্যাক দেন, যা শেখার গতিকে অনেক বাড়িয়ে দেয়।", initial: "Z", avatar: "linear-gradient(135deg,#f43f5e,#a78bfa)", tint: "blush", pin: "blush" },
+  { name: "Miguel Torres", role: "Student · Batch 04", body: "সিনেমাটিক এডিটিংয়ের টেকনিকগুলো আগে জানতাম না। এই কোর্সটি আমার দেখার দৃষ্টিভঙ্গি বদলে দিয়েছে।", initial: "M", avatar: "linear-gradient(135deg,#0ea5e9,#8b5cf6)", tint: "sky", pin: "sky" },
+  { name: "Priya Sen", role: "Student · Batch 02", body: "কমিউনিটি সাপোর্ট খুব ভালো। গ্রুপে অন্যদের কাজ দেখে আরও অনেক কিছু শিখতে পারছি।", initial: "P", avatar: "linear-gradient(135deg,#eab308,#ef4444)", tint: "brand", pin: "brand" },
 ];
 
-export function Reviews({ limit }: { limit?: number } = {}) {
+export function StudentReviews({ limit }: { limit?: number } = {}) {
   const items = limit ? REVIEWS.slice(0, limit) : REVIEWS;
   return (
     <section className="aurora-bg py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
-          eyebrow="Love Notes"
+          eyebrow="Reviews"
           eyebrowColor="coral"
           eyebrowIcon={<Star className="h-3.5 w-3.5" />}
-          before="Clients are"
-          gradWord="obsessed."
+          before="শিক্ষার্থীদের"
+          gradWord="সাকসেস স্টোরি"
         />
         <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {items.map((r, i) => (
@@ -1225,83 +1254,44 @@ export function About() {
   );
 }
 
-/* ---------- contact ---------- */
-
-export function Contact() {
+export function FAQ() {
+  const faqs = [
+    { q: "কোর্সটি কি একদম বিগিনারদের জন্য?", a: "হ্যাঁ, আমরা একদম শূন্য থেকে শুরু করি যাতে যে কেউ শিখতে পারে।" },
+    { q: "পিসি কনফিগারেশন কেমন লাগবে?", a: "ন্যূনতম 8GB RAM এবং একটি ডেডিকেটেড গ্রাফিক্স কার্ড থাকলে ভালো হয়, তবে সাধারণ ল্যাপটপেও শুরু করা সম্ভব।" },
+    { q: "লাইফটাইম এক্সেস পাবো কি না?", a: "হ্যাঁ, একবার এনরোল করলে আপনি কোর্সের সমস্ত ম্যাটেরিয়াল আজীবন এক্সেস করতে পারবেন।" },
+    { q: "সাপোর্ট কীভাবে পাবো?", a: "আমাদের ডেডিকেটেড ফেসবুক গ্রুপ এবং ডিসকর্ড সার্ভারে আপনি যেকোনো সময় সাপোর্ট পাবেন।" },
+  ];
   return (
     <section className="aurora-bg py-24 sm:py-28">
-      <div className="mx-auto max-w-[1200px] px-5">
+      <div className="mx-auto max-w-[800px] px-5">
         <SectionHead
-          eyebrow="Contact"
+          eyebrow="FAQ"
           eyebrowColor="sky"
-          eyebrowIcon={<Mail className="h-3.5 w-3.5" />}
-          before="Let's build something"
-          gradWord="worth"
-          after="watching."
-          sub="Tell us about your project — footage, format, deadline. We usually reply within a few hours during working days."
+          eyebrowIcon={<PinIcon className="h-3.5 w-3.5" />}
+          before="সাধারণ"
+          gradWord="জিজ্ঞাসা"
+          sub="আপনার মনে থাকা সাধারণ কিছু প্রশ্নের উত্তর এখানে দেওয়া হলো।"
         />
-        <div className="mx-auto mt-14 grid max-w-4xl grid-cols-1 gap-6 lg:grid-cols-5">
-          <div className="space-y-4 lg:col-span-2">
-            {[
-              { icon: <Mail className="h-4 w-4" />, label: "Email", value: "hello@growvelo.studio", tint: "mint" as const, pin: "mint" as ChipColor, tilt: "tilt-xs-l" },
-              { icon: <MapPin className="h-4 w-4" />, label: "Studio", value: "Dhaka · Remote worldwide", tint: "coral" as const, pin: "coral" as ChipColor, tilt: "tilt-xs-r" },
-              { icon: <Clock className="h-4 w-4" />, label: "Hours", value: "Sun–Thu · 10:00–19:00 (GMT+6)", tint: "lemon" as const, pin: "lemon" as ChipColor, tilt: "tilt-xs-l" },
-            ].map((c) => (
-              <div key={c.label} className="relative">
-                <div className="pin" style={pinStyle(c.pin)} />
-                <div className={`sticky-card tint-${c.tint} p-5 ${c.tilt}`}>
-                  <div className="flex items-center gap-2 text-foreground/60">
-                    {c.icon}
-                    <span className="mono-readout">{c.label}</span>
-                  </div>
-                  <div className="mt-2 font-display text-lg font-semibold">{c.value}</div>
-                </div>
+        <div className="mt-14 space-y-4">
+          {faqs.map((f, i) => (
+            <div key={i} className="relative">
+              <div className="pin" style={pinStyle("sky")} />
+              <div className="sticky-card p-6">
+                <h4 className="font-display text-lg font-semibold">{f.q}</h4>
+                <p className="mt-2 text-sm text-foreground/70">{f.a}</p>
               </div>
-            ))}
-          </div>
-
-          <div className="relative lg:col-span-3">
-            <div className="pin" style={pinStyle("brand")} />
-            <form
-              className="sticky-card p-6 sm:p-8"
-              onSubmit={(e) => { e.preventDefault(); alert("Thanks! We'll be in touch shortly."); }}
-            >
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <label className="flex flex-col gap-1.5 text-sm">
-                  <span className="mono-readout">Name</span>
-                  <input required maxLength={100} className="sticky-input" placeholder="Your name" />
-                </label>
-                <label className="flex flex-col gap-1.5 text-sm">
-                  <span className="mono-readout">Email</span>
-                  <input required type="email" maxLength={255} className="sticky-input" placeholder="you@company.com" />
-                </label>
-                <label className="flex flex-col gap-1.5 text-sm sm:col-span-2">
-                  <span className="mono-readout">Project type</span>
-                  <select className="sticky-input" defaultValue="">
-                    <option value="" disabled>Select a type…</option>
-                    <option>Short-form (Reels / TikTok / Shorts)</option>
-                    <option>YouTube long-form</option>
-                    <option>Brand film / Ad</option>
-                    <option>Wedding / Event</option>
-                    <option>Motion graphics / Explainer</option>
-                    <option>Documentary / Podcast</option>
-                    <option>Other</option>
-                  </select>
-                </label>
-                <label className="flex flex-col gap-1.5 text-sm sm:col-span-2">
-                  <span className="mono-readout">Tell us about your project</span>
-                  <textarea required maxLength={1000} rows={5} className="sticky-input" placeholder="Length, deadline, style references…" />
-                </label>
-              </div>
-              <button type="submit" className="gloss-btn mt-6">
-                Send message <ArrowRight className="h-4 w-4" />
-              </button>
-            </form>
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
+}
+
+/* ---------- contact ---------- */
+
+export function Contact() {
+  return null;
 }
 
 /* ---------- Big CTA ---------- */
@@ -1312,33 +1302,25 @@ export function BigCTA() {
       <div className="mx-auto max-w-[1200px] px-5">
         <div className="aurora-dark relative overflow-hidden rounded-[32px] p-12 text-center sm:p-20"
              style={{ boxShadow: "0 40px 80px -30px color-mix(in oklab, var(--brand) 60%, transparent)" }}>
-          {/* floating chips */}
-          <div className="pointer-events-none absolute left-6 top-8 tilt-l opacity-90">
-            <Chip color="mint">✂ 48h first cut</Chip>
-          </div>
-          <div className="pointer-events-none absolute right-6 top-10 tilt-r opacity-90">
-            <Chip color="lemon">♥ Free consult</Chip>
-          </div>
-
           <div className="relative z-10 mx-auto max-w-2xl">
             <h3
               className="font-display font-semibold tracking-tight text-white"
               style={{ fontSize: "clamp(2.25rem, 6vw, 4.5rem)", lineHeight: 1.02, letterSpacing: "-0.03em" }}
             >
-              Ready to make edits
+              Ready to start your
               <br />
-              that feel <span className="grad-text-gold">like yours</span>?
+              editing <span className="grad-text-gold">journey</span>?
             </h3>
             <p className="mx-auto mt-5 max-w-lg text-sm text-white/70 sm:text-base">
-              Send us your footage, pick an editor, and get a first cut back. Takes 30 seconds to start.
+              ৫০০+ সফল শিক্ষার্থীর সাথে আপনিও শুরু করুন আপনার এডিটিং ক্যারিয়ার। আজই এনরোল করুন।
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
-              <Link to="/contact" className="gloss-btn">
-                Start free <ArrowRight className="h-5 w-5" />
+              <Link to="/courses" className="gloss-btn">
+                এনরোল করুন <ArrowRight className="h-5 w-5" />
               </Link>
             </div>
             <div className="mono-readout mt-6 !text-white/60">
-              No commitment · Free first consultation
+              Life-time access · Community Support
             </div>
           </div>
         </div>
@@ -1350,10 +1332,10 @@ export function BigCTA() {
 /* ---------- footer ---------- */
 
 const FOOTER_COLS: { title: string; links: { to: string; label: string }[] }[] = [
-  { title: "Studio", links: [{ to: "/portfolio", label: "Portfolio" }, { to: "/editors", label: "Editors" }] },
-  { title: "Learn", links: [{ to: "/courses", label: "Courses" }, { to: "/reviews", label: "Reviews" }] },
-  { title: "Company", links: [{ to: "/about", label: "About" }, { to: "/pricing", label: "Pricing" }] },
-  { title: "Get in touch", links: [{ to: "/contact", label: "Contact" }] },
+  { title: "একাডেমি", links: [{ to: "/portfolio", label: "স্টুডেন্ট শোকেস" }, { to: "/editors", label: "মেন্টরস" }] },
+  { title: "শিখুন", links: [{ to: "/courses", label: "সবগুলো কোর্স" }, { to: "/reviews", label: "রিভিউ" }] },
+  { title: "পলিসি", links: [{ to: "/about", label: "আমাদের সম্পর্কে" }, { to: "/", label: "রিফান্ড পলিসি" }] },
+  { title: "কমিউনিটি", links: [{ to: "/", label: "ফেসবুক গ্রুপ" }, { to: "/", label: "ডিসকর্ড" }] },
 ];
 
 export function Footer() {

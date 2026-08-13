@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteShell, Portfolio, BigCTA } from "../components/site/sections";
+import { SiteShell, StudentShowcase, BigCTA } from "../components/site/sections";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
@@ -13,7 +13,7 @@ export const Route = createFileRoute("/portfolio")({
   component: () => (
     <SiteShell>
       <div className="pt-16" />
-      <Portfolio />
+      <StudentShowcase />
       <BigCTA />
     </SiteShell>
   ),
