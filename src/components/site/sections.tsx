@@ -745,9 +745,8 @@ export function StudentShowcase({ limit }: { limit?: number } = {}) {
           eyebrow="Showcase"
           eyebrowColor="mint"
           eyebrowIcon={<Layers className="h-3.5 w-3.5" />}
-          before="স্টুডেন্টদের তৈরি"
-          gradWord="মাস্টারপিস"
-          after="দেখুন"
+          before="Student"
+          gradWord="Masterpieces"
           sub="আমাদের শিক্ষার্থীদের সফল প্রজেক্ট এবং এডিটিং টাইমলাইনের এক ঝলক।"
         />
         <TimelineShowcase />
