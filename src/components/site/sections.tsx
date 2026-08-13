@@ -268,98 +268,91 @@ export function Hero() {
 
         {/* Featured Course showcase panel */}
         <div className="relative z-10 mx-auto mt-12 max-w-5xl sm:mt-16">
-          <div className="relative">
-            <div className="pin" style={pinStyle("coral")} />
-            <div className="sticky-card p-4 sm:p-6 lg:p-8">
-              <div className="mb-6 flex items-center justify-between px-2 pt-1">
-                <div className="flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--coral)" }} />
-                  <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--lemon)" }} />
-                  <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--mint)" }} />
+          <div className="mt-14 flex flex-col items-center gap-10 lg:flex-row lg:items-stretch lg:justify-center">
+            {/* Course main card - Styled like Mentor card */}
+            <div className="relative max-w-lg w-full">
+              <div className="pin" style={pinStyle("mint")} />
+              <div className="sticky-card p-6 sm:p-8 flex flex-col h-full">
+                <div className="flex items-center justify-between gap-2">
+                  <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />} className="!whitespace-nowrap">জনপ্রিয় কোর্স · ব্যাচ ০৭</Chip>
                 </div>
-                <span className="mono-readout hidden sm:inline">
-                  Featured Course · Enrolling Now
-                </span>
-              </div>
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-5 sm:gap-10">
-                {/* Course main card */}
-                <div className="sticky-card p-5 sm:col-span-3">
-                  <div className="flex items-center justify-between gap-2">
-                    <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />} className="!whitespace-nowrap">জনপ্রিয় কোর্স · ব্যাচ ০৭</Chip>
+                
+                <div className="relative mt-5 w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black aspect-video">
+                  <img
+                    src={courseThumbnail.url}
+                    alt="Rising Editors — Video Editing Bootcamp poster"
+                    className="block h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute left-3 top-3">
+                    <span className="mono-readout rounded-md bg-black/50 px-2 py-1 text-white/90 backdrop-blur-sm">
+                      <span className="rec-dot mr-1 align-middle" /> PREVIEW
+                    </span>
                   </div>
+                </div>
 
-                  {/* Course thumbnail / poster */}
-                  <div
-                    className="relative mt-3 w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black"
-                    aria-label="Course poster"
-                  >
-                    <img
-                      src={courseThumbnail.url}
-                      alt="Rising Editors — Video Editing Bootcamp poster"
-                      className="block h-auto w-full object-contain"
-                      loading="lazy"
-                    />
-                    <div className="absolute left-3 top-3">
-                      <span className="mono-readout rounded-md bg-black/50 px-2 py-1 text-white/90 backdrop-blur-sm">
-                        <span className="rec-dot mr-1 align-middle" /> POSTER
-                      </span>
-                    </div>
-                    <div className="absolute right-3 top-3">
-                      <span className="mono-readout rounded-md bg-black/50 px-2 py-1 text-white/90 backdrop-blur-sm">
-                        06:12 · Preview
-                      </span>
-                    </div>
-                  </div>
-
-
-                  <p className="mt-3 text-[13px] leading-relaxed text-foreground/70 sm:text-sm">
+                <div className="mt-6 flex-grow">
+                  <h3 className="font-display text-2xl font-bold leading-tight">Video Editing Bootcamp</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-foreground/70">
                     ৬ সপ্তাহের hands-on কোর্স। Story-first editing, color grading, sound design আর delivery workflow।
                   </p>
-
-                  <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px]">
-                    <span className="mono-readout rounded-full bg-white/70 px-2.5 py-1 ring-1 ring-black/5">6 Weeks</span>
-                    <span className="mono-readout rounded-full bg-white/70 px-2.5 py-1 ring-1 ring-black/5">Live + VOD</span>
-                    <span className="mono-readout rounded-full bg-white/70 px-2.5 py-1 ring-1 ring-black/5">Intermediate</span>
-                  </div>
-
-                  <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <Link to="/courses/$slug" params={{ slug: "video-editing-bootcamp" }} className="gloss-btn inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold">
-                      এনরোল করুন <ArrowRight className="h-4 w-4" />
-                    </Link>
-                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                      <span className="font-display text-lg font-semibold leading-none">৳৪,০০০</span>
-                      <span className="text-xs text-foreground/50 line-through leading-none">৳৫,০০০</span>
-                      <span className="whitespace-nowrap text-[10px] font-medium uppercase tracking-wide text-foreground/60">আর্লি বার্ড</span>
-                    </div>
+                  
+                  <div className="mt-5 flex flex-wrap items-center gap-2">
+                    {["6 Weeks", "Live + VOD", "Intermediate"].map((tag) => (
+                      <span key={tag} className="rounded-full border border-foreground/10 bg-white/70 px-3 py-1 text-[11px] font-medium text-foreground/75">
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
 
-                {/* Instructor + start date card */}
-                <div className="sticky-card p-5 sm:col-span-2">
-                  <Chip color="lemon">Instructor</Chip>
-                  <div className="mt-3 flex items-center gap-3">
+                <div className="mt-8 flex items-center justify-between border-t border-foreground/10 pt-6">
+                  <div className="flex flex-col">
+                    <span className="text-xl font-bold text-foreground">৳৪,০০০</span>
+                    <span className="text-xs text-foreground/50 line-through">৳৫,০০০</span>
+                  </div>
+                  <Link to="/courses/$slug" params={{ slug: "video-editing-bootcamp" }} className="gloss-btn !px-5 !py-2.5 !text-sm">
+                    Enroll Now
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Instructor / Start Date side info */}
+            <div className="max-w-sm w-full space-y-6 flex flex-col justify-center">
+              <div className="relative">
+                <div className="pin" style={pinStyle("lemon")} />
+                <div className="sticky-card p-6">
+                  <h4 className="font-display text-lg font-semibold flex items-center gap-2">
+                    <Sparkles className="h-5 w-5 text-lemon-500" /> Instructor
+                  </h4>
+                  <div className="mt-4 flex items-center gap-4">
                     <img
                       src={instructorAtaullah.url}
                       alt="Muhammad Ataullah"
-                      className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-white"
+                      className="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-white shadow-sm"
                     />
                     <div className="min-w-0">
                       <div className="font-display text-base font-semibold leading-tight">Muhammad Ataullah</div>
-                      <div className="mono-readout truncate">Lead Editor</div>
+                      <div className="mono-readout truncate text-[10px]">Lead Mentor</div>
                     </div>
                   </div>
-                  <p className="mt-3 font-serif text-[13px] italic leading-snug text-foreground/80">
-                    "I'll teach you the exact edit workflow I use on brand films for 7-figure creators."
-                  </p>
-                  <div className="mt-3 rounded-xl bg-white/60 p-3 ring-1 ring-black/5">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="mono-readout">Class starts</div>
-                        <div className="mt-0.5 font-display text-base font-semibold">Jul 28, 2026</div>
-                      </div>
-                      <div className="flex items-center gap-1.5 text-[11px] text-foreground/70">
-                        <span className="rec-dot" /> 12 seats left
-                      </div>
+                </div>
+              </div>
+              
+              <div className="relative">
+                <div className="pin" style={pinStyle("sky")} />
+                <div className="sticky-card p-6">
+                  <h4 className="font-display text-lg font-semibold flex items-center gap-2">
+                    <Clock className="h-5 w-5 text-sky-500" /> Batch Schedule
+                  </h4>
+                  <div className="mt-4 flex items-center justify-between">
+                    <div>
+                      <div className="mono-readout text-[10px]">Class starts</div>
+                      <div className="mt-0.5 font-display text-base font-semibold">Jul 28, 2026</div>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[11px] font-medium text-coral-500">
+                      <span className="rec-dot" /> 12 seats left
                     </div>
                   </div>
                 </div>
