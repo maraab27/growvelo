@@ -308,7 +308,7 @@ export function Hero() {
 
                 <div className="mt-8 flex items-center justify-between border-t border-foreground/10 pt-6">
                   <div className="flex flex-col">
-                    <span className="text-xl font-bold text-foreground">৳৪,০০০</span>
+                    <span className="text-xl font-bold text-foreground">FREE</span>
                     <span className="text-xs text-foreground/50 line-through">৳৫,০০০</span>
                   </div>
                   <Link to="/courses/$slug" params={{ slug: "video-editing-bootcamp" }} className="gloss-btn !px-5 !py-2.5 !text-sm">
@@ -902,8 +902,8 @@ export const COURSES: Course[] = [
     title: "Rising Editors: 15-Day Editing Bootcamp (Batch 01)",
     level: "Beginner → Pro",
     length: "15 days · Live",
-    price: "৳4,000",
-    oldPrice: "৳5,000",
+    price: "FREE",
+    oldPrice: "৳৫,০০০",
     thumb: `url(${courseThumbnail.url}) center/cover no-repeat`,
     desc: "Rising Editors — ব্যাচ ০১। আমাদের প্রথম ব্যাচের এনরোলমেন্ট বর্তমানে সম্পন্ন হয়েছে।",
     tint: "brand", pin: "brand", chipColor: "brand", featured: false,
