@@ -308,7 +308,7 @@ export function Hero() {
 
                 <div className="mt-8 flex items-center justify-between border-t border-foreground/10 pt-6">
                   <div className="flex flex-col">
-                    <span className="text-xl font-bold text-foreground">৳৪,০০০</span>
+                    <span className="text-xl font-bold text-foreground">FREE</span>
                     <span className="text-xs text-foreground/50 line-through">৳৫,০০০</span>
                   </div>
                   <Link to="/courses/$slug" params={{ slug: "video-editing-bootcamp" }} className="gloss-btn !px-5 !py-2.5 !text-sm">
