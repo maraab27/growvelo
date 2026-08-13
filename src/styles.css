@@ -143,10 +143,10 @@
   position: relative;
   background-color: var(--background);
   background-image:
-    radial-gradient(45rem 30rem at 5% 0%, color-mix(in oklab, var(--mint) 55%, transparent), transparent 65%),
-    radial-gradient(50rem 35rem at 100% 5%, color-mix(in oklab, var(--brand) 32%, transparent), transparent 65%),
-    radial-gradient(40rem 30rem at 0% 100%, color-mix(in oklab, var(--coral) 34%, transparent), transparent 65%),
-    radial-gradient(45rem 30rem at 100% 100%, color-mix(in oklab, var(--lemon) 45%, transparent), transparent 65%);
+    radial-gradient(45rem 30rem at 5% 0%, color-mix(in oklab, var(--mint) 15%, transparent), transparent 75%),
+    radial-gradient(50rem 35rem at 100% 5%, color-mix(in oklab, var(--brand) 12%, transparent), transparent 75%),
+    radial-gradient(40rem 30rem at 0% 100%, color-mix(in oklab, var(--coral) 12%, transparent), transparent 75%),
+    radial-gradient(45rem 30rem at 100% 100%, color-mix(in oklab, var(--lemon) 12%, transparent), transparent 75%);
 }
 .dark .aurora-bg,
 .dark.aurora-bg {
