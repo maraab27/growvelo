@@ -899,50 +899,65 @@ export type Course = {
 export const COURSES: Course[] = [
   {
     slug: "video-editing-bootcamp",
-    title: "১৫ দিনের ফ্রি ভিডিও এডিটিং বুটক্যাম্প (ব্যাচ ০১)",
+    title: "Rising Editors: 15-Day Editing Bootcamp (Batch 01)",
     level: "Beginner → Pro",
     length: "15 days · Live",
     price: "৳4,000",
     oldPrice: "৳5,000",
     thumb: `url(${courseThumbnail.url}) center/cover no-repeat`,
-    desc: "Rising Editors — ব্যাচ ০১। এই ব্যাচের এনরোলমেন্ট বর্তমানে সম্পন্ন হয়েছে। পরবর্তী ব্যাচের জন্য অপেক্ষা করুন।",
+    desc: "Rising Editors — ব্যাচ ০১। আমাদের প্রথম ব্যাচের এনরোলমেন্ট বর্তমানে সম্পন্ন হয়েছে।",
     tint: "brand", pin: "brand", chipColor: "brand", featured: false,
-    start: "ব্যাচ ০১ · এনরোলমেন্ট সম্পন্ন",
+    start: "ব্যাচ ০১ · সম্পন্ন",
     instructor: "Muhammad Ataullah",
-    about: "একদম শূন্য থেকে শুরু করে প্রফেশনাল ভিডিও এডিটর হওয়ার সম্পূর্ণ রোডম্যাপ। ব্যাচ ০১-এর ক্লাস বর্তমানে চলছে।",
+    about: "একদম শূন্য থেকে শুরু করে প্রফেশনাল ভিডিও এডিটর হওয়ার সম্পূর্ণ রোডম্যাপ।",
     outcomes: [
       "Premiere Pro-তে A থেকে Z প্রফেশনাল workflow",
       "YouTube long-form + Reels/Shorts দুই ধরনের এডিটিং",
       "Color grading, sound design আর motion basics",
-      "Client কীভাবে পাবেন — portfolio ও pricing গাইড",
     ],
-    modules: [],
+    modules: [
+      {
+        title: "Introduction to Editing",
+        lessons: [
+          { title: "Interface & Workspace", length: "15:00", free: true },
+          { title: "Basic Cutting & Trimming", length: "20:00" },
+        ]
+      }
+    ],
   },
   {
     slug: "video-editing-batch-2",
-    title: "Video Editing Course (ব্যাচ ০২)",
+    title: "The Editing Masterclass: Zero to Pro (Batch 02)",
     level: "Intermediate",
     length: "30 days · Running",
     price: "৳৬,০০০",
     oldPrice: "৳৮,০০০",
-    thumb: `url(${courseThumbnail.url}) center/cover no-repeat`,
-    desc: "প্রফেশনাল ভিডিও এডিটিং ব্যাচ ০২। এই ব্যাচটি বর্তমানে চলমান (Running), তাই নতুন এনরোলমেন্ট বন্ধ।",
-    tint: "brand", pin: "brand", chipColor: "brand", featured: false,
-    start: "ব্যাচ ০২ · বর্তমানে চলমান",
+    thumb: `linear-gradient(135deg, var(--sky), var(--brand))`,
+    desc: "The Editing Masterclass — ব্যাচ ০২। এই ব্যাচটি বর্তমানে চলমান (Running), তাই নতুন এনরোলমেন্ট বন্ধ।",
+    tint: "sky", pin: "sky", chipColor: "sky", featured: false,
+    start: "ব্যাচ ০২ · চলমান",
     instructor: "Muhammad Ataullah",
     about: "প্রফেশনাল ভিডিও এডিটিংয়ের এই ব্যাচটিতে শিক্ষার্থীরা বর্তমানে হাতে-কলমে শিখছেন।",
-    outcomes: [],
-    modules: [],
+    outcomes: ["Advanced Workflow", "Professional Color Grading", "Audio Mastery"],
+    modules: [
+      {
+        title: "Masterclass Workflow",
+        lessons: [
+          { title: "Advanced Asset Management", length: "25:00" },
+          { title: "Multi-cam & Audio Sync", length: "30:00" },
+        ]
+      }
+    ],
   },
   {
     slug: "video-editing-batch-3",
-    title: "Video Editing Course (ব্যাচ ০৩)",
+    title: "Advanced Video Editing & Retelling (Batch 03)",
     level: "Beginner → Pro",
     length: "30 days · Upcoming",
     price: "৳৬,০০০",
     oldPrice: "৳৮,০০০",
-    thumb: `url(${courseThumbnail.url}) center/cover no-repeat`,
-    desc: "আমাদের পরবর্তী প্রফেশনাল ভিডিও এডিটিং ব্যাচ। এখন এনরোলমেন্ট চলছে, আসন সংখ্যা সীমিত।",
+    thumb: `linear-gradient(135deg, var(--coral), var(--blush))`,
+    desc: "Advanced Video Editing & Retelling — ব্যাচ ০৩। আমাদের পরবর্তী ব্যাচ। এখন এনরোলমেন্ট চলছে।",
     tint: "brand", pin: "brand", chipColor: "brand", featured: true,
     start: "ব্যাচ ০৩ · শীঘ্রই শুরু",
     instructor: "Muhammad Ataullah",
@@ -952,23 +967,22 @@ export const COURSES: Course[] = [
       "Story-first editing & cinematic movement",
       "Client hunting & portfolio building guide",
     ],
-    modules: [],
-  },
-  {
-    slug: "advanced-cinematic-storytelling",
-    title: "Advanced Cinematic Storytelling",
-    level: "Pro",
-    length: "30 days · VOD",
-    price: "৳8,000",
-    oldPrice: "৳10,000",
-    thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)",
-    desc: "Master the art of high-end cinematic edits, complex transitions, and deep color grading.",
-    tint: "sky", pin: "sky", chipColor: "sky",
-    start: "Self-paced",
-    instructor: "Muhammad Ataullah",
-    about: "This course is for editors who want to take their work to the next level and work on high-budget projects.",
-    outcomes: ["Advanced narrative pacing", "Complex masking & VFX", "Commercial grade color grading"],
-    modules: [],
+    modules: [
+      {
+        title: "Advanced Foundations",
+        lessons: [
+          { title: "Cinematic Vision & Story", length: "20:00", free: true },
+          { title: "Advanced Cutting & Pacing", length: "45:00" },
+        ]
+      },
+      {
+        title: "Retelling Mastery",
+        lessons: [
+          { title: "Emotional Arc in Editing", length: "40:00" },
+          { title: "Complex Narrative Building", length: "55:00" },
+        ]
+      }
+    ],
   },
 ];
 
