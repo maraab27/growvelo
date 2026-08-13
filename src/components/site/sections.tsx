@@ -100,7 +100,7 @@ export function SectionHead({
         {after ? <> {after}</> : null}
       </h2>
       {sub && (
-        <p className="mx-auto mt-5 max-w-3xl text-sm text-foreground/65 sm:text-base sm:whitespace-nowrap">
+        <p className="mx-auto mt-5 max-w-3xl text-sm text-foreground/65 sm:text-base">
           {sub}
         </p>
       )}
