@@ -861,7 +861,7 @@ export function StudentShowcase({ limit }: { limit?: number } = {}) {
           <div>
             <Chip color="coral" icon={<Film className="h-3.5 w-3.5" />}>Portfolio</Chip>
             <h3 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-              Recent work from the <span className="grad-text">growVelo</span> desk.
+              Student <span className="grad-text">Masterpieces</span>.
             </h3>
           </div>
           {limit && (
