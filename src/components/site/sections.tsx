@@ -1058,8 +1058,8 @@ export function FeaturedCourses({ limit }: { limit?: number } = {}) {
                         <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
                       )}
                     </div>
-                <span className={`gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none ${c.slug === 'video-editing-bootcamp' ? 'grayscale opacity-70 cursor-not-allowed' : ''}`}>
-                  {c.slug === 'video-editing-bootcamp' ? 'Batch Completed' : 'View details'}
+                <span className={`gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none ${(c.slug === 'video-editing-bootcamp' || c.slug === 'video-editing-batch-2') ? 'grayscale opacity-70 cursor-not-allowed' : ''}`}>
+                  {c.slug === 'video-editing-bootcamp' ? 'Batch Completed' : c.slug === 'video-editing-batch-2' ? 'Batch Running' : 'View details'}
                 </span>
                   </div>
                 </div>
