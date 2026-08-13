@@ -21,7 +21,7 @@ function Index() {
     <SiteShell>
       <Hero />
       <SocialProof />
-      <CourseCategories />
+      <FeaturedCourses />
       <StudentShowcase limit={5} />
       <Instructors />
       <StudentReviews />

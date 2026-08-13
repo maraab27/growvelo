@@ -234,7 +234,7 @@ export function getEditor(slug: string) {
 
 export function Hero() {
   return (
-    <section className="aurora-bg relative overflow-hidden">
+    <section className="relative overflow-hidden">
       <div className="mx-auto max-w-[1200px] px-5 pt-16 pb-24 sm:pt-24 sm:pb-28">
         {/* floating chip stickers */}
         <div className="pointer-events-none absolute inset-0 hidden xl:block">
@@ -272,7 +272,7 @@ export function Hero() {
             {/* Course main card - Styled like Mentor card */}
             <div className="relative max-w-lg w-full">
               <div className="pin" style={pinStyle("mint")} />
-              <div className="sticky-card p-6 sm:p-8 flex flex-col h-full bg-linear-to-b from-[var(--paper)] to-color-mix(in oklab, var(--mint) 12%, var(--paper))">
+              <div className="sticky-card p-6 sm:p-8 flex flex-col h-full tint-mint">
                 <div className="flex items-center justify-between gap-2">
                   <Chip color="mint" icon={<Film className="h-3.5 w-3.5" />} className="!whitespace-nowrap">জনপ্রিয় কোর্স · ব্যাচ ০৭</Chip>
                 </div>
@@ -322,7 +322,7 @@ export function Hero() {
             <div className="max-w-sm w-full space-y-6 flex flex-col justify-center">
               <div className="relative">
                 <div className="pin" style={pinStyle("lemon")} />
-                <div className="sticky-card p-6 bg-linear-to-b from-[var(--paper)] to-color-mix(in oklab, var(--lemon) 12%, var(--paper))">
+                <div className="sticky-card p-6 tint-lemon">
                   <h4 className="font-display text-lg font-semibold flex items-center gap-2">
                     <Sparkles className="h-5 w-5 text-lemon-500" /> Instructor
                   </h4>
@@ -342,7 +342,7 @@ export function Hero() {
               
               <div className="relative">
                 <div className="pin" style={pinStyle("sky")} />
-                <div className="sticky-card p-6 bg-linear-to-b from-[var(--paper)] to-color-mix(in oklab, var(--sky) 12%, var(--paper))">
+                <div className="sticky-card p-6 tint-sky">
                   <h4 className="font-display text-lg font-semibold flex items-center gap-2">
                     <Clock className="h-5 w-5 text-sky-500" /> Batch Schedule
                   </h4>
@@ -363,22 +363,22 @@ export function Hero() {
 
 
 
-        {/* Social Proof */}
-        <div className="relative z-10 mt-16 sm:mt-24">
-          <div className="mono-readout text-center">Learn Tools Trusted By Professionals</div>
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-[0.22em] text-foreground/45 sm:gap-x-12 sm:text-sm">
-            <span>Premiere Pro</span>
-            <span>DaVinci Resolve</span>
-            <span>After Effects</span>
-          </div>
-        </div>
       </div>
     </section>
   );
 }
 
 export function SocialProof() {
-  return null;
+  return (
+    <div className="relative z-10 mt-16 sm:mt-24">
+      <div className="mono-readout text-center">Learn Tools Trusted By Professionals</div>
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-[0.22em] text-foreground/45 sm:gap-x-12 sm:text-sm">
+        <span>Premiere Pro</span>
+        <span>DaVinci Resolve</span>
+        <span>After Effects</span>
+      </div>
+    </div>
+  );
 }
 
 /* ---------- services ---------- */
@@ -739,7 +739,7 @@ function TimelineShowcase() {
 export function StudentShowcase({ limit }: { limit?: number } = {}) {
   const items = limit ? PORTFOLIO_ITEMS.slice(0, limit) : PORTFOLIO_ITEMS;
   return (
-    <section className="aurora-bg py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="Showcase"
@@ -842,7 +842,7 @@ export function Instructors({ limit }: { limit?: number } = {}) {
   if (!e) return null;
 
   return (
-    <section className="aurora-soft py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="Mentor"
@@ -1042,7 +1042,7 @@ export const COURSES: Course[] = [
 export function FeaturedCourses({ limit }: { limit?: number } = {}) {
   const items = limit ? COURSES.slice(0, limit) : COURSES;
   return (
-    <section className="aurora-soft py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="Courses"
@@ -1098,11 +1098,7 @@ export function CourseCategories() {
 }
 
 export function Courses({ limit }: { limit?: number } = {}) {
-  return (
-    <div className="mx-auto max-w-[1200px] px-5">
-      <FeaturedCourses limit={limit} />
-    </div>
-  );
+  return <FeaturedCourses limit={limit} />;
 }
 
 /* ---------- reviews ---------- */
@@ -1122,7 +1118,7 @@ const REVIEWS: {
 export function StudentReviews({ limit }: { limit?: number } = {}) {
   const items = limit ? REVIEWS.slice(0, limit) : REVIEWS;
   return (
-    <section className="aurora-bg py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="Reviews"
@@ -1220,7 +1216,7 @@ export function FAQ() {
     { q: "সাপোর্ট কীভাবে পাবো?", a: "আমাদের ডেডিকেটেড ফেসবুক গ্রুপ এবং ডিসকর্ড সার্ভারে আপনি যেকোনো সময় সাপোর্ট পাবেন।" },
   ];
   return (
-    <section className="aurora-bg py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[800px] px-5">
         <SectionHead
           eyebrow="FAQ"
@@ -1298,7 +1294,7 @@ const FOOTER_COLS: { title: string; links: { to: string; label: string }[] }[] =
 
 export function Footer() {
   return (
-    <footer className="aurora-soft border-t border-foreground/10 py-16">
+    <footer className="border-t border-foreground/10 py-16">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 px-5 md:grid-cols-5">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
