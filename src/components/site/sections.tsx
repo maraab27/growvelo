@@ -944,15 +944,36 @@ export type Course = {
 export const COURSES: Course[] = [
   {
     slug: "video-editing-bootcamp",
-    title: "১৫ দিনের ফ্রি ভিডিও এডিটিং বুটক্যাম্প",
+    title: "১৫ দিনের ফ্রি ভিডিও এডিটিং বুটক্যাম্প (ব্যাচ ০১)",
     level: "Beginner → Pro",
     length: "15 days · Live",
     price: "৳4,000",
     oldPrice: "৳5,000",
     thumb: `url(${courseThumbnail.url}) center/cover no-repeat`,
-    desc: "Rising Editors — Batch 1. প্রিমিয়ার প্রো দিয়ে প্রফেশনাল এডিটিং, একদম Beginner হলেও জয়েন করতে পারবেন।",
+    desc: "Rising Editors — ব্যাচ ০১। এই ব্যাচের এনরোলমেন্ট বর্তমানে সম্পন্ন হয়েছে। পরবর্তী ব্যাচের জন্য অপেক্ষা করুন।",
+    tint: "brand", pin: "brand", chipColor: "brand", featured: false,
+    start: "ব্যাচ ০১ · এনরোলমেন্ট সম্পন্ন",
+    instructor: "Muhammad Ataullah",
+    about: "একদম শূন্য থেকে শুরু করে প্রফেশনাল ভিডিও এডিটর হওয়ার সম্পূর্ণ রোডম্যাপ। ব্যাচ ০১-এর ক্লাস বর্তমানে চলছে।",
+    outcomes: [
+      "Premiere Pro-তে A থেকে Z প্রফেশনাল workflow",
+      "YouTube long-form + Reels/Shorts দুই ধরনের এডিটিং",
+      "Color grading, sound design আর motion basics",
+      "Client কীভাবে পাবেন — portfolio ও pricing গাইড",
+    ],
+    modules: [],
+  },
+  {
+    slug: "video-editing-bootcamp-batch-2",
+    title: "১৫ দিনের ফ্রি ভিডিও এডিটিং বুটক্যাম্প (ব্যাচ ০২)",
+    level: "Beginner → Pro",
+    length: "15 days · Live",
+    price: "৳4,000",
+    oldPrice: "৳5,000",
+    thumb: `url(${courseThumbnail.url}) center/cover no-repeat`,
+    desc: "Rising Editors — ব্যাচ ০২। প্রিমিয়ার প্রো দিয়ে প্রফেশনাল এডিটিং, একদম Beginner হলেও জয়েন করতে পারবেন।",
     tint: "brand", pin: "brand", chipColor: "brand", featured: true,
-    start: "Batch 1 · শীঘ্রই শুরু",
+    start: "ব্যাচ ০২ · শীঘ্রই শুরু",
     instructor: "Muhammad Ataullah",
     about:
       "একদম শূন্য থেকে শুরু করে প্রফেশনাল ভিডিও এডিটর হওয়ার সম্পূর্ণ রোডম্যাপ। Live class, practice project আর personal feedback — সব মিলিয়ে ১৫ দিনের হাতে-কলমে ট্রেনিং।",
@@ -1058,7 +1079,9 @@ export function FeaturedCourses({ limit }: { limit?: number } = {}) {
                         <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
                       )}
                     </div>
-                    <span className="gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none">View details</span>
+                <span className={`gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none ${c.slug === 'video-editing-bootcamp' ? 'grayscale opacity-70 cursor-not-allowed' : ''}`}>
+                  {c.slug === 'video-editing-bootcamp' ? 'Batch Completed' : 'View details'}
+                </span>
                   </div>
                 </div>
               </Link>
