@@ -964,61 +964,40 @@ export const COURSES: Course[] = [
     modules: [],
   },
   {
-    slug: "video-editing-bootcamp-batch-2",
-    title: "১৫ দিনের ফ্রি ভিডিও এডিটিং বুটক্যাম্প (ব্যাচ ০২)",
-    level: "Beginner → Pro",
-    length: "15 days · Live",
-    price: "৳4,000",
-    oldPrice: "৳5,000",
+    slug: "video-editing-batch-2",
+    title: "Video Editing Course (ব্যাচ ০২)",
+    level: "Intermediate",
+    length: "30 days · Running",
+    price: "৳৬,০০০",
+    oldPrice: "৳৮,০০০",
     thumb: `url(${courseThumbnail.url}) center/cover no-repeat`,
-    desc: "Rising Editors — ব্যাচ ০২। প্রিমিয়ার প্রো দিয়ে প্রফেশনাল এডিটিং, একদম Beginner হলেও জয়েন করতে পারবেন।",
-    tint: "brand", pin: "brand", chipColor: "brand", featured: true,
-    start: "ব্যাচ ০২ · শীঘ্রই শুরু",
+    desc: "প্রফেশনাল ভিডিও এডিটিং ব্যাচ ০২। এই ব্যাচটি বর্তমানে চলমান (Running), তাই নতুন এনরোলমেন্ট বন্ধ।",
+    tint: "brand", pin: "brand", chipColor: "brand", featured: false,
+    start: "ব্যাচ ০২ · বর্তমানে চলমান",
     instructor: "Muhammad Ataullah",
-    about:
-      "একদম শূন্য থেকে শুরু করে প্রফেশনাল ভিডিও এডিটর হওয়ার সম্পূর্ণ রোডম্যাপ। Live class, practice project আর personal feedback — সব মিলিয়ে ১৫ দিনের হাতে-কলমে ট্রেনিং।",
+    about: "প্রফেশনাল ভিডিও এডিটিংয়ের এই ব্যাচটিতে শিক্ষার্থীরা বর্তমানে হাতে-কলমে শিখছেন।",
+    outcomes: [],
+    modules: [],
+  },
+  {
+    slug: "video-editing-batch-3",
+    title: "Video Editing Course (ব্যাচ ০৩)",
+    level: "Beginner → Pro",
+    length: "30 days · Upcoming",
+    price: "৳৬,০০০",
+    oldPrice: "৳৮,০০০",
+    thumb: `url(${courseThumbnail.url}) center/cover no-repeat`,
+    desc: "আমাদের পরবর্তী প্রফেশনাল ভিডিও এডিটিং ব্যাচ। এখন এনরোলমেন্ট চলছে, আসন সংখ্যা সীমিত।",
+    tint: "brand", pin: "brand", chipColor: "brand", featured: true,
+    start: "ব্যাচ ০৩ · শীঘ্রই শুরু",
+    instructor: "Muhammad Ataullah",
+    about: "নতুন ব্যাচে আমরা একদম জিরো থেকে অ্যাডভান্স লেভেল পর্যন্ত ভিডিও এডিটিং শিখবো।",
     outcomes: [
       "Premiere Pro-তে A থেকে Z প্রফেশনাল workflow",
-      "YouTube long-form + Reels/Shorts দুই ধরনের এডিটিং",
-      "Color grading, sound design আর motion basics",
-      "Client কীভাবে পাবেন — portfolio ও pricing গাইড",
+      "Story-first editing & cinematic movement",
+      "Client hunting & portfolio building guide",
     ],
-    modules: [
-      {
-        title: "Module 1 · Introduction",
-        lessons: [
-          { title: "কোর্স পরিচিতি ও রোডম্যাপ", length: "12:40", free: true, videoId: "dQw4w9WgXcQ" },
-          { title: "Premiere Pro setup ও interface tour", length: "18:05", free: true, videoId: "dQw4w9WgXcQ" },
-          { title: "প্রথম টাইমলাইন — cut, trim, export", length: "21:30", free: true, videoId: "dQw4w9WgXcQ" },
-        ],
-      },
-      {
-        title: "Module 2 · Core Editing",
-        lessons: [
-          { title: "Pacing ও rhythm — কাট কোথায় বসাবেন", length: "24:10", videoId: "dQw4w9WgXcQ" },
-          { title: "B-roll, J/L cut আর transition", length: "19:55", videoId: "dQw4w9WgXcQ" },
-          { title: "Text, caption ও lower third", length: "17:20", videoId: "dQw4w9WgXcQ" },
-          { title: "Practice project 1 — YouTube vlog edit", length: "32:00", videoId: "dQw4w9WgXcQ" },
-        ],
-      },
-      {
-        title: "Module 3 · Short-Form",
-        lessons: [
-          { title: "Hook তৈরির ফর্মুলা", length: "15:40", videoId: "dQw4w9WgXcQ" },
-          { title: "Reels/Shorts vertical workflow", length: "22:15", videoId: "dQw4w9WgXcQ" },
-          { title: "Auto caption ও trend-native pacing", length: "16:50", videoId: "dQw4w9WgXcQ" },
-        ],
-      },
-      {
-        title: "Module 4 · Color, Sound & Delivery",
-        lessons: [
-          { title: "Color correction vs grading", length: "26:30", videoId: "dQw4w9WgXcQ" },
-          { title: "Voice cleanup ও music mixing", length: "20:05", videoId: "dQw4w9WgXcQ" },
-          { title: "Export settings — YouTube, FB, Insta", length: "13:45", videoId: "dQw4w9WgXcQ" },
-          { title: "Client work, pricing ও portfolio", length: "28:10", videoId: "dQw4w9WgXcQ" },
-        ],
-      },
-    ],
+    modules: [],
   },
   {
     slug: "advanced-cinematic-storytelling",
@@ -1079,8 +1058,8 @@ export function FeaturedCourses({ limit }: { limit?: number } = {}) {
                         <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
                       )}
                     </div>
-                <span className={`gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none ${c.slug === 'video-editing-bootcamp' ? 'grayscale opacity-70 cursor-not-allowed' : ''}`}>
-                  {c.slug === 'video-editing-bootcamp' ? 'Batch Completed' : 'View details'}
+                <span className={`gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform pointer-events-none ${(c.slug === 'video-editing-bootcamp' || c.slug === 'video-editing-batch-2') ? 'grayscale opacity-70 cursor-not-allowed' : ''}`}>
+                  {c.slug === 'video-editing-bootcamp' ? 'Batch Completed' : c.slug === 'video-editing-batch-2' ? 'Batch Running' : 'View details'}
                 </span>
                   </div>
                 </div>
