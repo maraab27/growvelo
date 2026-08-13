@@ -5,7 +5,6 @@ import {
   Services,
   Portfolio,
   Editors,
-  Pricing,
   Courses,
   Reviews,
   About,
@@ -24,7 +23,6 @@ function Index() {
       <Services />
       <Portfolio limit={6} />
       <Editors limit={3} />
-      <Pricing />
       <Courses limit={3} />
       <Reviews limit={3} />
       <About />

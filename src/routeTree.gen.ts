@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ReviewsRouteImport } from './routes/reviews'
-import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as EditorsRouteImport } from './routes/editors'
 import { Route as CoursesRouteImport } from './routes/courses'
@@ -25,11 +24,6 @@ import { Route as ApiPublicEnrollRouteImport } from './routes/api/public/enroll'
 const ReviewsRoute = ReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PricingRoute = PricingRouteImport.update({
-  id: '/pricing',
-  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortfolioRoute = PortfolioRouteImport.update({
@@ -90,7 +84,6 @@ export interface FileRoutesByFullPath {
   '/courses': typeof CoursesRouteWithChildren
   '/editors': typeof EditorsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
-  '/pricing': typeof PricingRoute
   '/reviews': typeof ReviewsRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/editors/$slug': typeof EditorsSlugRoute
@@ -103,7 +96,6 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/editors': typeof EditorsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
-  '/pricing': typeof PricingRoute
   '/reviews': typeof ReviewsRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/editors/$slug': typeof EditorsSlugRoute
@@ -118,7 +110,6 @@ export interface FileRoutesById {
   '/courses': typeof CoursesRouteWithChildren
   '/editors': typeof EditorsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
-  '/pricing': typeof PricingRoute
   '/reviews': typeof ReviewsRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/editors/$slug': typeof EditorsSlugRoute
@@ -134,7 +125,6 @@ export interface FileRouteTypes {
     | '/courses'
     | '/editors'
     | '/portfolio'
-    | '/pricing'
     | '/reviews'
     | '/courses/$slug'
     | '/editors/$slug'
@@ -147,7 +137,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/editors'
     | '/portfolio'
-    | '/pricing'
     | '/reviews'
     | '/courses/$slug'
     | '/editors/$slug'
@@ -161,7 +150,6 @@ export interface FileRouteTypes {
     | '/courses'
     | '/editors'
     | '/portfolio'
-    | '/pricing'
     | '/reviews'
     | '/courses/$slug'
     | '/editors/$slug'
@@ -176,7 +164,6 @@ export interface RootRouteChildren {
   CoursesRoute: typeof CoursesRouteWithChildren
   EditorsRoute: typeof EditorsRouteWithChildren
   PortfolioRoute: typeof PortfolioRoute
-  PricingRoute: typeof PricingRoute
   ReviewsRoute: typeof ReviewsRoute
   ApiPublicEnrollRoute: typeof ApiPublicEnrollRoute
 }
@@ -188,13 +175,6 @@ declare module '@tanstack/react-router' {
       path: '/reviews'
       fullPath: '/reviews'
       preLoaderRoute: typeof ReviewsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pricing': {
-      id: '/pricing'
-      path: '/pricing'
-      fullPath: '/pricing'
-      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/portfolio': {
@@ -301,7 +281,6 @@ const rootRouteChildren: RootRouteChildren = {
   CoursesRoute: CoursesRouteWithChildren,
   EditorsRoute: EditorsRouteWithChildren,
   PortfolioRoute: PortfolioRoute,
-  PricingRoute: PricingRoute,
   ReviewsRoute: ReviewsRoute,
   ApiPublicEnrollRoute: ApiPublicEnrollRoute,
 }

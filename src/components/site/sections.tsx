@@ -112,7 +112,6 @@ const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
   { to: "/", label: "Home", exact: true },
   { to: "/portfolio", label: "Portfolio" },
   { to: "/editors", label: "Editors" },
-  { to: "/pricing", label: "Pricing" },
   { to: "/courses", label: "Courses" },
   { to: "/reviews", label: "Reviews" },
   { to: "/about", label: "About" },
@@ -968,67 +967,8 @@ export function Editors({ limit }: { limit?: number } = {}) {
 
 /* ---------- pricing ---------- */
 
-const PRICING_TIERS: {
-  name: string; price: string; unit: string; desc: string; features: string[];
-  highlight: boolean; tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor; chipColor: ChipColor;
-}[] = [
-  { name: "Short-Form", price: "$79", unit: "per edit", desc: "Reels · TikToks · Shorts up to 90s.", features: ["Up to 90 seconds", "Captions & sound design", "2 revisions", "48h turnaround"], highlight: false, tint: "coral", pin: "coral", chipColor: "coral" },
-  { name: "Creator", price: "$349", unit: "per video", desc: "YouTube long-form & vlogs up to 20 minutes.", features: ["Up to 20 minutes", "Color + audio mix", "B-roll sourcing", "3 revisions", "72h turnaround"], highlight: true, tint: "brand", pin: "brand", chipColor: "brand" },
-  { name: "Cinematic", price: "$899", unit: "per project", desc: "Brand films, weddings, documentaries.", features: ["Up to 10 minutes finished", "Full color grade", "Sound design + mix", "Unlimited revisions", "Dedicated editor"], highlight: false, tint: "lemon", pin: "lemon", chipColor: "lemon" },
-  { name: "Retainer", price: "$2,400", unit: "per month", desc: "Ongoing partnership for teams and creators.", features: ["20+ deliverables / mo", "Priority queue", "Slack channel", "Weekly review calls"], highlight: false, tint: "mint", pin: "mint", chipColor: "mint" },
-];
+// Pricing section removed as per user request.
 
-export function Pricing() {
-  return (
-    <section className="aurora-bg py-24 sm:py-28">
-      <div className="mx-auto max-w-[1200px] px-5">
-        <SectionHead
-          eyebrow="Pricing"
-          eyebrowColor="lemon"
-          before="Fair pricing,"
-          gradWord="per format."
-          sub="Every project is quoted by length and complexity. Below are our starting rates."
-        />
-        <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
-          {PRICING_TIERS.map((t, i) => (
-            <div key={t.name} className="relative">
-              <div className="pin" style={pinStyle(t.pin)} />
-              <div className={`sticky-card tint-${t.tint} p-6 flex flex-col ${i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"} ${t.highlight ? "ring-2" : ""}`}
-                   style={t.highlight ? { boxShadow: "inset 0 1.5px 0 rgba(255,255,255,1), 0 4px 6px color-mix(in oklab, var(--foreground) 10%, transparent), 0 30px 55px -18px color-mix(in oklab, var(--brand) 55%, transparent)" } : undefined}>
-                {t.highlight && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                    <Chip color="brand" icon={<Sparkles className="h-3.5 w-3.5" />}>Most popular</Chip>
-                  </span>
-                )}
-                <Chip color={t.chipColor} className="self-start">{t.name}</Chip>
-                <div className="mt-4 flex items-end gap-1">
-                  <span className="font-display text-4xl font-semibold">{t.price}</span>
-                  <span className="mb-1 text-xs text-foreground/55">{t.unit}</span>
-                </div>
-                <p className="mt-2 text-sm text-foreground/70">{t.desc}</p>
-                <ul className="mt-6 space-y-2 text-sm text-foreground/80">
-                  {t.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2">
-                      <span className="mt-0.5 grid h-4 w-4 place-items-center rounded-full" style={{ background: CHIP_VARS[t.chipColor] }}>
-                        <Check className="h-2.5 w-2.5 text-foreground" strokeWidth={3} />
-                      </span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/contact" className={`mt-6 ${t.highlight ? "gloss-btn" : "gloss-btn-ghost"} !text-sm justify-center`}>
-                  Get started <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- courses ---------- */
 
 const COURSE_CATEGORIES: { name: string; count: string; icon: ReactNode; tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor; grad: string }[] = [
   { name: "Cinematic", count: "8 courses", icon: <Film className="h-5 w-5 text-white" />, tint: "mint", pin: "mint", grad: "linear-gradient(135deg, var(--mint), var(--brand))" },
@@ -1402,9 +1342,6 @@ export function BigCTA() {
             <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
               <Link to="/contact" className="gloss-btn">
                 Start free <ArrowRight className="h-5 w-5" />
-              </Link>
-              <Link to="/pricing" className="gloss-btn-ghost !text-white !bg-white/10 !border-white/20 hover:!bg-white/15">
-                See pricing
               </Link>
             </div>
             <div className="mono-readout mt-6 !text-white/60">
