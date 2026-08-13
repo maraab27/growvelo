@@ -343,14 +343,15 @@ export function Hero() {
             that feel <span className="grad-text">alive</span>.
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-base text-foreground/65 sm:text-lg">
-            সিনেমাটিক কাট, শর্ট-ফর্ম রিলস এবং মোশন — সবকিছুই এক জায়গায়। আমাদের দক্ষ এডিটররা আপনার ভিডিওকে দিবে নতুন প্রাণ।
+            Cinematic cuts, short-form reels, and motion pinned together on one glossy canvas
+            by a boutique team of editors.
           </p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center">
             <Link to="/contact" className="gloss-btn">
-              ফ্রি শুরু করুন <ArrowRight className="h-5 w-5" />
+              Start free <ArrowRight className="h-5 w-5" />
             </Link>
             <Link to="/portfolio" className="gloss-btn-ghost">
-              <Play className="h-5 w-5" /> রিল দেখুন
+              <Play className="h-5 w-5" /> Watch the reel
             </Link>
           </div>
         </div>
