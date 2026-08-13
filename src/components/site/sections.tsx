@@ -110,10 +110,10 @@ export function SectionHead({
 
 const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
   { to: "/", label: "হোম", exact: true },
-  { to: "/portfolio", label: "পোর্টফোলিও" },
-  { to: "/courses", label: "কোর্স" },
-  { to: "/reviews", label: "রিভিউ" },
-  { to: "/about", label: "আমাদের সম্পর্কে" },
+  { to: "/portfolio", label: "পোর্টফোলিও", exact: true },
+  { to: "/courses", label: "কোর্স", exact: true },
+  { to: "/reviews", label: "রিভিউ", exact: true },
+  { to: "/about", label: "আমাদের সম্পর্কে", exact: true },
 ];
 
 /* ---------- nav ---------- */
