@@ -234,7 +234,7 @@ export function getEditor(slug: string) {
 
 export function Hero() {
   return (
-    <section className="aurora-bg relative overflow-hidden">
+    <section className="relative overflow-hidden">
       <div className="mx-auto max-w-[1200px] px-5 pt-16 pb-24 sm:pt-24 sm:pb-28">
         {/* floating chip stickers */}
         <div className="pointer-events-none absolute inset-0 hidden xl:block">
@@ -1294,7 +1294,7 @@ const FOOTER_COLS: { title: string; links: { to: string; label: string }[] }[] =
 
 export function Footer() {
   return (
-    <footer className="aurora-soft border-t border-foreground/10 py-16">
+    <footer className="border-t border-foreground/10 py-16">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 px-5 md:grid-cols-5">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
