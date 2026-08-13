@@ -472,6 +472,20 @@ export function Hero() {
   );
 }
 
+export function SocialProof() {
+  return (
+    <div className="relative z-10 py-10 bg-white/30 backdrop-blur-sm border-y border-foreground/5">
+      <div className="mono-readout text-center opacity-60">Learn Tools Trusted By Professionals</div>
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-[0.22em] text-foreground/45 sm:gap-x-12 sm:text-sm">
+        <span>Premiere Pro</span>
+        <span>DaVinci Resolve</span>
+        <span>After Effects</span>
+        <span>CapCut Pro</span>
+      </div>
+    </div>
+  );
+}
+
 /* ---------- services ---------- */
 
 const SERVICES: {
