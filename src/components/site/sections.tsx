@@ -336,13 +336,12 @@ export function Hero() {
             className="mt-6 font-display font-semibold tracking-tight text-foreground"
             style={{ fontSize: "clamp(2.75rem, 8vw, 7rem)", lineHeight: 0.98, letterSpacing: "-0.035em" }}
           >
-            The edits
+            Turn Your <span className="grad-text">Passion</span>
             <br />
-            that feel <span className="grad-text">alive</span>.
+            into Profession.
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-base text-foreground/65 sm:text-lg">
-            Cinematic cuts, short-form reels, and motion pinned together on one glossy canvas
-            by a boutique team of editors.
+            Master the art of cinematic video editing and short-form storytelling from industry experts.
           </p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center">
             <Link to="/courses" className="gloss-btn">
