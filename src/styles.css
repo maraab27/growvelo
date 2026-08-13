@@ -222,7 +222,7 @@
 @utility sticky-card {
   position: relative;
   border-radius: 22px;
-  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--paper) 92%, transparent) 100%);
+  background: var(--paper);
   border: 1px solid color-mix(in oklab, var(--foreground) 8%, transparent);
   box-shadow:
     inset 0 1.5px 0 var(--hl-strong),
@@ -277,24 +277,29 @@
     0 30px 56px -18px color-mix(in oklab, var(--brand) 45%, transparent);
 }
 
+/* Default sticky-card body background */
+@utility sticky-card-bg {
+  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--paper) 92%, transparent) 100%);
+}
+
 /* Tinted card body — combine with sticky-card */
 @utility tint-mint {
-  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--mint) 12%, var(--paper)) 100%);
+  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--mint) 8%, var(--paper)) 100%);
 }
 @utility tint-coral {
-  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--coral) 12%, var(--paper)) 100%);
+  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--coral) 8%, var(--paper)) 100%);
 }
 @utility tint-lemon {
-  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--lemon) 12%, var(--paper)) 100%);
+  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--lemon) 8%, var(--paper)) 100%);
 }
 @utility tint-blush {
-  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--blush) 12%, var(--paper)) 100%);
+  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--blush) 8%, var(--paper)) 100%);
 }
 @utility tint-sky {
-  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--sky) 12%, var(--paper)) 100%);
+  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--sky) 8%, var(--paper)) 100%);
 }
 @utility tint-brand {
-  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--brand) 10%, var(--paper)) 100%);
+  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--brand) 6%, var(--paper)) 100%);
 }
 
 /* ---------- Pin ---------- */

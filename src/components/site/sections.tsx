@@ -739,7 +739,7 @@ function TimelineShowcase() {
 export function StudentShowcase({ limit }: { limit?: number } = {}) {
   const items = limit ? PORTFOLIO_ITEMS.slice(0, limit) : PORTFOLIO_ITEMS;
   return (
-    <section className="aurora-bg py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="Showcase"
@@ -842,7 +842,7 @@ export function Instructors({ limit }: { limit?: number } = {}) {
   if (!e) return null;
 
   return (
-    <section className="aurora-soft py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="Mentor"
@@ -1042,7 +1042,7 @@ export const COURSES: Course[] = [
 export function FeaturedCourses({ limit }: { limit?: number } = {}) {
   const items = limit ? COURSES.slice(0, limit) : COURSES;
   return (
-    <section className="aurora-soft py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="Courses"
@@ -1098,11 +1098,7 @@ export function CourseCategories() {
 }
 
 export function Courses({ limit }: { limit?: number } = {}) {
-  return (
-    <div className="mx-auto max-w-[1200px] px-5">
-      <FeaturedCourses limit={limit} />
-    </div>
-  );
+  return <FeaturedCourses limit={limit} />;
 }
 
 /* ---------- reviews ---------- */
@@ -1122,7 +1118,7 @@ const REVIEWS: {
 export function StudentReviews({ limit }: { limit?: number } = {}) {
   const items = limit ? REVIEWS.slice(0, limit) : REVIEWS;
   return (
-    <section className="aurora-bg py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="Reviews"
@@ -1220,7 +1216,7 @@ export function FAQ() {
     { q: "সাপোর্ট কীভাবে পাবো?", a: "আমাদের ডেডিকেটেড ফেসবুক গ্রুপ এবং ডিসকর্ড সার্ভারে আপনি যেকোনো সময় সাপোর্ট পাবেন।" },
   ];
   return (
-    <section className="aurora-bg py-24 sm:py-28">
+    <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[800px] px-5">
         <SectionHead
           eyebrow="FAQ"
