@@ -94,7 +94,7 @@ export function SectionHead({
     <div className={wrap}>
       <Chip color={eyebrowColor} icon={eyebrowIcon}>{eyebrow}</Chip>
       <h2 className="mt-5 font-display font-bold tracking-tight text-foreground"
-          style={{ fontSize: "clamp(2rem, 6vw, 3.5rem)", lineHeight: 1.1, letterSpacing: "-0.03em" }}>
+          style={{ fontSize: "clamp(1.75rem, 5vw, 3rem)", lineHeight: 1.15, letterSpacing: "-0.025em" }}>
         {before}{" "}
         <span className="grad-text">{gradWord}</span>
         {after ? <> {after}</> : null}
@@ -210,105 +210,18 @@ export type Editor = {
 
 export const editors: Editor[] = [
   {
-    slug: "arif-hasan",
-    name: "Arif Hasan",
-    role: "Cinematic Video Mentor",
+    slug: "ataullah",
+    name: "Muhammad Ataullah",
+    role: "Lead Video Mentor",
     avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)",
-    bio: "Cinematic long-form and brand storytelling. 6+ years cutting for creators with 1M+ audiences.",
+    bio: "Cinematic storytelling expert. Helping 500+ students master the art of video editing.",
     skills: ["Premiere Pro", "DaVinci Resolve", "Color Grading", "Sound Design"],
-    years: 6,
-    rate: "Mentor",
+    years: 8,
+    rate: "Lead Mentor",
     tint: "mint",
     pin: "brand",
     works: [
-      { title: "Sunset Over Sylhet", type: "Travel · 4K", thumb: "linear-gradient(135deg,#ff9966,#ff5e62)", client: "Roami" },
-      { title: "Founder Story — Nova", type: "Brand Doc", thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)", client: "Nova Labs" },
-      { title: "Product Launch Reel", type: "Ad · 60s", thumb: "linear-gradient(135deg,#22d3ee,#a78bfa)", client: "Loop" },
-    ],
-  },
-  {
-    slug: "nusrat-jahan",
-    name: "Nusrat Jahan",
-    role: "Short-Form Specialist Mentor",
-    avatar: "linear-gradient(135deg,#ec4899,#f97316)",
-    bio: "Hook-driven vertical edits for TikTok, Reels & Shorts. Trend-native pacing and captions.",
-    skills: ["CapCut Pro", "After Effects", "Motion Captions", "Trend Editing"],
-    years: 4,
-    rate: "Mentor",
-    tint: "coral",
-    pin: "coral",
-    works: [
-      { title: "Skincare Series · 12 Reels", type: "Short-Form", thumb: "linear-gradient(135deg,#ec4899,#f472b6)", client: "Glowl" },
-      { title: "Fitness Hooks Pack", type: "TikTok", thumb: "linear-gradient(135deg,#f97316,#fbbf24)", client: "Rise" },
-      { title: "Podcast Clips · 20x", type: "Shorts", thumb: "linear-gradient(135deg,#a78bfa,#ec4899)", client: "MidnightFM" },
-    ],
-  },
-  {
-    slug: "rakib-ahmed",
-    name: "Rakib Ahmed",
-    role: "Motion Graphics Mentor",
-    avatar: "linear-gradient(135deg,#22c55e,#0ea5e9)",
-    bio: "Kinetic typography, explainer animations and clean VFX comps for tech brands.",
-    skills: ["After Effects", "Cinema 4D", "Element 3D", "Kinetic Type"],
-    years: 5,
-    rate: "Instructor",
-    tint: "lemon",
-    pin: "lemon",
-    works: [
-      { title: "SaaS Explainer · 90s", type: "Motion", thumb: "linear-gradient(135deg,#0ea5e9,#22d3ee)", client: "Stackly" },
-      { title: "App Feature Loop", type: "UI Motion", thumb: "linear-gradient(135deg,#22c55e,#84cc16)", client: "Paperlane" },
-      { title: "Title Sequence — Orbit", type: "VFX", thumb: "linear-gradient(135deg,#1e293b,#0ea5e9)", client: "Orbit" },
-    ],
-  },
-  {
-    slug: "sadia-karim",
-    name: "Sadia Karim",
-    role: "Wedding Storytelling Mentor",
-    avatar: "linear-gradient(135deg,#f43f5e,#a78bfa)",
-    bio: "Emotive wedding films and event highlight reels. Warm color, story-first pacing.",
-    skills: ["Premiere Pro", "Color Grading", "Music Sync", "Storytelling"],
-    years: 7,
-    rate: "Instructor",
-    tint: "blush",
-    pin: "blush",
-    works: [
-      { title: "Zara & Farhan · Wedding Film", type: "Wedding", thumb: "linear-gradient(135deg,#f43f5e,#fb7185)", client: "Private" },
-      { title: "Corporate Retreat 2025", type: "Event", thumb: "linear-gradient(135deg,#a78bfa,#f43f5e)", client: "Northwind" },
-      { title: "Highlight Reel · Sangeet", type: "Wedding", thumb: "linear-gradient(135deg,#fbbf24,#f43f5e)", client: "Private" },
-    ],
-  },
-  {
-    slug: "tanvir-rahman",
-    name: "Tanvir Rahman",
-    role: "YouTube Growth Mentor",
-    avatar: "linear-gradient(135deg,#eab308,#ef4444)",
-    bio: "Retention-optimized YouTube edits — commentary, tech reviews, and vlogs.",
-    skills: ["Premiere Pro", "B-roll Sourcing", "Jump Cuts", "Thumbnail Support"],
-    years: 5,
-    rate: "Instructor",
-    tint: "sky",
-    pin: "sky",
-    works: [
-      { title: "Tech Review · 18 min", type: "YouTube", thumb: "linear-gradient(135deg,#ef4444,#f97316)", client: "GearNerd" },
-      { title: "Vlog · Tokyo Diaries", type: "YouTube", thumb: "linear-gradient(135deg,#eab308,#22c55e)", client: "Mira" },
-      { title: "Commentary · 22 min", type: "YouTube", thumb: "linear-gradient(135deg,#7c5cff,#ef4444)", client: "LoreCast" },
-    ],
-  },
-  {
-    slug: "mahi-chowdhury",
-    name: "Mahi Chowdhury",
-    role: "Docu-Style Mentor",
-    avatar: "linear-gradient(135deg,#0ea5e9,#8b5cf6)",
-    bio: "Long-form narrative editing with clean audio mixing. Doc series and interview shows.",
-    skills: ["DaVinci Resolve", "Audio Mixing", "Interview Cutting", "Subtitles"],
-    years: 8,
-    rate: "Instructor",
-    tint: "brand",
-    pin: "mint",
-    works: [
-      { title: "The Makers · Episode 04", type: "Documentary", thumb: "linear-gradient(135deg,#0ea5e9,#6366f1)", client: "Makers Co." },
-      { title: "Podcast Full Ep · 55 min", type: "Podcast", thumb: "linear-gradient(135deg,#8b5cf6,#22d3ee)", client: "InsideOut" },
-      { title: "Founders Interview", type: "Documentary", thumb: "linear-gradient(135deg,#1e293b,#8b5cf6)", client: "Foundry" },
+      { title: "Cinematic Breakdown", type: "Education", thumb: "linear-gradient(135deg,#ff9966,#ff5e62)", client: "growVelo" },
     ],
   },
 ];
@@ -940,9 +853,8 @@ export function Instructors({ limit }: { limit?: number } = {}) {
           eyebrow="Mentors"
           eyebrowColor="blush"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
-          before="আমাদের"
-          gradWord="মেন্টরদের"
-          after="সাথে পরিচিত হোন"
+          before="Meet Your"
+          gradWord="Mentor"
           sub="সিনেমাটিক, শর্ট-ফর্ম এবং মোশন এডিটিংয়ে দক্ষ মেন্টরদের কাছ থেকে শিখুন।"
         />
         <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -1089,14 +1001,17 @@ export function CourseCategories() {
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
-          eyebrow="Path"
-          eyebrowColor="blush"
+          eyebrow="Courses"
+          eyebrowColor="brand"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
-          before="Learn the art of"
+          before="Master the art of"
           gradWord="Story"
           after="first editing."
-          sub="Master cinematic storytelling and high-retention editing with the experts at growVelo."
+          sub="Explore our specialized training programs designed to take you from beginner to professional."
         />
+        <div className="mt-16">
+          <FeaturedCourses />
+        </div>
 
         <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
           {COURSE_CATEGORIES.map((c) => (
