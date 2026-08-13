@@ -841,7 +841,7 @@ function TimelineShowcase() {
   );
 }
 
-export function Portfolio({ limit }: { limit?: number } = {}) {
+export function StudentShowcase({ limit }: { limit?: number } = {}) {
   const items = limit ? PORTFOLIO_ITEMS.slice(0, limit) : PORTFOLIO_ITEMS;
   return (
     <section className="aurora-bg py-24 sm:py-28">
