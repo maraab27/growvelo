@@ -1116,6 +1116,7 @@ export function StudentReviews({ limit }: { limit?: number } = {}) {
           eyebrowIcon={<Star className="h-3.5 w-3.5" />}
           before="Success"
           gradWord="Reviews"
+        />
         <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {items.map((r, i) => (
             <div key={r.name} className="relative">
