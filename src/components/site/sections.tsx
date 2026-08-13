@@ -1050,25 +1050,25 @@ export function Courses({ limit }: { limit?: number } = {}) {
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
-          eyebrow="Templates"
+          eyebrow="Courses"
           eyebrowColor="blush"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
-          before="Pick a starting point."
-          gradWord="Ship"
-          after="in seconds."
-          sub="Editing courses taught by growVelo editors — pick a specialty and start shipping better cuts."
+          before="Learn the art of"
+          gradWord="Story"
+          after="first editing."
+          sub="Master cinematic storytelling and high-retention editing with the experts at growVelo."
         />
 
-        <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-5">
+        <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
           {COURSE_CATEGORIES.map((c) => (
-            <Link key={c.name} to="/courses" className="relative block transition-transform hover:-translate-y-1">
+            <Link key={c.name} to="/courses" className="relative block group">
               <div className="pin" style={pinStyle(c.pin)} />
-              <div className={`sticky-card tint-${c.tint} p-5 text-center h-full`}>
-                <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl" style={{ background: c.grad, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5)" }}>
+              <div className={`sticky-card tint-${c.tint} p-6 text-center h-full transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-xl`}>
+                <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl transition-transform group-hover:scale-110" style={{ background: c.grad, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5)" }}>
                   {c.icon}
                 </div>
-                <div className="mt-4 font-display text-base font-semibold">{c.name}</div>
-                <div className="mono-readout mt-1">{c.count}</div>
+                <div className="mt-4 font-display text-lg font-bold tracking-tight">{c.name}</div>
+                <div className="mono-readout mt-1 text-[9px] opacity-60">{c.count} projects</div>
               </div>
             </Link>
           ))}
@@ -1179,7 +1179,7 @@ export function Reviews({ limit }: { limit?: number } = {}) {
 
 export function About() {
   const stats: { k: string; v: string; tint: "mint" | "coral" | "lemon" | "blush"; pin: ChipColor }[] = [
-    { k: "600+", v: "Projects delivered", tint: "mint", pin: "mint" },
+    { k: "150+", v: "Happy clients", tint: "mint", pin: "mint" },
     { k: "90+", v: "Brand clients", tint: "coral", pin: "coral" },
     { k: "12", v: "In-house editors", tint: "lemon", pin: "lemon" },
     { k: "24h", v: "Avg. turnaround", tint: "blush", pin: "blush" },
