@@ -762,7 +762,11 @@ function EditorCard({ e, tilt }: { e: Editor; tilt: string }) {
       <div className="pin" style={pinStyle(e.pin)} />
       <div className={`sticky-card tint-${e.tint} p-6 ${tilt}`}>
         <div className="flex items-center gap-4">
-          <div className="h-14 w-14 shrink-0 rounded-full ring-4 ring-white" style={{ background: e.avatar }} />
+          {e.avatar.startsWith('linear-gradient') ? (
+            <div className="h-14 w-14 shrink-0 rounded-full ring-4 ring-white" style={{ background: e.avatar }} />
+          ) : (
+            <img src={e.avatar} alt={e.name} className="h-14 w-14 shrink-0 rounded-full object-cover ring-4 ring-white" />
+          )}
           <div className="min-w-0">
             <div className="truncate font-display text-lg font-semibold">{e.name}</div>
             <div className="truncate text-xs text-foreground/60">{e.role}</div>
