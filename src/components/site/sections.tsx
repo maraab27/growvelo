@@ -982,7 +982,7 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
     : (limit ? COURSES.slice(0, limit) : COURSES);
 
   return (
-    <section className="py-24 sm:py-28">
+    <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:items-end">
           <SectionHead
