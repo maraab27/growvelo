@@ -214,7 +214,7 @@ export const editors: Editor[] = [
     slug: "ataullah",
     name: "Muhammad Ataullah",
     role: "Lead Video Mentor",
-    avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)",
+    avatar: instructorAtaullah.url,
     bio: "Cinematic storytelling expert. Helping 500+ students master the art of video editing.",
     skills: ["Premiere Pro", "DaVinci Resolve", "Color Grading", "Sound Design"],
     years: 8,
@@ -691,13 +691,6 @@ export function StudentShowcase({ limit }: { limit?: number } = {}) {
   const items = limit ? PORTFOLIO_ITEMS.slice(0, limit) : PORTFOLIO_ITEMS;
   return (
     <section className="aurora-soft relative py-24 sm:py-28">
-      <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 p-6 text-center text-white opacity-0 transition-opacity hover:opacity-100">
-        <p className="max-w-2xl text-sm font-medium leading-relaxed">
-          '''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
-          <br /><br />
-          এখানে মেন্টর রিভিউ FAQ হোম পেজ থেকে এই সেকশনগুলো স্ক্রল করলে এগুলোর পিছনে একটা কালার আসে বা আলাদা সেকশন হিসেবে এগুলো বোঝা যাচ্ছে। তো এরকম portfolio আর showcase তো একই category। তো এই showcase এর background ও একটু আলাদা করতে হবে। মানে showcase এর সেকশনটা courses সেকশন থেকে আলাদা করতে হবে এবং courses সেকশনটা একদম প্রথম সেকশন থেকে আলাদা করতে হবে। মানে একটু কালার background এর বিচ্ছেদ ওই নিচেরগুলোর মতো করতে হবে। এটা perfect ভাবে ঠিক করো।
-        </p>
-      </div>
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="Showcase"
@@ -769,7 +762,11 @@ function EditorCard({ e, tilt }: { e: Editor; tilt: string }) {
       <div className="pin" style={pinStyle(e.pin)} />
       <div className={`sticky-card tint-${e.tint} p-6 ${tilt}`}>
         <div className="flex items-center gap-4">
-          <div className="h-14 w-14 shrink-0 rounded-full ring-4 ring-white" style={{ background: e.avatar }} />
+          {e.avatar.startsWith('linear-gradient') ? (
+            <div className="h-14 w-14 shrink-0 rounded-full ring-4 ring-white" style={{ background: e.avatar }} />
+          ) : (
+            <img src={e.avatar} alt={e.name} className="h-14 w-14 shrink-0 rounded-full object-cover ring-4 ring-white" />
+          )}
           <div className="min-w-0">
             <div className="truncate font-display text-lg font-semibold">{e.name}</div>
             <div className="truncate text-xs text-foreground/60">{e.role}</div>
@@ -815,7 +812,11 @@ export function Instructors({ limit }: { limit?: number } = {}) {
             <div className="pin" style={pinStyle(e.pin)} />
             <div className={`sticky-card tint-${e.tint} p-8`}>
               <div className="flex items-center gap-5">
-                <div className="h-20 w-20 shrink-0 rounded-full ring-4 ring-white shadow-lg" style={{ background: e.avatar }} />
+                {e.avatar.startsWith('linear-gradient') ? (
+                  <div className="h-20 w-20 shrink-0 rounded-full ring-4 ring-white shadow-lg" style={{ background: e.avatar }} />
+                ) : (
+                  <img src={e.avatar} alt={e.name} className="h-20 w-20 shrink-0 rounded-full object-cover ring-4 ring-white shadow-lg" />
+                )}
                 <div className="min-w-0">
                   <div className="font-display text-2xl font-bold leading-tight">{e.name}</div>
                   <div className="mono-readout mt-1 text-xs">{e.role}</div>
@@ -1176,13 +1177,6 @@ function AccordionItem({ q, a, index }: { q: string; a: string; index: number })
     <div className="relative group">
       <div className="pin" style={pinStyle("sky")} />
       <div className="sticky-card overflow-hidden">
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 p-6 text-center text-white opacity-0 transition-opacity group-hover:opacity-100">
-          <p className="text-sm font-medium leading-relaxed">
-            '''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
-            <br /><br />
-            Load the security issues from the scan results and fix the selected issues.
-          </p>
-        </div>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-foreground/5"
@@ -1276,13 +1270,6 @@ export function BigCTA() {
       <div className="mx-auto max-w-[1200px] px-5">
         <div className="aurora-dark group relative overflow-hidden rounded-[32px] p-12 text-center sm:p-20"
              style={{ boxShadow: "0 40px 80px -30px color-mix(in oklab, var(--brand) 60%, transparent)" }}>
-          <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 p-6 text-center text-white opacity-0 transition-opacity group-hover:opacity-100">
-            <p className="max-w-xl text-sm font-medium leading-relaxed">
-              '''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
-              <br /><br />
-              Load the security issues from the scan results and fix the selected issues.
-            </p>
-          </div>
           <div className="relative z-10 mx-auto max-w-2xl">
             <h3
               className="font-display font-semibold tracking-tight text-white"
