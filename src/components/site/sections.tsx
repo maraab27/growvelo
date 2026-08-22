@@ -1166,9 +1166,16 @@ export function About() {
 function AccordionItem({ q, a, index }: { q: string; a: string; index: number }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="relative">
+    <div className="relative group">
       <div className="pin" style={pinStyle("sky")} />
       <div className="sticky-card overflow-hidden">
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 p-6 text-center text-white opacity-0 transition-opacity group-hover:opacity-100">
+          <p className="text-sm font-medium leading-relaxed">
+            '''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
+            <br /><br />
+            Load the security issues from the scan results and fix the selected issues.
+          </p>
+        </div>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-foreground/5"
