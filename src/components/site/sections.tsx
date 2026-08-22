@@ -214,7 +214,7 @@ export const editors: Editor[] = [
     slug: "ataullah",
     name: "Muhammad Ataullah",
     role: "Lead Video Mentor",
-    avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)",
+    avatar: instructorAtaullah.url,
     bio: "Cinematic storytelling expert. Helping 500+ students master the art of video editing.",
     skills: ["Premiere Pro", "DaVinci Resolve", "Color Grading", "Sound Design"],
     years: 8,
