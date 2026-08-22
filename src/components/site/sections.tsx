@@ -808,7 +808,11 @@ export function Instructors({ limit }: { limit?: number } = {}) {
             <div className="pin" style={pinStyle(e.pin)} />
             <div className={`sticky-card tint-${e.tint} p-8`}>
               <div className="flex items-center gap-5">
-                <div className="h-20 w-20 shrink-0 rounded-full ring-4 ring-white shadow-lg" style={{ background: e.avatar }} />
+                {e.avatar.startsWith('linear-gradient') ? (
+                  <div className="h-20 w-20 shrink-0 rounded-full ring-4 ring-white shadow-lg" style={{ background: e.avatar }} />
+                ) : (
+                  <img src={e.avatar} alt={e.name} className="h-20 w-20 shrink-0 rounded-full object-cover ring-4 ring-white shadow-lg" />
+                )}
                 <div className="min-w-0">
                   <div className="font-display text-2xl font-bold leading-tight">{e.name}</div>
                   <div className="mono-readout mt-1 text-xs">{e.role}</div>
