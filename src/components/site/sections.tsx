@@ -691,13 +691,6 @@ export function StudentShowcase({ limit }: { limit?: number } = {}) {
   const items = limit ? PORTFOLIO_ITEMS.slice(0, limit) : PORTFOLIO_ITEMS;
   return (
     <section className="aurora-soft relative py-24 sm:py-28">
-      <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 p-6 text-center text-white opacity-0 transition-opacity hover:opacity-100">
-        <p className="max-w-2xl text-sm font-medium leading-relaxed">
-          '''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
-          <br /><br />
-          এখানে মেন্টর রিভিউ FAQ হোম পেজ থেকে এই সেকশনগুলো স্ক্রল করলে এগুলোর পিছনে একটা কালার আসে বা আলাদা সেকশন হিসেবে এগুলো বোঝা যাচ্ছে। তো এরকম portfolio আর showcase তো একই category। তো এই showcase এর background ও একটু আলাদা করতে হবে। মানে showcase এর সেকশনটা courses সেকশন থেকে আলাদা করতে হবে এবং courses সেকশনটা একদম প্রথম সেকশন থেকে আলাদা করতে হবে। মানে একটু কালার background এর বিচ্ছেদ ওই নিচেরগুলোর মতো করতে হবে। এটা perfect ভাবে ঠিক করো।
-        </p>
-      </div>
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           eyebrow="Showcase"
