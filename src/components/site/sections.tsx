@@ -1262,13 +1262,6 @@ export function BigCTA() {
       <div className="mx-auto max-w-[1200px] px-5">
         <div className="aurora-dark group relative overflow-hidden rounded-[32px] p-12 text-center sm:p-20"
              style={{ boxShadow: "0 40px 80px -30px color-mix(in oklab, var(--brand) 60%, transparent)" }}>
-          <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 p-6 text-center text-white opacity-0 transition-opacity group-hover:opacity-100">
-            <p className="max-w-xl text-sm font-medium leading-relaxed">
-              '''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
-              <br /><br />
-              Load the security issues from the scan results and fix the selected issues.
-            </p>
-          </div>
           <div className="relative z-10 mx-auto max-w-2xl">
             <h3
               className="font-display font-semibold tracking-tight text-white"
