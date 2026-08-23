@@ -14,11 +14,13 @@ import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as EditorsRouteImport } from './routes/editors'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CoursesIndexRouteImport } from './routes/courses.index'
 import { Route as EditorsSlugRouteImport } from './routes/editors.$slug'
 import { Route as CoursesSlugRouteImport } from './routes/courses.$slug'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as ApiPublicEnrollRouteImport } from './routes/api/public/enroll'
 
 const ReviewsRoute = ReviewsRouteImport.update({
@@ -46,6 +48,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -71,6 +78,11 @@ const CoursesSlugRoute = CoursesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => CoursesRoute,
 } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/_authenticated/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicEnrollRoute = ApiPublicEnrollRouteImport.update({
   id: '/api/public/enroll',
   path: '/api/public/enroll',
@@ -80,11 +92,13 @@ const ApiPublicEnrollRoute = ApiPublicEnrollRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRouteWithChildren
   '/editors': typeof EditorsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/reviews': typeof ReviewsRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/editors/$slug': typeof EditorsSlugRoute
   '/courses/': typeof CoursesIndexRoute
@@ -93,10 +107,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/editors': typeof EditorsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/reviews': typeof ReviewsRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/editors/$slug': typeof EditorsSlugRoute
   '/courses': typeof CoursesIndexRoute
@@ -106,11 +122,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRouteWithChildren
   '/editors': typeof EditorsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/reviews': typeof ReviewsRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/editors/$slug': typeof EditorsSlugRoute
   '/courses/': typeof CoursesIndexRoute
@@ -121,11 +139,13 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/courses'
     | '/editors'
     | '/portfolio'
     | '/reviews'
+    | '/dashboard'
     | '/courses/$slug'
     | '/editors/$slug'
     | '/courses/'
@@ -134,10 +154,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/editors'
     | '/portfolio'
     | '/reviews'
+    | '/dashboard'
     | '/courses/$slug'
     | '/editors/$slug'
     | '/courses'
@@ -146,11 +168,13 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/courses'
     | '/editors'
     | '/portfolio'
     | '/reviews'
+    | '/_authenticated/dashboard'
     | '/courses/$slug'
     | '/editors/$slug'
     | '/courses/'
@@ -160,11 +184,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   CoursesRoute: typeof CoursesRouteWithChildren
   EditorsRoute: typeof EditorsRouteWithChildren
   PortfolioRoute: typeof PortfolioRoute
   ReviewsRoute: typeof ReviewsRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   ApiPublicEnrollRoute: typeof ApiPublicEnrollRoute
 }
 
@@ -205,6 +231,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -239,6 +272,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/courses/$slug'
       preLoaderRoute: typeof CoursesSlugRouteImport
       parentRoute: typeof CoursesRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/public/enroll': {
       id: '/api/public/enroll'
@@ -277,11 +317,13 @@ const EditorsRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   CoursesRoute: CoursesRouteWithChildren,
   EditorsRoute: EditorsRouteWithChildren,
   PortfolioRoute: PortfolioRoute,
   ReviewsRoute: ReviewsRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   ApiPublicEnrollRoute: ApiPublicEnrollRoute,
 }
 export const routeTree = rootRouteImport
