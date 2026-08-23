@@ -27,9 +27,11 @@ import {
 } from "lucide-react";
 
 import { ThemeToggle } from "./theme-toggle";
+import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "../../assets/logo.png.asset.json";
 import batch01Thumbnail from "../../assets/batch-01-thumbnail.png.asset.json";
 import instructorAtaullahNew from "../../assets/instructor-ataullah-new.png.asset.json";
+
 
 
 /* ---------- helpers ---------- */
