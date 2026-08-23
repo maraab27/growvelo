@@ -832,7 +832,7 @@ export function Instructors({ limit }: { limit?: number } = {}) {
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
           before="Meet Your"
           gradWord="Mentor"
-          sub="সিনেমাটিক এবং মোশন এডিটিংয়ে দক্ষ মেন্টরের কাছ থেকে সরাসরি শিখুন।"
+          sub="Learn directly from a mentor skilled in cinematic and motion editing."
         />
         <div className="mt-14 flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-center">
           <div className="relative max-w-sm w-full">
@@ -936,15 +936,15 @@ export const COURSES: Course[] = [
     price: "FREE",
     oldPrice: "৳৫,০০০",
     thumb: `url(${batch01Thumbnail.url}) center/cover no-repeat`,
-    desc: "Rising Editors — ব্যাচ ০১। আমাদের প্রথম ব্যাচের এনরোলমেন্ট বর্তমানে সম্পন্ন হয়েছে।",
+    desc: "Rising Editors — Batch 01. Enrollment for our first batch is now complete.",
     tint: "brand", pin: "brand", chipColor: "brand", featured: false,
-    start: "ব্যাচ ০১ · সম্পন্ন",
+    start: "Batch 01 · Completed",
     instructor: "Muhammad Ataullah",
-    about: "একদম শূন্য থেকে শুরু করে প্রফেশনাল ভিডিও এডিটর হওয়ার সম্পূর্ণ রোডম্যাপ। এটি আমাদের লাইভ ব্যাচ ছিল।",
+    about: "A complete roadmap for becoming a professional video editor from zero. This was our live batch.",
     outcomes: [
-      "Premiere Pro-তে A থেকে Z প্রফেশনাল workflow",
-      "YouTube long-form + Reels/Shorts দুই ধরনের এডিটিং",
-      "Color grading, sound design আর motion basics",
+      "A to Z professional workflow in Premiere Pro",
+      "YouTube long-form + Reels/Shorts editing",
+      "Color grading, sound design and motion basics",
     ],
     modules: [],
   },
@@ -956,11 +956,11 @@ export const COURSES: Course[] = [
     price: "৳৬,০০০",
     oldPrice: "৳৮,০০০",
     thumb: `linear-gradient(135deg, var(--sky), var(--brand))`,
-    desc: "The Editing Masterclass — ব্যাচ ০২। এই ব্যাচটি বর্তমানে চলমান (Running), তাই নতুন এনরোলমেন্ট বন্ধ।",
+    desc: "The Editing Masterclass — Batch 02. This batch is currently running, new enrollments are closed.",
     tint: "sky", pin: "sky", chipColor: "sky", featured: false,
-    start: "ব্যাচ ০২ · চলমান",
+    start: "Batch 02 · Running",
     instructor: "Muhammad Ataullah",
-    about: "প্রফেশনাল ভিডিও এডিটিংয়ের এই ব্যাচটিতে শিক্ষার্থীরা বর্তমানে হাতে-কলমে শিখছেন।",
+    about: "Students are currently learning hands-on in this professional video editing batch.",
     outcomes: ["Advanced Workflow", "Professional Color Grading", "Audio Mastery"],
     modules: [
       {
@@ -980,13 +980,13 @@ export const COURSES: Course[] = [
     price: "৳৬,০০০",
     oldPrice: "৳৮,০০০",
     thumb: `linear-gradient(135deg, var(--coral), var(--blush))`,
-    desc: "Advanced Video Editing & Retelling — ব্যাচ ০৩। আমাদের পরবর্তী ব্যাচ। এখন এনরোলমেন্ট চলছে।",
+    desc: "Advanced Video Editing & Retelling — Batch 03. Our next batch. Enrollment is open.",
     tint: "brand", pin: "brand", chipColor: "brand", featured: true,
-    start: "ব্যাচ ০৩ · শীঘ্রই শুরু",
+    start: "Batch 03 · Starting Soon",
     instructor: "Muhammad Ataullah",
-    about: "নতুন ব্যাচে আমরা একদম জিরো থেকে অ্যাডভান্স লেভেল পর্যন্ত ভিডিও এডিটিং শিখবো।",
+    about: "In the new batch, we will learn video editing from zero to advanced level.",
     outcomes: [
-      "Premiere Pro-তে A থেকে Z প্রফেশনাল workflow",
+      "Professional A to Z workflow in Premiere Pro",
       "Story-first editing & cinematic movement",
       "Client hunting & portfolio building guide",
     ],
