@@ -424,7 +424,7 @@ export const Route = createFileRoute("/courses/$slug")({
   notFoundComponent: () => (
     <SiteShell>
       <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-        <h1 className="font-display text-2xl font-semibold">Course পাওয়া যায়নি</h1>
+        <h1 className="font-display text-2xl font-semibold">Course Not Found</h1>
         <Link to="/courses" className="gloss-btn mt-6 inline-flex">Back to courses</Link>
       </div>
     </SiteShell>
@@ -432,7 +432,7 @@ export const Route = createFileRoute("/courses/$slug")({
   errorComponent: () => (
     <SiteShell>
       <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-        <h1 className="font-display text-2xl font-semibold">কিছু একটা সমস্যা হয়েছে</h1>
+        <h1 className="font-display text-2xl font-semibold">Something went wrong</h1>
         <Link to="/courses" className="gloss-btn mt-6 inline-flex">Back to courses</Link>
       </div>
     </SiteShell>
