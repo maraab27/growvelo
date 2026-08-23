@@ -47,6 +47,27 @@ export type Database = {
         }
         Relationships: []
       }
+      enrollments: {
+        Row: {
+          course_slug: string
+          enrolled_at: string | null
+          id: string
+          user_id: string | null
+        }
+        Insert: {
+          course_slug: string
+          enrolled_at?: string | null
+          id?: string
+          user_id?: string | null
+        }
+        Update: {
+          course_slug?: string
+          enrolled_at?: string | null
+          id?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
