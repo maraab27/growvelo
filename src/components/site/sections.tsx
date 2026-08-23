@@ -1271,7 +1271,7 @@ export function FAQ() {
           eyebrowIcon={<PinIcon className="h-3.5 w-3.5" />}
           before="Frequently Asked"
           gradWord="Questions"
-          sub="আপনার মনে থাকা সাধারণ কিছু প্রশ্নের উত্তর এখানে দেওয়া হলো।"
+          sub="Answers to some of the common questions you might have."
         />
         <div className="mt-14 space-y-6">
           {faqs.map((f, i) => (
@@ -1307,11 +1307,11 @@ export function BigCTA() {
               editing <span className="grad-text-gold">journey</span>?
             </h3>
             <p className="mx-auto mt-5 max-w-lg text-sm text-white/70 sm:text-base">
-              ৫০০+ সফল শিক্ষার্থীর সাথে আপনিও শুরু করুন আপনার এডিটিং ক্যারিয়ার। আজই এনরোল করুন।
+              Start your editing career with 500+ successful students. Enroll today.
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
               <Link to="/courses" className="gloss-btn">
-                এনরোল করুন <ArrowRight className="h-5 w-5" />
+                Enroll Now <ArrowRight className="h-5 w-5" />
               </Link>
             </div>
             <div className="mono-readout mt-6 !text-white/60">
@@ -1327,10 +1327,10 @@ export function BigCTA() {
 /* ---------- footer ---------- */
 
 const FOOTER_COLS: { title: string; links: { to: string; label: string }[] }[] = [
-  { title: "একাডেমি", links: [{ to: "/portfolio", label: "স্টুডেন্ট শোকেস" }, { to: "/editors", label: "মেন্টরস" }] },
-  { title: "শিখুন", links: [{ to: "/courses", label: "সবগুলো কোর্স" }, { to: "/reviews", label: "রিভিউ" }] },
-  { title: "পলিসি", links: [{ to: "/about", label: "আমাদের সম্পর্কে" }, { to: "/", label: "রিফান্ড পলিসি" }] },
-  { title: "কমিউনিটি", links: [{ to: "/", label: "ফেসবুক গ্রুপ" }, { to: "/", label: "ডিসকর্ড" }] },
+  { title: "Academy", links: [{ to: "/portfolio", label: "Student Showcase" }, { to: "/editors", label: "Mentors" }] },
+  { title: "Learn", links: [{ to: "/courses", label: "All Courses" }, { to: "/reviews", label: "Reviews" }] },
+  { title: "Policy", links: [{ to: "/about", label: "About Us" }, { to: "/", label: "Refund Policy" }] },
+  { title: "Community", links: [{ to: "/", label: "Facebook Group" }, { to: "/", label: "Discord" }] },
 ];
 
 export function Footer() {
