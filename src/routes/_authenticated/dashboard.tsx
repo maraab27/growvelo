@@ -102,9 +102,11 @@ function DashboardPage() {
                           </span>
                         </div>
                         <Link
-                          to={`/courses/${enrollment.course_slug}`}
+                          to="/courses/$slug"
+                          params={{ slug: enrollment.course_slug }}
                           className="gloss-btn w-full justify-center text-sm py-2"
                         >
+
                           Continue Learning
                           <ArrowRight className="w-4 h-4 ml-2" />
                         </Link>
