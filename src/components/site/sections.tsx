@@ -157,13 +157,20 @@ export function Nav({ session }: { session?: any }) {
 
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <ThemeToggle />
-            <Link 
-              to="/courses/$slug"
-              params={{ slug: 'video-editing-batch-3' }}
-              className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm"
-            >
-              Batch 03 <ArrowRight className="h-4 w-4" />
-            </Link>
+            {session ? (
+              <Link to="/dashboard" className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm">
+                Dashboard <ArrowRight className="h-4 w-4" />
+              </Link>
+            ) : (
+              <Link 
+                to="/courses/$slug"
+                params={{ slug: 'video-editing-batch-3' }}
+                className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm"
+              >
+                Batch 03 <ArrowRight className="h-4 w-4" />
+              </Link>
+            )}
+
 
             <button
               type="button"
