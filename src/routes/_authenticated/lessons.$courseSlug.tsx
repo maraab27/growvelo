@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "../../../components/site/sections";
 import { Youtube, Calendar, Link as LinkIcon, MessageSquare } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/dashboard")({
+export const Route = createFileRoute("/_authenticated/lessons/$courseSlug")({
   component: LessonPage,
 });
 
