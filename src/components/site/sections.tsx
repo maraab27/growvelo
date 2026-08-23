@@ -119,8 +119,9 @@ const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
 
 /* ---------- nav ---------- */
 
-export function Nav() {
+export function Nav({ session }: { session?: any }) {
   const [open, setOpen] = useState(false);
+
   return (
     <div className="fixed inset-x-0 top-0 z-50 flex justify-center px-0 pt-0 sm:px-4 sm:pt-4">
       <header className="glass flex w-full max-w-6xl flex-col overflow-hidden !rounded-none border-x-0 border-t-0 px-3 py-2 sm:!rounded-full sm:border sm:px-5 sm:py-2">
