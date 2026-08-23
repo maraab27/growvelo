@@ -23,7 +23,6 @@ import { Route as EditorsSlugRouteImport } from './routes/editors.$slug'
 import { Route as CoursesSlugRouteImport } from './routes/courses.$slug'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as ApiPublicEnrollRouteImport } from './routes/api/public/enroll'
-import { Route as AuthenticatedLessonsCourseSlugRouteImport } from './routes/_authenticated/lessons.$courseSlug'
 import { Route as AuthenticatedCoursesLessonsRouteImport } from './routes/_authenticated/courses_..lessons.'
 import { Route as AuthenticatedCoursesSlugLessonsLessonIdRouteImport } from './routes/_authenticated/courses_.$slug.lessons.$lessonId'
 
@@ -96,12 +95,6 @@ const ApiPublicEnrollRoute = ApiPublicEnrollRouteImport.update({
   path: '/api/public/enroll',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedLessonsCourseSlugRoute =
-  AuthenticatedLessonsCourseSlugRouteImport.update({
-    id: '/lessons/$courseSlug',
-    path: '/lessons/$courseSlug',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
 const AuthenticatedCoursesLessonsRoute =
   AuthenticatedCoursesLessonsRouteImport.update({
     id: '/courses_/lessons/',
@@ -128,7 +121,6 @@ export interface FileRoutesByFullPath {
   '/courses/$slug': typeof CoursesSlugRoute
   '/editors/$slug': typeof EditorsSlugRoute
   '/courses/': typeof CoursesIndexRoute
-  '/lessons/$courseSlug': typeof AuthenticatedLessonsCourseSlugRoute
   '/api/public/enroll': typeof ApiPublicEnrollRoute
   '/courses/lessons/': typeof AuthenticatedCoursesLessonsRoute
   '/courses/$slug/lessons/$lessonId': typeof AuthenticatedCoursesSlugLessonsLessonIdRoute
@@ -145,7 +137,6 @@ export interface FileRoutesByTo {
   '/courses/$slug': typeof CoursesSlugRoute
   '/editors/$slug': typeof EditorsSlugRoute
   '/courses': typeof CoursesIndexRoute
-  '/lessons/$courseSlug': typeof AuthenticatedLessonsCourseSlugRoute
   '/api/public/enroll': typeof ApiPublicEnrollRoute
   '/courses/lessons': typeof AuthenticatedCoursesLessonsRoute
   '/courses/$slug/lessons/$lessonId': typeof AuthenticatedCoursesSlugLessonsLessonIdRoute
@@ -165,7 +156,6 @@ export interface FileRoutesById {
   '/courses/$slug': typeof CoursesSlugRoute
   '/editors/$slug': typeof EditorsSlugRoute
   '/courses/': typeof CoursesIndexRoute
-  '/_authenticated/lessons/$courseSlug': typeof AuthenticatedLessonsCourseSlugRoute
   '/api/public/enroll': typeof ApiPublicEnrollRoute
   '/_authenticated/courses_/lessons/': typeof AuthenticatedCoursesLessonsRoute
   '/_authenticated/courses_/$slug/lessons/$lessonId': typeof AuthenticatedCoursesSlugLessonsLessonIdRoute
@@ -185,7 +175,6 @@ export interface FileRouteTypes {
     | '/courses/$slug'
     | '/editors/$slug'
     | '/courses/'
-    | '/lessons/$courseSlug'
     | '/api/public/enroll'
     | '/courses/lessons/'
     | '/courses/$slug/lessons/$lessonId'
@@ -202,7 +191,6 @@ export interface FileRouteTypes {
     | '/courses/$slug'
     | '/editors/$slug'
     | '/courses'
-    | '/lessons/$courseSlug'
     | '/api/public/enroll'
     | '/courses/lessons'
     | '/courses/$slug/lessons/$lessonId'
@@ -221,7 +209,6 @@ export interface FileRouteTypes {
     | '/courses/$slug'
     | '/editors/$slug'
     | '/courses/'
-    | '/_authenticated/lessons/$courseSlug'
     | '/api/public/enroll'
     | '/_authenticated/courses_/lessons/'
     | '/_authenticated/courses_/$slug/lessons/$lessonId'
@@ -340,13 +327,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicEnrollRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/lessons/$courseSlug': {
-      id: '/_authenticated/lessons/$courseSlug'
-      path: '/lessons/$courseSlug'
-      fullPath: '/lessons/$courseSlug'
-      preLoaderRoute: typeof AuthenticatedLessonsCourseSlugRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/courses_/lessons/': {
       id: '/_authenticated/courses_/lessons/'
       path: '/courses/lessons'
@@ -366,14 +346,12 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
-  AuthenticatedLessonsCourseSlugRoute: typeof AuthenticatedLessonsCourseSlugRoute
   AuthenticatedCoursesLessonsRoute: typeof AuthenticatedCoursesLessonsRoute
   AuthenticatedCoursesSlugLessonsLessonIdRoute: typeof AuthenticatedCoursesSlugLessonsLessonIdRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
-  AuthenticatedLessonsCourseSlugRoute: AuthenticatedLessonsCourseSlugRoute,
   AuthenticatedCoursesLessonsRoute: AuthenticatedCoursesLessonsRoute,
   AuthenticatedCoursesSlugLessonsLessonIdRoute:
     AuthenticatedCoursesSlugLessonsLessonIdRoute,
