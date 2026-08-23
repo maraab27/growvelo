@@ -11,6 +11,17 @@ function EnrollmentModal({ courseSlug, onClose, onSuccess }: { courseSlug: strin
   const [transactionId, setTransactionId] = useState("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setEmail(user.email || "");
+      }
+    };
+    fetchUser();
+  }, []);
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
