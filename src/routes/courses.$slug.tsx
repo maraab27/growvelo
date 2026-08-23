@@ -145,9 +145,11 @@ function CourseDetail() {
         .select('status')
         .eq('user_id', session.user.id)
         .eq('course_slug', slug)
-        .single();
+        .eq('status', 'approved')
+        .maybeSingle();
       
       if (data) setEnrolled(true);
+
 
     };
     checkEnrollment();
@@ -283,12 +285,13 @@ function CourseDetail() {
                 <div className="mt-10">
                   {enrolled ? (
                     <Link
-                      to="/courses/$slug/lessons/$lessonId"
+                      to="/_authenticated/courses_/$slug/lessons/$lessonId"
                       params={{ slug, lessonId: 'intro' }}
                       className="gloss-btn w-full justify-center !py-4 text-base font-bold"
                     >
                       ✅ Access Unlocked - Start Learning
                     </Link>
+
                   ) : (
                     <div className="space-y-4">
                       <button 
