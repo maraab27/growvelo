@@ -10,7 +10,7 @@ export const Route = createFileRoute("/editors/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Editor not found — growVelo" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Mentor not found — growVelo" }, { name: "robots", content: "noindex" }] };
     }
     const e = loaderData.editor;
     return {
@@ -27,11 +27,11 @@ export const Route = createFileRoute("/editors/$slug")({
       <section className="aurora-soft">
         <div className="mx-auto max-w-3xl px-5 py-32 text-center">
           <h1 className="font-display text-4xl font-semibold">
-            Editor <span className="grad-text">not found</span>
+            Mentor <span className="grad-text">not found</span>
           </h1>
-          <p className="mt-3 text-foreground/60">The editor you're looking for isn't on the roster.</p>
-          <Link to="/editors" className="gloss-btn mt-8 inline-flex">
-            Back to editors <ArrowRight className="h-4 w-4" />
+          <p className="mt-3 text-foreground/60">The mentor you're looking for isn't on the roster.</p>
+          <Link to="/" className="gloss-btn mt-8 inline-flex">
+            Back to home <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>
@@ -49,8 +49,8 @@ function EditorDetail() {
     <SiteShell>
       <section className="aurora-bg">
         <div className="mx-auto max-w-[1200px] px-5 pt-24 pb-12">
-          <Link to="/editors" className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground/60 transition hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" /> All editors
+          <Link to="/" className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground/60 transition hover:text-foreground">
+            <ArrowLeft className="h-4 w-4" /> Back to Home
           </Link>
           <div className="mt-8 grid grid-cols-1 items-center gap-10 md:grid-cols-[auto_1fr]">
             <div className="relative">
@@ -82,7 +82,7 @@ function EditorDetail() {
               </div>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link to="/courses" className="gloss-btn !text-sm">
-                  কোর্স দেখুন <ArrowRight className="h-4 w-4" />
+                  View Courses <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
