@@ -13,10 +13,10 @@ function DashboardPage() {
   const { user } = Route.useRouteContext();
   
   const { data: enrollments, isLoading } = useQuery({
-    queryKey: ["enrollments", user?.id],
+    queryKey: ["course_enrollments", user?.id],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("enrollments")
+        .from("course_enrollments")
         .select("*")
         .eq("user_id", user?.id);
       if (error) throw error;
@@ -54,7 +54,7 @@ function DashboardPage() {
             {/* Sidebar / Stats */}
             <div className="space-y-6">
               <div className="sticky-card p-6">
-                <div className="pin" style={{ ["--pin-color" as string]: "var(--mint)" }} />
+                <div className="pin" style={{ ["--pin-color" as string]: "var(--mint)" }} style={{"--pin-color": "var(--mint)"} as any} />
                 <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                   <LayoutDashboard className="w-5 h-5 text-[var(--brand)]" />
                   Overview
@@ -83,7 +83,7 @@ function DashboardPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {enrollments.map((enrollment) => (
                     <div key={enrollment.id} className="sticky-card group overflow-hidden">
-                      <div className="pin" style={{ ["--pin-color" as string]: "var(--brand)" }} />
+                      <div className="pin" style={{"--pin-color": "var(--brand)"} as any} />
                       <div className="p-6">
                         <div className="flex items-start justify-between mb-4">
                           <div className="p-2 rounded-lg bg-[var(--brand)]/10">
@@ -94,7 +94,7 @@ function DashboardPage() {
                           </span>
                         </div>
                         <h3 className="font-bold text-lg mb-2 group-hover:text-[var(--brand)] transition-colors">
-                          {enrollment.course_id === 'video-editing-batch-3' ? 'Advanced Video Editing & Retelling' : 'Course Access'}
+                          {enrollment.course_slug === 'video-editing-batch-3' ? 'Advanced Video Editing & Retelling' : 'Course Access'}
                         </h3>
                         <div className="flex items-center gap-4 text-xs text-foreground/50 mb-6">
                           <span className="flex items-center gap-1">
@@ -102,7 +102,7 @@ function DashboardPage() {
                           </span>
                         </div>
                         <Link
-                          to={`/courses/${enrollment.course_id}`}
+                          to={`/courses/${enrollment.course_slug}`}
                           className="gloss-btn w-full justify-center text-sm py-2"
                         >
                           Continue Learning
@@ -110,6 +110,9 @@ function DashboardPage() {
                         </Link>
                       </div>
                     </div>
+                  ))}
+                </div>
+
                   ))}
                 </div>
               ) : (
