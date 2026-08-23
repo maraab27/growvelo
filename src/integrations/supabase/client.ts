@@ -28,17 +28,14 @@ function createSupabaseFetch(supabaseKey: string): typeof fetch {
 
 
 function createSupabaseClient() {
-  // Support standard environment variables for various deployment platforms
-  // Lovable Cloud uses VITE_SUPABASE_* / SUPABASE_*
-  // Vercel common pattern uses NEXT_PUBLIC_SUPABASE_*
   const SUPABASE_URL = 
-    import.meta.env['VITE_SUPABASE_URL'] || 
     process.env['NEXT_PUBLIC_SUPABASE_URL'] || 
+    import.meta.env['VITE_SUPABASE_URL'] || 
     process.env['SUPABASE_URL'];
     
   const SUPABASE_PUBLISHABLE_KEY = 
-    import.meta.env['VITE_SUPABASE_PUBLISHABLE_KEY'] || 
     process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'] || 
+    import.meta.env['VITE_SUPABASE_PUBLISHABLE_KEY'] || 
     process.env['SUPABASE_PUBLISHABLE_KEY'];
 
   if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
@@ -46,19 +43,17 @@ function createSupabaseClient() {
       ...(!SUPABASE_URL ? ['SUPABASE_URL'] : []),
       ...(!SUPABASE_PUBLISHABLE_KEY ? ['SUPABASE_PUBLISHABLE_KEY'] : []),
     ];
-    const message = `Missing Supabase environment variable(s): ${missing.join(', ')}. Connect Supabase in Lovable Cloud.`;
+    const message = `Missing Supabase environment variable(s): ${missing.join(', ')}.`;
     console.error(`[Supabase] ${message}`);
     throw new Error(message);
   }
 
   return createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-    global: {
-      fetch: createSupabaseFetch(SUPABASE_PUBLISHABLE_KEY),
-    },
     auth: {
       storage: typeof window !== 'undefined' ? localStorage : undefined,
       persistSession: true,
       autoRefreshToken: true,
+      detectSessionInUrl: true,
     }
   });
 }
