@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteShell } from "../../../components/site/sections";
+import { SiteShell } from "../../components/site/sections";
 import { Youtube, Calendar, Link as LinkIcon, MessageSquare, ArrowLeft } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
