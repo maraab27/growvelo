@@ -290,10 +290,15 @@ function CourseDetail() {
                       ✅ Access Unlocked - Start Learning
                     </Link>
                   ) : (
-
                     <div className="space-y-4">
                       <button 
-                        onClick={() => {
+                        onClick={async () => {
+                          const { data: { session } } = await supabase.auth.getSession();
+                          if (!session) {
+                            toast.error("অনুগ্রহ করে আগে লগইন করুন।");
+                            window.location.href = `/auth?redirect=${encodeURIComponent(window.location.pathname)}`;
+                            return;
+                          }
                           if (slug === 'video-editing-batch-3') {
                             setShowModal(true);
                           }
@@ -305,6 +310,7 @@ function CourseDetail() {
                       </button>
                     </div>
                   )}
+
                 </div>
               </div>
             </div>
