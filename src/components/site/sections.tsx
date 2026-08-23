@@ -1230,36 +1230,36 @@ function AccordionItem({ q, a, index }: { q: string; a: string; index: number })
 export function FAQ() {
   const faqs = [
     { 
-      q: "১. আমি একদম নতুন, আগে কখনো ভিডিও এডিটিং করিনি। আমি কি এই কোর্সটি করতে পারবো?", 
-      a: "একদম! আমাদের কোর্সটি জিরো থেকে প্রো লেভেল পর্যন্ত এমনভাবে সাজানো হয়েছে যাতে একজন সম্পূর্ণ নতুন মানুষও খুব সহজে বুঝতে পারে। সফটওয়্যার ইন্সটলেশন থেকে শুরু করে সিনেমাটিক কাট—সবকিছুই ধাপে ধাপে হাতে-কলমে শেখানো হবে।" 
+      q: "1. I'm completely new and haven't edited videos before. Can I take this course?", 
+      a: "Absolutely! Our course is designed from zero to pro level so that even a complete beginner can easily understand. Everything from software installation to cinematic cuts will be taught step-by-step with hands-on practice." 
     },
     { 
-      q: "২. কোর্সটি করার জন্য আমার পিসি বা ল্যাপটপের কনফিগারেশন কেমন হতে হবে?", 
-      a: "প্রফেশনাল এডিটিং সফটওয়্যার (যেমন- Adobe Premiere Pro) স্বাচ্ছন্দ্যে চালানোর জন্য আপনার পিসি বা ল্যাপটেপে কমপক্ষে 8GB RAM (16GB রেকমেন্ডেড), Intel Core i5 বা Ryzen 5 প্রসেসর এবং একটি বেসিক গ্রাফিক্স কার্ড থাকা ভালো।" 
+      q: "2. What should be the PC or laptop configuration for this course?", 
+      a: "To run professional editing software (like Adobe Premiere Pro) smoothly, it's recommended to have at least 8GB RAM (16GB recommended), an Intel Core i5 or Ryzen 5 processor, and a basic graphics card." 
     },
     { 
-      q: "৩. মোবাইল দিয়ে কি এই কোর্সটি করা যাবে?", 
-      a: "না। এটি একটি প্রফেশনাল লেভেলের কোর্স, যেখানে ইন্ডাস্ট্রি স্ট্যান্ডার্ড পিসি সফটওয়্যার (Premiere Pro) দিয়ে কাজ শেখানো হবে। তাই কোর্সটি করার জন্য এবং প্র্যাকটিস করার জন্য একটি পিসি বা ল্যাপটপ থাকা বাধ্যতামূলক।" 
+      q: "3. Can this course be done on a mobile phone?", 
+      a: "No. This is a professional-level course where industry-standard PC software (Premiere Pro) will be used. Therefore, having a PC or laptop is mandatory to participate and practice." 
     },
     { 
-      q: "৪. কোর্সের এক্সেস কতদিন থাকবে? আমি কি পরে ভিডিওগুলো দেখতে পারবো?", 
-      a: "হ্যাঁ, কোর্সের সকল রেকর্ডেড ভিডিও এবং ম্যাটেরিয়ালসের লাইফটাইম এক্সেস আপনার ড্যাশবোর্ডে থাকবে। আপনি আপনার সুবিধামতো যেকোনো সময় ভিডিওগুলো দেখতে এবং প্র্যাকটিস করতে পারবেন।" 
+      q: "4. How long will I have access to the course? Can I watch the videos later?", 
+      a: "Yes, you will have lifetime access to all recorded videos and materials on your dashboard. You can watch and practice anytime at your convenience." 
     },
     { 
-      q: "৫. প্র্যাকটিস করার সময় কোনো সমস্যায় পড়লে বা কিছু না বুঝলে সাপোর্ট পাবো কীভাবে?", 
-      a: "স্টুডেন্টদের জন্য আমাদের একটি প্রাইভেট এবং ডেডিকেটেড সাপোর্ট গ্রুপ (ডিসকর্ড/ফেসবুক) থাকবে। সেখানে আপনি আপনার সমস্যা স্ক্রিনশট বা ভিডিও আকারে শেয়ার করতে পারবেন এবং আমাদের মেন্টর ও সাপোর্ট টিম দ্রুত আপনাকে সমাধান দিয়ে সাহায্য করবে।" 
+      q: "5. How do I get support if I face any problems or don't understand something while practicing?", 
+      a: "We have a private and dedicated support group (Discord/Facebook) for students. You can share your problems via screenshots or videos, and our mentor and support team will quickly help you with a solution." 
     },
     { 
-      q: "৬. কোর্সের সাথে কি প্র্যাকটিস করার জন্য প্রজেক্ট ফাইল দেওয়া হবে?", 
-      a: "অবশ্যই। মেন্টর ক্লাসে যে ফুটেজ বা ম্যাটেরিয়ালস (B-roll, Sound Effects, Overlays) ব্যবহার করে শেখাবেন, তার সবকিছুই আপনাকে প্রোভাইড করা হবে, যাতে আপনি মেন্টরের সাথেই প্র্যাকটিস করে হাত পাকাতে পারেন।" 
+      q: "6. Will practice project files be provided with the course?", 
+      a: "Of course. All the footage and materials (B-roll, Sound Effects, Overlays) used by the mentor in class will be provided to you so you can practice right along with the mentor." 
     },
     { 
-      q: "৭. কোর্স শেষ করার পর কি ফ্রিল্যান্সিং বা জব পেতে সাহায্য করা হবে?", 
-      a: "এই কোর্সে শুধু এডিটিংই শেখানো হবে না, বরং কাজ শেখার পর কীভাবে একটি প্রফেশনাল পোর্টফোলিও বানাতে হয়, লোকাল এবং গ্লোবাল ক্লায়েন্ট কীভাবে ম্যানেজ করতে হয়, সেই গাইডলাইনও দেওয়া হবে। তবে আপনার ডেডিকেশন এবং প্র্যাকটিসের ওপরই আপনার ক্যারিয়ার নির্ভর করবে।" 
+      q: "7. Will there be help with freelancing or getting a job after finishing the course?", 
+      a: "This course doesn't just teach editing; it also provides guidelines on how to build a professional portfolio and manage local and global clients. However, your career will depend on your dedication and practice." 
     },
     { 
-      q: "৮. কোর্সটি সফলভাবে শেষ করলে কি কোনো সার্টিফিকেট দেওয়া হবে?", 
-      a: "হ্যাঁ! কোর্সের সবগুলো অ্যাসাইনমেন্ট এবং ফাইনাল প্রজেক্ট সফলভাবে জমা দেওয়ার পর আপনি আমাদের প্ল্যাটফর্ম থেকে একটি প্রফেশনাল 'সার্টিফিকেট অফ কমপ্লিশন' পাবেন, যা আপনার পোর্টফোলিও বা সিভিতে যুক্ত করতে পারবেন।" 
+      q: "8. Will a certificate be provided after successfully completing the course?", 
+      a: "Yes! After successfully submitting all course assignments and the final project, you will receive a professional 'Certificate of Completion' from our platform, which you can add to your portfolio or CV." 
     },
   ];
   return (
