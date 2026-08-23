@@ -29,6 +29,8 @@ function createSupabaseFetch(supabaseKey: string): typeof fetch {
 
 function createSupabaseClient() {
   // Support standard environment variables for various deployment platforms
+  // Lovable Cloud uses VITE_SUPABASE_* / SUPABASE_*
+  // Vercel common pattern uses NEXT_PUBLIC_SUPABASE_*
   const SUPABASE_URL = 
     import.meta.env['VITE_SUPABASE_URL'] || 
     process.env['NEXT_PUBLIC_SUPABASE_URL'] || 
