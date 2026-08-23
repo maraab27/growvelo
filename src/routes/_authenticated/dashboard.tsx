@@ -3,7 +3,7 @@ import { useState } from "react";
 import { SiteShell } from "../../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
-import { LayoutDashboard, BookOpen, Clock, PlayCircle, LogOut } from "lucide-react";
+import { LayoutDashboard, BookOpen, Clock, PlayCircle, LogOut, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   component: DashboardPage,
@@ -90,11 +90,13 @@ function DashboardPage() {
                             <PlayCircle className="w-6 h-6 text-[var(--brand)]" />
                           </div>
                           <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-green-500/10 text-green-600 ring-1 ring-green-500/20">
-                            Active
+                            {enrollment.status === 'active' ? 'Active' : 'Pending'}
                           </span>
                         </div>
                         <h3 className="font-bold text-lg mb-2 group-hover:text-[var(--brand)] transition-colors">
-                          {enrollment.course_slug === 'video-editing-batch-3' ? 'Advanced Video Editing & Retelling' : 'Course Access'}
+                          {enrollment.course_slug === 'video-editing-batch-3' ? 'Advanced Video Editing & Retelling' : 
+                           enrollment.course_slug === 'video-editing-masterclass' ? 'The Editing Masterclass: Zero to Pro' : 
+                           'Course Access'}
                         </h3>
                         <div className="flex items-center gap-4 text-xs text-foreground/50 mb-6">
                           <span className="flex items-center gap-1">
@@ -102,11 +104,10 @@ function DashboardPage() {
                           </span>
                         </div>
                         <Link
-                          to="/courses/$slug"
-                          params={{ slug: enrollment.course_slug }}
+                          to="/courses/$slug/lessons/$lessonId"
+                          params={{ slug: enrollment.course_slug, lessonId: 'intro' }}
                           className="gloss-btn w-full justify-center text-sm py-2"
                         >
-
                           Continue Learning
                           <ArrowRight className="w-4 h-4 ml-2" />
                         </Link>
@@ -132,18 +133,5 @@ function DashboardPage() {
         </div>
       </div>
     </SiteShell>
-  );
-}
-
-function ArrowRight({ className }: { className?: string }) {
-  return (
-    <svg 
-      className={className} 
-      fill="none" 
-      viewBox="0 0 24 24" 
-      stroke="currentColor"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-    </svg>
   );
 }
