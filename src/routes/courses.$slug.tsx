@@ -313,15 +313,22 @@ function CourseDetail() {
                       return (
                         <div 
                           key={l.title} 
-                          onClick={() => {
+                          onClick={(e) => {
                             if (open) {
-                              l.videoId && setActiveVideo(l.videoId);
+                              // If it's a real lesson, we could navigate, or just use the preview if it's the bootcamp
+                              // For Batch 03, we definitely want to navigate to the lesson page
+                              if (slug === 'video-editing-batch-3') {
+                                // Handled by inner button or direct click
+                              } else {
+                                l.videoId && setActiveVideo(l.videoId);
+                              }
                             } else {
                               setShowLockedModal(true);
                             }
                           }}
                           className={`flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:py-3 sm:gap-3 group transition-colors cursor-pointer hover:bg-foreground/5`}
                         >
+
                           <div className="flex items-center gap-3 min-w-0 flex-1">
                             <div
                               className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all group-active:scale-90 ${
