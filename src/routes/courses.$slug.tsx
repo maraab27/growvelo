@@ -269,10 +269,15 @@ function CourseDetail() {
 
                 <div className="mt-10">
                   {enrolled ? (
-                    <div className="rounded-2xl bg-[var(--mint)]/20 px-5 py-4 text-center text-sm font-semibold text-[var(--mint)] ring-1 ring-[var(--mint)]/20">
-                      ✅ Payment confirmed! Access unlocked.
-                    </div>
+                    <Link
+                      to="/courses/$slug/lessons/$lessonId"
+                      params={{ slug, lessonId: 'intro' }}
+                      className="gloss-btn w-full justify-center !py-4 text-base font-bold"
+                    >
+                      ✅ Access Unlocked - Start Learning
+                    </Link>
                   ) : (
+
                     <div className="space-y-4">
                       <button 
                         onClick={() => {
