@@ -297,7 +297,7 @@ function CourseDetail() {
                         onClick={async () => {
                           const { data: { session } } = await supabase.auth.getSession();
                           if (!session) {
-                            toast.error("অনুগ্রহ করে আগে লগইন করুন।");
+                            toast.error("Please login to enroll in this course.");
                             const currentPath = window.location.pathname;
                             window.location.href = `/auth?redirect=${encodeURIComponent(currentPath)}`;
                             return;
