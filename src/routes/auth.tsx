@@ -35,7 +35,7 @@ function AuthPage() {
           password,
         });
         if (error) throw error;
-        toast.success('সফলভাবে লগইন হয়েছে!');
+        toast.success('Login successful!');
         navigate({ to: redirect as any });
       } else {
         const { error } = await supabase.auth.signUp({
@@ -44,15 +44,15 @@ function AuthPage() {
           options: {
             data: {
               full_name: fullName,
-              phone: phone,
+              phone: phone.startsWith('+') ? phone : `+880${phone}`,
             },
           },
         });
         if (error) throw error;
-        toast.success('অ্যাকাউন্ট তৈরি হয়েছে! দয়া করে আপনার ইমেইল ভেরিফাই করুন।');
+        toast.success('Account created! Please verify your email.');
       }
     } catch (error: any) {
-      toast.error(error.message || 'কিছু ভুল হয়েছে');
+      toast.error(error.message || 'Something went wrong');
     } finally {
       setLoading(false);
     }
@@ -65,13 +65,13 @@ function AuthPage() {
         
         <div className="text-center">
           <h1 className="font-display text-3xl font-bold tracking-tight">
-            {isLogin ? 'স্বাগতম ' : 'অ্যাকাউন্ট '}
-            <span className="grad-text">{isLogin ? 'ফিরে এসেছেন' : 'তৈরি করুন'}</span>
+            {isLogin ? 'Welcome ' : 'Create '}
+            <span className="grad-text">{isLogin ? 'Back' : 'Account'}</span>
           </h1>
           <p className="mt-2 text-sm text-foreground/60">
             {isLogin 
-              ? 'আপনার কোর্সে এক্সেস পেতে লগইন করুন' 
-              : 'নতুন যাত্রা শুরু করতে আপনার তথ্য দিন'}
+              ? 'Login to access your courses' 
+              : 'Join growVelo to start your journey'}
           </p>
         </div>
 
@@ -87,7 +87,7 @@ function AuthPage() {
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   className="w-full rounded-xl border border-foreground/10 bg-foreground/5 py-3 pl-10 pr-4 text-sm focus:border-brand/50 focus:outline-none focus:ring-1 focus:ring-brand/50"
-                  placeholder="আপনার নাম"
+                  placeholder="Full Name"
                 />
               </div>
             </div>
@@ -96,20 +96,22 @@ function AuthPage() {
           {!isLogin && (
             <div className="space-y-2">
               <label className="mono-readout text-[10px] uppercase tracking-wider opacity-60">Phone Number</label>
-              <div className="relative flex">
-                <div className="relative w-full">
+              <div className="relative flex items-center gap-2">
+                <div className="flex h-[46px] items-center rounded-xl border border-foreground/10 bg-foreground/5 px-3 text-sm font-medium text-foreground/60">
+                  +880
+                </div>
+                <div className="relative flex-1">
                   <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/40" />
                   <input
                     type="tel"
                     required
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
                     className="w-full rounded-xl border border-foreground/10 bg-foreground/5 py-3 pl-10 pr-4 text-sm focus:border-brand/50 focus:outline-none focus:ring-1 focus:ring-brand/50"
-                    placeholder="+৮৮০১৭০০০০০০০০"
+                    placeholder="1XXXXXXXXX"
                   />
                 </div>
               </div>
-              <p className="text-[10px] text-foreground/40 italic">দেশি কোড সহ আপনার নম্বরটি দিন (+880)</p>
             </div>
           )}
 
@@ -148,7 +150,7 @@ function AuthPage() {
             disabled={loading}
             className="gloss-btn w-full mt-6 justify-center"
           >
-            {loading ? 'প্রসেসিং হচ্ছে...' : (isLogin ? 'লগইন করুন' : 'অ্যাকাউন্ট খুলুন')}
+            {loading ? 'Processing...' : (isLogin ? 'Login' : 'Create Account')}
             {!loading && <ArrowRight className="h-5 w-5" />}
           </button>
         </form>
@@ -158,7 +160,7 @@ function AuthPage() {
             onClick={() => setIsLogin(!isLogin)}
             className="text-xs font-medium text-foreground/60 hover:text-foreground transition-colors"
           >
-            {isLogin ? 'নতুন অ্যাকাউন্ট খুলতে চান? রেজিস্টার করুন' : 'ইতিমধ্যে অ্যাকাউন্ট আছে? লগইন করুন'}
+            {isLogin ? "Don't have an account? Register" : 'Already have an account? Login'}
           </button>
         </div>
       </div>
