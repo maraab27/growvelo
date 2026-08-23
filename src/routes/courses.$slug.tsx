@@ -29,7 +29,7 @@ function EnrollmentModal({ courseSlug, onClose, onSuccess }: { courseSlug: strin
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        toast.error("অনুগ্রহ করে আগে লগইন করুন।");
+        toast.error("Please login first.");
         setLoading(false);
         return;
       }
@@ -52,12 +52,12 @@ function EnrollmentModal({ courseSlug, onClose, onSuccess }: { courseSlug: strin
 
       if (!response.ok) {
         if (response.status === 409) {
-          toast.error("আপনি ইতিমধ্যে এই কোর্সের জন্য আবেদন করেছেন।");
+          toast.error("You have already applied for this course.");
         } else {
-          toast.error(result.error || "কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+          toast.error(result.error || "Something went wrong. Please try again.");
         }
       } else {
-        toast.success("আবেদন জমা হয়েছে! অনুমোদন হলে আপনাকে জানানো হবে।");
+        toast.success("Application submitted! You will be notified once approved.");
         onSuccess();
       }
     } catch (err) {
@@ -73,8 +73,8 @@ function EnrollmentModal({ courseSlug, onClose, onSuccess }: { courseSlug: strin
         <button onClick={onClose} className="absolute right-4 top-4 text-foreground/40 hover:text-foreground">
           <X className="h-5 w-5" />
         </button>
-        <h2 className="font-display text-xl font-bold">কোর্সে এনরোল করুন</h2>
-        <p className="mt-2 text-sm text-foreground/60">বিকাশ পেমেন্ট করার পর নিচের ফর্মটি পূরণ করুন।</p>
+        <h2 className="font-display text-xl font-bold">Enroll in Course</h2>
+        <p className="mt-2 text-sm text-foreground/60">Fill out the form below after making the bKash payment.</p>
         
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div className="space-y-1.5">
@@ -119,7 +119,7 @@ function EnrollmentModal({ courseSlug, onClose, onSuccess }: { courseSlug: strin
             type="submit" disabled={loading}
             className="gloss-btn w-full justify-center disabled:opacity-50"
           >
-            {loading ? "জমা হচ্ছে..." : "এনরোলমেন্ট রিকোয়েস্ট পাঠান"}
+            {loading ? "Submitting..." : "Send Enrollment Request"}
           </button>
         </form>
       </div>
@@ -177,9 +177,9 @@ function CourseDetail() {
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--brand)]/10 text-[var(--brand)]">
               <Lock className="h-6 w-6" />
             </div>
-            <h2 className="mt-4 font-display text-xl font-bold">এই লেসনটি লক করা আছে</h2>
+            <h2 className="mt-4 font-display text-xl font-bold">This lesson is locked</h2>
             <p className="mt-2 text-sm text-foreground/70">
-              পুরো কোর্সের এক্সেস পেতে এবং এই লেসনটি দেখতে আপনাকে কোর্সে এনরোল করতে হবে। এই কোর্সে আপনি পাবেন {totalLessons}টি লেসন, লাইভ সাপোর্ট এবং আরও অনেক কিছু।
+              You need to enroll in the course to access all lessons and watch this video. This course includes {totalLessons} lessons, live support, and more.
             </p>
             <div className="mt-8 space-y-3">
               <button 
@@ -189,13 +189,13 @@ function CourseDetail() {
                 }}
                 className="gloss-btn w-full justify-center"
               >
-                এখনই এনরোল করুন
+                Enroll Now
               </button>
               <button 
                 onClick={() => setShowLockedModal(false)}
                 className="w-full py-2 text-sm font-medium text-foreground/50 hover:text-foreground"
               >
-                পরে দেখব
+                Maybe later
               </button>
             </div>
           </div>
@@ -297,7 +297,7 @@ function CourseDetail() {
                         onClick={async () => {
                           const { data: { session } } = await supabase.auth.getSession();
                           if (!session) {
-                            toast.error("অনুগ্রহ করে আগে লগইন করুন।");
+                            toast.error("Please login to enroll in this course.");
                             const currentPath = window.location.pathname;
                             window.location.href = `/auth?redirect=${encodeURIComponent(currentPath)}`;
                             return;
@@ -424,7 +424,7 @@ export const Route = createFileRoute("/courses/$slug")({
   notFoundComponent: () => (
     <SiteShell>
       <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-        <h1 className="font-display text-2xl font-semibold">Course পাওয়া যায়নি</h1>
+        <h1 className="font-display text-2xl font-semibold">Course Not Found</h1>
         <Link to="/courses" className="gloss-btn mt-6 inline-flex">Back to courses</Link>
       </div>
     </SiteShell>
@@ -432,7 +432,7 @@ export const Route = createFileRoute("/courses/$slug")({
   errorComponent: () => (
     <SiteShell>
       <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-        <h1 className="font-display text-2xl font-semibold">কিছু একটা সমস্যা হয়েছে</h1>
+        <h1 className="font-display text-2xl font-semibold">Something went wrong</h1>
         <Link to="/courses" className="gloss-btn mt-6 inline-flex">Back to courses</Link>
       </div>
     </SiteShell>

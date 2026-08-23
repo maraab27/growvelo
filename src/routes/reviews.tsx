@@ -4,10 +4,12 @@ import { SiteShell, StudentReviews, BigCTA } from "../components/site/sections";
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: "Reviews — growVelo" },
-      { name: "description", content: "What creators and brands say about working with the growVelo editing team." },
-      { property: "og:title", content: "Reviews — growVelo" },
-      { property: "og:description", content: "What creators and brands say about growVelo." },
+      { title: "Student Reviews — growVelo" },
+      { name: "description", content: "Read what our students have to say about their learning experience at growVelo Academy." },
+      { property: "og:title", content: "Student Reviews — growVelo" },
+      { property: "og:description", content: "Read what our students have to say about their learning experience at growVelo Academy." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: () => (
@@ -16,6 +18,5 @@ export const Route = createFileRoute("/reviews")({
       <StudentReviews />
       <BigCTA />
     </SiteShell>
-
   ),
 });
