@@ -83,10 +83,10 @@ function EnrollmentModal({ courseSlug, onClose, onSuccess }: { courseSlug: strin
               <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/30" />
               <input 
                 required type="email" value={email} onChange={e => setEmail(e.target.value)}
-                readOnly={!!email}
+                readOnly
                 className="w-full rounded-xl bg-white/50 py-2.5 pl-10 pr-4 text-sm ring-1 ring-black/5 focus:outline-hidden focus:ring-[var(--brand)]/50 opacity-70 cursor-not-allowed"
-
                 placeholder="yourname@gmail.com"
+
               />
             </div>
           </div>
