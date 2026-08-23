@@ -345,9 +345,19 @@ function CourseDetail() {
                           </div>
                           
                           <div className="flex items-center justify-between pl-[52px] sm:ml-auto sm:pl-0 sm:shrink-0">
+                            {enrolled && (
+                              <Link
+                                to="/courses/$slug/lessons/$lessonId"
+                                params={{ slug, lessonId: 'intro' }}
+                                className="gloss-btn-ghost !py-1.5 !px-3 text-[10px] font-bold"
+                              >
+                                Watch Lesson
+                              </Link>
+                            )}
                             {l.free && !enrolled && (
                               <span className="rounded-full bg-[var(--mint)]/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--mint)] ring-1 ring-[var(--mint)]/20">
                                 Free
+
                               </span>
                             )}
                             <span className="mono-readout text-xs font-semibold text-foreground/40 sm:ml-4">
