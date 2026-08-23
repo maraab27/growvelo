@@ -725,7 +725,7 @@ export function StudentShowcase({ limit }: { limit?: number } = {}) {
           eyebrowIcon={<Layers className="h-3.5 w-3.5" />}
           before="Student"
           gradWord="Masterpieces"
-          sub="আমাদের শিক্ষার্থীদের সফল প্রজেক্ট এবং এডিটিং টাইমলাইনের এক ঝলক।"
+          sub="A glimpse into our students' successful projects and editing timelines."
         />
         <TimelineShowcase />
 
