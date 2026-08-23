@@ -169,7 +169,7 @@ export function Nav({ session }: { session?: any }) {
               <div className="flex items-center gap-2">
                 <Link 
                   to="/auth"
-                  search={{ redirect: location.pathname }}
+                  search={{ redirect: '/' }}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground/10 bg-foreground/5 text-foreground transition hover:bg-foreground/10 sm:h-10 sm:w-10"
                   aria-label="Login"
                 >
@@ -416,7 +416,7 @@ const SERVICES: {
     chipColor: "coral",
     icon: <Youtube className="h-3.5 w-3.5" />,
     title: "YouTube Editing",
-    body: "Long-form YouTube videos for creators. Hook, pacing, B-roll, and thumbnail-ready cuts.",
+    body: "Creator-দের জন্য long-form YouTube ভিডিও। Hook, pacing, B-roll আর thumbnail-ready কাট।",
     tint: "coral",
     pin: "coral",
     grad: "linear-gradient(135deg, var(--coral), var(--blush))",
@@ -428,7 +428,7 @@ const SERVICES: {
     chipColor: "mint",
     icon: <Smartphone className="h-3.5 w-3.5" />,
     title: "Reels & Shorts",
-    body: "Reels, TikTok, and Shorts. Trend-friendly fast pacing, punchy captions, and scroll-stopping hooks.",
+    body: "Reels, TikTok আর Shorts। Trend-friendly দ্রুত pacing, punchy caption আর scroll-stopping hook।",
     tint: "mint",
     pin: "mint",
     grad: "linear-gradient(135deg, var(--mint), var(--brand))",
@@ -440,7 +440,7 @@ const SERVICES: {
     chipColor: "sky",
     icon: <Mic className="h-3.5 w-3.5" />,
     title: "Podcast Editing",
-    body: "Podcast video + audio. Voice cleanup, multi-cam sync, and short clip/reels extraction.",
+    body: "Podcast-এর video + audio। Voice cleanup, multi-cam sync আর সাথে ছোট clip/reels কেটে দেওয়া।",
     tint: "sky",
     pin: "sky",
     grad: "linear-gradient(135deg, var(--sky), var(--brand))",
@@ -452,7 +452,7 @@ const SERVICES: {
     chipColor: "lemon",
     icon: <Megaphone className="h-3.5 w-3.5" />,
     title: "Ads & Commercial",
-    body: "Brand ads, product launches, and Facebook/YouTube ads. Hook-first, conversion-focused cuts.",
+    body: "Brand ad, product launch, Facebook/YouTube ads। Hook-first, conversion-focused কাট।",
     tint: "lemon",
     pin: "lemon",
     grad: "linear-gradient(135deg, var(--lemon), var(--coral))",
@@ -464,7 +464,7 @@ const SERVICES: {
     chipColor: "brand",
     icon: <Palette className="h-3.5 w-3.5" />,
     title: "Color Grading",
-    body: "Pure color work. Cinematic look, skin-tone correction, and brand-consistent color passes.",
+    body: "শুধু কালার-এর কাজ। Cinematic look, skin-tone ঠিক করা আর brand-consistent color pass।",
     tint: "brand",
     pin: "brand",
     grad: "linear-gradient(135deg, var(--brand), var(--sky))",
@@ -476,7 +476,7 @@ const SERVICES: {
     chipColor: "blush",
     icon: <Film className="h-3.5 w-3.5" />,
     title: "Documentary & Brand Film",
-    body: "Story-first long-form. Founder stories, documentaries, and cinematic brand films.",
+    body: "Story-first long-form। Founder story, documentary আর cinematic brand film পুরো প্যাকেজে।",
     tint: "blush",
     pin: "blush",
     grad: "linear-gradient(135deg, var(--blush), var(--coral))",
@@ -492,9 +492,9 @@ export function Services() {
           eyebrow="Our Academy"
           eyebrowColor="brand"
           eyebrowIcon={<Layers className="h-3.5 w-3.5" />}
-          before="Partnering in Your"
-          gradWord="Creative Journey"
-          sub="We don't just teach editing; we build you into a professional video editor."
+          before="আপনার সৃজনশীল যাত্রার"
+          gradWord="সহযাত্রী"
+          sub="আমরা শুধু এডিটিং শেখাই না, আমরা আপনাকে একজন পেশাদার এডিটর হিসেবে গড়ে তুলি।"
         />
 
         <div className="mt-16 grid grid-cols-1 gap-6 sm:mt-20 md:grid-cols-2 lg:grid-cols-3">
@@ -725,7 +725,7 @@ export function StudentShowcase({ limit }: { limit?: number } = {}) {
           eyebrowIcon={<Layers className="h-3.5 w-3.5" />}
           before="Student"
           gradWord="Masterpieces"
-          sub="A glimpse into our students' successful projects and editing timelines."
+          sub="আমাদের শিক্ষার্থীদের সফল প্রজেক্ট এবং এডিটিং টাইমলাইনের এক ঝলক।"
         />
         <TimelineShowcase />
 
@@ -832,7 +832,7 @@ export function Instructors({ limit }: { limit?: number } = {}) {
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
           before="Meet Your"
           gradWord="Mentor"
-          sub="Learn directly from a mentor skilled in cinematic and motion editing."
+          sub="সিনেমাটিক এবং মোশন এডিটিংয়ে দক্ষ মেন্টরের কাছ থেকে সরাসরি শিখুন।"
         />
         <div className="mt-14 flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-center">
           <div className="relative max-w-sm w-full">
@@ -936,15 +936,15 @@ export const COURSES: Course[] = [
     price: "FREE",
     oldPrice: "৳৫,০০০",
     thumb: `url(${batch01Thumbnail.url}) center/cover no-repeat`,
-    desc: "Rising Editors — Batch 01. Enrollment for our first batch is now complete.",
+    desc: "Rising Editors — ব্যাচ ০১। আমাদের প্রথম ব্যাচের এনরোলমেন্ট বর্তমানে সম্পন্ন হয়েছে।",
     tint: "brand", pin: "brand", chipColor: "brand", featured: false,
-    start: "Batch 01 · Completed",
+    start: "ব্যাচ ০১ · সম্পন্ন",
     instructor: "Muhammad Ataullah",
-    about: "A complete roadmap for becoming a professional video editor from zero. This was our live batch.",
+    about: "একদম শূন্য থেকে শুরু করে প্রফেশনাল ভিডিও এডিটর হওয়ার সম্পূর্ণ রোডম্যাপ। এটি আমাদের লাইভ ব্যাচ ছিল।",
     outcomes: [
-      "A to Z professional workflow in Premiere Pro",
-      "YouTube long-form + Reels/Shorts editing",
-      "Color grading, sound design and motion basics",
+      "Premiere Pro-তে A থেকে Z প্রফেশনাল workflow",
+      "YouTube long-form + Reels/Shorts দুই ধরনের এডিটিং",
+      "Color grading, sound design আর motion basics",
     ],
     modules: [],
   },
@@ -956,11 +956,11 @@ export const COURSES: Course[] = [
     price: "৳৬,০০০",
     oldPrice: "৳৮,০০০",
     thumb: `linear-gradient(135deg, var(--sky), var(--brand))`,
-    desc: "The Editing Masterclass — Batch 02. This batch is currently running, new enrollments are closed.",
+    desc: "The Editing Masterclass — ব্যাচ ০২। এই ব্যাচটি বর্তমানে চলমান (Running), তাই নতুন এনরোলমেন্ট বন্ধ।",
     tint: "sky", pin: "sky", chipColor: "sky", featured: false,
-    start: "Batch 02 · Running",
+    start: "ব্যাচ ০২ · চলমান",
     instructor: "Muhammad Ataullah",
-    about: "Students are currently learning hands-on in this professional video editing batch.",
+    about: "প্রফেশনাল ভিডিও এডিটিংয়ের এই ব্যাচটিতে শিক্ষার্থীরা বর্তমানে হাতে-কলমে শিখছেন।",
     outcomes: ["Advanced Workflow", "Professional Color Grading", "Audio Mastery"],
     modules: [
       {
@@ -980,13 +980,13 @@ export const COURSES: Course[] = [
     price: "৳৬,০০০",
     oldPrice: "৳৮,০০০",
     thumb: `linear-gradient(135deg, var(--coral), var(--blush))`,
-    desc: "Advanced Video Editing & Retelling — Batch 03. Our next batch. Enrollment is open.",
+    desc: "Advanced Video Editing & Retelling — ব্যাচ ০৩। আমাদের পরবর্তী ব্যাচ। এখন এনরোলমেন্ট চলছে।",
     tint: "brand", pin: "brand", chipColor: "brand", featured: true,
-    start: "Batch 03 · Starting Soon",
+    start: "ব্যাচ ০৩ · শীঘ্রই শুরু",
     instructor: "Muhammad Ataullah",
-    about: "In the new batch, we will learn video editing from zero to advanced level.",
+    about: "নতুন ব্যাচে আমরা একদম জিরো থেকে অ্যাডভান্স লেভেল পর্যন্ত ভিডিও এডিটিং শিখবো।",
     outcomes: [
-      "Professional A to Z workflow in Premiere Pro",
+      "Premiere Pro-তে A থেকে Z প্রফেশনাল workflow",
       "Story-first editing & cinematic movement",
       "Client hunting & portfolio building guide",
     ],
@@ -1097,12 +1097,12 @@ const REVIEWS: {
   name: string; role: string; body: string; initial: string; avatar: string;
   tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor;
 }[] = [
-  { name: "Tanvir Mahmud", role: "Student · Batch 01", body: "After learning editing from growVelo, I'm now working in the professional field. The mentors' guidance was exceptional.", initial: "T", avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)", tint: "mint", pin: "mint" },
-  { name: "Abdullah Maraab", role: "Student · Batch 02", body: "The course modules are beautifully organized. As a beginner, it was very easy for me to learn.", initial: "A", avatar: "linear-gradient(135deg,#ec4899,#f97316)", tint: "coral", pin: "coral" },
-  { name: "Rohan Das", role: "Student · Batch 01", body: "The motion graphics module was my favorite. Now I can create complex animations myself.", initial: "R", avatar: "linear-gradient(135deg,#22c55e,#0ea5e9)", tint: "lemon", pin: "lemon" },
-  { name: "Zara Ahmed", role: "Student · Batch 03", body: "Mentors always answer questions and provide personal feedback, which speeds up the learning process.", initial: "Z", avatar: "linear-gradient(135deg,#f43f5e,#a78bfa)", tint: "blush", pin: "blush" },
-  { name: "Miguel Torres", role: "Student · Batch 04", body: "I didn't know cinematic editing techniques before. This course changed my perspective.", initial: "M", avatar: "linear-gradient(135deg,#0ea5e9,#8b5cf6)", tint: "sky", pin: "sky" },
-  { name: "Priya Sen", role: "Student · Batch 02", body: "Community support is great. Seeing others' work in the group helps me learn even more.", initial: "P", avatar: "linear-gradient(135deg,#eab308,#ef4444)", tint: "brand", pin: "brand" },
+  { name: "Tanvir Mahmud", role: "Student · Batch 01", body: "growVelo থেকে এডিটিং শিখে আমি এখন প্রফেশনাল ফিল্ডে কাজ করছি। মেন্টরদের গাইডেন্স ছিল অসাধারণ।", initial: "T", avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)", tint: "mint", pin: "mint" },
+  { name: "Abdullah Maraab", role: "Student · Batch 02", body: "কোর্সের মডিউলগুলো খুব সুন্দরভাবে সাজানো। বিগিনার হিসেবে আমার জন্য শেখাটা অনেক সহজ হয়েছে।", initial: "A", avatar: "linear-gradient(135deg,#ec4899,#f97316)", tint: "coral", pin: "coral" },
+  { name: "Rohan Das", role: "Student · Batch 01", body: "মোশন গ্রাফিক্সের মডিউলটি ছিল আমার প্রিয়। এখন আমি নিজে থেকেই অনেক জটিল এনিমেশন তৈরি করতে পারি।", initial: "R", avatar: "linear-gradient(135deg,#22c55e,#0ea5e9)", tint: "lemon", pin: "lemon" },
+  { name: "Zara Ahmed", role: "Student · Batch 03", body: "মেন্টররা সবসময় প্রশ্নের উত্তর দেন এবং পার্সোনাল ফিডব্যাক দেন, যা শেখার গতিকে অনেক বাড়িয়ে দেয়।", initial: "Z", avatar: "linear-gradient(135deg,#f43f5e,#a78bfa)", tint: "blush", pin: "blush" },
+  { name: "Miguel Torres", role: "Student · Batch 04", body: "সিনেমাটিক এডিটিংয়ের টেকনিকগুলো আগে জানতাম না। এই কোর্সটি আমার দেখার দৃষ্টিভঙ্গি বদলে দিয়েছে।", initial: "M", avatar: "linear-gradient(135deg,#0ea5e9,#8b5cf6)", tint: "sky", pin: "sky" },
+  { name: "Priya Sen", role: "Student · Batch 02", body: "কমিউনিটি সাপোর্ট খুব ভালো। গ্রুপে অন্যদের কাজ দেখে আরও অনেক কিছু শিখতে পারছি।", initial: "P", avatar: "linear-gradient(135deg,#eab308,#ef4444)", tint: "brand", pin: "brand" },
 ];
 
 export function StudentReviews({ limit }: { limit?: number } = {}) {
@@ -1152,10 +1152,10 @@ export function StudentReviews({ limit }: { limit?: number } = {}) {
 
 export function About() {
     const stats: { k: string; v: string; tint: "mint" | "coral" | "lemon" | "blush"; pin: ChipColor }[] = [
-      { k: "500+", v: "Total Students", tint: "mint", pin: "mint" },
-      { k: "50+", v: "Successful Batches", tint: "coral", pin: "coral" },
-      { k: "12", v: "Expert Mentors", tint: "lemon", pin: "lemon" },
-      { k: "92%", v: "Success Rate", tint: "blush", pin: "blush" },
+      { k: "৫০০+", v: "মোট শিক্ষার্থী", tint: "mint", pin: "mint" },
+      { k: "৫০+", v: "সফল ব্যাচ", tint: "coral", pin: "coral" },
+      { k: "১২", v: "দক্ষ মেন্টর", tint: "lemon", pin: "lemon" },
+      { k: "৯২%", v: "সফলতা হার", tint: "blush", pin: "blush" },
     ];
   return (
     <section className="py-24 sm:py-28">
@@ -1166,7 +1166,7 @@ export function About() {
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
           before="Our"
           gradWord="Academy"
-          sub="growVelo Academy was founded by a team of expert mentors with the goal of building professional editors."
+          sub="growVelo একাডেমি শুরু হয়েছিল একদল দক্ষ মেন্টরদের নিয়ে, যাদের মূল লক্ষ্য শিক্ষার্থীদের প্রফেশনাল এডিটর হিসেবে গড়ে তোলা।"
         />
         <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-4">
           {stats.map((s, i) => (
@@ -1183,14 +1183,14 @@ export function About() {
         </div>
         <div className="mx-auto mt-14 max-w-2xl text-center text-foreground/70">
           <p className="font-serif text-xl italic leading-snug">
-            Over the past years, we have trained more than 500 students in various video editing sectors. Our mentors work in the professional field while teaching students hands-on.
+            বিগত বছরগুলোতে আমরা ৫০০ এর বেশি শিক্ষার্থীকে ভিডিও এডিটিংয়ের বিভিন্ন সেক্টরে দক্ষ করে তুলেছি। আমাদের মেন্টররা প্রফেশনাল ফিল্ডে কাজ করার পাশাপাশি শিক্ষার্থীদের হাতে-কলমে শেখান।
           </p>
           <p className="mt-4 text-sm">
-            We prioritize quality and skill development for our students above all else.
+            আমরা শিক্ষার্থীদের কোয়ালিটি এবং স্কিল ডেভেলপমেন্টের ওপর সবচেয়ে বেশি গুরুত্ব দেই।
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link to="/courses" className="gloss-btn">View Courses <ArrowRight className="h-4 w-4" /></Link>
-            <Link to="/portfolio" className="gloss-btn-ghost">Portfolio</Link>
+            <Link to="/courses" className="gloss-btn">কোর্সগুলো দেখুন <ArrowRight className="h-4 w-4" /></Link>
+            <Link to="/portfolio" className="gloss-btn-ghost">পোর্টফোলিও</Link>
           </div>
         </div>
       </div>
@@ -1230,36 +1230,36 @@ function AccordionItem({ q, a, index }: { q: string; a: string; index: number })
 export function FAQ() {
   const faqs = [
     { 
-      q: "1. I'm completely new and haven't edited videos before. Can I take this course?", 
-      a: "Absolutely! Our course is designed from zero to pro level so that even a complete beginner can easily understand. Everything from software installation to cinematic cuts will be taught step-by-step with hands-on practice." 
+      q: "১. আমি একদম নতুন, আগে কখনো ভিডিও এডিটিং করিনি। আমি কি এই কোর্সটি করতে পারবো?", 
+      a: "একদম! আমাদের কোর্সটি জিরো থেকে প্রো লেভেল পর্যন্ত এমনভাবে সাজানো হয়েছে যাতে একজন সম্পূর্ণ নতুন মানুষও খুব সহজে বুঝতে পারে। সফটওয়্যার ইন্সটলেশন থেকে শুরু করে সিনেমাটিক কাট—সবকিছুই ধাপে ধাপে হাতে-কলমে শেখানো হবে।" 
     },
     { 
-      q: "2. What should be the PC or laptop configuration for this course?", 
-      a: "To run professional editing software (like Adobe Premiere Pro) smoothly, it's recommended to have at least 8GB RAM (16GB recommended), an Intel Core i5 or Ryzen 5 processor, and a basic graphics card." 
+      q: "২. কোর্সটি করার জন্য আমার পিসি বা ল্যাপটপের কনফিগারেশন কেমন হতে হবে?", 
+      a: "প্রফেশনাল এডিটিং সফটওয়্যার (যেমন- Adobe Premiere Pro) স্বাচ্ছন্দ্যে চালানোর জন্য আপনার পিসি বা ল্যাপটেপে কমপক্ষে 8GB RAM (16GB রেকমেন্ডেড), Intel Core i5 বা Ryzen 5 প্রসেসর এবং একটি বেসিক গ্রাফিক্স কার্ড থাকা ভালো।" 
     },
     { 
-      q: "3. Can this course be done on a mobile phone?", 
-      a: "No. This is a professional-level course where industry-standard PC software (Premiere Pro) will be used. Therefore, having a PC or laptop is mandatory to participate and practice." 
+      q: "৩. মোবাইল দিয়ে কি এই কোর্সটি করা যাবে?", 
+      a: "না। এটি একটি প্রফেশনাল লেভেলের কোর্স, যেখানে ইন্ডাস্ট্রি স্ট্যান্ডার্ড পিসি সফটওয়্যার (Premiere Pro) দিয়ে কাজ শেখানো হবে। তাই কোর্সটি করার জন্য এবং প্র্যাকটিস করার জন্য একটি পিসি বা ল্যাপটপ থাকা বাধ্যতামূলক।" 
     },
     { 
-      q: "4. How long will I have access to the course? Can I watch the videos later?", 
-      a: "Yes, you will have lifetime access to all recorded videos and materials on your dashboard. You can watch and practice anytime at your convenience." 
+      q: "৪. কোর্সের এক্সেস কতদিন থাকবে? আমি কি পরে ভিডিওগুলো দেখতে পারবো?", 
+      a: "হ্যাঁ, কোর্সের সকল রেকর্ডেড ভিডিও এবং ম্যাটেরিয়ালসের লাইফটাইম এক্সেস আপনার ড্যাশবোর্ডে থাকবে। আপনি আপনার সুবিধামতো যেকোনো সময় ভিডিওগুলো দেখতে এবং প্র্যাকটিস করতে পারবেন।" 
     },
     { 
-      q: "5. How do I get support if I face any problems or don't understand something while practicing?", 
-      a: "We have a private and dedicated support group (Discord/Facebook) for students. You can share your problems via screenshots or videos, and our mentor and support team will quickly help you with a solution." 
+      q: "৫. প্র্যাকটিস করার সময় কোনো সমস্যায় পড়লে বা কিছু না বুঝলে সাপোর্ট পাবো কীভাবে?", 
+      a: "স্টুডেন্টদের জন্য আমাদের একটি প্রাইভেট এবং ডেডিকেটেড সাপোর্ট গ্রুপ (ডিসকর্ড/ফেসবুক) থাকবে। সেখানে আপনি আপনার সমস্যা স্ক্রিনশট বা ভিডিও আকারে শেয়ার করতে পারবেন এবং আমাদের মেন্টর ও সাপোর্ট টিম দ্রুত আপনাকে সমাধান দিয়ে সাহায্য করবে।" 
     },
     { 
-      q: "6. Will practice project files be provided with the course?", 
-      a: "Of course. All the footage and materials (B-roll, Sound Effects, Overlays) used by the mentor in class will be provided to you so you can practice right along with the mentor." 
+      q: "৬. কোর্সের সাথে কি প্র্যাকটিস করার জন্য প্রজেক্ট ফাইল দেওয়া হবে?", 
+      a: "অবশ্যই। মেন্টর ক্লাসে যে ফুটেজ বা ম্যাটেরিয়ালস (B-roll, Sound Effects, Overlays) ব্যবহার করে শেখাবেন, তার সবকিছুই আপনাকে প্রোভাইড করা হবে, যাতে আপনি মেন্টরের সাথেই প্র্যাকটিস করে হাত পাকাতে পারেন।" 
     },
     { 
-      q: "7. Will there be help with freelancing or getting a job after finishing the course?", 
-      a: "This course doesn't just teach editing; it also provides guidelines on how to build a professional portfolio and manage local and global clients. However, your career will depend on your dedication and practice." 
+      q: "৭. কোর্স শেষ করার পর কি ফ্রিল্যান্সিং বা জব পেতে সাহায্য করা হবে?", 
+      a: "এই কোর্সে শুধু এডিটিংই শেখানো হবে না, বরং কাজ শেখার পর কীভাবে একটি প্রফেশনাল পোর্টফোলিও বানাতে হয়, লোকাল এবং গ্লোবাল ক্লায়েন্ট কীভাবে ম্যানেজ করতে হয়, সেই গাইডলাইনও দেওয়া হবে। তবে আপনার ডেডিকেশন এবং প্র্যাকটিসের ওপরই আপনার ক্যারিয়ার নির্ভর করবে।" 
     },
     { 
-      q: "8. Will a certificate be provided after successfully completing the course?", 
-      a: "Yes! After successfully submitting all course assignments and the final project, you will receive a professional 'Certificate of Completion' from our platform, which you can add to your portfolio or CV." 
+      q: "৮. কোর্সটি সফলভাবে শেষ করলে কি কোনো সার্টিফিকেট দেওয়া হবে?", 
+      a: "হ্যাঁ! কোর্সের সবগুলো অ্যাসাইনমেন্ট এবং ফাইনাল প্রজেক্ট সফলভাবে জমা দেওয়ার পর আপনি আমাদের প্ল্যাটফর্ম থেকে একটি প্রফেশনাল 'সার্টিফিকেট অফ কমপ্লিশন' পাবেন, যা আপনার পোর্টফোলিও বা সিভিতে যুক্ত করতে পারবেন।" 
     },
   ];
   return (
@@ -1271,7 +1271,7 @@ export function FAQ() {
           eyebrowIcon={<PinIcon className="h-3.5 w-3.5" />}
           before="Frequently Asked"
           gradWord="Questions"
-          sub="Answers to some of the common questions you might have."
+          sub="আপনার মনে থাকা সাধারণ কিছু প্রশ্নের উত্তর এখানে দেওয়া হলো।"
         />
         <div className="mt-14 space-y-6">
           {faqs.map((f, i) => (
@@ -1307,11 +1307,11 @@ export function BigCTA() {
               editing <span className="grad-text-gold">journey</span>?
             </h3>
             <p className="mx-auto mt-5 max-w-lg text-sm text-white/70 sm:text-base">
-              Start your editing career with 500+ successful students. Enroll today.
+              ৫০০+ সফল শিক্ষার্থীর সাথে আপনিও শুরু করুন আপনার এডিটিং ক্যারিয়ার। আজই এনরোল করুন।
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
               <Link to="/courses" className="gloss-btn">
-                Enroll Now <ArrowRight className="h-5 w-5" />
+                এনরোল করুন <ArrowRight className="h-5 w-5" />
               </Link>
             </div>
             <div className="mono-readout mt-6 !text-white/60">
@@ -1327,10 +1327,10 @@ export function BigCTA() {
 /* ---------- footer ---------- */
 
 const FOOTER_COLS: { title: string; links: { to: string; label: string }[] }[] = [
-  { title: "Academy", links: [{ to: "/portfolio", label: "Student Showcase" }, { to: "/editors", label: "Mentors" }] },
-  { title: "Learn", links: [{ to: "/courses", label: "All Courses" }, { to: "/reviews", label: "Reviews" }] },
-  { title: "Policy", links: [{ to: "/about", label: "About Us" }, { to: "/", label: "Refund Policy" }] },
-  { title: "Community", links: [{ to: "/", label: "Facebook Group" }, { to: "/", label: "Discord" }] },
+  { title: "একাডেমি", links: [{ to: "/portfolio", label: "স্টুডেন্ট শোকেস" }, { to: "/editors", label: "মেন্টরস" }] },
+  { title: "শিখুন", links: [{ to: "/courses", label: "সবগুলো কোর্স" }, { to: "/reviews", label: "রিভিউ" }] },
+  { title: "পলিসি", links: [{ to: "/about", label: "আমাদের সম্পর্কে" }, { to: "/", label: "রিফান্ড পলিসি" }] },
+  { title: "কমিউনিটি", links: [{ to: "/", label: "ফেসবুক গ্রুপ" }, { to: "/", label: "ডিসকর্ড" }] },
 ];
 
 export function Footer() {

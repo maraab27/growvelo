@@ -28,37 +28,27 @@ function createSupabaseFetch(supabaseKey: string): typeof fetch {
 
 
 function createSupabaseClient() {
-  // Try NEXT_PUBLIC prefix for Vercel/Next-style deployments
-  // Then fall back to VITE_SUPABASE_URL (standard for Vite) or Lovable Cloud defaults
-  const SUPABASE_URL = 
-    (typeof process !== 'undefined' ? process.env['NEXT_PUBLIC_SUPABASE_URL'] : undefined) ||
-    import.meta.env['VITE_SUPABASE_URL'] || 
-    (typeof process !== 'undefined' ? process.env['SUPABASE_URL'] : undefined);
-    
-  const SUPABASE_PUBLISHABLE_KEY = 
-    (typeof process !== 'undefined' ? process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'] : undefined) ||
-    import.meta.env['VITE_SUPABASE_PUBLISHABLE_KEY'] || 
-    (typeof process !== 'undefined' ? process.env['SUPABASE_PUBLISHABLE_KEY'] : undefined);
+  // Use import.meta.env for client-side (Vite build-time replacement)
+  // Fall back to process.env for SSR (server-side rendering)
+  const SUPABASE_URL = import.meta.env['VITE_SUPABASE_URL'] || process.env['SUPABASE_URL'];
+  const SUPABASE_PUBLISHABLE_KEY = import.meta.env['VITE_SUPABASE_PUBLISHABLE_KEY'] || process.env['SUPABASE_PUBLISHABLE_KEY'];
 
   if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
     const missing = [
       ...(!SUPABASE_URL ? ['SUPABASE_URL'] : []),
       ...(!SUPABASE_PUBLISHABLE_KEY ? ['SUPABASE_PUBLISHABLE_KEY'] : []),
     ];
-    const message = `Missing Supabase environment variable(s): ${missing.join(', ')}. Connect Supabase in Lovable Cloud or set NEXT_PUBLIC_SUPABASE_URL/NEXT_PUBLIC_SUPABASE_ANON_KEY.`;
+    const message = `Missing Supabase environment variable(s): ${missing.join(', ')}. Connect Supabase in Lovable Cloud.`;
     console.error(`[Supabase] ${message}`);
-    // Only throw in development/SSR to prevent crashing the whole client bundle if keys are expected to be injected later
-    if (import.meta.env.DEV) {
-       console.warn("Supabase client initialized without keys. This is normal during build time if keys are injected at runtime.");
-    }
+    throw new Error(message);
   }
 
-  return createClient<Database>(SUPABASE_URL || '', SUPABASE_PUBLISHABLE_KEY || '', {
+  return createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
     global: {
-      fetch: createSupabaseFetch(SUPABASE_PUBLISHABLE_KEY || ''),
+      fetch: createSupabaseFetch(SUPABASE_PUBLISHABLE_KEY),
     },
     auth: {
-      storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+      storage: typeof window !== 'undefined' ? localStorage : undefined,
       persistSession: true,
       autoRefreshToken: true,
     }

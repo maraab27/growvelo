@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate, useSearch } from '@tanstack/react-router'
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { ArrowRight, Mail, Lock, User, Phone, Loader2 } from 'lucide-react';
+import { ArrowRight, Mail, Lock, User, Phone } from 'lucide-react';
 
 export const Route = createFileRoute('/auth')({
   validateSearch: (search: Record<string, unknown>) => {
@@ -26,51 +26,33 @@ function AuthPage() {
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (loading) return;
-    
     setLoading(true);
-    const toastId = toast.loading(isLogin ? 'Signing in...' : 'Creating your account...');
 
     try {
       if (isLogin) {
-        const { error, data } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
-        
         if (error) throw error;
-        
-        if (data.user) {
-          toast.success('Login successful! Redirecting...', { id: toastId });
-          // Short delay for better UX
-          setTimeout(() => {
-            navigate({ to: redirect as any });
-          }, 1000);
-        }
+        toast.success('Login successful!');
+        navigate({ to: redirect as any });
       } else {
-        const fullPhoneNumber = phone.startsWith('+') ? phone : `+880${phone}`;
-        
-        const { error, data } = await supabase.auth.signUp({
+        const { error } = await supabase.auth.signUp({
           email,
           password,
           options: {
             data: {
               full_name: fullName,
-              phone: fullPhoneNumber,
+              phone: phone.startsWith('+') ? phone : `+880${phone}`,
             },
           },
         });
-        
         if (error) throw error;
-        
-        if (data.user) {
-          toast.success('Account created! Please check your email to verify.', { id: toastId });
-          setIsLogin(true); // Switch to login view
-        }
+        toast.success('Account created! Please verify your email.');
       }
     } catch (error: any) {
-      console.error('Auth error:', error);
-      toast.error(error.message || 'Authentication failed. Please check your credentials.', { id: toastId });
+      toast.error(error.message || 'Something went wrong');
     } finally {
       setLoading(false);
     }
@@ -102,11 +84,10 @@ function AuthPage() {
                 <input
                   type="text"
                   required
-                  autoComplete="name"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   className="w-full rounded-xl border border-foreground/10 bg-foreground/5 py-3 pl-10 pr-4 text-sm focus:border-brand/50 focus:outline-none focus:ring-1 focus:ring-brand/50"
-                  placeholder="Muhammad Ataullah"
+                  placeholder="Full Name"
                 />
               </div>
             </div>
@@ -124,7 +105,6 @@ function AuthPage() {
                   <input
                     type="tel"
                     required
-                    autoComplete="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
                     className="w-full rounded-xl border border-foreground/10 bg-foreground/5 py-3 pl-10 pr-4 text-sm focus:border-brand/50 focus:outline-none focus:ring-1 focus:ring-brand/50"
@@ -142,7 +122,6 @@ function AuthPage() {
               <input
                 type="email"
                 required
-                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full rounded-xl border border-foreground/10 bg-foreground/5 py-3 pl-10 pr-4 text-sm focus:border-brand/50 focus:outline-none focus:ring-1 focus:ring-brand/50"
@@ -158,7 +137,6 @@ function AuthPage() {
               <input
                 type="password"
                 required
-                autoComplete={isLogin ? "current-password" : "new-password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-xl border border-foreground/10 bg-foreground/5 py-3 pl-10 pr-4 text-sm focus:border-brand/50 focus:outline-none focus:ring-1 focus:ring-brand/50"
@@ -172,17 +150,8 @@ function AuthPage() {
             disabled={loading}
             className="gloss-btn w-full mt-6 justify-center"
           >
-            {loading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Processing...
-              </>
-            ) : (
-              <>
-                {isLogin ? 'Login' : 'Create Account'}
-                <ArrowRight className="h-5 w-5 ml-2" />
-              </>
-            )}
+            {loading ? 'Processing...' : (isLogin ? 'Login' : 'Create Account')}
+            {!loading && <ArrowRight className="h-5 w-5" />}
           </button>
         </form>
 
