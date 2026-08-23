@@ -294,6 +294,7 @@ function CourseDetail() {
 
 
 
+
                   ) : (
                     <div className="space-y-4">
                       <button 
