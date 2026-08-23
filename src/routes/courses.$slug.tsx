@@ -132,10 +132,10 @@ function CourseDetail() {
         .select('status')
         .eq('user_id', session.user.id)
         .eq('course_slug', slug)
-        .eq('status', 'approved')
         .single();
       
       if (data) setEnrolled(true);
+
     };
     checkEnrollment();
   }, [slug]);
