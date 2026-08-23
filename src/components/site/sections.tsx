@@ -1152,10 +1152,10 @@ export function StudentReviews({ limit }: { limit?: number } = {}) {
 
 export function About() {
     const stats: { k: string; v: string; tint: "mint" | "coral" | "lemon" | "blush"; pin: ChipColor }[] = [
-      { k: "৫০০+", v: "মোট শিক্ষার্থী", tint: "mint", pin: "mint" },
-      { k: "৫০+", v: "সফল ব্যাচ", tint: "coral", pin: "coral" },
-      { k: "১২", v: "দক্ষ মেন্টর", tint: "lemon", pin: "lemon" },
-      { k: "৯২%", v: "সফলতা হার", tint: "blush", pin: "blush" },
+      { k: "500+", v: "Total Students", tint: "mint", pin: "mint" },
+      { k: "50+", v: "Successful Batches", tint: "coral", pin: "coral" },
+      { k: "12", v: "Expert Mentors", tint: "lemon", pin: "lemon" },
+      { k: "92%", v: "Success Rate", tint: "blush", pin: "blush" },
     ];
   return (
     <section className="py-24 sm:py-28">
@@ -1166,7 +1166,7 @@ export function About() {
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
           before="Our"
           gradWord="Academy"
-          sub="growVelo একাডেমি শুরু হয়েছিল একদল দক্ষ মেন্টরদের নিয়ে, যাদের মূল লক্ষ্য শিক্ষার্থীদের প্রফেশনাল এডিটর হিসেবে গড়ে তোলা।"
+          sub="growVelo Academy was founded by a team of expert mentors with the goal of building professional editors."
         />
         <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-4">
           {stats.map((s, i) => (
@@ -1183,14 +1183,14 @@ export function About() {
         </div>
         <div className="mx-auto mt-14 max-w-2xl text-center text-foreground/70">
           <p className="font-serif text-xl italic leading-snug">
-            বিগত বছরগুলোতে আমরা ৫০০ এর বেশি শিক্ষার্থীকে ভিডিও এডিটিংয়ের বিভিন্ন সেক্টরে দক্ষ করে তুলেছি। আমাদের মেন্টররা প্রফেশনাল ফিল্ডে কাজ করার পাশাপাশি শিক্ষার্থীদের হাতে-কলমে শেখান।
+            Over the past years, we have trained more than 500 students in various video editing sectors. Our mentors work in the professional field while teaching students hands-on.
           </p>
           <p className="mt-4 text-sm">
-            আমরা শিক্ষার্থীদের কোয়ালিটি এবং স্কিল ডেভেলপমেন্টের ওপর সবচেয়ে বেশি গুরুত্ব দেই।
+            We prioritize quality and skill development for our students above all else.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link to="/courses" className="gloss-btn">কোর্সগুলো দেখুন <ArrowRight className="h-4 w-4" /></Link>
-            <Link to="/portfolio" className="gloss-btn-ghost">পোর্টফোলিও</Link>
+            <Link to="/courses" className="gloss-btn">View Courses <ArrowRight className="h-4 w-4" /></Link>
+            <Link to="/portfolio" className="gloss-btn-ghost">Portfolio</Link>
           </div>
         </div>
       </div>
