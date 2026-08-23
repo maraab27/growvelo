@@ -331,8 +331,8 @@ export function Hero() {
 
                 <div className="mt-8 flex items-center justify-between border-t border-foreground/10 pt-6">
                   <div className="flex flex-col">
-                    <span className="text-xl font-bold text-foreground">৳৬,০০০</span>
-                    <span className="text-xs text-foreground/50 line-through">৳৮,০০০</span>
+                    <span className="text-xl font-bold text-foreground">৳৩,০০০</span>
+                    <span className="text-xs text-foreground/50 line-through">৳৫,০০০</span>
                   </div>
                   <Link to="/courses/$slug" params={{ slug: "video-editing-batch-3" }} className="gloss-btn !px-5 !py-2.5 !text-sm">
                     Enroll Now
@@ -977,8 +977,8 @@ export const COURSES: Course[] = [
     title: "Advanced Video Editing & Retelling (Batch 03)",
     level: "Beginner → Pro",
     length: "30 days · Upcoming",
-    price: "৳৬,০০০",
-    oldPrice: "৳৮,০০০",
+    price: "৳৩,০০০",
+    oldPrice: "৳৫,০০০",
     thumb: `linear-gradient(135deg, var(--coral), var(--blush))`,
     desc: "Advanced Video Editing & Retelling — ব্যাচ ০৩। আমাদের পরবর্তী ব্যাচ। এখন এনরোলমেন্ট চলছে।",
     tint: "brand", pin: "brand", chipColor: "brand", featured: true,
