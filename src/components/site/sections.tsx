@@ -416,7 +416,7 @@ const SERVICES: {
     chipColor: "coral",
     icon: <Youtube className="h-3.5 w-3.5" />,
     title: "YouTube Editing",
-    body: "Creator-দের জন্য long-form YouTube ভিডিও। Hook, pacing, B-roll আর thumbnail-ready কাট।",
+    body: "Long-form YouTube videos for creators. Hook, pacing, B-roll, and thumbnail-ready cuts.",
     tint: "coral",
     pin: "coral",
     grad: "linear-gradient(135deg, var(--coral), var(--blush))",
@@ -428,7 +428,7 @@ const SERVICES: {
     chipColor: "mint",
     icon: <Smartphone className="h-3.5 w-3.5" />,
     title: "Reels & Shorts",
-    body: "Reels, TikTok আর Shorts। Trend-friendly দ্রুত pacing, punchy caption আর scroll-stopping hook।",
+    body: "Reels, TikTok, and Shorts. Trend-friendly fast pacing, punchy captions, and scroll-stopping hooks.",
     tint: "mint",
     pin: "mint",
     grad: "linear-gradient(135deg, var(--mint), var(--brand))",
@@ -440,7 +440,7 @@ const SERVICES: {
     chipColor: "sky",
     icon: <Mic className="h-3.5 w-3.5" />,
     title: "Podcast Editing",
-    body: "Podcast-এর video + audio। Voice cleanup, multi-cam sync আর সাথে ছোট clip/reels কেটে দেওয়া।",
+    body: "Podcast video + audio. Voice cleanup, multi-cam sync, and short clip/reels extraction.",
     tint: "sky",
     pin: "sky",
     grad: "linear-gradient(135deg, var(--sky), var(--brand))",
@@ -452,7 +452,7 @@ const SERVICES: {
     chipColor: "lemon",
     icon: <Megaphone className="h-3.5 w-3.5" />,
     title: "Ads & Commercial",
-    body: "Brand ad, product launch, Facebook/YouTube ads। Hook-first, conversion-focused কাট।",
+    body: "Brand ads, product launches, and Facebook/YouTube ads. Hook-first, conversion-focused cuts.",
     tint: "lemon",
     pin: "lemon",
     grad: "linear-gradient(135deg, var(--lemon), var(--coral))",
@@ -464,7 +464,7 @@ const SERVICES: {
     chipColor: "brand",
     icon: <Palette className="h-3.5 w-3.5" />,
     title: "Color Grading",
-    body: "শুধু কালার-এর কাজ। Cinematic look, skin-tone ঠিক করা আর brand-consistent color pass।",
+    body: "Pure color work. Cinematic look, skin-tone correction, and brand-consistent color passes.",
     tint: "brand",
     pin: "brand",
     grad: "linear-gradient(135deg, var(--brand), var(--sky))",
@@ -476,7 +476,7 @@ const SERVICES: {
     chipColor: "blush",
     icon: <Film className="h-3.5 w-3.5" />,
     title: "Documentary & Brand Film",
-    body: "Story-first long-form। Founder story, documentary আর cinematic brand film পুরো প্যাকেজে।",
+    body: "Story-first long-form. Founder stories, documentaries, and cinematic brand films.",
     tint: "blush",
     pin: "blush",
     grad: "linear-gradient(135deg, var(--blush), var(--coral))",
@@ -492,9 +492,9 @@ export function Services() {
           eyebrow="Our Academy"
           eyebrowColor="brand"
           eyebrowIcon={<Layers className="h-3.5 w-3.5" />}
-          before="আপনার সৃজনশীল যাত্রার"
-          gradWord="সহযাত্রী"
-          sub="আমরা শুধু এডিটিং শেখাই না, আমরা আপনাকে একজন পেশাদার এডিটর হিসেবে গড়ে তুলি।"
+          before="Partnering in Your"
+          gradWord="Creative Journey"
+          sub="We don't just teach editing; we build you into a professional video editor."
         />
 
         <div className="mt-16 grid grid-cols-1 gap-6 sm:mt-20 md:grid-cols-2 lg:grid-cols-3">
