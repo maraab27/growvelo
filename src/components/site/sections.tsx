@@ -1097,12 +1097,12 @@ const REVIEWS: {
   name: string; role: string; body: string; initial: string; avatar: string;
   tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor;
 }[] = [
-  { name: "Tanvir Mahmud", role: "Student · Batch 01", body: "growVelo থেকে এডিটিং শিখে আমি এখন প্রফেশনাল ফিল্ডে কাজ করছি। মেন্টরদের গাইডেন্স ছিল অসাধারণ।", initial: "T", avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)", tint: "mint", pin: "mint" },
-  { name: "Abdullah Maraab", role: "Student · Batch 02", body: "কোর্সের মডিউলগুলো খুব সুন্দরভাবে সাজানো। বিগিনার হিসেবে আমার জন্য শেখাটা অনেক সহজ হয়েছে।", initial: "A", avatar: "linear-gradient(135deg,#ec4899,#f97316)", tint: "coral", pin: "coral" },
-  { name: "Rohan Das", role: "Student · Batch 01", body: "মোশন গ্রাফিক্সের মডিউলটি ছিল আমার প্রিয়। এখন আমি নিজে থেকেই অনেক জটিল এনিমেশন তৈরি করতে পারি।", initial: "R", avatar: "linear-gradient(135deg,#22c55e,#0ea5e9)", tint: "lemon", pin: "lemon" },
-  { name: "Zara Ahmed", role: "Student · Batch 03", body: "মেন্টররা সবসময় প্রশ্নের উত্তর দেন এবং পার্সোনাল ফিডব্যাক দেন, যা শেখার গতিকে অনেক বাড়িয়ে দেয়।", initial: "Z", avatar: "linear-gradient(135deg,#f43f5e,#a78bfa)", tint: "blush", pin: "blush" },
-  { name: "Miguel Torres", role: "Student · Batch 04", body: "সিনেমাটিক এডিটিংয়ের টেকনিকগুলো আগে জানতাম না। এই কোর্সটি আমার দেখার দৃষ্টিভঙ্গি বদলে দিয়েছে।", initial: "M", avatar: "linear-gradient(135deg,#0ea5e9,#8b5cf6)", tint: "sky", pin: "sky" },
-  { name: "Priya Sen", role: "Student · Batch 02", body: "কমিউনিটি সাপোর্ট খুব ভালো। গ্রুপে অন্যদের কাজ দেখে আরও অনেক কিছু শিখতে পারছি।", initial: "P", avatar: "linear-gradient(135deg,#eab308,#ef4444)", tint: "brand", pin: "brand" },
+  { name: "Tanvir Mahmud", role: "Student · Batch 01", body: "After learning editing from growVelo, I'm now working in the professional field. The mentors' guidance was exceptional.", initial: "T", avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)", tint: "mint", pin: "mint" },
+  { name: "Abdullah Maraab", role: "Student · Batch 02", body: "The course modules are beautifully organized. As a beginner, it was very easy for me to learn.", initial: "A", avatar: "linear-gradient(135deg,#ec4899,#f97316)", tint: "coral", pin: "coral" },
+  { name: "Rohan Das", role: "Student · Batch 01", body: "The motion graphics module was my favorite. Now I can create complex animations myself.", initial: "R", avatar: "linear-gradient(135deg,#22c55e,#0ea5e9)", tint: "lemon", pin: "lemon" },
+  { name: "Zara Ahmed", role: "Student · Batch 03", body: "Mentors always answer questions and provide personal feedback, which speeds up the learning process.", initial: "Z", avatar: "linear-gradient(135deg,#f43f5e,#a78bfa)", tint: "blush", pin: "blush" },
+  { name: "Miguel Torres", role: "Student · Batch 04", body: "I didn't know cinematic editing techniques before. This course changed my perspective.", initial: "M", avatar: "linear-gradient(135deg,#0ea5e9,#8b5cf6)", tint: "sky", pin: "sky" },
+  { name: "Priya Sen", role: "Student · Batch 02", body: "Community support is great. Seeing others' work in the group helps me learn even more.", initial: "P", avatar: "linear-gradient(135deg,#eab308,#ef4444)", tint: "brand", pin: "brand" },
 ];
 
 export function StudentReviews({ limit }: { limit?: number } = {}) {
