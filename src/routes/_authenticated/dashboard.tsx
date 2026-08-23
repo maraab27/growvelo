@@ -1,9 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { SiteShell } from "../../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
-import { LayoutDashboard, BookOpen, Clock, PlayCircle, ExternalLink, LogOut } from "lucide-react";
+import { LayoutDashboard, BookOpen, Clock, PlayCircle, LogOut } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   component: DashboardPage,
@@ -54,7 +54,7 @@ function DashboardPage() {
             {/* Sidebar / Stats */}
             <div className="space-y-6">
               <div className="sticky-card p-6">
-                <div className="pin" style={{ ["--pin-color" as string]: "var(--mint)" }} style={{"--pin-color": "var(--mint)"} as any} />
+                <div className="pin" style={{"--pin-color": "var(--mint)"} as any} />
                 <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                   <LayoutDashboard className="w-5 h-5 text-[var(--brand)]" />
                   Overview
@@ -112,12 +112,9 @@ function DashboardPage() {
                     </div>
                   ))}
                 </div>
-
-                  ))}
-                </div>
               ) : (
                 <div className="sticky-card p-12 text-center">
-                  <div className="pin" style={{ ["--pin-color" as string]: "var(--mint)" }} />
+                  <div className="pin" style={{"--pin-color": "var(--mint)"} as any} />
                   <div className="max-w-xs mx-auto">
                     <BookOpen className="w-12 h-12 text-foreground/20 mx-auto mb-4" />
                     <h3 className="font-bold text-lg mb-2">আপনি এখনও কোনো কোর্সে এনরোল করেননি</h3>
