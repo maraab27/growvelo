@@ -30,15 +30,22 @@ function AuthPage() {
 
     try {
       if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({
+        console.log('Attempting login with:', email);
+        const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
         if (error) throw error;
-        toast.success('Login successful!');
-        navigate({ to: redirect as any });
+        
+        if (data.session) {
+          toast.success('Login successful!');
+          navigate({ to: redirect as any });
+        } else {
+          toast.info('Please check your email to confirm your account.');
+        }
       } else {
-        const { error } = await supabase.auth.signUp({
+        console.log('Attempting registration for:', email);
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -49,7 +56,14 @@ function AuthPage() {
           },
         });
         if (error) throw error;
-        toast.success('Account created! Please verify your email.');
+        
+        if (data.session) {
+          toast.success('Registration successful! You are now logged in.');
+          navigate({ to: redirect as any });
+        } else {
+          toast.success('Account created! Please verify your email.');
+          setIsLogin(true);
+        }
       }
     } catch (error: any) {
       toast.error(error.message || 'Something went wrong');
