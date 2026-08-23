@@ -27,9 +27,9 @@ import {
 } from "lucide-react";
 
 import { ThemeToggle } from "./theme-toggle";
-import growveloMark from "../../assets/growvelo-mark.png.asset.json";
-import courseThumbnail from "../../assets/course-thumbnail.png.asset.json";
-import instructorAtaullah from "../../assets/instructor-ataullah.png.asset.json";
+import logoAsset from "../../assets/logo.png.asset.json";
+import batch01Thumbnail from "../../assets/batch-01-thumbnail.png.asset.json";
+import instructorAtaullahNew from "../../assets/instructor-ataullah-new.png.asset.json";
 
 
 /* ---------- helpers ---------- */
@@ -133,7 +133,7 @@ export function Nav() {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 10px -4px color-mix(in oklab, var(--brand) 40%, transparent)",
               }}
             >
-              <img src={growveloMark.url} alt="growVelo" className="h-full w-full object-cover" />
+              <img src={logoAsset.url} alt="growVelo" className="h-full w-full object-cover" />
             </div>
             <span className="truncate font-display text-base font-semibold tracking-tight sm:text-lg">
               grow<span className="grad-text">Velo</span>
@@ -214,7 +214,7 @@ export const editors: Editor[] = [
     slug: "ataullah",
     name: "Muhammad Ataullah",
     role: "Lead Video Mentor",
-    avatar: instructorAtaullah.url,
+    avatar: instructorAtaullahNew.url,
     bio: "Cinematic storytelling expert. Helping 500+ students master the art of video editing.",
     skills: ["Premiere Pro", "DaVinci Resolve", "Color Grading", "Sound Design"],
     years: 8,
@@ -324,7 +324,7 @@ export function Hero() {
                   </h4>
                   <div className="mt-4 flex items-center gap-4">
                     <img
-                      src={instructorAtaullah.url}
+                      src={instructorAtaullahNew.url}
                       alt="Muhammad Ataullah"
                       className="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-white shadow-sm"
                     />
@@ -908,7 +908,7 @@ export const COURSES: Course[] = [
     length: "15 days · Live",
     price: "FREE",
     oldPrice: "৳৫,০০০",
-    thumb: `url(${courseThumbnail.url}) center/cover no-repeat`,
+    thumb: `url(${batch01Thumbnail.url}) center/cover no-repeat`,
     desc: "Rising Editors — ব্যাচ ০১। আমাদের প্রথম ব্যাচের এনরোলমেন্ট বর্তমানে সম্পন্ন হয়েছে।",
     tint: "brand", pin: "brand", chipColor: "brand", featured: false,
     start: "ব্যাচ ০১ · সম্পন্ন",
@@ -1319,7 +1319,7 @@ export function Footer() {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5), 0 8px 16px -4px color-mix(in oklab, var(--brand) 50%, transparent)",
               }}
             >
-              <img src={growveloMark.url} alt="growVelo" className="h-full w-full object-cover" />
+              <img src={logoAsset.url} alt="growVelo" className="h-full w-full object-cover" />
             </div>
             <div>
               <div className="font-display text-lg font-semibold">
