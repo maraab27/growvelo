@@ -12,10 +12,10 @@ function LessonPage() {
 
   // Mock lesson data - in a real app, this would come from a database/API
   const lesson = {
-    title: "ভিডিও এডিটিং কি এবং কেন?",
+    title: "Introduction to Video Editing",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
     zoomLink: "https://zoom.us/j/123456789",
-    zoomTime: "রাত ৯:০০ টা",
+    zoomTime: "9:00 PM",
   };
 
   return (
@@ -49,7 +49,7 @@ function LessonPage() {
                 <div className="pin" style={{"--pin-color": "var(--brand)"} as any} />
                 <h1 className="text-2xl font-bold mb-4">{lesson.title}</h1>
                 <p className="text-foreground/60">
-                  এই লেসনে আমরা শিখব ভিডিও এডিটিং এর বেসিক বিষয়গুলো এবং কেন এটি বর্তমান সময়ে এত গুরুত্বপূর্ণ।
+                  In this lesson, we will learn the basic concepts of video editing and why it is so important in today's world.
                 </p>
               </div>
             </div>
@@ -64,7 +64,7 @@ function LessonPage() {
                 </h3>
                 <div className="space-y-4">
                   <div className="p-4 rounded-xl bg-blue-500/5 ring-1 ring-blue-500/10">
-                    <div className="text-sm font-semibold text-blue-600 mb-1">পরবর্তী ক্লাস:</div>
+                    <div className="text-sm font-semibold text-blue-600 mb-1">Next Class:</div>
                     <div className="text-lg font-bold">{lesson.zoomTime}</div>
                   </div>
                   <a 
@@ -86,7 +86,7 @@ function LessonPage() {
                   Support
                 </h3>
                 <p className="text-sm text-foreground/60 mb-4">
-                  আপনার কোনো প্রশ্ন থাকলে আমাদের ফেসবুক গ্রুপে পোস্ট করুন।
+                  If you have any questions, please post them in our Facebook community group.
                 </p>
                 <a 
                   href="#"
