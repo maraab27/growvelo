@@ -298,7 +298,8 @@ function CourseDetail() {
                           const { data: { session } } = await supabase.auth.getSession();
                           if (!session) {
                             toast.error("অনুগ্রহ করে আগে লগইন করুন।");
-                            window.location.href = `/auth?redirect=${encodeURIComponent(window.location.pathname)}`;
+                            const currentPath = window.location.pathname;
+                            window.location.href = `/auth?redirect=${encodeURIComponent(currentPath)}`;
                             return;
                           }
                           if (slug === 'video-editing-batch-3') {
