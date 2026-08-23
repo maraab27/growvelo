@@ -169,6 +169,7 @@ export function Nav({ session }: { session?: any }) {
               <div className="flex items-center gap-2">
                 <Link 
                   to="/auth"
+                  search={{ redirect: '/' }}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground/10 bg-foreground/5 text-foreground transition hover:bg-foreground/10 sm:h-10 sm:w-10"
                   aria-label="Login"
                 >
