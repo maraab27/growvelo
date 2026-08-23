@@ -285,12 +285,13 @@ function CourseDetail() {
                 <div className="mt-10">
                   {enrolled ? (
                     <Link
-                      to="/_authenticated/courses_/$slug/lessons/$lessonId"
+                      to="/courses/$slug/lessons/$lessonId"
                       params={{ slug, lessonId: 'intro' }}
                       className="gloss-btn w-full justify-center !py-4 text-base font-bold"
                     >
                       ✅ Access Unlocked - Start Learning
                     </Link>
+
 
 
                   ) : (
