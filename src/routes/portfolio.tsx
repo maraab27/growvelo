@@ -12,9 +12,10 @@ export const Route = createFileRoute("/portfolio")({
   }),
   component: () => (
     <SiteShell>
-      <div className="pt-16" />
+      <div className="pt-24" />
       <StudentShowcase />
       <BigCTA />
     </SiteShell>
+
   ),
 });
