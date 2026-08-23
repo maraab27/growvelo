@@ -39,7 +39,7 @@ function DashboardPage() {
               <h1 className="font-display text-3xl font-bold tracking-tight">
                 Student <span className="grad-text">Dashboard</span>
               </h1>
-              <p className="text-foreground/60 mt-1">স্বাগতম, {user?.user_metadata?.full_name || user?.email}</p>
+              <p className="text-foreground/60 mt-1">Welcome, {user?.user_metadata?.full_name || user?.email}</p>
             </div>
             <button 
               onClick={handleLogout}
@@ -72,7 +72,7 @@ function DashboardPage() {
             <div className="lg:col-span-2 space-y-6">
               <h2 className="font-display text-xl font-bold flex items-center gap-2">
                 <BookOpen className="w-5 h-5" />
-                আমার কোর্সসমূহ
+                My Courses
               </h2>
 
               {isLoading ? (
@@ -120,10 +120,10 @@ function DashboardPage() {
                   <div className="pin" style={{"--pin-color": "var(--mint)"} as any} />
                   <div className="max-w-xs mx-auto">
                     <BookOpen className="w-12 h-12 text-foreground/20 mx-auto mb-4" />
-                    <h3 className="font-bold text-lg mb-2">আপনি এখনও কোনো কোর্সে এনরোল করেননি</h3>
-                    <p className="text-sm text-foreground/50 mb-6">আমাদের নতুন ব্যাচে জয়েন করে আপনার এডিটিং জার্নি শুরু করুন।</p>
+                    <h3 className="font-bold text-lg mb-2">You haven't enrolled in any courses yet</h3>
+                    <p className="text-sm text-foreground/50 mb-6">Start your editing journey by joining our latest batch.</p>
                     <Link to="/courses" className="gloss-btn w-full justify-center">
-                      ব্রাউজ কোর্স
+                      Browse Courses
                     </Link>
                   </div>
                 </div>
