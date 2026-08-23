@@ -11,6 +11,17 @@ function EnrollmentModal({ courseSlug, onClose, onSuccess }: { courseSlug: strin
   const [transactionId, setTransactionId] = useState("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setEmail(user.email || "");
+      }
+    };
+    fetchUser();
+  }, []);
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -72,8 +83,10 @@ function EnrollmentModal({ courseSlug, onClose, onSuccess }: { courseSlug: strin
               <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/30" />
               <input 
                 required type="email" value={email} onChange={e => setEmail(e.target.value)}
-                className="w-full rounded-xl bg-white/50 py-2.5 pl-10 pr-4 text-sm ring-1 ring-black/5 focus:outline-hidden focus:ring-[var(--brand)]/50"
+                readOnly
+                className="w-full rounded-xl bg-white/50 py-2.5 pl-10 pr-4 text-sm ring-1 ring-black/5 focus:outline-hidden focus:ring-[var(--brand)]/50 opacity-70 cursor-not-allowed"
                 placeholder="yourname@gmail.com"
+
               />
             </div>
           </div>
@@ -133,9 +146,11 @@ function CourseDetail() {
         .eq('user_id', session.user.id)
         .eq('course_slug', slug)
         .eq('status', 'approved')
-        .single();
+        .maybeSingle();
       
       if (data) setEnrolled(true);
+
+
     };
     checkEnrollment();
   }, [slug]);
@@ -269,13 +284,23 @@ function CourseDetail() {
 
                 <div className="mt-10">
                   {enrolled ? (
-                    <div className="rounded-2xl bg-[var(--mint)]/20 px-5 py-4 text-center text-sm font-semibold text-[var(--mint)] ring-1 ring-[var(--mint)]/20">
-                      ✅ Payment confirmed! Access unlocked.
-                    </div>
+                    <Link
+                      to="/courses/$slug/lessons/$lessonId"
+                      params={{ slug, lessonId: 'intro' }}
+                      className="gloss-btn w-full justify-center !py-4 text-base font-bold"
+                    >
+                      ✅ Access Unlocked - Start Learning
+                    </Link>
                   ) : (
                     <div className="space-y-4">
                       <button 
-                        onClick={() => {
+                        onClick={async () => {
+                          const { data: { session } } = await supabase.auth.getSession();
+                          if (!session) {
+                            toast.error("অনুগ্রহ করে আগে লগইন করুন।");
+                            window.location.href = `/auth?redirect=${encodeURIComponent(window.location.pathname)}`;
+                            return;
+                          }
                           if (slug === 'video-editing-batch-3') {
                             setShowModal(true);
                           }
@@ -287,6 +312,7 @@ function CourseDetail() {
                       </button>
                     </div>
                   )}
+
                 </div>
               </div>
             </div>
@@ -308,15 +334,22 @@ function CourseDetail() {
                       return (
                         <div 
                           key={l.title} 
-                          onClick={() => {
+                          onClick={(e) => {
                             if (open) {
-                              l.videoId && setActiveVideo(l.videoId);
+                              // If it's a real lesson, we could navigate, or just use the preview if it's the bootcamp
+                              // For Batch 03, we definitely want to navigate to the lesson page
+                              if (slug === 'video-editing-batch-3') {
+                                // Handled by inner button or direct click
+                              } else {
+                                l.videoId && setActiveVideo(l.videoId);
+                              }
                             } else {
                               setShowLockedModal(true);
                             }
                           }}
                           className={`flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:py-3 sm:gap-3 group transition-colors cursor-pointer hover:bg-foreground/5`}
                         >
+
                           <div className="flex items-center gap-3 min-w-0 flex-1">
                             <div
                               className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all group-active:scale-90 ${
@@ -333,9 +366,19 @@ function CourseDetail() {
                           </div>
                           
                           <div className="flex items-center justify-between pl-[52px] sm:ml-auto sm:pl-0 sm:shrink-0">
+                            {enrolled && (
+                              <Link
+                                to="/courses/$slug/lessons/$lessonId"
+                                params={{ slug, lessonId: 'intro' }}
+                                className="gloss-btn-ghost !py-1.5 !px-3 text-[10px] font-bold"
+                              >
+                                Watch Lesson
+                              </Link>
+                            )}
                             {l.free && !enrolled && (
                               <span className="rounded-full bg-[var(--mint)]/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--mint)] ring-1 ring-[var(--mint)]/20">
                                 Free
+
                               </span>
                             )}
                             <span className="mono-readout text-xs font-semibold text-foreground/40 sm:ml-4">

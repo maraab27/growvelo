@@ -12,8 +12,9 @@ export const Route = createFileRoute("/contact")({
   }),
   component: () => (
     <SiteShell>
-      <div className="pt-16" />
+      <div className="pt-24" />
       <Contact />
     </SiteShell>
+
   ),
 });

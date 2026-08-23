@@ -27,9 +27,11 @@ import {
 } from "lucide-react";
 
 import { ThemeToggle } from "./theme-toggle";
-import growveloMark from "../../assets/growvelo-mark.png.asset.json";
-import courseThumbnail from "../../assets/course-thumbnail.png.asset.json";
-import instructorAtaullah from "../../assets/instructor-ataullah.png.asset.json";
+import { supabase } from "@/integrations/supabase/client";
+import logoAsset from "../../assets/logo.png.asset.json";
+import batch01Thumbnail from "../../assets/batch-01-thumbnail.png.asset.json";
+import instructorAtaullahNew from "../../assets/instructor-ataullah-new.png.asset.json";
+
 
 
 /* ---------- helpers ---------- */
@@ -119,8 +121,9 @@ const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
 
 /* ---------- nav ---------- */
 
-export function Nav() {
+export function Nav({ session }: { session?: any }) {
   const [open, setOpen] = useState(false);
+
   return (
     <div className="fixed inset-x-0 top-0 z-50 flex justify-center px-0 pt-0 sm:px-4 sm:pt-4">
       <header className="glass flex w-full max-w-6xl flex-col overflow-hidden !rounded-none border-x-0 border-t-0 px-3 py-2 sm:!rounded-full sm:border sm:px-5 sm:py-2">
@@ -133,7 +136,7 @@ export function Nav() {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 10px -4px color-mix(in oklab, var(--brand) 40%, transparent)",
               }}
             >
-              <img src={growveloMark.url} alt="growVelo" className="h-full w-full object-cover" />
+              <img src={logoAsset.url} alt="growVelo" className="h-full w-full object-cover" />
             </div>
             <span className="truncate font-display text-base font-semibold tracking-tight sm:text-lg">
               grow<span className="grad-text">Velo</span>
@@ -156,9 +159,21 @@ export function Nav() {
 
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <ThemeToggle />
-            <Link to="/courses" className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm">
-              Batch 03 <ArrowRight className="h-4 w-4" />
-            </Link>
+            {session ? (
+              <Link to="/dashboard" className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm">
+                Dashboard <ArrowRight className="h-4 w-4" />
+              </Link>
+            ) : (
+              <Link 
+                to="/courses/$slug"
+                params={{ slug: 'video-editing-batch-3' }}
+                className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm"
+              >
+                Batch 03 <ArrowRight className="h-4 w-4" />
+              </Link>
+            )}
+
+
             <button
               type="button"
               aria-label="Toggle menu"
@@ -214,7 +229,7 @@ export const editors: Editor[] = [
     slug: "ataullah",
     name: "Muhammad Ataullah",
     role: "Lead Video Mentor",
-    avatar: instructorAtaullah.url,
+    avatar: instructorAtaullahNew.url,
     bio: "Cinematic storytelling expert. Helping 500+ students master the art of video editing.",
     skills: ["Premiere Pro", "DaVinci Resolve", "Color Grading", "Sound Design"],
     years: 8,
@@ -324,7 +339,7 @@ export function Hero() {
                   </h4>
                   <div className="mt-4 flex items-center gap-4">
                     <img
-                      src={instructorAtaullah.url}
+                      src={instructorAtaullahNew.url}
                       alt="Muhammad Ataullah"
                       className="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-white shadow-sm"
                     />
@@ -908,7 +923,7 @@ export const COURSES: Course[] = [
     length: "15 days · Live",
     price: "FREE",
     oldPrice: "৳৫,০০০",
-    thumb: `url(${courseThumbnail.url}) center/cover no-repeat`,
+    thumb: `url(${batch01Thumbnail.url}) center/cover no-repeat`,
     desc: "Rising Editors — ব্যাচ ০১। আমাদের প্রথম ব্যাচের এনরোলমেন্ট বর্তমানে সম্পন্ন হয়েছে।",
     tint: "brand", pin: "brand", chipColor: "brand", featured: false,
     start: "ব্যাচ ০১ · সম্পন্ন",
@@ -1319,7 +1334,7 @@ export function Footer() {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5), 0 8px 16px -4px color-mix(in oklab, var(--brand) 50%, transparent)",
               }}
             >
-              <img src={growveloMark.url} alt="growVelo" className="h-full w-full object-cover" />
+              <img src={logoAsset.url} alt="growVelo" className="h-full w-full object-cover" />
             </div>
             <div>
               <div className="font-display text-lg font-semibold">
@@ -1360,12 +1375,27 @@ export function Footer() {
 /* ---------- shell ---------- */
 
 export function SiteShell({ children }: { children: ReactNode }) {
+  const [session, setSession] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   return (
     <main className="relative min-h-screen overflow-x-hidden">
-      <Nav />
+      <Nav session={session} />
       {children}
       <Footer />
     </main>
+
 
   );
 }
