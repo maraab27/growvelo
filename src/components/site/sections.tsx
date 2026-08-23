@@ -24,6 +24,8 @@ import {
   Briefcase,
   Pin as PinIcon,
   Plus,
+  LogIn,
+  User,
 } from "lucide-react";
 
 import { ThemeToggle } from "./theme-toggle";
@@ -164,13 +166,23 @@ export function Nav({ session }: { session?: any }) {
                 Dashboard <ArrowRight className="h-4 w-4" />
               </Link>
             ) : (
-              <Link 
-                to="/courses/$slug"
-                params={{ slug: 'video-editing-batch-3' }}
-                className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm"
-              >
-                Batch 03 <ArrowRight className="h-4 w-4" />
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link 
+                  to="/auth"
+                  search={{ redirect: '/' }}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground/10 bg-foreground/5 text-foreground transition hover:bg-foreground/10 sm:h-10 sm:w-10"
+                  aria-label="Login"
+                >
+                  <LogIn className="h-4 w-4" />
+                </Link>
+                <Link 
+                  to="/courses/$slug"
+                  params={{ slug: 'video-editing-batch-3' }}
+                  className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm"
+                >
+                  Batch 03 <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
             )}
 
 
