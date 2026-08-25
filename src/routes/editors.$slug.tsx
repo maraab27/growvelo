@@ -56,10 +56,19 @@ function EditorDetail() {
             <div className="relative">
               <div className="pin" style={{ ["--pin-color" as string]: `var(--${e.pin})` }} />
               <div className={`sticky-card tint-${e.tint} p-4`}>
-                <div
-                  className="h-40 w-40 rounded-2xl ring-4 ring-white md:h-44 md:w-44"
-                  style={{ background: e.avatar }}
-                />
+                {e.avatar.startsWith("linear-gradient") ? (
+                  <div
+                    className="h-40 w-40 rounded-2xl ring-4 ring-white md:h-44 md:w-44"
+                    style={{ background: e.avatar }}
+                  />
+                ) : (
+                  <img
+                    src={e.avatar}
+                    alt={e.name}
+                    loading="lazy"
+                    className="h-40 w-40 rounded-2xl object-cover ring-4 ring-white md:h-44 md:w-44"
+                  />
+                )}
               </div>
             </div>
             <div>
