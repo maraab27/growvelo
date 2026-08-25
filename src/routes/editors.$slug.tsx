@@ -56,10 +56,19 @@ function EditorDetail() {
             <div className="relative">
               <div className="pin" style={{ ["--pin-color" as string]: `var(--${e.pin})` }} />
               <div className={`sticky-card tint-${e.tint} p-4`}>
-                <div
-                  className="h-40 w-40 rounded-2xl ring-4 ring-white md:h-44 md:w-44"
-                  style={{ background: e.avatar }}
-                />
+                {e.avatar.startsWith("linear-gradient") ? (
+                  <div
+                    className="h-40 w-40 rounded-2xl ring-4 ring-white md:h-44 md:w-44"
+                    style={{ background: e.avatar }}
+                  />
+                ) : (
+                  <img
+                    src={e.avatar}
+                    alt={e.name}
+                    loading="lazy"
+                    className="h-40 w-40 rounded-2xl object-cover ring-4 ring-white md:h-44 md:w-44"
+                  />
+                )}
               </div>
             </div>
             <div>
@@ -139,7 +148,11 @@ function EditorDetail() {
               >
                 <div className="pin" style={{ ["--pin-color" as string]: `var(--${o.pin})` }} />
                 <div className={`sticky-card tint-${o.tint} flex items-center gap-3 p-4 ${i % 2 === 0 ? "tilt-xs-l" : "tilt-xs-r"}`}>
-                  <div className="h-12 w-12 shrink-0 rounded-full ring-2 ring-white" style={{ background: o.avatar }} />
+                  {o.avatar.startsWith("linear-gradient") ? (
+                    <div className="h-12 w-12 shrink-0 rounded-full ring-2 ring-white" style={{ background: o.avatar }} />
+                  ) : (
+                    <img src={o.avatar} alt={o.name} loading="lazy" className="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-white" />
+                  )}
                   <div className="min-w-0">
                     <div className="truncate text-sm font-semibold">{o.name}</div>
                     <div className="truncate text-xs text-foreground/60">{o.role}</div>
