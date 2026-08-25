@@ -49,7 +49,9 @@ function AuthPage() {
           email,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/auth/callback`,
+            emailRedirectTo: `${
+              (import.meta as any).env?.['NEXT_PUBLIC_SITE_URL'] || window.location.origin
+            }/auth/callback`,
             data: {
               full_name: fullName,
               phone: phone.startsWith('+') ? phone : `+880${phone}`,
