@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      content_blocks: {
+        Row: {
+          key: string
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value?: string
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: string
+        }
+        Relationships: []
+      }
       course_enrollments: {
         Row: {
           course_slug: string
@@ -68,6 +86,36 @@ export type Database = {
         }
         Relationships: []
       }
+      gallery_images: {
+        Row: {
+          bucket_key: string
+          caption: string
+          created_at: string
+          id: string
+          order_index: number
+          storage_path: string
+          url: string
+        }
+        Insert: {
+          bucket_key: string
+          caption?: string
+          created_at?: string
+          id?: string
+          order_index?: number
+          storage_path: string
+          url: string
+        }
+        Update: {
+          bucket_key?: string
+          caption?: string
+          created_at?: string
+          id?: string
+          order_index?: number
+          storage_path?: string
+          url?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
@@ -83,6 +131,24 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      video_urls: {
+        Row: {
+          slot_id: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          slot_id: string
+          updated_at?: string
+          url?: string
+        }
+        Update: {
+          slot_id?: string
+          updated_at?: string
+          url?: string
         }
         Relationships: []
       }
