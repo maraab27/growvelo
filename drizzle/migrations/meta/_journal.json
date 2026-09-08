@@ -8,6 +8,13 @@
       "when": 1788837194689,
       "tag": "0000_create_cms_tables",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788837225188,
+      "tag": "0001_gallery_storage_policies",
+      "breakpoints": true
     }
   ]
 }
