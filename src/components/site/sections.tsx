@@ -289,19 +289,22 @@ export function Hero() {
             className="mt-6 font-display font-semibold tracking-tight text-foreground"
             style={{ fontSize: "clamp(2rem, 6vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-0.025em" }}
           >
-            Turn Your <span className="grad-text">Passion</span>
+            <EditableText id="hero.title.line1">Turn Your</EditableText>{" "}
+            <EditableText id="hero.title.accent" className="grad-text">Passion</EditableText>
             <br />
-            into Profession.
+            <EditableText id="hero.title.line2">into Profession.</EditableText>
           </h1>
           <p className="mx-auto mt-6 max-w-lg text-base text-foreground/65 sm:text-lg">
-            Master the art of cinematic video editing and short-form storytelling from industry experts.
+            <EditableText id="hero.subtitle">
+              Master the art of cinematic video editing and short-form storytelling from industry experts.
+            </EditableText>
           </p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center">
             <Link to="/courses" className="gloss-btn">
-              Explore Courses <ArrowRight className="h-5 w-5" />
+              <EditableText id="hero.cta.primary">Explore Courses</EditableText> <ArrowRight className="h-5 w-5" />
             </Link>
             <Link to="/courses" className="gloss-btn-ghost">
-              <Play className="h-5 w-5" /> Watch Free Masterclass
+              <Play className="h-5 w-5" /> <EditableText id="hero.cta.secondary">Watch Free Masterclass</EditableText>
             </Link>
           </div>
         </div>
