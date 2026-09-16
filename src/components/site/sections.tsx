@@ -868,18 +868,18 @@ export function Instructors({ limit }: { limit?: number } = {}) {
                   <img src={e.avatar} alt={e.name} className="h-20 w-20 shrink-0 rounded-full object-cover ring-4 ring-white shadow-lg" />
                 )}
                 <div className="min-w-0">
-                  <div className="font-display text-2xl font-bold leading-tight">{e.name}</div>
-                  <div className="mono-readout mt-1 text-xs">{e.role}</div>
+                  <div className="font-display text-2xl font-bold leading-tight"><EditableText id={`instructors.${e.slug}.name`}>{e.name}</EditableText></div>
+                  <div className="mono-readout mt-1 text-xs"><EditableText id={`instructors.${e.slug}.role`}>{e.role}</EditableText></div>
                 </div>
               </div>
-              <p className="mt-6 text-base leading-relaxed text-foreground/80">{e.bio}</p>
+              <p className="mt-6 text-base leading-relaxed text-foreground/80"><EditableText id={`instructors.${e.slug}.bio`}>{e.bio}</EditableText></p>
               
               <div className="mt-8">
-                <div className="mono-readout mb-3 text-[11px]">Specialized Skills</div>
+                <div className="mono-readout mb-3 text-[11px]"><EditableText id="instructors.skills.heading">Specialized Skills</EditableText></div>
                 <div className="flex flex-wrap gap-2">
                   {e.skills.map((s) => (
                     <span key={s} className="rounded-full border border-foreground/10 bg-white/70 px-3 py-1 text-xs font-medium text-foreground/75">
-                      {s}
+                      <EditableText id={`instructors.${e.slug}.skill.${contentKey(s)}`}>{s}</EditableText>
                     </span>
                   ))}
                 </div>
@@ -887,11 +887,11 @@ export function Instructors({ limit }: { limit?: number } = {}) {
 
               <div className="mt-8 flex items-center justify-between border-t border-foreground/10 pt-6">
                 <div className="text-sm font-medium text-foreground/60">
-                  <span className="block text-xl font-bold text-foreground">{e.years}+ Years</span>
-                  Industry Experience
+                  <span className="block text-xl font-bold text-foreground"><EditableText id={`instructors.${e.slug}.years`}>{e.years}+ Years</EditableText></span>
+                  <EditableText id="instructors.experience.label">Industry Experience</EditableText>
                 </div>
                 <Link to="/about" className="gloss-btn !px-5 !py-2.5 !text-sm">
-                  Learn More
+                  <EditableText id="instructors.learnMore">Learn More</EditableText>
                 </Link>
               </div>
             </div>
@@ -902,10 +902,10 @@ export function Instructors({ limit }: { limit?: number } = {}) {
               <div className="pin" style={pinStyle("sky")} />
               <div className="sticky-card p-6">
                 <h4 className="font-display text-lg font-semibold flex items-center gap-2">
-                  <Wand2 className="h-5 w-5 text-sky-500" /> Professional Experience
+                  <Wand2 className="h-5 w-5 text-sky-500" /> <EditableText id="instructors.experience.heading">Professional Experience</EditableText>
                 </h4>
                 <p className="mt-3 text-sm text-foreground/70 leading-relaxed">
-                  Muhammad Ataullah has worked with over 50+ international brands and creators, delivering high-end cinematic content that converts.
+                  <EditableText id="instructors.experience.body">Muhammad Ataullah has worked with over 50+ international brands and creators, delivering high-end cinematic content that converts.</EditableText>
                 </p>
               </div>
             </div>
@@ -914,10 +914,10 @@ export function Instructors({ limit }: { limit?: number } = {}) {
               <div className="pin" style={pinStyle("mint")} />
               <div className={`sticky-card tint-mint p-6`}>
                 <h4 className="font-display text-lg font-semibold flex items-center gap-2">
-                  <AudioLines className="h-5 w-5 text-mint-500" /> Teaching Philosophy
+                  <AudioLines className="h-5 w-5 text-mint-500" /> <EditableText id="instructors.philosophy.heading">Teaching Philosophy</EditableText>
                 </h4>
                 <p className="mt-3 text-sm text-foreground/70 leading-relaxed">
-                  "I don't just teach tools; I teach the art of storytelling. My goal is to help you find your unique voice in the world of video editing."
+                  <EditableText id="instructors.philosophy.body">I don't just teach tools; I teach the art of storytelling. My goal is to help you find your unique voice in the world of video editing.</EditableText>
                 </p>
               </div>
             </div>
@@ -1062,7 +1062,7 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
               to="/courses" 
               className="gloss-btn mb-1 flex items-center gap-2"
             >
-              View All Courses <ArrowRight className="h-4 w-4" />
+              <EditableText id="courses.viewAll">View All Courses</EditableText> <ArrowRight className="h-4 w-4" />
             </Link>
           )}
         </div>
@@ -1079,22 +1079,22 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
                 <div className="relative aspect-[16/9] overflow-hidden rounded-xl" style={{ background: c.thumb }}>
                   <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
                   <div className="absolute left-2.5 top-2.5">
-                    <Chip color={c.chipColor}>{c.level}</Chip>
+                    <Chip color={c.chipColor}><EditableText id={`courses.${c.slug}.level`}>{c.level}</EditableText></Chip>
                   </div>
-                  <div className="absolute bottom-2.5 left-3 text-xs font-medium text-white drop-shadow-sm">{c.length}</div>
+                  <div className="absolute bottom-2.5 left-3 text-xs font-medium text-white drop-shadow-sm"><EditableText id={`courses.${c.slug}.length`}>{c.length}</EditableText></div>
                 </div>
                 <div className="p-4">
-                  <div className="font-display text-lg font-semibold group-hover:text-[var(--brand)] transition-colors">{c.title}</div>
-                  <p className="mt-1 text-sm text-foreground/65 line-clamp-2">{c.desc}</p>
+                  <div className="font-display text-lg font-semibold group-hover:text-[var(--brand)] transition-colors"><EditableText id={`courses.${c.slug}.title`}>{c.title}</EditableText></div>
+                  <p className="mt-1 text-sm text-foreground/65 line-clamp-2"><EditableText id={`courses.${c.slug}.description`}>{c.desc}</EditableText></p>
                   <div className="mt-4 flex items-center justify-between gap-3">
                     <div className="flex items-baseline gap-2">
-                      <span className="font-display text-xl font-semibold">{c.price}</span>
+                      <span className="font-display text-xl font-semibold"><EditableText id={`courses.${c.slug}.price`}>{c.price}</EditableText></span>
                       {c.oldPrice && (
-                        <span className="text-xs text-foreground/50 line-through">{c.oldPrice}</span>
+                        <span className="text-xs text-foreground/50 line-through"><EditableText id={`courses.${c.slug}.oldPrice`}>{c.oldPrice}</EditableText></span>
                       )}
                     </div>
                     <span className={`gloss-btn !text-xs !py-2 !px-4 group-hover:scale-105 transition-transform ${(c.slug === 'video-editing-bootcamp' || c.slug === 'video-editing-batch-2') ? 'grayscale opacity-70 cursor-not-allowed pointer-events-none' : ''}`}>
-                      {c.slug === 'video-editing-bootcamp' ? 'Batch Completed' : c.slug === 'video-editing-batch-2' ? 'Batch Running' : 'Enroll Now'}
+                      <EditableText id={`courses.${c.slug}.cta`}>{c.slug === 'video-editing-bootcamp' ? 'Batch Completed' : c.slug === 'video-editing-batch-2' ? 'Batch Running' : 'Enroll Now'}</EditableText>
                     </span>
                   </div>
                 </div>
@@ -1153,15 +1153,15 @@ export function StudentReviews({ limit }: { limit?: number } = {}) {
                   ))}
                 </div>
                 <blockquote className="mt-4 text-base leading-relaxed text-foreground/85">
-                  "{r.body}"
+                  <EditableText id={`reviews.${contentKey(r.name)}.body`}>{r.body}</EditableText>
                 </blockquote>
                 <figcaption className="mt-6 flex items-center gap-3 border-t border-foreground/10 pt-4">
                   <div className="grid h-10 w-10 place-items-center rounded-full font-display text-sm font-semibold text-white ring-2 ring-white" style={{ background: r.avatar }}>
                     {r.initial}
                   </div>
                   <div>
-                    <div className="text-sm font-semibold">{r.name}</div>
-                    <div className="text-xs text-foreground/55">{r.role}</div>
+                    <div className="text-sm font-semibold"><EditableText id={`reviews.${contentKey(r.name)}.name`}>{r.name}</EditableText></div>
+                    <div className="text-xs text-foreground/55"><EditableText id={`reviews.${contentKey(r.name)}.role`}>{r.role}</EditableText></div>
                   </div>
                 </figcaption>
               </figure>
@@ -1200,23 +1200,23 @@ export function About() {
               <div className="pin" style={pinStyle(s.pin)} />
               <div className={`sticky-card tint-${s.tint} p-6 text-center`}>
                 <div className="font-display text-3xl font-semibold sm:text-4xl">
-                  <span className="grad-text">{s.k}</span>
+                  <EditableText id={`about.stat.${i + 1}.value`} className="grad-text">{s.k}</EditableText>
                 </div>
-                <div className="mono-readout mt-2">{s.v}</div>
+                <div className="mono-readout mt-2"><EditableText id={`about.stat.${i + 1}.label`}>{s.v}</EditableText></div>
               </div>
             </div>
           ))}
         </div>
         <div className="mx-auto mt-14 max-w-2xl text-center text-foreground/70">
           <p className="font-serif text-xl italic leading-snug">
-            বিগত বছরগুলোতে আমরা ৫০০ এর বেশি শিক্ষার্থীকে ভিডিও এডিটিংয়ের বিভিন্ন সেক্টরে দক্ষ করে তুলেছি। আমাদের মেন্টররা প্রফেশনাল ফিল্ডে কাজ করার পাশাপাশি শিক্ষার্থীদের হাতে-কলমে শেখান।
+            <EditableText id="about.story.p1">বিগত বছরগুলোতে আমরা ৫০০ এর বেশি শিক্ষার্থীকে ভিডিও এডিটিংয়ের বিভিন্ন সেক্টরে দক্ষ করে তুলেছি। আমাদের মেন্টররা প্রফেশনাল ফিল্ডে কাজ করার পাশাপাশি শিক্ষার্থীদের হাতে-কলমে শেখান।</EditableText>
           </p>
           <p className="mt-4 text-sm">
-            আমরা শিক্ষার্থীদের কোয়ালিটি এবং স্কিল ডেভেলপমেন্টের ওপর সবচেয়ে বেশি গুরুত্ব দেই।
+            <EditableText id="about.story.p2">আমরা শিক্ষার্থীদের কোয়ালিটি এবং স্কিল ডেভেলপমেন্টের ওপর সবচেয়ে বেশি গুরুত্ব দেই।</EditableText>
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link to="/courses" className="gloss-btn">কোর্সগুলো দেখুন <ArrowRight className="h-4 w-4" /></Link>
-            <Link to="/portfolio" className="gloss-btn-ghost">পোর্টফোলিও</Link>
+            <Link to="/courses" className="gloss-btn"><EditableText id="about.cta.courses">কোর্সগুলো দেখুন</EditableText> <ArrowRight className="h-4 w-4" /></Link>
+            <Link to="/portfolio" className="gloss-btn-ghost"><EditableText id="about.cta.portfolio">পোর্টফোলিও</EditableText></Link>
           </div>
         </div>
       </div>
@@ -1234,7 +1234,7 @@ function AccordionItem({ q, a, index }: { q: string; a: string; index: number })
           onClick={() => setIsOpen(!isOpen)}
           className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-foreground/5"
         >
-          <h4 className="font-display text-lg font-bold leading-tight pr-8">{q}</h4>
+          <h4 className="font-display text-lg font-bold leading-tight pr-8"><EditableText id={`faq.item.${index + 1}.question`}>{q}</EditableText></h4>
           <span className={`shrink-0 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}>
             <Plus className="h-5 w-5 opacity-50" />
           </span>
@@ -1244,7 +1244,7 @@ function AccordionItem({ q, a, index }: { q: string; a: string; index: number })
         >
           <div className="overflow-hidden">
             <div className="border-t border-foreground/5 p-6 pt-0 mt-4 text-sm leading-relaxed text-foreground/75">
-              {a}
+              <EditableText id={`faq.item.${index + 1}.answer`}>{a}</EditableText>
             </div>
           </div>
         </div>
@@ -1377,7 +1377,7 @@ export function Footer() {
             </div>
             <div>
               <div className="font-display text-lg font-semibold">
-                grow<span className="grad-text">Velo</span>
+                <EditableText id="footer.brand.prefix">grow</EditableText><EditableText id="footer.brand.accent" className="grad-text">Velo</EditableText>
               </div>
               <div className="mono-readout mt-0.5"><EditableText id="footer.tagline">Made with glass &amp; light.</EditableText></div>
             </div>
