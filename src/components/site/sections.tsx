@@ -1168,7 +1168,7 @@ export function StudentReviews({ limit }: { limit?: number } = {}) {
 
 export function About() {
     const stats: { k: string; v: string; tint: "mint" | "coral" | "lemon" | "blush"; pin: ChipColor }[] = [
-      { k: "৫০০+", v: "মোট শিক্ষার্থী", tint: "mint", pin: "mint" },
+              <EditableText id="cta.subtitle">{ k: "৫০০+", v: "মোট শিক্ষার্থী", tint: "mint", pin: "mint" },</EditableText>
       { k: "৫০+", v: "সফল ব্যাচ", tint: "coral", pin: "coral" },
       { k: "১২", v: "দক্ষ মেন্টর", tint: "lemon", pin: "lemon" },
       { k: "৯২%", v: "সফলতা হার", tint: "blush", pin: "blush" },
@@ -1324,7 +1324,7 @@ export function BigCTA() {
               <EditableText id="cta.title.line2">editing</EditableText> <EditableText id="cta.title.accent" className="grad-text-gold">journey</EditableText>?
             </h3>
             <p className="mx-auto mt-5 max-w-lg text-sm text-white/70 sm:text-base">
-              ৫০০+ সফল শিক্ষার্থীর সাথে আপনিও শুরু করুন আপনার এডিটিং ক্যারিয়ার। আজই এনরোল করুন।
+              <EditableText id="cta.subtitle">৫০০+ সফল শিক্ষার্থীর সাথে আপনিও শুরু করুন আপনার এডিটিং ক্যারিয়ার। আজই এনরোল করুন।</EditableText>
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
               <Link to="/courses" className="gloss-btn">
