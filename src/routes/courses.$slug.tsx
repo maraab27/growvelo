@@ -4,6 +4,7 @@ import { Lock, Play, Check, ArrowLeft, CalendarDays, Clock, User, X, Smartphone,
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { EditableText } from "@/components/cms/EditableText";
 
 function EnrollmentModal({ courseSlug, onClose, onSuccess }: { courseSlug: string, onClose: () => void, onSuccess: () => void }) {
   const [email, setEmail] = useState("");
@@ -235,18 +236,18 @@ function CourseDetail() {
                    {/* Fallback color/gradient if image fails, or just keep it as is if course.thumb is a color */}
                 </div>
                 <div className="p-6 sm:p-8">
-                  <h1 className="font-display text-2xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-                    {course.title}
+                   <h1 className="font-display text-2xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+                     <EditableText id={`course.${course.slug}.title`}>{course.title}</EditableText>
                   </h1>
                   <p className="mt-4 text-sm leading-relaxed text-foreground/75 sm:text-base">
-                    {course.about}
+                     <EditableText id={`course.${course.slug}.about`}>{course.about}</EditableText>
                   </p>
                   
                   <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                    {course.outcomes.map((o) => (
+                     {course.outcomes.map((o, index) => (
                       <div key={o} className="flex items-start gap-3 rounded-xl bg-foreground/5 p-3 text-sm text-foreground/80 ring-1 ring-black/5">
                         <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand)]" />
-                        <span>{o}</span>
+                         <EditableText id={`course.${course.slug}.outcome.${index + 1}`}>{o}</EditableText>
                       </div>
                     ))}
                   </div>
@@ -258,10 +259,10 @@ function CourseDetail() {
             <div className="flex flex-col gap-6">
               <div className="sticky-card tint-mint h-fit p-6 sm:p-8 lg:sticky lg:top-28">
                 <div className="flex items-baseline gap-3">
-                  <span className="font-display text-4xl font-bold">{course.price}</span>
+                   <span className="font-display text-4xl font-bold"><EditableText id={`course.${course.slug}.price`}>{course.price}</EditableText></span>
                   {course.oldPrice && (
                     <span className="text-lg text-foreground/40 line-through decoration-coral/30">
-                      {course.oldPrice}
+                       <EditableText id={`course.${course.slug}.oldPrice`}>{course.oldPrice}</EditableText>
                     </span>
                   )}
                 </div>
@@ -277,7 +278,7 @@ function CourseDetail() {
                       <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60">
                         <item.icon className="h-4 w-4" />
                       </div>
-                      {item.text}
+                       <EditableText id={`course.${course.slug}.info.${idx + 1}`}>{item.text}</EditableText>
                     </div>
                   ))}
                 </div>
@@ -309,7 +310,7 @@ function CourseDetail() {
                         disabled={slug !== 'video-editing-batch-3'}
                         className={`gloss-btn w-full justify-center !py-4 text-base font-bold ${slug !== 'video-editing-batch-3' ? 'grayscale opacity-70 cursor-not-allowed' : ''}`}
                       >
-                        {slug === 'video-editing-bootcamp' ? 'Batch Completed' : slug === 'video-editing-batch-2' ? 'Batch Running' : 'Enroll Now'}
+                       <EditableText id={`course.${course.slug}.enrollCta`}>{slug === 'video-editing-bootcamp' ? 'Batch Completed' : slug === 'video-editing-batch-2' ? 'Batch Running' : 'Enroll Now'}</EditableText>
                       </button>
                     </div>
                   )}
@@ -321,14 +322,14 @@ function CourseDetail() {
 
 
           <div className="mt-16 sm:mt-24">
-            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">Course curriculum</h2>
-            <p className="mono-readout mt-2">{course.modules.length} modules · {totalLessons} lessons</p>
+             <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl"><EditableText id={`course.${course.slug}.curriculum.heading`}>Course curriculum</EditableText></h2>
+             <p className="mono-readout mt-2"><EditableText id={`course.${course.slug}.curriculum.summary`}>{`${course.modules.length} modules · ${totalLessons} lessons`}</EditableText></p>
 
 
             <div className="mt-6 space-y-5">
-              {course.modules.map((m) => (
+             {course.modules.map((m, moduleIndex) => (
                 <div key={m.title} className="sticky-card p-4 sm:p-5">
-                  <div className="font-display text-base font-semibold">{m.title}</div>
+                   <div className="font-display text-base font-semibold"><EditableText id={`course.${course.slug}.module.${moduleIndex + 1}.title`}>{m.title}</EditableText></div>
                   <div className="mt-3 divide-y divide-foreground/10">
                     {m.lessons.map((l: any) => {
                       const open = l.free || enrolled;

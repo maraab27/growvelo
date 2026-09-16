@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Play } from "lucide-react";
 import { SiteShell, Chip, getEditor, editors, type Editor } from "../components/site/sections";
+import { EditableText } from "@/components/cms/EditableText";
 
 export const Route = createFileRoute("/editors/$slug")({
   loader: ({ params }) => {
@@ -72,26 +73,26 @@ function EditorDetail() {
               </div>
             </div>
             <div>
-              <Chip color={e.pin}>{e.role}</Chip>
+              <Chip color={e.pin}><EditableText id={`instructor.${e.slug}.role`}>{e.role}</EditableText></Chip>
               <h1 className="mt-4 font-display font-semibold tracking-tight"
                   style={{ fontSize: "clamp(2.25rem, 5.5vw, 4rem)", lineHeight: 1.02 }}>
-                {e.name.split(" ")[0]} <span className="grad-text">{e.name.split(" ").slice(1).join(" ")}</span>
+                <EditableText id={`instructor.${e.slug}.name.first`}>{e.name.split(" ")[0]}</EditableText> <EditableText id={`instructor.${e.slug}.name.rest`} className="grad-text">{e.name.split(" ").slice(1).join(" ")}</EditableText>
               </h1>
-              <p className="mt-4 max-w-2xl text-foreground/70">{e.bio}</p>
+              <p className="mt-4 max-w-2xl text-foreground/70"><EditableText id={`instructor.${e.slug}.bio`}>{e.bio}</EditableText></p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {e.skills.map((s) => (
                   <span key={s} className="rounded-full border border-foreground/10 bg-white/70 px-3 py-1 text-xs font-medium text-foreground/75">
-                    {s}
+                    <EditableText id={`instructor.${e.slug}.skill.${s.toLowerCase().replace(/[^a-z0-9]+/g, ".")}`}>{s}</EditableText>
                   </span>
                 ))}
               </div>
               <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-foreground/70">
-                <span><span className="mono-readout">Experience </span>{e.years}+ years</span>
-                <span><span className="mono-readout">Role </span>{e.rate}</span>
+                <span><EditableText id="instructor.detail.experience.label" className="mono-readout">Experience</EditableText> <EditableText id={`instructor.${e.slug}.experience`}>{`${e.years}+ years`}</EditableText></span>
+                <span><EditableText id="instructor.detail.role.label" className="mono-readout">Role</EditableText> <EditableText id={`instructor.${e.slug}.rate`}>{e.rate}</EditableText></span>
               </div>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link to="/courses" className="gloss-btn !text-sm">
-                  কোর্স দেখুন <ArrowRight className="h-4 w-4" />
+                   <EditableText id="instructor.detail.coursesCta">কোর্স দেখুন</EditableText> <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
@@ -101,9 +102,9 @@ function EditorDetail() {
 
       <section className="aurora-soft py-20">
         <div className="mx-auto max-w-[1200px] px-5">
-          <Chip color="lemon">Selected work</Chip>
+           <Chip color="lemon"><EditableText id="instructor.work.badge">Selected work</EditableText></Chip>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-            The <span className="grad-text">showreel</span>.
+             <EditableText id="instructor.work.title">The</EditableText> <EditableText id="instructor.work.accent" className="grad-text">showreel</EditableText>.
           </h2>
           <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {e.works.map((w, i) => (
@@ -113,7 +114,7 @@ function EditorDetail() {
                   <div className="relative aspect-video overflow-hidden rounded-xl" style={{ background: w.thumb }}>
                     <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
                     <div className="absolute left-2.5 top-2.5">
-                      <Chip color={e.pin}>{w.type}</Chip>
+                       <Chip color={e.pin}><EditableText id={`instructor.work.${i + 1}.type`}>{w.type}</EditableText></Chip>
                     </div>
                     <div className="absolute inset-0 grid place-items-center">
                       <div className="grid h-14 w-14 place-items-center rounded-full bg-white/85 shadow-lg">
@@ -122,8 +123,8 @@ function EditorDetail() {
                     </div>
                   </div>
                   <div className="p-3">
-                    <div className="text-sm font-semibold">{w.title}</div>
-                    <div className="mono-readout mt-0.5">Client · {w.client}</div>
+                     <div className="text-sm font-semibold"><EditableText id={`instructor.work.${i + 1}.title`}>{w.title}</EditableText></div>
+                     <div className="mono-readout mt-0.5"><EditableText id={`instructor.work.${i + 1}.client`}>{`Client · ${w.client}`}</EditableText></div>
                   </div>
                 </div>
               </div>
