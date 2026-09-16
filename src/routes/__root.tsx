@@ -152,7 +152,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <CmsProvider>
+        <SaveBar />
+        <Outlet />
+      </CmsProvider>
     </QueryClientProvider>
   );
 }
