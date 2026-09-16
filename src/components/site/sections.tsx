@@ -83,6 +83,7 @@ export function SectionHead({
   after,
   sub,
   align = "center",
+  cmsId,
 }: {
   eyebrow: string;
   eyebrowColor?: ChipColor;
@@ -92,21 +93,32 @@ export function SectionHead({
   after?: string;
   sub?: string;
   align?: "center" | "left";
+  cmsId?: string;
 }) {
   const wrap =
     align === "center" ? "mx-auto max-w-5xl text-center" : "max-w-3xl text-left";
+  const key = (part: string) => (cmsId ? `${cmsId}.${part}` : undefined);
+  const T = ({ part, children, className }: { part: string; children: string; className?: string }) => {
+    const id = key(part);
+    if (!id) return <span className={className}>{children}</span>;
+    return (
+      <EditableText id={id} className={className}>
+        {children}
+      </EditableText>
+    );
+  };
   return (
     <div className={wrap}>
-      <Chip color={eyebrowColor} icon={eyebrowIcon}>{eyebrow}</Chip>
+      <Chip color={eyebrowColor} icon={eyebrowIcon}><T part="eyebrow">{eyebrow}</T></Chip>
       <h2 className="mt-5 font-display font-bold tracking-tight text-foreground"
           style={{ fontSize: "clamp(1.75rem, 5vw, 3rem)", lineHeight: 1.15, letterSpacing: "-0.025em" }}>
-        {before}{" "}
-        <span className="grad-text">{gradWord}</span>
-        {after ? <> {after}</> : null}
+        <T part="title">{before}</T>{" "}
+        <T part="titleAccent" className="grad-text">{gradWord}</T>
+        {after ? <> <T part="titleAfter">{after}</T></> : null}
       </h2>
       {sub && (
         <p className="mx-auto mt-5 max-w-3xl text-sm text-foreground/65 sm:text-base">
-          {sub}
+          <T part="sub">{sub}</T>
         </p>
       )}
     </div>
