@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminSession } from "@/hooks/useAdminSession";
 import { ADMIN_EMAIL } from "@/lib/admin-config";
-import { bootstrapAdmin } from "@/lib/admin.functions";
+import { ensureAdminAccess } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -25,39 +25,20 @@ export const Route = createFileRoute("/admin")({
 function SignIn() {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
-  const [setupBusy, setSetupBusy] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true);
-    const { error } = await supabase.auth.signInWithPassword({ email: ADMIN_EMAIL, password });
-    setBusy(false);
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-    toast.success("Signed in");
-  };
-
-  const firstTimeSetup = async () => {
-    if (password.length < 8) {
-      toast.error("Choose a password with at least 8 characters.");
-      return;
-    }
-    setSetupBusy(true);
     try {
-      const result = await bootstrapAdmin({ data: { password } });
-      if (result.created) {
-        const { error } = await supabase.auth.signInWithPassword({ email: ADMIN_EMAIL, password });
-        if (error) throw new Error(error.message);
-        toast.success("Admin account created");
-      } else {
-        toast.info("Admin account already exists — sign in with your password.");
-      }
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Setup failed");
+      const { error } = await supabase.auth.signInWithPassword({ email: ADMIN_EMAIL, password });
+      if (error) throw new Error(error.message);
+      await ensureAdminAccess();
+      toast.success("Admin access ready");
+      window.location.reload();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not sign in");
     } finally {
-      setSetupBusy(false);
+      setBusy(false);
     }
   };
 
@@ -84,15 +65,44 @@ function SignIn() {
         {busy ? <Loader2 className="mr-2 inline h-4 w-4 animate-spin" aria-hidden="true" /> : null}
         Sign in
       </button>
-      <button
-        type="button"
-        onClick={() => void firstTimeSetup()}
-        disabled={setupBusy}
-        className="gloss-btn-ghost mt-2 w-full justify-center !text-xs"
-      >
-        First time? Create the admin account with this password
-      </button>
     </form>
+  );
+}
+
+function RepairAdminAccess() {
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    void ensureAdminAccess()
+      .then(() => {
+        if (!cancelled) window.location.reload();
+      })
+      .catch(() => {
+        if (!cancelled) setFailed(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!failed) {
+    return (
+      <div className="glass mx-auto w-full max-w-sm rounded-2xl p-6 text-center">
+        <Loader2 className="mx-auto h-6 w-6 animate-spin text-foreground/50" aria-hidden="true" />
+        <p className="mt-3 text-sm text-foreground/60">Preparing admin access…</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="glass mx-auto w-full max-w-sm rounded-2xl p-6 text-center">
+      <h1 className="font-display text-xl font-semibold">Not an admin account</h1>
+      <p className="mt-2 text-sm text-foreground/60">This account is not the configured admin email.</p>
+      <button type="button" className="gloss-btn-ghost mt-4" onClick={() => void supabase.auth.signOut()}>
+        Sign out
+      </button>
+    </div>
   );
 }
 
@@ -168,17 +178,7 @@ function AdminPage() {
       ) : isAdmin ? (
         <Dashboard />
       ) : user ? (
-        <div className="glass mx-auto w-full max-w-sm rounded-2xl p-6 text-center">
-          <h1 className="font-display text-xl font-semibold">Not an admin account</h1>
-          <p className="mt-2 text-sm text-foreground/60">This account has no admin access.</p>
-          <button
-            type="button"
-            className="gloss-btn-ghost mt-4"
-            onClick={() => void supabase.auth.signOut()}
-          >
-            Sign out
-          </button>
-        </div>
+        <RepairAdminAccess />
       ) : (
         <SignIn />
       )}

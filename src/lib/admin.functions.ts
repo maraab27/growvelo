@@ -1,45 +1,28 @@
 import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
 
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { ADMIN_EMAIL } from "./admin-config";
 
 /**
- * One-time bootstrap: creates the single admin account if it does not exist yet,
- * and makes sure the admin role row is present. Refuses to touch an existing
- * account's credentials.
+ * Repairs the role for the one configured admin after their password has been
+ * verified by Auth. No unauthenticated caller can create or promote an account.
  */
-export const bootstrapAdmin = createServerFn({ method: "POST" })
-  .inputValidator((data) => z.object({ password: z.string().min(8) }).parse(data))
-  .handler(async ({ data }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+export const ensureAdminAccess = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data: authData, error: authError } = await context.supabase.auth.getUser();
+    const email = authData.user?.email?.toLowerCase();
 
-    const { data: list, error: listError } = await supabaseAdmin.auth.admin.listUsers({
-      page: 1,
-      perPage: 200,
-    });
-    if (listError) throw new Error(listError.message);
-
-    const existing = list.users.find(
-      (u) => (u.email ?? "").toLowerCase() === ADMIN_EMAIL.toLowerCase(),
-    );
-
-    if (existing) {
-      await supabaseAdmin
-        .from("user_roles")
-        .upsert({ user_id: existing.id, role: "admin" }, { onConflict: "user_id,role" });
-      return { created: false };
+    if (authError || !authData.user || email !== ADMIN_EMAIL.toLowerCase()) {
+      throw new Error("This account is not allowed to access admin tools.");
     }
 
-    const { data: created, error: createError } = await supabaseAdmin.auth.admin.createUser({
-      email: ADMIN_EMAIL,
-      password: data.password,
-      email_confirm: true,
-    });
-    if (createError || !created.user) throw new Error(createError?.message ?? "Could not create admin");
-
-    await supabaseAdmin
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
       .from("user_roles")
-      .upsert({ user_id: created.user.id, role: "admin" }, { onConflict: "user_id,role" });
+      .upsert({ user_id: authData.user.id, role: "admin" }, { onConflict: "user_id,role" });
 
-    return { created: true };
+    if (error) throw new Error(error.message);
+
+    return { ok: true as const };
   });
