@@ -13,6 +13,8 @@ import { Toaster } from "sonner";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { themeInitScript } from "../components/site/theme-toggle";
+import { CmsProvider } from "../components/cms/CmsProvider";
+import { SaveBar } from "../components/cms/SaveBar";
 
 
 function NotFoundComponent() {
