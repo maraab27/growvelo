@@ -505,6 +505,7 @@ export function Services() {
     <section className="py-24 sm:py-32">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
+          cmsId="services.head"
           eyebrow="Our Academy"
           eyebrowColor="brand"
           eyebrowIcon={<Layers className="h-3.5 w-3.5" />}
@@ -736,6 +737,7 @@ export function StudentShowcase({ limit }: { limit?: number } = {}) {
     <section className="aurora-soft relative py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
+          cmsId="showcase.head"
           eyebrow="Showcase"
           eyebrowColor="mint"
           eyebrowIcon={<Layers className="h-3.5 w-3.5" />}
@@ -843,6 +845,7 @@ export function Instructors({ limit }: { limit?: number } = {}) {
     <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
+          cmsId="instructors.head"
           eyebrow="Mentor"
           eyebrowColor="blush"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
@@ -1037,7 +1040,8 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
       <div className="mx-auto max-w-[1200px] px-5">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:items-end">
           <SectionHead
-            eyebrow="Courses"
+            cmsId="courses.head"
+          eyebrow="Courses"
             eyebrowColor="brand"
             eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
             before={isHomePage ? "Featured" : "Master the art of"}
@@ -1127,6 +1131,7 @@ export function StudentReviews({ limit }: { limit?: number } = {}) {
     <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
+          cmsId="reviews.head"
           eyebrow="Reviews"
           eyebrowColor="coral"
           eyebrowIcon={<Star className="h-3.5 w-3.5" />}
@@ -1177,6 +1182,7 @@ export function About() {
     <section className="py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
+          cmsId="about.head"
           eyebrow="About growVelo"
           eyebrowColor="mint"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
