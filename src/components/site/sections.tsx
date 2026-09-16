@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 
 import { ThemeToggle } from "./theme-toggle";
+import { EditableText } from "../cms/EditableText";
 import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "../../assets/logo.png.asset.json";
 import batch01Thumbnail from "../../assets/batch-01-thumbnail.png.asset.json";
@@ -317,7 +318,7 @@ export function Hero() {
               <div className="pin" style={pinStyle("mint")} />
               <div className="sticky-card p-6 sm:p-8 flex flex-col h-full tint-brand">
                 <div className="flex items-center justify-between gap-2">
-                  <Chip color="brand" icon={<Film className="h-3.5 w-3.5" />} className="!whitespace-nowrap">লেটেস্ট কোর্স · ব্যাচ ০৩</Chip>
+                  <Chip color="brand" icon={<Film className="h-3.5 w-3.5" />} className="!whitespace-nowrap"><EditableText id="hero.card.badge">লেটেস্ট কোর্স · ব্যাচ ০৩</EditableText></Chip>
                 </div>
                 
                 <div className="relative mt-5 w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black aspect-video">
@@ -330,9 +331,9 @@ export function Hero() {
                 </div>
 
                 <div className="mt-6 flex-grow">
-                  <h3 className="font-display text-2xl font-bold leading-tight">Advanced Video Editing & Retelling</h3>
+                  <h3 className="font-display text-2xl font-bold leading-tight"><EditableText id="hero.card.title">Advanced Video Editing &amp; Retelling</EditableText></h3>
                   <p className="mt-3 text-sm leading-relaxed text-foreground/70">
-                    আমাদের পরবর্তী ব্যাচে আমরা একদম জিরো থেকে অ্যাডভান্স লেভেল পর্যন্ত ভিডিও এডিটিং শিখবো। এনরোলমেন্ট চলছে।
+                    <EditableText id="hero.card.desc">আমাদের পরবর্তী ব্যাচে আমরা একদম জিরো থেকে অ্যাডভান্স লেভেল পর্যন্ত ভিডিও এডিটিং শিখবো। এনরোলমেন্ট চলছে।</EditableText>
                   </p>
                   
                   <div className="mt-5 flex flex-wrap items-center gap-2">
@@ -346,11 +347,11 @@ export function Hero() {
 
                 <div className="mt-8 flex items-center justify-between border-t border-foreground/10 pt-6">
                   <div className="flex flex-col">
-                    <span className="text-xl font-bold text-foreground">৳৩,০০০</span>
-                    <span className="text-xs text-foreground/50 line-through">৳৫,০০০</span>
+                    <span className="text-xl font-bold text-foreground"><EditableText id="hero.card.price">৳৩,০০০</EditableText></span>
+                    <span className="text-xs text-foreground/50 line-through"><EditableText id="hero.card.priceOld">৳৫,০০০</EditableText></span>
                   </div>
                   <Link to="/courses/$slug" params={{ slug: "video-editing-batch-3" }} className="gloss-btn !px-5 !py-2.5 !text-sm">
-                    Enroll Now
+                    <EditableText id="hero.card.cta">Enroll Now</EditableText>
                   </Link>
                 </div>
               </div>
@@ -362,7 +363,7 @@ export function Hero() {
                 <div className="pin" style={pinStyle("lemon")} />
                 <div className="sticky-card p-6 tint-lemon">
                   <h4 className="font-display text-lg font-semibold flex items-center gap-2">
-                    <Sparkles className="h-5 w-5 text-lemon-500" /> Instructor
+                    <Sparkles className="h-5 w-5 text-lemon-500" /> <EditableText id="hero.instructor.heading">Instructor</EditableText>
                   </h4>
                   <div className="mt-4 flex items-center gap-4">
                     <img
@@ -371,8 +372,8 @@ export function Hero() {
                       className="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-white shadow-sm"
                     />
                     <div className="min-w-0">
-                      <div className="font-display text-base font-semibold leading-tight">Muhammad Ataullah</div>
-                      <div className="mono-readout truncate text-[10px]">Lead Mentor</div>
+                      <div className="font-display text-base font-semibold leading-tight"><EditableText id="hero.instructor.name">Muhammad Ataullah</EditableText></div>
+                      <div className="mono-readout truncate text-[10px]"><EditableText id="hero.instructor.role">Lead Mentor</EditableText></div>
                     </div>
                   </div>
                 </div>
@@ -382,15 +383,15 @@ export function Hero() {
                 <div className="pin" style={pinStyle("sky")} />
                 <div className="sticky-card p-6 tint-sky">
                   <h4 className="font-display text-lg font-semibold flex items-center gap-2">
-                    <Clock className="h-5 w-5 text-sky-500" /> Batch Schedule
+                    <Clock className="h-5 w-5 text-sky-500" /> <EditableText id="hero.schedule.heading">Batch Schedule</EditableText>
                   </h4>
                   <div className="mt-4 flex items-center justify-between">
                     <div>
-                      <div className="mono-readout text-[10px]">Class starts</div>
-                      <div className="mt-0.5 font-display text-base font-semibold">Jul 28, 2026</div>
+                      <div className="mono-readout text-[10px]"><EditableText id="hero.schedule.label">Class starts</EditableText></div>
+                      <div className="mt-0.5 font-display text-base font-semibold"><EditableText id="hero.schedule.date">Jul 28, 2026</EditableText></div>
                     </div>
                     <div className="flex items-center gap-1.5 text-[11px] font-medium text-coral-500">
-                      <span className="rec-dot" /> 12 seats left
+                      <span className="rec-dot" /> <EditableText id="hero.schedule.seats">12 seats left</EditableText>
                     </div>
                   </div>
                 </div>
@@ -409,7 +410,7 @@ export function Hero() {
 export function SocialProof() {
   return (
     <div className="relative z-10 mt-16 sm:mt-24 pb-8 sm:pb-12">
-      <div className="mono-readout text-center opacity-60">Learn Tools Trusted By Professionals</div>
+      <div className="mono-readout text-center opacity-60"><EditableText id="socialProof.label">Learn Tools Trusted By Professionals</EditableText></div>
       <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-xs font-semibold uppercase tracking-[0.25em] text-foreground/45 sm:gap-x-16 sm:text-sm">
         <span className="transition-opacity hover:opacity-100">Premiere Pro</span>
         <span className="transition-opacity hover:opacity-100">DaVinci Resolve</span>
@@ -1284,6 +1285,7 @@ export function FAQ() {
           eyebrow="FAQ"
           eyebrowColor="sky"
           eyebrowIcon={<PinIcon className="h-3.5 w-3.5" />}
+          cmsId="faq.head"
           before="Frequently Asked"
           gradWord="Questions"
           sub="আপনার মনে থাকা সাধারণ কিছু প্রশ্নের উত্তর এখানে দেওয়া হলো।"
@@ -1317,20 +1319,20 @@ export function BigCTA() {
               className="font-display font-semibold tracking-tight text-white"
               style={{ fontSize: "clamp(2.25rem, 6vw, 4.5rem)", lineHeight: 1.02, letterSpacing: "-0.03em" }}
             >
-              Ready to start your
+              <EditableText id="cta.title.line1">Ready to start your</EditableText>
               <br />
-              editing <span className="grad-text-gold">journey</span>?
+              <EditableText id="cta.title.line2">editing</EditableText> <EditableText id="cta.title.accent" className="grad-text-gold">journey</EditableText>?
             </h3>
             <p className="mx-auto mt-5 max-w-lg text-sm text-white/70 sm:text-base">
               ৫০০+ সফল শিক্ষার্থীর সাথে আপনিও শুরু করুন আপনার এডিটিং ক্যারিয়ার। আজই এনরোল করুন।
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
               <Link to="/courses" className="gloss-btn">
-                এনরোল করুন <ArrowRight className="h-5 w-5" />
+                <EditableText id="cta.button">এনরোল করুন</EditableText> <ArrowRight className="h-5 w-5" />
               </Link>
             </div>
             <div className="mono-readout mt-6 !text-white/60">
-              Life-time access · Community Support
+              <EditableText id="cta.note">Life-time access · Community Support</EditableText>
             </div>
           </div>
         </div>
@@ -1367,23 +1369,22 @@ export function Footer() {
               <div className="font-display text-lg font-semibold">
                 grow<span className="grad-text">Velo</span>
               </div>
-              <div className="mono-readout mt-0.5">Made with glass &amp; light.</div>
+              <div className="mono-readout mt-0.5"><EditableText id="footer.tagline">Made with glass &amp; light.</EditableText></div>
             </div>
           </div>
           <p className="mt-4 max-w-sm text-sm text-foreground/60">
-            A boutique editing studio for creators, brands, and filmmakers.
-            Pinned together on one glossy canvas.
+            <EditableText id="footer.about">A boutique editing studio for creators, brands, and filmmakers. Pinned together on one glossy canvas.</EditableText>
           </p>
         </div>
         <div className="col-span-1 grid grid-cols-2 gap-6 text-sm sm:grid-cols-4 md:col-span-3">
           {FOOTER_COLS.map((col) => (
             <div key={col.title}>
-              <div className="mono-readout mb-3">{col.title}</div>
+              <div className="mono-readout mb-3"><EditableText id={`footer.col.${col.title}.title`}>{col.title}</EditableText></div>
               <ul className="space-y-2">
                 {col.links.map((l) => (
                   <li key={l.to}>
                     <Link to={l.to as "/"} className="font-medium text-foreground/75 transition hover:text-foreground">
-                      {l.label}
+                      <EditableText id={`footer.col.${col.title}.link.${l.to}`}>{l.label}</EditableText>
                     </Link>
                   </li>
                 ))}
@@ -1393,7 +1394,7 @@ export function Footer() {
         </div>
       </div>
       <div className="mx-auto mt-12 max-w-[1200px] border-t border-foreground/10 px-5 pt-6 text-center text-xs text-foreground/45">
-        © 2026 growVelo Studio · Crafted frame by frame.
+        <EditableText id="footer.copyright">© 2026 growVelo Studio · Crafted frame by frame.</EditableText>
       </div>
     </footer>
   );
