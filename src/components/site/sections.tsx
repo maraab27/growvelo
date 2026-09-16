@@ -1168,7 +1168,7 @@ export function StudentReviews({ limit }: { limit?: number } = {}) {
 
 export function About() {
     const stats: { k: string; v: string; tint: "mint" | "coral" | "lemon" | "blush"; pin: ChipColor }[] = [
-              <EditableText id="cta.subtitle">{ k: "৫০০+", v: "মোট শিক্ষার্থী", tint: "mint", pin: "mint" },</EditableText>
+              { k: "৫০০+", v: "মোট শিক্ষার্থী", tint: "mint", pin: "mint" },
       { k: "৫০+", v: "সফল ব্যাচ", tint: "coral", pin: "coral" },
       { k: "১২", v: "দক্ষ মেন্টর", tint: "lemon", pin: "lemon" },
       { k: "৯২%", v: "সফলতা হার", tint: "blush", pin: "blush" },
