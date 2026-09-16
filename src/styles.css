@@ -575,3 +575,46 @@
 .dark .ring-black\/10 {
   --tw-ring-color: rgba(255, 255, 255, 0.10);
 }
+
+/* ---------- CMS inline editing ---------- */
+@utility cms-editable {
+  outline: 1px dashed color-mix(in oklab, var(--brand) 45%, transparent);
+  outline-offset: 3px;
+  border-radius: 6px;
+  transition: outline-color 160ms ease, background-color 160ms ease;
+  &:hover {
+    outline-color: var(--brand);
+    background-color: color-mix(in oklab, var(--brand) 10%, transparent);
+  }
+  &:focus {
+    outline: 2px solid var(--brand);
+    background-color: color-mix(in oklab, var(--brand) 12%, transparent);
+  }
+}
+
+@utility icon-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.9rem;
+  color: var(--foreground);
+  background-image: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--brand) 22%, transparent),
+    color-mix(in oklab, var(--mint, var(--brand)) 14%, transparent)
+  );
+  box-shadow: inset 0 1px 0 var(--hl), 0 2px 8px color-mix(in oklab, var(--foreground) 8%, transparent);
+}
+.dark .icon-tile {
+  background-image: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--brand) 34%, transparent),
+    color-mix(in oklab, var(--paper) 60%, transparent)
+  );
+}
+
+@media print {
+  .no-print { display: none !important; }
+}
