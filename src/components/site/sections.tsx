@@ -1388,7 +1388,7 @@ export function Footer() {
               <div className="mono-readout mb-3"><EditableText id={`footer.col.${col.title}.title`}>{col.title}</EditableText></div>
               <ul className="space-y-2">
                 {col.links.map((l) => (
-                  <li key={l.to}>
+                  <li key={`${l.to}-${l.label}`}>
                     <Link to={l.to as "/"} className="font-medium text-foreground/75 transition hover:text-foreground">
                       <EditableText id={`footer.col.${col.title}.link.${l.to}`}>{l.label}</EditableText>
                     </Link>
