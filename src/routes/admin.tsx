@@ -24,6 +24,7 @@ export const Route = createFileRoute("/admin")({
 function SignIn() {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
+  const [setupBusy, setSetupBusy] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +36,28 @@ function SignIn() {
       return;
     }
     toast.success("Signed in");
+  };
+
+  const firstTimeSetup = async () => {
+    if (password.length < 8) {
+      toast.error("Choose a password with at least 8 characters.");
+      return;
+    }
+    setSetupBusy(true);
+    try {
+      const result = await bootstrapAdmin({ data: { password } });
+      if (result.created) {
+        const { error } = await supabase.auth.signInWithPassword({ email: ADMIN_EMAIL, password });
+        if (error) throw new Error(error.message);
+        toast.success("Admin account created");
+      } else {
+        toast.info("Admin account already exists — sign in with your password.");
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Setup failed");
+    } finally {
+      setSetupBusy(false);
+    }
   };
 
   return (
