@@ -887,7 +887,7 @@ export function Instructors({ limit }: { limit?: number } = {}) {
 
               <div className="mt-8 flex items-center justify-between border-t border-foreground/10 pt-6">
                 <div className="text-sm font-medium text-foreground/60">
-                  <span className="block text-xl font-bold text-foreground"><EditableText id={`instructors.${e.slug}.years`}>{e.years}+ Years</EditableText></span>
+                  <span className="block text-xl font-bold text-foreground"><EditableText id={`instructors.${e.slug}.years`}>{`${e.years}+ Years`}</EditableText></span>
                   <EditableText id="instructors.experience.label">Industry Experience</EditableText>
                 </div>
                 <Link to="/about" className="gloss-btn !px-5 !py-2.5 !text-sm">
