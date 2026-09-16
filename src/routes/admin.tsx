@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminSession } from "@/hooks/useAdminSession";
 import { ADMIN_EMAIL } from "@/lib/admin-config";
+import { bootstrapAdmin } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -82,6 +83,14 @@ function SignIn() {
       <button type="submit" disabled={busy} className="gloss-btn mt-4 w-full justify-center">
         {busy ? <Loader2 className="mr-2 inline h-4 w-4 animate-spin" aria-hidden="true" /> : null}
         Sign in
+      </button>
+      <button
+        type="button"
+        onClick={() => void firstTimeSetup()}
+        disabled={setupBusy}
+        className="gloss-btn-ghost mt-2 w-full justify-center !text-xs"
+      >
+        First time? Create the admin account with this password
       </button>
     </form>
   );
