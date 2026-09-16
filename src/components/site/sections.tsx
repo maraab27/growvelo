@@ -134,6 +134,10 @@ const NAV_ITEMS: { to: string; label: string; exact?: boolean }[] = [
   { to: "/about", label: "About", exact: true },
 ];
 
+function contentKey(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, ".").replace(/^\.|\.$/g, "");
+}
+
 /* ---------- nav ---------- */
 
 export function Nav({ session }: { session?: any }) {
@@ -154,7 +158,7 @@ export function Nav({ session }: { session?: any }) {
               <img src={logoAsset.url} alt="growVelo" className="h-full w-full object-cover" />
             </div>
             <span className="truncate font-display text-base font-semibold tracking-tight sm:text-lg">
-              grow<span className="grad-text">Velo</span>
+              <EditableText id="nav.brand.prefix">grow</EditableText><EditableText id="nav.brand.accent" className="grad-text">Velo</EditableText>
             </span>
           </Link>
 
@@ -167,7 +171,7 @@ export function Nav({ session }: { session?: any }) {
                 className="transition hover:text-foreground"
                 activeProps={{ className: "!text-foreground" }}
               >
-                {n.label}
+                <EditableText id={`nav.${contentKey(n.label)}`}>{n.label}</EditableText>
               </Link>
             ))}
           </nav>
@@ -176,7 +180,7 @@ export function Nav({ session }: { session?: any }) {
             <ThemeToggle />
             {session ? (
               <Link to="/dashboard" className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm">
-                Dashboard <ArrowRight className="h-4 w-4" />
+                <EditableText id="nav.dashboard">Dashboard</EditableText> <ArrowRight className="h-4 w-4" />
               </Link>
             ) : (
               <div className="flex items-center gap-2">
@@ -193,7 +197,7 @@ export function Nav({ session }: { session?: any }) {
                   params={{ slug: 'video-editing-batch-3' }}
                   className="gloss-btn !py-2 !px-4 !text-xs sm:!text-sm"
                 >
-                  Batch 03 <ArrowRight className="h-4 w-4" />
+                  <EditableText id="nav.batch03">Batch 03</EditableText> <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             )}
@@ -223,7 +227,7 @@ export function Nav({ session }: { session?: any }) {
                 className="rounded-xl px-3 py-2 transition hover:bg-foreground/5"
                 activeProps={{ className: "bg-foreground/5 !text-foreground" }}
               >
-                {n.label}
+                <EditableText id={`nav.${contentKey(n.label)}`}>{n.label}</EditableText>
               </Link>
             ))}
           </nav>
@@ -279,10 +283,10 @@ export function Hero() {
       <div className="mx-auto max-w-[1200px] px-5 pt-32 pb-24 sm:pt-40 sm:pb-28">
         {/* floating chip stickers */}
         <div className="pointer-events-none absolute inset-0 hidden xl:block">
-          <div className="absolute left-[2%] top-[18%] tilt-l"><Chip color="mint" icon={<Sparkles className="h-3.5 w-3.5" />}>48h first cut</Chip></div>
-          <div className="absolute right-[2%] top-[14%] tilt-r"><Chip color="lemon">✂ Sound-designed</Chip></div>
-          <div className="absolute left-[1%] top-[62%] tilt-xs-r"><Chip color="blush">♥ Fast Turnaround</Chip></div>
-          <div className="absolute right-[2%] top-[58%] tilt-xs-l"><Chip color="sky">▶ Color graded</Chip></div>
+          <div className="absolute left-[2%] top-[18%] tilt-l"><Chip color="mint" icon={<Sparkles className="h-3.5 w-3.5" />}><EditableText id="hero.sticker.firstCut">48h first cut</EditableText></Chip></div>
+          <div className="absolute right-[2%] top-[14%] tilt-r"><Chip color="lemon"><EditableText id="hero.sticker.sound">Sound-designed</EditableText></Chip></div>
+          <div className="absolute left-[1%] top-[62%] tilt-xs-r"><Chip color="blush"><EditableText id="hero.sticker.turnaround">Fast Turnaround</EditableText></Chip></div>
+          <div className="absolute right-[2%] top-[58%] tilt-xs-l"><Chip color="sky"><EditableText id="hero.sticker.color">Color graded</EditableText></Chip></div>
         </div>
 
         <div className="relative z-10 mx-auto max-w-3xl text-center">
@@ -412,9 +416,9 @@ export function SocialProof() {
     <div className="relative z-10 mt-16 sm:mt-24 pb-8 sm:pb-12">
       <div className="mono-readout text-center opacity-60"><EditableText id="socialProof.label">Learn Tools Trusted By Professionals</EditableText></div>
       <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-xs font-semibold uppercase tracking-[0.25em] text-foreground/45 sm:gap-x-16 sm:text-sm">
-        <span className="transition-opacity hover:opacity-100">Premiere Pro</span>
-        <span className="transition-opacity hover:opacity-100">DaVinci Resolve</span>
-        <span className="transition-opacity hover:opacity-100">After Effects</span>
+        <EditableText id="socialProof.tool.premiere" className="transition-opacity hover:opacity-100">Premiere Pro</EditableText>
+        <EditableText id="socialProof.tool.davinci" className="transition-opacity hover:opacity-100">DaVinci Resolve</EditableText>
+        <EditableText id="socialProof.tool.afterEffects" className="transition-opacity hover:opacity-100">After Effects</EditableText>
       </div>
     </div>
   );
@@ -520,20 +524,20 @@ export function Services() {
               <div className="pin" style={pinStyle(s.pin)} />
               <div className={`sticky-card flex h-full flex-col p-6 tint-${s.tint} transition-transform duration-300 group-hover:-translate-y-1`}>
                 <div className="flex items-center justify-between">
-                  <Chip color={s.chipColor} icon={s.icon}>{s.tag}</Chip>
-                  <span className="mono-readout text-[10px] opacity-40">{s.key}</span>
+                  <Chip color={s.chipColor} icon={s.icon}><EditableText id={`services.${contentKey(s.title)}.tag`}>{s.tag}</EditableText></Chip>
+                  <EditableText id={`services.${contentKey(s.title)}.index`} className="mono-readout text-[10px] opacity-40">{s.key}</EditableText>
                 </div>
                 
-                <h3 className="mt-5 font-display text-xl font-bold">{s.title}</h3>
+                <h3 className="mt-5 font-display text-xl font-bold"><EditableText id={`services.${contentKey(s.title)}.title`}>{s.title}</EditableText></h3>
                 <p className="mt-3 flex-grow text-sm leading-relaxed text-foreground/70">
-                  {s.body}
+                  <EditableText id={`services.${contentKey(s.title)}.body`}>{s.body}</EditableText>
                 </p>
                 
                 <div className="mt-6 flex items-center justify-between border-t border-foreground/10 pt-4">
                   <div className="h-1.5 w-16 overflow-hidden rounded-full bg-foreground/10">
                     <div className="h-full w-2/3 rounded-full" style={{ background: s.grad }} />
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-foreground/40">Active Service</span>
+                  <EditableText id={`services.${contentKey(s.title)}.status`} className="text-[10px] font-bold uppercase tracking-wider text-foreground/40">Active Service</EditableText>
                 </div>
               </div>
             </div>
@@ -610,10 +614,10 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
             <>
               <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
               <div className="absolute left-2.5 top-2.5">
-                <Chip color={item.chipColor}>{item.tag}</Chip>
+                <Chip color={item.chipColor}><EditableText id={`showcase.${contentKey(item.title)}.tag`}>{item.tag}</EditableText></Chip>
               </div>
               <div className="absolute right-2.5 top-2.5 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[10px] text-white backdrop-blur">
-                {item.len}
+                <EditableText id={`showcase.${contentKey(item.title)}.length`}>{item.len}</EditableText>
               </div>
               <button
                 type="button"
@@ -631,8 +635,8 @@ function ThumbCard({ item, tilt }: { item: (typeof PORTFOLIO_ITEMS)[number]; til
         </div>
         <div className="flex items-center justify-between px-2 pt-4 pb-2">
           <div className="min-w-0">
-            <div className="truncate text-sm font-semibold">{item.title}</div>
-            <div className="text-xs text-foreground/55">{item.cat}</div>
+            <div className="truncate text-sm font-semibold"><EditableText id={`showcase.${contentKey(item.title)}.title`}>{item.title}</EditableText></div>
+            <div className="text-xs text-foreground/55"><EditableText id={`showcase.${contentKey(item.title)}.category`}>{item.cat}</EditableText></div>
           </div>
         </div>
       </div>
@@ -649,12 +653,12 @@ function TimelineShowcase() {
         <div className="sticky-card p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2 text-xs">
-              <span className="chip !py-1 !text-[11px]" style={chipStyle("mint")}>Timeline</span>
-              <span className="text-foreground/50">Boards</span>
-              <span className="text-foreground/50">Assets</span>
+              <span className="chip !py-1 !text-[11px]" style={chipStyle("mint")}><EditableText id="showcase.timeline.tab.timeline">Timeline</EditableText></span>
+              <EditableText id="showcase.timeline.tab.boards" className="text-foreground/50">Boards</EditableText>
+              <EditableText id="showcase.timeline.tab.assets" className="text-foreground/50">Assets</EditableText>
             </div>
             <div className="mono-readout flex items-center gap-2">
-              <span className="rec-dot" /> REC · 00:12:04:11 · 1920×1080 · 60FPS
+              <span className="rec-dot" /> <EditableText id="showcase.timeline.readout">REC · 00:12:04:11 · 1920×1080 · 60FPS</EditableText>
             </div>
           </div>
 
@@ -686,10 +690,10 @@ function TimelineShowcase() {
           <div className="pin" style={pinStyle("mint")} />
           <div className="sticky-card tint-mint p-5">
             <div className="flex items-center justify-between">
-              <Chip color="mint">Sprint 24 · Live Board</Chip>
+              <Chip color="mint"><EditableText id="showcase.timeline.board.badge">Sprint 24 · Live Board</EditableText></Chip>
               <span className="mono-readout hidden sm:block">CLIP_024 · 00:00:12:04</span>
             </div>
-            <div className="mt-3 font-display text-xl font-semibold">Launch playbook</div>
+            <div className="mt-3 font-display text-xl font-semibold"><EditableText id="showcase.timeline.board.title">Launch playbook</EditableText></div>
             <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
               {[
                 { done: true, label: "Draft press release" },
@@ -705,7 +709,7 @@ function TimelineShowcase() {
                   ) : (
                     <span className="h-4 w-4 rounded-full border-2 border-foreground/25" />
                   )}
-                  <span className={t.done ? "text-foreground/60 line-through" : "text-foreground/85"}>{t.label}</span>
+                  <EditableText id={`showcase.timeline.task.${contentKey(t.label)}`} className={t.done ? "text-foreground/60 line-through" : "text-foreground/85"}>{t.label}</EditableText>
                 </div>
               ))}
             </div>
@@ -716,14 +720,14 @@ function TimelineShowcase() {
           <div className="pin" style={pinStyle("brand")} />
           <div className="sticky-card tint-brand p-5">
             <div className="flex items-center justify-between">
-              <Chip color="brand">Goal</Chip>
+              <Chip color="brand"><EditableText id="showcase.goal.badge">Goal</EditableText></Chip>
               <span className="mono-readout">67%</span>
             </div>
-            <div className="mt-3 font-display text-lg font-semibold">Hit 50k signups by Q3</div>
+            <div className="mt-3 font-display text-lg font-semibold"><EditableText id="showcase.goal.title">Hit 50k signups by Q3</EditableText></div>
             <div className="mt-6 h-2 overflow-hidden rounded-full bg-foreground/10">
               <div className="h-full w-2/3 rounded-full" style={{ background: "linear-gradient(90deg, var(--brand), var(--coral))" }} />
             </div>
-            <div className="mt-3 text-xs text-foreground/60">67% there</div>
+            <div className="mt-3 text-xs text-foreground/60"><EditableText id="showcase.goal.progress">67% there</EditableText></div>
           </div>
         </div>
       </div>
@@ -749,14 +753,14 @@ export function StudentShowcase({ limit }: { limit?: number } = {}) {
 
         <div className="mt-20 mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <Chip color="coral" icon={<Film className="h-3.5 w-3.5" />}>Portfolio</Chip>
+            <Chip color="coral" icon={<Film className="h-3.5 w-3.5" />}><EditableText id="showcase.portfolio.badge">Portfolio</EditableText></Chip>
             <h3 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-              Student <span className="grad-text">Masterpieces</span>.
+              <EditableText id="showcase.portfolio.title">Student</EditableText> <EditableText id="showcase.portfolio.accent" className="grad-text">Masterpieces</EditableText>.
             </h3>
           </div>
           {limit && (
             <Link to="/portfolio" className="gloss-btn-ghost !text-sm">
-              View all work <ArrowRight className="h-4 w-4" />
+              <EditableText id="showcase.portfolio.viewAll">View all work</EditableText> <ArrowRight className="h-4 w-4" />
             </Link>
           )}
         </div>
@@ -775,9 +779,9 @@ export function StudentShowcase({ limit }: { limit?: number } = {}) {
               {reels.length > 0 && (
                 <div className="mt-12">
                   <div className="mb-6">
-                    <Chip color="brand" icon={<Film className="h-3.5 w-3.5" />}>Reels · Shorts</Chip>
+                    <Chip color="brand" icon={<Film className="h-3.5 w-3.5" />}><EditableText id="showcase.reels.badge">Reels · Shorts</EditableText></Chip>
                     <h4 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
-                      Short-form <span className="grad-text">hooks</span>.
+                      <EditableText id="showcase.reels.title">Short-form</EditableText> <EditableText id="showcase.reels.accent" className="grad-text">hooks</EditableText>.
                     </h4>
                   </div>
                   <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
