@@ -1,52 +1,43 @@
-import { useEffect, useState } from "react";
-import type { User } from "@supabase/supabase-js";
+import { useEffect, useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { User } from '@supabase/supabase-js';
 
-import { supabase } from "@/integrations/supabase/client";
-
-export type AdminSession = {
-  user: User | null;
-  isAdmin: boolean;
-  loading: boolean;
-};
-
-export function useAdminSession(): AdminSession {
+export function useAdminSession() {
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let cancelled = false;
-
-    const resolve = async (nextUser: User | null) => {
-      if (!nextUser) {
-        if (cancelled) return;
-        setUser(null);
+    const checkAdminStatus = async (sessionUser: User | null) => {
+      if (!sessionUser) {
         setIsAdmin(false);
         setLoading(false);
         return;
       }
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", nextUser.id)
-        .eq("role", "admin")
-        .maybeSingle();
-      if (cancelled) return;
-      setUser(nextUser);
-      setIsAdmin(!!data);
+      
+      const { data, error } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', sessionUser.id)
+        .single();
+
+      setIsAdmin(!error && data?.role === 'admin');
       setLoading(false);
     };
 
-    supabase.auth.getSession().then(({ data }) => resolve(data.session?.user ?? null));
-
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      void resolve(session?.user ?? null);
+    // Initial check
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      checkAdminStatus(session?.user ?? null);
     });
 
-    return () => {
-      cancelled = true;
-      sub.subscription.unsubscribe();
-    };
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      checkAdminStatus(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   return { user, isAdmin, loading };
