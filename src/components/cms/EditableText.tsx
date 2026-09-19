@@ -1,57 +1,66 @@
-import { useEffect, useRef, type ElementType } from "react";
+import React, { useEffect, useState, useRef } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAdminSession } from '@/hooks/useAdminSession';
 
-import { useCms } from "./CmsProvider";
-
-type EditableTextProps = {
+interface EditableTextProps {
   id: string;
-  children: string;
-  as?: ElementType;
+  children: React.ReactNode; // Default fallback text
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
   className?: string;
-};
+}
 
-/**
- * Every readable string on the site goes through this component.
- * Public visitors see plain text; the admin sees an inline-editable node.
- */
-export function EditableText({ id, children, as, className }: EditableTextProps) {
-  const Tag = (as ?? "span") as ElementType;
-  const { isAdmin, values, stage } = useCms();
-  const ref = useRef<HTMLElement | null>(null);
-  const stored = values[id];
-  const text = stored !== undefined && stored !== "" ? stored : children;
+export const EditableText: React.FC<EditableTextProps> = ({ 
+  id, 
+  children, 
+  as: Tag = 'span',
+  className = '' 
+}) => {
+  const { isAdmin } = useAdminSession();
+  const [content, setContent] = useState<string>(children?.toString() || '');
+  const elementRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (document.activeElement === el) return;
-    if (el.textContent !== text) el.textContent = text;
-  }, [text]);
+    const fetchContent = async () => {
+      const { data, error } = await supabase
+        .from('content_blocks')
+        .select('value')
+        .eq('key', id)
+        .single();
+        
+      if (!error && data) {
+        setContent(data.value);
+      }
+    };
+    fetchContent();
+  }, [id]);
 
-  if (!isAdmin) {
-    return <Tag className={className}>{text}</Tag>;
-  }
+  const handleBlur = async () => {
+    if (!elementRef.current) return;
+    
+    const newText = elementRef.current.innerText;
+    if (newText !== content) {
+      setContent(newText);
+      await supabase.from('content_blocks').upsert({ 
+        key: id, 
+        value: newText,
+        updated_at: new Date().toISOString()
+      });
+    }
+  };
 
   return (
     <Tag
-      ref={ref as never}
-      data-cms-key={id}
-      title={id}
-      contentEditable
+      ref={elementRef as any}
+      contentEditable={isAdmin}
       suppressContentEditableWarning
-      spellCheck={false}
-      className={`${className ?? ""} cms-editable`}
-      onBlur={(e: React.FocusEvent<HTMLElement>) => {
-        const next = (e.currentTarget.textContent ?? "").replace(/\s+$/g, "");
-        if (next !== text) stage(id, next);
-      }}
-      onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          (e.currentTarget as HTMLElement).blur();
-        }
-      }}
+      onBlur={handleBlur}
+      className={`font-bangla transition-all duration-200 ${
+        isAdmin 
+          ? 'hover:outline hover:outline-2 hover:outline-dashed hover:outline-primary/50 cursor-text rounded-sm px-1 min-w-[20px] inline-block' 
+          : ''
+      } ${className}`}
     >
-      {text}
+      {content}
     </Tag>
   );
-}
+};
