@@ -9,7 +9,7 @@ export const Route = createFileRoute('/admin')({
 });
 
 function AdminDashboard() {
-  const { user, isAdmin, loading } = useAdminSession();
+  const { isAdmin, loading } = useAdminSession();
   const [email, setEmail] = useState(''); // এখন ফাঁকা থাকবে, আপনি টাইপ করতে পারবেন
   const [password, setPassword] = useState('');
   const [stats, setStats] = useState({ gallery: 0, content: 0 });
