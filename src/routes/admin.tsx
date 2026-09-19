@@ -1,187 +1,115 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Images, LayoutDashboard, Loader2, LogOut, Type } from "lucide-react";
-import { toast } from "sonner";
+import { createFileRoute } from '@tanstack/react-router';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAdminSession } from '@/hooks/useAdminSession';
+import { LogOut, Image as ImageIcon, FileText, ExternalLink, Lock } from 'lucide-react';
 
-import { supabase } from "@/integrations/supabase/client";
-import { useAdminSession } from "@/hooks/useAdminSession";
-import { ADMIN_EMAIL } from "@/lib/admin-config";
-import { ensureAdminAccess } from "@/lib/admin.functions";
-
-export const Route = createFileRoute("/admin")({
-  ssr: false,
-  head: () => ({
-    meta: [
-      { title: "Admin — growVelo" },
-      { name: "description", content: "Private admin sign-in and content dashboard for the growVelo learning site." },
-      { name: "robots", content: "noindex, nofollow" },
-      { property: "og:title", content: "Admin — growVelo" },
-      { property: "og:description", content: "Private admin sign-in and content dashboard for the growVelo learning site." },
-    ],
-  }),
-  component: AdminPage,
+export const Route = createFileRoute('/admin')({
+  component: AdminDashboard,
 });
 
-function SignIn() {
-  const [password, setPassword] = useState("");
-  const [busy, setBusy] = useState(false);
+const ADMIN_EMAIL = 'admin@example.com'; // আপনার অ্যাডমিন ইমেইল দিন
 
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setBusy(true);
-    try {
-      const { error } = await supabase.auth.signInWithPassword({ email: ADMIN_EMAIL, password });
-      if (error) throw new Error(error.message);
-      await ensureAdminAccess();
-      toast.success("Admin access ready");
-      window.location.reload();
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Could not sign in");
-    } finally {
-      setBusy(false);
-    }
-  };
-
-  return (
-    <form onSubmit={submit} className="glass mx-auto w-full max-w-sm rounded-2xl p-6">
-      <span className="icon-tile">
-        <LayoutDashboard className="h-5 w-5" aria-hidden="true" />
-      </span>
-      <h1 className="mt-4 font-display font-semibold" style={{ fontSize: "clamp(1.4rem, 4vw, 2rem)" }}>
-        Admin sign in
-      </h1>
-      <p className="mt-2 text-sm text-foreground/60">Enter the admin password to edit the live site.</p>
-      <input
-        type="password"
-        autoComplete="current-password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        aria-label="Admin password"
-        className="sticky-input mt-5 w-full rounded-xl px-3 py-2.5 text-sm"
-        required
-      />
-      <button type="submit" disabled={busy} className="gloss-btn mt-4 w-full justify-center">
-        {busy ? <Loader2 className="mr-2 inline h-4 w-4 animate-spin" aria-hidden="true" /> : null}
-        Sign in
-      </button>
-    </form>
-  );
-}
-
-function RepairAdminAccess() {
-  const [failed, setFailed] = useState(false);
+function AdminDashboard() {
+  const { user, isAdmin, loading } = useAdminSession();
+  const [email, setEmail] = useState(ADMIN_EMAIL);
+  const [password, setPassword] = useState('');
+  const [stats, setStats] = useState({ gallery: 0, content: 0 });
 
   useEffect(() => {
-    let cancelled = false;
-    void ensureAdminAccess()
-      .then(() => {
-        if (!cancelled) window.location.reload();
-      })
-      .catch(() => {
-        if (!cancelled) setFailed(true);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+    if (isAdmin) {
+      const fetchStats = async () => {
+        const [{ count: galleryCount }, { count: contentCount }] = await Promise.all([
+          supabase.from('gallery_images').select('*', { count: 'exact', head: true }),
+          supabase.from('content_blocks').select('*', { count: 'exact', head: true })
+        ]);
+        setStats({ gallery: galleryCount || 0, content: contentCount || 0 });
+      };
+      fetchStats();
+    }
+  }, [isAdmin]);
 
-  if (!failed) {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await supabase.auth.signInWithPassword({ email, password });
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
+  if (loading) return <div className="min-h-screen flex items-center justify-center font-bangla">লোড হচ্ছে...</div>;
+
+  if (!isAdmin) {
     return (
-      <div className="glass mx-auto w-full max-w-sm rounded-2xl p-6 text-center">
-        <Loader2 className="mx-auto h-6 w-6 animate-spin text-foreground/50" aria-hidden="true" />
-        <p className="mt-3 text-sm text-foreground/60">Preparing admin access…</p>
+      <div className="min-h-screen flex items-center justify-center p-4 bg-background">
+        <form onSubmit={handleLogin} className="glass-strong p-8 rounded-2xl w-full max-w-md flex flex-col gap-4">
+          <div className="icon-tile mx-auto bg-primary/10 p-3 rounded-full mb-2">
+            <Lock className="w-6 h-6 text-primary" />
+          </div>
+          <h1 className="text-2xl font-bold text-center font-bangla mb-4">অ্যাডমিন লগইন</h1>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-3 rounded-lg bg-background/50 border border-border outline-none focus:border-primary"
+            placeholder="Email"
+            readOnly
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-3 rounded-lg bg-background/50 border border-border outline-none focus:border-primary"
+            placeholder="Password"
+          />
+          <button type="submit" className="w-full py-3 mt-2 bg-primary text-primary-foreground rounded-lg font-bold font-bangla">
+            লগইন করুন
+          </button>
+        </form>
       </div>
     );
   }
 
   return (
-    <div className="glass mx-auto w-full max-w-sm rounded-2xl p-6 text-center">
-      <h1 className="font-display text-xl font-semibold">Not an admin account</h1>
-      <p className="mt-2 text-sm text-foreground/60">This account is not the configured admin email.</p>
-      <button type="button" className="gloss-btn-ghost mt-4" onClick={() => void supabase.auth.signOut()}>
-        Sign out
-      </button>
-    </div>
-  );
-}
-
-function Dashboard() {
-  const [gallery, setGallery] = useState<number | null>(null);
-  const [blocks, setBlocks] = useState<number | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    void (async () => {
-      const [g, b] = await Promise.all([
-        supabase.from("gallery_images").select("*", { count: "exact", head: true }),
-        supabase.from("content_blocks").select("*", { count: "exact", head: true }),
-      ]);
-      if (cancelled) return;
-      setGallery(g.count ?? 0);
-      setBlocks(b.count ?? 0);
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    window.location.assign("/");
-  };
-
-  return (
-    <div className="mx-auto w-full max-w-3xl">
-      <h1 className="font-display font-semibold" style={{ fontSize: "clamp(1.6rem, 5vw, 2.6rem)" }}>
-        Content dashboard
-      </h1>
-      <p className="mt-2 text-sm text-foreground/60">Signed in as {ADMIN_EMAIL}</p>
-
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        <div className="glass rounded-2xl p-5">
-          <span className="icon-tile">
-            <Images className="h-5 w-5" aria-hidden="true" />
-          </span>
-          <p className="mt-3 text-3xl font-semibold">{gallery ?? "—"}</p>
-          <p className="text-sm text-foreground/60">Gallery images</p>
+    <div className="min-h-screen p-4 md:p-8 font-bangla bg-background">
+      <div className="max-w-4xl mx-auto space-y-6">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 glass p-6 rounded-2xl">
+          <h1 className="text-[clamp(1.5rem,4vw,2rem)] font-bold">অ্যাডমিন ড্যাশবোর্ড</h1>
+          <div className="flex gap-3">
+            <a href="/" target="_blank" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+              <ExternalLink className="w-4 h-4" />
+              <span>লাইভ হোমপেজ</span>
+            </a>
+            <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive/20 transition-colors">
+              <LogOut className="w-4 h-4" />
+              <span>লগআউট</span>
+            </button>
+          </div>
         </div>
-        <div className="glass rounded-2xl p-5">
-          <span className="icon-tile">
-            <Type className="h-5 w-5" aria-hidden="true" />
-          </span>
-          <p className="mt-3 text-3xl font-semibold">{blocks ?? "—"}</p>
-          <p className="text-sm text-foreground/60">Edited text blocks</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="glass-strong p-6 rounded-2xl flex items-center gap-4">
+            <div className="icon-tile bg-blue-500/10 p-4 rounded-xl text-blue-500">
+              <ImageIcon className="w-8 h-8" />
+            </div>
+            <div>
+              <h3 className="text-lg text-muted-foreground">গ্যালারি ছবি</h3>
+              <p className="text-[clamp(2rem,5vw,3rem)] font-bold leading-none">{stats.gallery}</p>
+            </div>
+          </div>
+
+          <div className="glass-strong p-6 rounded-2xl flex items-center gap-4">
+            <div className="icon-tile bg-green-500/10 p-4 rounded-xl text-green-500">
+              <FileText className="w-8 h-8" />
+            </div>
+            <div>
+              <h3 className="text-lg text-muted-foreground">এডিটেবল কন্টেন্ট בלক</h3>
+              <p className="text-[clamp(2rem,5vw,3rem)] font-bold leading-none">{stats.content}</p>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="mt-6 flex flex-wrap gap-2">
-        <Link to="/" className="gloss-btn">
-          Open live homepage (edit mode)
-        </Link>
-        <button type="button" onClick={() => void signOut()} className="gloss-btn-ghost">
-          <LogOut className="mr-1 inline h-4 w-4" aria-hidden="true" />
-          Exit admin
-        </button>
-      </div>
     </div>
-  );
-}
-
-function AdminPage() {
-  const { user, isAdmin, loading } = useAdminSession();
-
-  return (
-    <main className="flex min-h-screen items-center justify-center px-4 py-16">
-      {loading ? (
-        <Loader2 className="h-6 w-6 animate-spin text-foreground/50" aria-hidden="true" />
-      ) : isAdmin ? (
-        <Dashboard />
-      ) : user ? (
-        <RepairAdminAccess />
-      ) : (
-        <SignIn />
-      )}
-    </main>
   );
 }
