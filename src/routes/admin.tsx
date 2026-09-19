@@ -8,13 +8,12 @@ export const Route = createFileRoute('/admin')({
   component: AdminDashboard,
 });
 
-const ADMIN_EMAIL = 'admin@example.com'; // আপনার অ্যাডমিন ইমেইল দিন
-
 function AdminDashboard() {
   const { user, isAdmin, loading } = useAdminSession();
-  const [email, setEmail] = useState(ADMIN_EMAIL);
+  const [email, setEmail] = useState(''); // এখন ফাঁকা থাকবে, আপনি টাইপ করতে পারবেন
   const [password, setPassword] = useState('');
   const [stats, setStats] = useState({ gallery: 0, content: 0 });
+  const [loginLoading, setLoginLoading] = useState(false);
 
   useEffect(() => {
     if (isAdmin) {
@@ -31,7 +30,13 @@ function AdminDashboard() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    await supabase.auth.signInWithPassword({ email, password });
+    setLoginLoading(true);
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setLoginLoading(false);
+    
+    if (error) {
+      alert("লগইন ফেইল হয়েছে! ইমেইল বা পাসওয়ার্ড ভুল দিয়েছেন।");
+    }
   };
 
   const handleLogout = async () => {
@@ -53,18 +58,23 @@ function AdminDashboard() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full p-3 rounded-lg bg-background/50 border border-border outline-none focus:border-primary"
-            placeholder="Email"
-            readOnly
+            placeholder="আপনার ইমেইল লিখুন"
+            required
           />
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-3 rounded-lg bg-background/50 border border-border outline-none focus:border-primary"
-            placeholder="Password"
+            placeholder="পাসওয়ার্ড লিখুন"
+            required
           />
-          <button type="submit" className="w-full py-3 mt-2 bg-primary text-primary-foreground rounded-lg font-bold font-bangla">
-            লগইন করুন
+          <button 
+            type="submit" 
+            disabled={loginLoading}
+            className="w-full py-3 mt-2 bg-primary text-primary-foreground rounded-lg font-bold font-bangla disabled:opacity-50"
+          >
+            {loginLoading ? 'লগইন হচ্ছে...' : 'লগইন করুন'}
           </button>
         </form>
       </div>
