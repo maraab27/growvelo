@@ -1,131 +1,65 @@
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import React, { useEffect, useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAdminSession } from '@/hooks/useAdminSession';
+import { Youtube, Save } from 'lucide-react';
 
-import { supabase } from "@/integrations/supabase/client";
-import { useCms } from "./CmsProvider";
-
-export type EmbedKind = "youtube" | "facebook-video" | "facebook-post";
-
-type Props = {
-  slotId: string;
-  kinds?: EmbedKind[];
-  className?: string;
-  title?: string;
-};
-
-function detectKind(url: string): EmbedKind | null {
-  if (/youtu\.?be/i.test(url)) return "youtube";
-  if (/facebook\.com\/.+\/videos?\//i.test(url) || /fb\.watch/i.test(url)) return "facebook-video";
-  if (/facebook\.com/i.test(url)) return "facebook-post";
-  return null;
-}
-
-function youtubeId(url: string): string | null {
-  const m =
-    url.match(/[?&]v=([\w-]{6,})/) ??
-    url.match(/youtu\.be\/([\w-]{6,})/) ??
-    url.match(/embed\/([\w-]{6,})/) ??
-    url.match(/shorts\/([\w-]{6,})/);
-  return m ? m[1] : null;
-}
-
-function embedSrc(url: string, kind: EmbedKind): string | null {
-  if (kind === "youtube") {
-    const id = youtubeId(url);
-    return id ? `https://www.youtube-nocookie.com/embed/${id}` : null;
-  }
-  const base =
-    kind === "facebook-video"
-      ? "https://www.facebook.com/plugins/video.php"
-      : "https://www.facebook.com/plugins/post.php";
-  return `${base}?href=${encodeURIComponent(url)}&show_text=false`;
-}
-
-/** Public visitors see the saved embed; admins can paste a new URL. */
-export function EditableEmbed({ slotId, kinds, className, title = "Embedded video" }: Props) {
-  const { isAdmin } = useCms();
-  const [url, setUrl] = useState("");
-  const [draft, setDraft] = useState("");
-  const [busy, setBusy] = useState(false);
+export const EditableEmbed = ({ slotId }: { slotId: string }) => {
+  const { isAdmin } = useAdminSession();
+  const [url, setUrl] = useState('');
 
   useEffect(() => {
-    let cancelled = false;
-    supabase
-      .from("video_urls")
-      .select("url")
-      .eq("slot_id", slotId)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (cancelled) return;
-        setUrl(data?.url ?? "");
-        setDraft(data?.url ?? "");
-      });
-    return () => {
-      cancelled = true;
+    const fetchUrl = async () => {
+      const { data } = await supabase.from('video_urls').select('url').eq('slot_id', slotId).single();
+      if (data) setUrl(data.url);
     };
+    fetchUrl();
   }, [slotId]);
 
-  const kind = url ? detectKind(url) : null;
-  const allowed = kinds ?? ["youtube", "facebook-video", "facebook-post"];
-  const src = kind && allowed.includes(kind) ? embedSrc(url, kind) : null;
+  const handleSave = async () => {
+    await supabase.from('video_urls').upsert({ slot_id: slotId, url, updated_at: new Date().toISOString() });
+    alert('ভিডিও লিঙ্ক সেভ হয়েছে!');
+  };
 
-  const save = async () => {
-    const next = draft.trim();
-    const nextKind = next ? detectKind(next) : null;
-    if (next && (!nextKind || !allowed.includes(nextKind))) {
-      toast.error("Paste a YouTube or Facebook link.");
-      return;
+  const getEmbedUrl = (fullUrl: string) => {
+    if (fullUrl.includes('youtube.com') || fullUrl.includes('youtu.be')) {
+      const videoId = fullUrl.split('v=')[1]?.split('&')[0] || fullUrl.split('youtu.be/')[1];
+      return `https://www.youtube.com/embed/${videoId}`;
     }
-    setBusy(true);
-    const previous = url;
-    setUrl(next);
-    const { error } = await supabase
-      .from("video_urls")
-      .upsert({ slot_id: slotId, url: next, updated_at: new Date().toISOString() }, { onConflict: "slot_id" });
-    setBusy(false);
-    if (error) {
-      setUrl(previous);
-      toast.error(`Could not save link: ${error.message}`);
-      return;
-    }
-    toast.success("Embed updated");
+    return fullUrl;
   };
 
   return (
-    <div className={className}>
-      <div className="glass relative overflow-hidden rounded-2xl">
-        <div className="aspect-video w-full">
-          {src ? (
-            <iframe
-              src={src}
-              title={title}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
-              allowFullScreen
-              className="h-full w-full border-0"
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center px-4 text-center text-sm text-foreground/50">
-              {isAdmin ? "No embed yet — paste a link below." : ""}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {isAdmin ? (
-        <div className="no-print mt-2 flex flex-wrap items-center gap-2">
-          <input
-            value={draft}
-            onChange={(e) => setDraft(e.target.value)}
-            placeholder="Paste a YouTube or Facebook link"
-            className="sticky-input min-w-0 flex-1 rounded-xl px-3 py-2 text-xs"
-            aria-label={`Embed URL for ${slotId}`}
+    <div className="relative w-full rounded-2xl overflow-hidden glass-strong font-bangla group">
+      {isAdmin && (
+        <div className="absolute top-0 left-0 w-full p-3 bg-background/95 backdrop-blur z-10 flex flex-col sm:flex-row gap-2 no-print opacity-0 group-hover:opacity-100 transition-opacity border-b border-border">
+          <input 
+            type="text" 
+            value={url} 
+            onChange={(e) => setUrl(e.target.value)} 
+            placeholder="ইউটিউব ভিডিওর লিঙ্ক দিন..."
+            className="flex-1 p-2 text-sm rounded-lg bg-background border border-border focus:border-primary outline-none"
           />
-          <button type="button" onClick={() => void save()} disabled={busy} className="gloss-btn !px-3 !py-2 !text-xs">
-            Save embed
+          <button onClick={handleSave} className="bg-primary text-primary-foreground px-4 py-2 text-sm rounded-lg flex items-center justify-center gap-2 font-bold">
+            <Save className="w-4 h-4" />
+            সেভ
           </button>
         </div>
-      ) : null}
+      )}
+      
+      <div className="aspect-video bg-muted flex items-center justify-center">
+        {url ? (
+          <iframe 
+            src={getEmbedUrl(url)} 
+            className="w-full h-full border-0" 
+            allowFullScreen 
+          />
+        ) : (
+          <div className="flex flex-col items-center text-muted-foreground p-6 text-center">
+            <Youtube className="w-12 h-12 mb-2 opacity-50" />
+            <p>অ্যাডমিন প্যানেল থেকে ভিডিও লিঙ্ক যুক্ত করুন</p>
+          </div>
+        )}
+      </div>
     </div>
   );
-}
+};
