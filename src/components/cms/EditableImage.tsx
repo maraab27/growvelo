@@ -19,17 +19,20 @@ export const EditableImage = ({
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchImage = async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('content_blocks')
         .select('content')
         .eq('id', id)
-        .single();
-      if (data && data.content) {
+        .maybeSingle();
+
+      if (!error && data?.content && isMounted) {
         setSrc(data.content);
       }
     };
     fetchImage();
+    return () => { isMounted = false; };
   }, [id]);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,26 +40,33 @@ export const EditableImage = ({
     setUploading(true);
     const file = e.target.files[0];
     const fileExt = file.name.split('.').pop();
-    const fileName = `${id}-${Date.now()}.${fileExt}`;
+    const fileName = `${id.replace(/[^a-zA-Z0-9]/g, '_')}_${Date.now()}.${fileExt}`;
 
     const { error: uploadError } = await supabase.storage
       .from('gallery')
-      .upload(fileName, file, { upsert: true });
+      .upload(fileName, file, { cacheControl: '3600', upsert: true });
 
-    if (!uploadError) {
-      const { data: { publicUrl } } = supabase.storage
-        .from('gallery')
-        .getPublicUrl(fileName);
+    if (uploadError) {
+      alert('ইমেজ স্টোরেজে আপলোড করতে সমস্যা হয়েছে: ' + uploadError.message);
+      setUploading(false);
+      return;
+    }
 
-      setSrc(publicUrl);
+    const { data: { publicUrl } } = supabase.storage
+      .from('gallery')
+      .getPublicUrl(fileName);
 
-      await supabase.from('content_blocks').upsert({
-        id,
-        content: publicUrl,
-        updated_at: new Date().toISOString(),
-      });
+    // ডাটাবেজে পার্মানেন্টলি সেভ করা
+    const { error: dbError } = await supabase.from('content_blocks').upsert({
+      id,
+      content: publicUrl,
+      updated_at: new Date().toISOString(),
+    });
+
+    if (dbError) {
+      alert('ডাটাবেজে সেভ হতে সমস্যা হয়েছে: ' + dbError.message);
     } else {
-      alert('ইমেজ আপলোড করতে সমস্যা হয়েছে!');
+      setSrc(publicUrl);
     }
     setUploading(false);
   };
@@ -72,7 +82,7 @@ export const EditableImage = ({
         <label className="absolute inset-0 bg-black/60 text-white flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20 backdrop-blur-xs p-1">
           <Upload className="w-4 h-4 mb-0.5 text-white" />
           <span className="text-[10px] font-sans font-bold">
-            {uploading ? '...' : 'Change'}
+            {uploading ? 'আপলোড হচ্ছে...' : 'Change'}
           </span>
           <input
             type="file"
