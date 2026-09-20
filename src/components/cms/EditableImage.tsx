@@ -21,14 +21,16 @@ export const EditableImage = ({
   useEffect(() => {
     let isMounted = true;
     const fetchImage = async () => {
-      const { data, error } = await supabase
+      // id অথবা key যেকোনো একটি দিয়ে ম্যাচ করলে ডেটা টেনে আনবে
+      const { data } = await supabase
         .from('content_blocks')
-        .select('content')
-        .eq('id', id)
+        .select('*')
+        .or(`id.eq.${id},key.eq.${id}`)
         .maybeSingle();
 
-      if (!error && data?.content && isMounted) {
-        setSrc(data.content);
+      if (data && isMounted) {
+        const foundUrl = data.content || data.value;
+        if (foundUrl) setSrc(foundUrl);
       }
     };
     fetchImage();
@@ -42,12 +44,13 @@ export const EditableImage = ({
     const fileExt = file.name.split('.').pop();
     const fileName = `${id.replace(/[^a-zA-Z0-9]/g, '_')}_${Date.now()}.${fileExt}`;
 
+    // স্টোরেজে আপলোড
     const { error: uploadError } = await supabase.storage
       .from('gallery')
       .upload(fileName, file, { cacheControl: '3600', upsert: true });
 
     if (uploadError) {
-      alert('ইমেজ স্টোরেজে আপলোড করতে সমস্যা হয়েছে: ' + uploadError.message);
+      alert('স্টোরেজে আপলোড সমস্যা: ' + uploadError.message);
       setUploading(false);
       return;
     }
@@ -56,18 +59,30 @@ export const EditableImage = ({
       .from('gallery')
       .getPublicUrl(fileName);
 
-    // ডাটাবেজে পার্মানেন্টলি সেভ করা
-    const { error: dbError } = await supabase.from('content_blocks').upsert({
-      id,
+    // key এবং id উভয় ফিল্ডেই ভ্যালু পাঠানো হলো যাতে not-null constraint কোনোভাবেই এরর না দেয়
+    const payload: Record<string, any> = {
+      key: id,
+      id: id,
+      value: publicUrl,
       content: publicUrl,
       updated_at: new Date().toISOString(),
-    });
+    };
 
+    const { error: dbError } = await supabase
+      .from('content_blocks')
+      .upsert(payload, { onConflict: 'key' });
+
+    // যদি key তে প্রাইমারি কি থাকে তবে ওপরেরটা সেভ হবে, অন্যথায় id তে চেষ্টা করবে
     if (dbError) {
-      alert('ডাটাবেজে সেভ হতে সমস্যা হয়েছে: ' + dbError.message);
-    } else {
-      setSrc(publicUrl);
+      const retry = await supabase.from('content_blocks').upsert(payload, { onConflict: 'id' });
+      if (retry.error) {
+        alert('ডাটাবেজে সেভ হতে সমস্যা হয়েছে: ' + (retry.error.message || dbError.message));
+        setUploading(false);
+        return;
+      }
     }
+
+    setSrc(publicUrl);
     setUploading(false);
   };
 
