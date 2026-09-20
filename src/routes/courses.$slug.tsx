@@ -1,53 +1,51 @@
 import { EditableImage } from "@/components/cms/EditableImage";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { 
-  Lock, 
-  Play, 
-  Check, 
-  ArrowLeft, 
-  CalendarDays, 
-  Clock, 
-  User, 
-  X, 
-  Smartphone, 
-  Mail, 
-  Hash,
-  Radio, 
-  MessageSquare, 
-  Briefcase, 
-  Gift, 
-  Calendar, 
-  Send, 
-  CheckCircle2, 
-  Copy, 
+import {
+  Lock,
+  Play,
+  Check,
+  ArrowLeft,
+  CalendarDays,
+  Clock,
+  User,
+  X,
+  Radio,
+  MessageSquare,
+  Briefcase,
+  Gift,
+  Calendar,
+  Send,
+  CheckCircle2,
+  Copy,
   Sparkles,
-  ArrowRight
-} from "lucide-react";import { SiteShell, COURSES } from "../components/site/sections";
+  ArrowRight,
+} from "lucide-react";
+import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { EditableText } from "@/components/cms/EditableText";
 
-function EnrollmentModal({ 
-  courseSlug, 
-  onClose, 
-  onSuccess 
-}: { 
-  courseSlug: string; 
-  onClose: () => void; 
-  onSuccess?: () => void; 
+function EnrollmentModal({
+  courseSlug,
+  onClose,
+  onSuccess,
+}: {
+  courseSlug: string;
+  onClose: () => void;
+  onSuccess?: () => void;
 }) {
   const [copied, setCopied] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
-    fullName: '',
-    phone: '',
-    email: '',
-    method: 'bKash',
-    trxId: ''
+    fullName: "",
+    phone: "",
+    email: "",
+    method: "bKash",
+    trxId: "",
   });
 
-  // আপনার বিকাশ/নগদ পার্সোনাল নম্বর ও সাপোর্ট হোয়াটসঅ্যাপ নম্বর
+  // আপনার বিকাশ/নগদ ও হোয়াটসঅ্যাপ নম্বর
   const paymentNumber = "01790055690";
   const supportWhatsapp = "880101410341220";
 
@@ -67,32 +65,18 @@ function EnrollmentModal({
     const message = `Hello growVelo, I have sent an enrollment request for Batch 03.
 Name: ${formData.fullName}
 Phone: ${formData.phone}
-Email: ${formData.email || 'N/A'}
+Email: ${formData.email || "N/A"}
 Method: ${formData.method}
 TrxID: ${formData.trxId}`;
 
     const whatsappUrl = `https://wa.me/${supportWhatsapp}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, "_blank");
     setIsSubmitted(true);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
-      <div className="sticky-card tint-brand relative w-full max-w-md overflow-hidden p-6 sm:p-8">
-        <button onClick={onClose} className="absolute right-4 top-4 text-foreground/40 hover:text-foreground">
-          <X className="h-5 w-5" />
-        </button>
-        <h2 className="font-display text-xl font-bold">কোর্সে এনরোল করুন</h2>
-        <p className="mt-2 text-sm text-foreground/60">বিকাশ পেমেন্ট করার পর নিচের ফর্মটি পূরণ করুন।</p>
-        
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-foreground/50">Email Address</label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/30" />
-              return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div 
+      <div
         className="glass-strong rounded-3xl max-w-lg w-full p-6 border border-border/80 shadow-2xl relative max-h-[92vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
@@ -129,7 +113,7 @@ TrxID: ${formData.trxId}`;
                   className="px-2.5 py-1 text-xs rounded-lg glass font-sans flex items-center gap-1 text-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                  {copied ? 'Copied' : 'Copy'}
+                  {copied ? "Copied" : "Copy"}
                 </button>
               </div>
             </div>
@@ -228,33 +212,119 @@ TrxID: ${formData.trxId}`;
     </div>
   );
 }
-      
+
+function CourseDetail() {
+  const { slug } = Route.useParams();
+  const course = COURSES.find((c) => c.slug === slug)!;
+  const [enrolled, setEnrolled] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showLockedModal, setShowLockedModal] = useState(false);
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
+  useEffect(() => {
+    const checkEnrollment = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
       const { data } = await supabase
-        .from('course_enrollments')
-        .select('status')
-        .eq('user_id', session.user.id)
-        .eq('course_slug', slug)
-        .eq('status', 'approved')
+        .from("course_enrollments")
+        .select("status")
+        .eq("user_id", session.user.id)
+        .eq("course_slug", slug)
+        .eq("status", "approved")
         .maybeSingle();
-      
+
       if (data) setEnrolled(true);
-
-
     };
     checkEnrollment();
   }, [slug]);
 
   const totalLessons = course.modules.reduce((n, m) => n + m.lessons.length, 0);
-  const freeLessons = course.modules.reduce((n, m) => n + m.lessons.filter((l) => l.free).length, 0);
+  const freeLessons = course.modules.reduce(
+    (n, m) => n + m.lessons.filter((l) => l.free).length,
+    0
+  );
 
   return (
     <SiteShell>
       {showModal && (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <EnrollmentModal
+          courseSlug={slug}
+          onClose={() => setShowModal(false)}
+          onSuccess={() => setShowModal(false)}
+        />
+      )}
+
+      {showLockedModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+          <div className="sticky-card tint-brand relative w-full max-w-md overflow-hidden p-6 sm:p-8">
+            <button
+              onClick={() => setShowLockedModal(false)}
+              className="absolute right-4 top-4 text-foreground/40 hover:text-foreground"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--brand)]/10 text-[var(--brand)]">
+              <Lock className="h-6 w-6" />
+            </div>
+            <h2 className="mt-4 font-display text-xl font-bold">এই লেসনটি লক করা আছে</h2>
+            <p className="mt-2 text-sm text-foreground/70">
+              পুরো কোর্সের এক্সেস পেতে এবং এই লেসনটি দেখতে আপনাকে কোর্সে এনরোল করতে হবে। এই কোর্সে আপনি পাবেন {totalLessons} টি লেসন, লাইভ সাপোর্ট এবং রিসোর্স ফাইল।
+            </p>
+            <div className="mt-8 space-y-3">
+              <button
+                onClick={() => {
+                  setShowLockedModal(false);
+                  setShowModal(true);
+                }}
+                className="gloss-btn w-full justify-center"
+              >
+                এখনই এনরোল করুন
+              </button>
+              <button
+                onClick={() => setShowLockedModal(false)}
+                className="w-full py-2 text-sm font-medium text-foreground/50 hover:text-foreground"
+              >
+                পরে দেখব
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeVideo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
+          <div className="relative aspect-video w-full max-w-4xl">
+            <button
+              onClick={() => setActiveVideo(null)}
+              className="absolute -top-10 right-0 text-white hover:text-white/70"
+            >
+              <X className="h-6 w-6" />
+            </button>
+            <iframe
+              className="h-full w-full rounded-xl"
+              src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1`}
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )}
+
+      <section className="aurora-soft min-h-screen py-10 sm:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Link
+            to="/courses"
+            className="mono-readout mb-8 inline-flex items-center gap-2 transition-opacity hover:opacity-70"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" /> All courses
+          </Link>
+
+          {/* ================= আপগ্রেডেড টপ ফোল্ড (Hero & Sticky Card) ================= */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
             {/* বামপাশ: ভ্যালু প্রোপজিশন ও ডিটেইলস */}
             <div className="lg:col-span-7 flex flex-col space-y-6">
-              
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass border border-primary/20 bg-primary/5 w-fit shadow-xs">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -322,17 +392,15 @@ TrxID: ${formData.trxId}`;
                   </div>
                 </div>
               </div>
-
             </div>
 
             {/* ডানপাশ: স্টিকি কার্ড */}
             <div className="lg:col-span-5 lg:sticky lg:top-24">
               <div className="glass-strong rounded-3xl p-5 sm:p-6 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
-                
                 <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-6">
                   <EditableImage
                     id={`course.thumb.${course.slug}`}
-                    defaultSrc={course.thumb?.startsWith('http') ? course.thumb : ''}
+                    defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
                     alt="Batch 03 Preview"
                     className="w-full h-full"
                     imgClassName="transition-transform duration-500 group-hover:scale-105"
@@ -351,10 +419,14 @@ TrxID: ${formData.trxId}`;
 
                 <div className="flex items-baseline justify-between mb-5">
                   <div className="flex items-baseline gap-3">
-                    <span className="text-3xl sm:text-4xl font-black tracking-tight text-foreground">৳৩,০০০</span>
-                    <span className="text-base text-muted-foreground line-through decoration-destructive/70 decoration-2 font-medium">
-                      ৳৫,০০০
+                    <span className="text-3xl sm:text-4xl font-black tracking-tight text-foreground">
+                      <EditableText id={`course.${course.slug}.price`}>{course.price}</EditableText>
                     </span>
+                    {course.oldPrice && (
+                      <span className="text-base text-muted-foreground line-through decoration-destructive/70 decoration-2 font-medium">
+                        <EditableText id={`course.${course.slug}.oldPrice`}>{course.oldPrice}</EditableText>
+                      </span>
+                    )}
                   </div>
                   <span className="font-bangla px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/15 text-primary border border-primary/20">
                     ৪০% ছাড় (সীমিত সময়)
@@ -366,19 +438,25 @@ TrxID: ${formData.trxId}`;
                     <span className="flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-primary" /> ব্যাচ শুরু
                     </span>
-                    <span className="font-semibold text-foreground">১৫ অক্টোবর, ২০২৬</span>
+                    <span className="font-semibold text-foreground">
+                      <EditableText id={`course.${course.slug}.info.1`}>{course.start}</EditableText>
+                    </span>
                   </div>
                   <div className="flex items-center justify-between text-muted-foreground">
                     <span className="flex items-center gap-2">
                       <Clock className="w-4 h-4 text-primary" /> সময়কাল
                     </span>
-                    <span className="font-semibold text-foreground">৩০ দিন ইনটেনসিভ সেশন</span>
+                    <span className="font-semibold text-foreground">
+                      <EditableText id={`course.${course.slug}.info.2`}>{course.length}</EditableText>
+                    </span>
                   </div>
                   <div className="flex items-center justify-between text-muted-foreground">
                     <span className="flex items-center gap-2">
                       <User className="w-4 h-4 text-primary" /> মেন্টর
                     </span>
-                    <span className="font-semibold text-foreground">Muhammad Ataullah</span>
+                    <span className="font-semibold text-foreground">
+                      <EditableText id={`course.${course.slug}.info.3`}>{course.instructor}</EditableText>
+                    </span>
                   </div>
                   <div className="flex items-center justify-between text-muted-foreground">
                     <span className="flex items-center gap-2">
@@ -394,149 +472,91 @@ TrxID: ${formData.trxId}`;
                   </div>
                 </div>
 
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.99] transition-all duration-150"
-                >
-                  <span>Enroll in Batch 03 Now</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                {enrolled ? (
+                  <Link
+                    to="/courses/$slug/lessons/$lessonId"
+                    params={{ slug, lessonId: "intro" }}
+                    className="gloss-btn w-full justify-center !py-4 text-base font-bold"
+                  >
+                    Access Unlocked • Start Learning
+                  </Link>
+                ) : (
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.99] transition-all duration-150"
+                  >
+                    <span>Enroll in Batch 03 Now</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                )}
 
                 <p className="mt-3 text-center text-[11px] text-muted-foreground flex items-center justify-center gap-1.5 font-bangla">
                   <Sparkles className="w-3.5 h-3.5 text-primary" />
                   ক্লিক করলেই হোয়াটসঅ্যাপে সরাসরি সিট কনফার্মেশন রিকোয়েস্ট যাবে
                 </p>
-
               </div>
             </div>
 
           </div>
-            {/* Right Column: Pricing & Enrollment */}
-            <div className="flex flex-col gap-6">
-              <div className="sticky-card tint-mint h-fit p-6 sm:p-8 lg:sticky lg:top-28">
-                <div className="flex items-baseline gap-3">
-                   <span className="font-display text-4xl font-bold"><EditableText id={`course.${course.slug}.price`}>{course.price}</EditableText></span>
-                  {course.oldPrice && (
-                    <span className="text-lg text-foreground/40 line-through decoration-coral/30">
-                       <EditableText id={`course.${course.slug}.oldPrice`}>{course.oldPrice}</EditableText>
-                    </span>
-                  )}
-                </div>
-                
-                <div className="mt-8 space-y-4">
-                  {[
-                    { icon: CalendarDays, text: course.start },
-                    { icon: Clock, text: course.length },
-                    { icon: User, text: course.instructor },
-                    { icon: Play, text: `${totalLessons} lessons · ${freeLessons} free preview` }
-                  ].map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-3 text-sm font-medium text-foreground/70">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60">
-                        <item.icon className="h-4 w-4" />
-                      </div>
-                       <EditableText id={`course.${course.slug}.info.${idx + 1}`}>{item.text}</EditableText>
-                    </div>
-                  ))}
-                </div>
 
-                <div className="mt-10">
-                  {enrolled ? (
-                    <Link
-                      to="/courses/$slug/lessons/$lessonId"
-                      params={{ slug, lessonId: 'intro' }}
-                      className="gloss-btn w-full justify-center !py-4 text-base font-bold"
-                    >
-                      ✅ Access Unlocked - Start Learning
-                    </Link>
-                  ) : (
-                    <div className="space-y-4">
-                      <button 
-                        onClick={async () => {
-                          const { data: { session } } = await supabase.auth.getSession();
-                          if (!session) {
-                            toast.error("অনুগ্রহ করে আগে লগইন করুন।");
-                            const currentPath = window.location.pathname;
-                            window.location.href = `/auth?redirect=${encodeURIComponent(currentPath)}`;
-                            return;
-                          }
-                          if (slug === 'video-editing-batch-3') {
-                            setShowModal(true);
-                          }
-                        }}
-                        disabled={slug !== 'video-editing-batch-3'}
-                        className={`gloss-btn w-full justify-center !py-4 text-base font-bold ${slug !== 'video-editing-batch-3' ? 'grayscale opacity-70 cursor-not-allowed' : ''}`}
-                      >
-                       <EditableText id={`course.${course.slug}.enrollCta`}>{slug === 'video-editing-bootcamp' ? 'Batch Completed' : slug === 'video-editing-batch-2' ? 'Batch Running' : 'Enroll Now'}</EditableText>
-                      </button>
-                    </div>
-                  )}
-
-                </div>
-              </div>
-            </div>
-          </div>
-
-
+          {/* ================= কারিকুলাম সেকশন ================= */}
           <div className="mt-16 sm:mt-24">
-             <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl"><EditableText id={`course.${course.slug}.curriculum.heading`}>Course curriculum</EditableText></h2>
-             <p className="mono-readout mt-2"><EditableText id={`course.${course.slug}.curriculum.summary`}>{`${course.modules.length} modules · ${totalLessons} lessons`}</EditableText></p>
-
+            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
+              <EditableText id={`course.${course.slug}.curriculum.heading`}>
+                {course.curriculumHeading || "Course curriculum"}
+              </EditableText>
+            </h2>
+            <p className="mono-readout mt-2">
+              <EditableText id={`course.${course.slug}.curriculum.summary`}>
+                {`${course.modules.length} modules • ${totalLessons} lessons`}
+              </EditableText>
+            </p>
 
             <div className="mt-6 space-y-5">
-             {course.modules.map((m, moduleIndex) => (
+              {course.modules.map((m, moduleIndex) => (
                 <div key={m.title} className="sticky-card p-4 sm:p-5">
-                   <div className="font-display text-base font-semibold"><EditableText id={`course.${course.slug}.module.${moduleIndex + 1}.title`}>{m.title}</EditableText></div>
+                  <div className="font-display text-base font-semibold">
+                    <EditableText id={`course.${course.slug}.module.${moduleIndex + 1}.title`}>
+                      {m.title}
+                    </EditableText>
+                  </div>
                   <div className="mt-3 divide-y divide-foreground/10">
                     {m.lessons.map((l: any) => {
                       const open = l.free || enrolled;
                       return (
-                        <div 
-                          key={l.title} 
-                          onClick={(e) => {
+                        <div
+                          key={l.title}
+                          onClick={() => {
                             if (open) {
-                              // If it's a real lesson, we could navigate, or just use the preview if it's the bootcamp
-                              // For Batch 03, we definitely want to navigate to the lesson page
-                              if (slug === 'video-editing-batch-3') {
-                                // Handled by inner button or direct click
-                              } else {
-                                l.videoId && setActiveVideo(l.videoId);
-                              }
+                              l.videoId && setActiveVideo(l.videoId);
                             } else {
                               setShowLockedModal(true);
                             }
                           }}
-                          className={`flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:py-3 sm:gap-3 group transition-colors cursor-pointer hover:bg-foreground/5`}
+                          className="flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:py-3 sm:gap-3 group transition-colors cursor-pointer"
                         >
-
                           <div className="flex items-center gap-3 min-w-0 flex-1">
                             <div
                               className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all group-active:scale-90 ${
-                                open ? "bg-[var(--brand)]/15 text-[var(--brand)] group-hover:scale-110" : "bg-foreground/5 text-foreground/30"
+                                open
+                                  ? "bg-[var(--brand)]/15 text-[var(--brand)] group-hover:scale-110"
+                                  : "bg-foreground/5 text-foreground/30"
                               }`}
                             >
                               {open ? <Play className="h-4 w-4 fill-current" /> : <Lock className="h-4 w-4" />}
                             </div>
-                            <span className={`text-sm font-medium leading-tight sm:text-base line-clamp-2 transition-colors ${
-                              open ? "text-foreground group-hover:text-[var(--brand)]" : "text-foreground/40"
-                            }`}>
+                            <span
+                              className={`text-sm font-medium leading-tight sm:text-base line-clamp-2 transition-colors ${
+                                open ? "text-foreground group-hover:text-[var(--brand)]" : "text-foreground/40"
+                              }`}
+                            >
                               {l.title}
                             </span>
                           </div>
-                          
-                          <div className="flex items-center justify-between pl-[52px] sm:ml-auto sm:pl-0 sm:shrink-0">
-                            {enrolled && (
-                              <Link
-                                to="/courses/$slug/lessons/$lessonId"
-                                params={{ slug, lessonId: 'intro' }}
-                                className="gloss-btn-ghost !py-1.5 !px-3 text-[10px] font-bold"
-                              >
-                                Watch Lesson
-                              </Link>
-                            )}
+                          <div className="flex items-center justify-between pl-[52px] sm:ml-auto sm:pl-8 sm:shrink-0">
                             {l.free && !enrolled && (
-                              <span className="rounded-full bg-[var(--mint)]/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--mint)] ring-1 ring-[var(--mint)]/20">
+                              <span className="rounded-full bg-[var(--mint)]/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--mint)]">
                                 Free
-
                               </span>
                             )}
                             <span className="mono-readout text-xs font-semibold text-foreground/40 sm:ml-4">
@@ -545,13 +565,13 @@ TrxID: ${formData.trxId}`;
                           </div>
                         </div>
                       );
-
                     })}
                   </div>
                 </div>
               ))}
             </div>
           </div>
+
         </div>
       </section>
     </SiteShell>
@@ -565,7 +585,7 @@ export const Route = createFileRoute("/courses/$slug")({
   },
   head: ({ params }) => {
     const c = COURSES.find((x) => x.slug === params.slug);
-    const title = c ? `${c.title} — growVelo Courses` : "Course — growVelo";
+    const title = c ? `${c.title} • growVelo Courses` : "Course • growVelo";
     const description = c?.desc ?? "growVelo editing course details.";
     return {
       meta: [
@@ -581,16 +601,20 @@ export const Route = createFileRoute("/courses/$slug")({
   notFoundComponent: () => (
     <SiteShell>
       <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-        <h1 className="font-display text-2xl font-semibold">Course পাওয়া যায়নি</h1>
-        <Link to="/courses" className="gloss-btn mt-6 inline-flex">Back to courses</Link>
+        <h1 className="font-display text-2xl font-semibold">Course পাওয়া যায়নি</h1>
+        <Link to="/courses" className="gloss-btn mt-6 inline-flex">
+          Back to courses
+        </Link>
       </div>
     </SiteShell>
   ),
   errorComponent: () => (
     <SiteShell>
       <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-        <h1 className="font-display text-2xl font-semibold">কিছু একটা সমস্যা হয়েছে</h1>
-        <Link to="/courses" className="gloss-btn mt-6 inline-flex">Back to courses</Link>
+        <h1 className="font-display text-2xl font-semibold">কিছু একটা সমস্যা হয়েছে</h1>
+        <Link to="/courses" className="gloss-btn mt-6 inline-flex">
+          Back to courses
+        </Link>
       </div>
     </SiteShell>
   ),
