@@ -3,19 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAdminSession } from '@/hooks/useAdminSession';
 import { Upload } from 'lucide-react';
 
-// ইমেজ অপ্টিমাইজেশন ফাংশন: ছবিকে স্বয়ংক্রিয়ভাবে ছোট সাইজ ও দ্রুতগতির WebP ফরম্যাটে রূপান্তর করে
-function getOptimizedImageUrl(url: string, width = 800) {
-  if (!url || typeof url !== 'string') return url;
-  if (!url.includes('supabase.co/storage/v1/object/public/')) return url;
-  
-  // Supabase Image Transformation API ব্যবহার করে ভারী ছবিকে ৫০-৮০ কিলোবাইটে নামিয়ে আনা
-  return (
-    url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/') +
-    `?width=${width}&quality=80&format=webp`
-  );
-}
-
-// গ্লোবাল মেমোরি ক্যাশ (পেজ পরিবর্তনে শূন্য মিলিসেকেন্ড ডিলে)
+// গ্লোবাল মেমোরি ক্যাশ (পেজ পরিবর্তনে ব্লিংকিং আটকানোর জন্য)
 const memoryCache: Record<string, string> = {};
 
 const getCachedUrl = (id: string, fallback?: string): string => {
@@ -56,15 +44,15 @@ export const EditableImage = ({
     let isMounted = true;
 
     const fetchImage = async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('content_blocks')
         .select('*')
         .or(`id.eq.${id},key.eq.${id}`)
         .maybeSingle();
 
-      if (data && isMounted) {
+      if (!error && data && isMounted) {
         const foundUrl = data.content || data.value;
-        if (foundUrl && foundUrl !== src) {
+        if (foundUrl) {
           setSrc(foundUrl);
           setCachedUrl(id, foundUrl);
         }
@@ -78,60 +66,68 @@ export const EditableImage = ({
   }, [id]);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
     if (!e.target.files || e.target.files.length === 0) return;
+    
     setUploading(true);
     const file = e.target.files[0];
     const fileExt = file.name.split('.').pop();
     const fileName = `${id.replace(/[^a-zA-Z0-9]/g, '_')}_${Date.now()}.${fileExt}`;
 
-    const { error: uploadError } = await supabase.storage
-      .from('gallery')
-      .upload(fileName, file, { cacheControl: '31536000', upsert: true });
+    try {
+      const { error: uploadError } = await supabase.storage
+        .from('gallery')
+        .upload(fileName, file, { cacheControl: '31536000', upsert: true });
 
-    if (uploadError) {
-      alert('স্টোরেজে আপলোড সমস্যা: ' + uploadError.message);
+      if (uploadError) {
+        alert('স্টোরেজে আপলোড সমস্যা: ' + uploadError.message);
+        setUploading(false);
+        return;
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('gallery')
+        .getPublicUrl(fileName);
+
+      const payload = {
+        key: id,
+        id: id,
+        value: publicUrl,
+        content: publicUrl,
+        updated_at: new Date().toISOString(),
+      };
+
+      const { error: dbError } = await supabase
+        .from('content_blocks')
+        .upsert(payload, { onConflict: 'key' });
+
+      if (dbError) {
+        await supabase.from('content_blocks').upsert(payload, { onConflict: 'id' });
+      }
+
+      // স্টেট ও লোকাল ক্যাশ আপডেট
+      setSrc(publicUrl);
+      setCachedUrl(id, publicUrl);
+    } catch (err: any) {
+      alert('আপলোড ব্যর্থ হয়েছে: ' + (err?.message || 'অজানা ত্রুটি'));
+    } finally {
       setUploading(false);
-      return;
     }
-
-    const { data: { publicUrl } } = supabase.storage
-      .from('gallery')
-      .getPublicUrl(fileName);
-
-    const payload = {
-      key: id,
-      id: id,
-      value: publicUrl,
-      content: publicUrl,
-      updated_at: new Date().toISOString(),
-    };
-
-    const { error: dbError } = await supabase
-      .from('content_blocks')
-      .upsert(payload, { onConflict: 'key' });
-
-    if (dbError) {
-      await supabase.from('content_blocks').upsert(payload, { onConflict: 'id' });
-    }
-
-    setSrc(publicUrl);
-    setCachedUrl(id, publicUrl);
-    setUploading(false);
   };
 
   return (
     <div className={`relative group inline-block overflow-hidden ${className}`}>
       {src ? (
         <img
-          src={getOptimizedImageUrl(src, 800)}
+          src={src}
           alt="Editable asset"
           loading="eager"
           decoding="async"
           className={`w-full h-full object-cover transition duration-200 ${imgClassName}`}
         />
       ) : (
-        <div className="w-full h-full bg-linear-to-br from-neutral-800 to-neutral-900 flex items-center justify-center text-xs text-white/40">
-          Loading...
+        <div className="w-full h-full bg-neutral-900/60 flex items-center justify-center text-xs text-white/40">
+          No Image
         </div>
       )}
 
