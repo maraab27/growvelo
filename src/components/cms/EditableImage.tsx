@@ -54,7 +54,7 @@ export const EditableImage = ({
           }
         }
       } catch (err) {
-        // এরর হলেও সাইট আটকে থাকবে না
+        // ফেইল করলেও ডিফল্ট ইমেজ বজায় থাকবে
       }
     };
 
@@ -118,7 +118,8 @@ export const EditableImage = ({
           alt={alt}
           loading="eager"
           decoding="async"
-          className={`w-full h-full object-cover transition-opacity duration-150 ${imgClassName}`}
+          fetchPriority="high"
+          className={`w-full h-full object-cover ${imgClassName}`}
         />
       ) : (
         <div className="w-full h-full bg-neutral-800" />
