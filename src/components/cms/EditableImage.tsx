@@ -3,10 +3,21 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAdminSession } from '@/hooks/useAdminSession';
 import { Upload } from 'lucide-react';
 
-// গ্লোবাল মেমোরি ক্যাশ — এক পেজ থেকে অন্য পেজে গেলেও এই ডেটা ব্রাউজার ধরে রাখবে
+// ইমেজ অপ্টিমাইজেশন ফাংশন: ছবিকে স্বয়ংক্রিয়ভাবে ছোট সাইজ ও দ্রুতগতির WebP ফরম্যাটে রূপান্তর করে
+function getOptimizedImageUrl(url: string, width = 800) {
+  if (!url || typeof url !== 'string') return url;
+  if (!url.includes('supabase.co/storage/v1/object/public/')) return url;
+  
+  // Supabase Image Transformation API ব্যবহার করে ভারী ছবিকে ৫০-৮০ কিলোবাইটে নামিয়ে আনা
+  return (
+    url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/') +
+    `?width=${width}&quality=80&format=webp`
+  );
+}
+
+// গ্লোবাল মেমোরি ক্যাশ (পেজ পরিবর্তনে শূন্য মিলিসেকেন্ড ডিলে)
 const memoryCache: Record<string, string> = {};
 
-// ব্রাউজারের লোকালস্টোরেজ থেকে ইনিশিয়াল ক্যাশ লোড করা
 const getCachedUrl = (id: string, fallback?: string): string => {
   if (memoryCache[id]) return memoryCache[id];
   if (typeof window !== 'undefined') {
@@ -38,8 +49,6 @@ export const EditableImage = ({
   imgClassName?: string;
 }) => {
   const { isAdmin } = useAdminSession();
-  
-  // প্রথম রেন্ডারেই ক্যাশ থেকে ইনস্ট্যান্ট ছবি তুলে আনা (০ মিলিসেকেন্ড ডিলে)
   const [src, setSrc] = useState<string>(() => getCachedUrl(id, defaultSrc));
   const [uploading, setUploading] = useState(false);
 
@@ -47,7 +56,6 @@ export const EditableImage = ({
     let isMounted = true;
 
     const fetchImage = async () => {
-      // ব্যাকগ্রাউন্ডে চেক করবে কোনো নতুন আপডেট আছে কি না
       const { data } = await supabase
         .from('content_blocks')
         .select('*')
@@ -106,7 +114,6 @@ export const EditableImage = ({
       await supabase.from('content_blocks').upsert(payload, { onConflict: 'id' });
     }
 
-    // ইনস্ট্যান্ট স্টেট ও ক্যাশ আপডেট
     setSrc(publicUrl);
     setCachedUrl(id, publicUrl);
     setUploading(false);
@@ -116,7 +123,7 @@ export const EditableImage = ({
     <div className={`relative group inline-block overflow-hidden ${className}`}>
       {src ? (
         <img
-          src={src}
+          src={getOptimizedImageUrl(src, 800)}
           alt="Editable asset"
           loading="eager"
           decoding="async"
