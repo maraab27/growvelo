@@ -6,7 +6,6 @@ import { Upload } from 'lucide-react';
 const memoryCache: Record<string, string> = {};
 
 export const EditableImage = ({
-  export const EditableImage = ({
   id,
   defaultSrc = '',
   alt = 'growVelo course preview',
@@ -21,7 +20,6 @@ export const EditableImage = ({
 }) => {
   const { isAdmin } = useAdminSession();
 
-  // ১. ডিফল্ট বা ক্যাশ ইমেজ দিয়ে তাৎক্ষণিক রেন্ডার (জিরো মিলিসেকেন্ড ডিলে)
   const [src, setSrc] = useState<string>(() => {
     if (memoryCache[id]) return memoryCache[id];
     if (typeof window !== 'undefined') {
@@ -39,7 +37,6 @@ export const EditableImage = ({
   useEffect(() => {
     let isMounted = true;
 
-    // ব্যাকগ্রাউন্ডে চেক করবে কোনো কাস্টম আপলোড আছে কি না
     const fetchImage = async () => {
       try {
         const { data } = await supabase
@@ -57,7 +54,7 @@ export const EditableImage = ({
           }
         }
       } catch (err) {
-        // ব্যাকগ্রাউন্ড রিকোয়েস্টে ফেইল করলেও ছবি যেন নষ্ট না হয়
+        // এরর হলেও সাইট আটকে থাকবে না
       }
     };
 
@@ -65,7 +62,7 @@ export const EditableImage = ({
     return () => {
       isMounted = false;
     };
-  }, [id]);
+  }, [id, src]);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
