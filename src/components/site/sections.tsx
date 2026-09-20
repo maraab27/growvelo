@@ -30,6 +30,7 @@ import {
 
 import { ThemeToggle } from "./theme-toggle";
 import { EditableText } from "../cms/EditableText";
+import { EditableImage } from "../cms/EditableImage";
 import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "../../assets/logo.png.asset.json";
 import batch01Thumbnail from "../../assets/batch-01-thumbnail.png.asset.json";
@@ -155,7 +156,7 @@ export function Nav({ session }: { session?: any }) {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 10px -4px color-mix(in oklab, var(--brand) 40%, transparent)",
               }}
             >
-              <img src={logoAsset.url} alt="growVelo" className="h-full w-full object-cover" />
+              <EditableImage id="global.site.logo" defaultSrc={logoAsset.url} className="h-full w-full" imgClassName="h-full w-full object-cover" />
             </div>
             <span className="truncate font-display text-base font-semibold tracking-tight sm:text-lg">
               <EditableText id="nav.brand.prefix">grow</EditableText><EditableText id="nav.brand.accent" className="grad-text">Velo</EditableText>
@@ -370,11 +371,12 @@ export function Hero() {
                     <Sparkles className="h-5 w-5 text-lemon-500" /> <EditableText id="hero.instructor.heading">Instructor</EditableText>
                   </h4>
                   <div className="mt-4 flex items-center gap-4">
-                    <img
-                      src={instructorAtaullahNew.url}
-                      alt="Muhammad Ataullah"
-                      className="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-white shadow-sm"
-                    />
+                    <EditableImage
+  id="mentor.avatar.main"
+  defaultSrc={instructorAtaullahNew.url}
+  className="h-12 w-12 shrink-0 rounded-full ring-2 ring-white shadow-sm"
+  imgClassName="rounded-full object-cover"
+/>
                     <div className="min-w-0">
                       <div className="font-display text-base font-semibold leading-tight"><EditableText id="hero.instructor.name">Muhammad Ataullah</EditableText></div>
                       <div className="mono-readout truncate text-[10px]"><EditableText id="hero.instructor.role">Lead Mentor</EditableText></div>
@@ -1401,7 +1403,7 @@ export function Footer() {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5), 0 8px 16px -4px color-mix(in oklab, var(--brand) 50%, transparent)",
               }}
             >
-              <img src={logoAsset.url} alt="growVelo" className="h-full w-full object-cover" />
+              <EditableImage id="global.site.logo" defaultSrc={logoAsset.url} className="h-full w-full" imgClassName="h-full w-full object-cover" />
             </div>
             <div>
               <div className="font-display text-lg font-semibold">
