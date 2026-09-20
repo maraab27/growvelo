@@ -90,64 +90,144 @@ TrxID: ${formData.trxId}`;
             <label className="text-xs font-semibold uppercase tracking-wider text-foreground/50">Email Address</label>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/30" />
-              <input 
-                required type="email" value={email} onChange={e => setEmail(e.target.value)}
-                readOnly
-                className="w-full rounded-xl bg-white/50 py-2.5 pl-10 pr-4 text-sm ring-1 ring-black/5 focus:outline-hidden focus:ring-[var(--brand)]/50 opacity-70 cursor-not-allowed"
-                placeholder="yourname@gmail.com"
+              return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+      <div 
+        className="glass-strong rounded-3xl max-w-lg w-full p-6 border border-border/80 shadow-2xl relative max-h-[92vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-2 rounded-full glass text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
 
-              />
+        {!isSubmitted ? (
+          <>
+            <div className="mb-5">
+              <h3 className="font-bangla text-xl font-bold text-foreground">
+                ব্যাচ ৩-এ আপনার আসন নিশ্চিত করুন
+              </h3>
+              <p className="font-bangla text-xs text-muted-foreground mt-1">
+                নিচের নম্বরে ফি সেন্ড মানি করে ফর্মটি পূরণ করে সাবমিট করুন।
+              </p>
             </div>
-          </div>
 
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-foreground/50">bKash Number (From where you paid)</label>
-            <div className="relative">
-              <Smartphone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/30" />
-              <input 
-                required type="text" value={bkashNumber} onChange={e => setBkashNumber(e.target.value)}
-                className="w-full rounded-xl bg-white/50 py-2.5 pl-10 pr-4 text-sm ring-1 ring-black/5 focus:outline-hidden focus:ring-[var(--brand)]/50"
-                placeholder="01XXXXXXXXX"
-              />
+            <div className="glass rounded-2xl p-3.5 border border-primary/20 bg-primary/5 mb-5 space-y-2">
+              <div className="flex items-center justify-between text-xs font-semibold">
+                <span className="font-bangla text-foreground">bKash / Nagad (Personal)</span>
+                <span className="text-primary font-mono">৳৩,০০০</span>
+              </div>
+              <div className="flex items-center justify-between gap-2 bg-background/50 p-2 rounded-xl border border-border/50">
+                <code className="text-xs sm:text-sm font-mono font-bold tracking-wider text-foreground">
+                  {paymentNumber}
+                </code>
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  className="px-2.5 py-1 text-xs rounded-lg glass font-sans flex items-center gap-1 text-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+                >
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? 'Copied' : 'Copy'}
+                </button>
+              </div>
             </div>
-          </div>
 
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-foreground/50">Transaction ID (TrxID)</label>
-            <div className="relative">
-              <Hash className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/30" />
-              <input 
-                required type="text" value={transactionId} onChange={e => setTransactionId(e.target.value)}
-                className="w-full rounded-xl bg-white/50 py-2.5 pl-10 pr-4 text-sm ring-1 ring-black/5 focus:outline-hidden focus:ring-[var(--brand)]/50"
-                placeholder="AKJ7HS8D..."
-              />
+            <form onSubmit={handleSubmit} className="space-y-3.5 font-bangla text-xs">
+              <div>
+                <label className="block text-foreground font-medium mb-1">আপনার পূর্ণ নাম *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Mahim Maraab"
+                  value={formData.fullName}
+                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-foreground font-medium mb-1">সচল হোয়াটসঅ্যাপ নম্বর *</label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="01XXXXXXXXX"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs"
+                  />
+                </div>
+                <div>
+                  <label className="block text-foreground font-medium mb-1">ইমেইল এড্রেস</label>
+                  <input
+                    type="email"
+                    placeholder="name@example.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-foreground font-medium mb-1">পেমেন্ট মাধ্যম *</label>
+                  <select
+                    value={formData.method}
+                    onChange={(e) => setFormData({ ...formData, method: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs bg-background"
+                  >
+                    <option value="bKash">bKash Personal</option>
+                    <option value="Nagad">Nagad Personal</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-foreground font-medium mb-1">Transaction ID (TrxID) *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. BL92XK82"
+                    value={formData.trxId}
+                    onChange={(e) => setFormData({ ...formData, trxId: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs font-mono uppercase"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full mt-4 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm flex items-center justify-center gap-2 shadow-md hover:brightness-110 active:scale-[0.99] transition-all"
+              >
+                <Send className="w-4 h-4" />
+                <span>কনফার্মেশন মেসেজ পাঠান</span>
+              </button>
+            </form>
+          </>
+        ) : (
+          <div className="py-8 text-center space-y-4">
+            <div className="w-14 h-14 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mx-auto">
+              <CheckCircle2 className="w-8 h-8" />
             </div>
+            <h3 className="font-bangla text-lg font-bold text-foreground">
+              রিকোয়েস্ট প্রস্তুত হয়েছে!
+            </h3>
+            <p className="font-bangla text-xs text-muted-foreground max-w-sm mx-auto leading-relaxed">
+              হোয়াটসঅ্যাপ ওপেন হয়েছে। মেসেজটি পাঠিয়ে দিলে আমাদের টিম দ্রুত পেমেন্ট ভেরিফাই করে আপনাকে অ্যাক্সেস দিয়ে দেবে।
+            </p>
+            <button
+              onClick={onClose}
+              className="px-6 py-2.5 rounded-xl glass text-xs font-semibold text-foreground hover:bg-muted transition-colors"
+            >
+              উইন্ডো বন্ধ করুন
+            </button>
           </div>
-
-          <button 
-            type="submit" disabled={loading}
-            className="gloss-btn w-full justify-center disabled:opacity-50"
-          >
-            {loading ? "জমা হচ্ছে..." : "এনরোলমেন্ট রিকোয়েস্ট পাঠান"}
-          </button>
-        </form>
+        )}
       </div>
     </div>
   );
 }
-
-function CourseDetail() {
-  const { slug } = Route.useParams();
-  const course = COURSES.find((c) => c.slug === slug)!;
-  const [enrolled, setEnrolled] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [showLockedModal, setShowLockedModal] = useState(false);
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
-
-  useEffect(() => {
-    const checkEnrollment = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return;
       
       const { data } = await supabase
         .from('course_enrollments')
