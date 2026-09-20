@@ -10,18 +10,17 @@ export const EditableImage = ({
   imgClassName = '',
 }: {
   id: string;
-  defaultSrc: string;
+  defaultSrc?: string;
   className?: string;
   imgClassName?: string;
 }) => {
   const { isAdmin } = useAdminSession();
-  const [src, setSrc] = useState(defaultSrc);
+  const [src, setSrc] = useState(defaultSrc || '');
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
     const fetchImage = async () => {
-      // id অথবা key যেকোনো একটি দিয়ে ম্যাচ করলে ডেটা টেনে আনবে
       const { data } = await supabase
         .from('content_blocks')
         .select('*')
@@ -44,7 +43,6 @@ export const EditableImage = ({
     const fileExt = file.name.split('.').pop();
     const fileName = `${id.replace(/[^a-zA-Z0-9]/g, '_')}_${Date.now()}.${fileExt}`;
 
-    // স্টোরেজে আপলোড
     const { error: uploadError } = await supabase.storage
       .from('gallery')
       .upload(fileName, file, { cacheControl: '3600', upsert: true });
@@ -59,8 +57,7 @@ export const EditableImage = ({
       .from('gallery')
       .getPublicUrl(fileName);
 
-    // key এবং id উভয় ফিল্ডেই ভ্যালু পাঠানো হলো যাতে not-null constraint কোনোভাবেই এরর না দেয়
-    const payload: Record<string, any> = {
+    const payload = {
       key: id,
       id: id,
       value: publicUrl,
@@ -72,14 +69,8 @@ export const EditableImage = ({
       .from('content_blocks')
       .upsert(payload, { onConflict: 'key' });
 
-    // যদি key তে প্রাইমারি কি থাকে তবে ওপরেরটা সেভ হবে, অন্যথায় id তে চেষ্টা করবে
     if (dbError) {
-      const retry = await supabase.from('content_blocks').upsert(payload, { onConflict: 'id' });
-      if (retry.error) {
-        alert('ডাটাবেজে সেভ হতে সমস্যা হয়েছে: ' + (retry.error.message || dbError.message));
-        setUploading(false);
-        return;
-      }
+      await supabase.from('content_blocks').upsert(payload, { onConflict: 'id' });
     }
 
     setSrc(publicUrl);
@@ -88,21 +79,35 @@ export const EditableImage = ({
 
   return (
     <div className={`relative group inline-block overflow-hidden ${className}`}>
-      <img
-        src={src}
-        alt="Editable asset"
-        className={`w-full h-full object-cover transition duration-200 ${imgClassName}`}
-      />
+      {src ? (
+        <img
+          src={src}
+          alt="Course Thumbnail"
+          className={`w-full h-full object-cover transition duration-200 ${imgClassName}`}
+        />
+      ) : (
+        <div className="w-full h-full bg-linear-to-br from-neutral-800 to-neutral-900 flex items-center justify-center text-xs text-white/40">
+          No Image
+        </div>
+      )}
+
       {isAdmin && (
-        <label className="absolute inset-0 bg-black/60 text-white flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20 backdrop-blur-xs p-1">
-          <Upload className="w-4 h-4 mb-0.5 text-white" />
-          <span className="text-[10px] font-sans font-bold">
+        <label
+          onClick={(e) => {
+            // কার্ডের ভেতরে চলে যাওয়া আটকানোর ম্যাজিক লাইন
+            e.stopPropagation();
+          }}
+          className="absolute inset-0 bg-black/60 text-white flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-30 backdrop-blur-xs p-1"
+        >
+          <Upload className="w-5 h-5 mb-1 text-white" />
+          <span className="text-xs font-sans font-bold">
             {uploading ? 'আপলোড হচ্ছে...' : 'Change'}
           </span>
           <input
             type="file"
             accept="image/*"
             className="hidden"
+            onClick={(e) => e.stopPropagation()}
             onChange={handleUpload}
             disabled={uploading}
           />
