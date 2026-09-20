@@ -327,13 +327,19 @@ export function Hero() {
                 </div>
                 
                 <div className="relative mt-5 w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black aspect-video">
-                  <div className="absolute inset-0 bg-gradient-to-br from-coral-500/20 to-brand-500/40 mix-blend-overlay" />
-                  <div className="absolute left-3 top-3">
-                    <span className="mono-readout rounded-md bg-black/50 px-2 py-1 text-white/90 backdrop-blur-sm">
-                      <span className="rec-dot mr-1 align-middle" /> PREVIEW
-                    </span>
-                  </div>
-                </div>
+  <EditableImage 
+    id="course.thumb.video-editing-batch-3" 
+    defaultSrc={batch01Thumbnail.url} 
+    className="w-full h-full" 
+    imgClassName="w-full h-full object-cover" 
+  />
+  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-coral-500/20 to-brand-500/40 mix-blend-overlay" />
+  <div className="pointer-events-none absolute left-3 top-3 z-10">
+    <span className="mono-readout rounded-md bg-black/50 px-2 py-1 text-white/90 backdrop-blur-sm">
+      <span className="rec-dot mr-1 align-middle" /> PREVIEW
+    </span>
+  </div>
+</div>
 
                 <div className="mt-6 flex-grow">
                   <h3 className="font-display text-2xl font-bold leading-tight"><EditableText id="hero.card.title">Advanced Video Editing &amp; Retelling</EditableText></h3>
