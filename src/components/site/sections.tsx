@@ -309,9 +309,14 @@ export function Hero() {
             <a href="#latest-course" className="gloss-btn">
               <EditableText id="hero.cta.primary">Join Batch 03</EditableText> <ArrowRight className="h-5 w-5" />
             </a>
-            <a href="#latest-course" className="gloss-btn-ghost">
-              <Play className="h-5 w-5" /> <EditableText id="hero.cta.secondary">View Masterclass Details</EditableText>
-            </a>
+            <Link 
+  to="/courses/$slug" 
+  params={{ slug: "video-editing-batch-3" }} 
+  className="gloss-btn-ghost"
+>
+  <Play className="h-5 w-5" /> 
+  <EditableText id="hero.cta.secondary">View Masterclass Details</EditableText>
+</Link>
           </div>
         </div>
 
