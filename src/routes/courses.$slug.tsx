@@ -250,104 +250,167 @@ TrxID: ${formData.trxId}`;
   return (
     <SiteShell>
       {showModal && (
-        <EnrollmentModal 
-          courseSlug={slug} 
-          onClose={() => setShowModal(false)} 
-          onSuccess={() => setShowModal(false)}
-        />
-      )}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            
+            {/* বামপাশ: ভ্যালু প্রোপজিশন ও ডিটেইলস */}
+            <div className="lg:col-span-7 flex flex-col space-y-6">
+              
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass border border-primary/20 bg-primary/5 w-fit shadow-xs">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                </span>
+                <span className="text-xs sm:text-sm font-medium tracking-wide text-foreground">
+                  Batch 03 • Live Masterclass + Private Discord Community
+                </span>
+              </div>
 
-      {showLockedModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
-          <div className="sticky-card tint-brand relative w-full max-w-md overflow-hidden p-6 sm:p-8">
-            <button onClick={() => setShowLockedModal(false)} className="absolute right-4 top-4 text-foreground/40 hover:text-foreground">
-              <X className="h-5 w-5" />
-            </button>
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--brand)]/10 text-[var(--brand)]">
-              <Lock className="h-6 w-6" />
-            </div>
-            <h2 className="mt-4 font-display text-xl font-bold">এই লেসনটি লক করা আছে</h2>
-            <p className="mt-2 text-sm text-foreground/70">
-              পুরো কোর্সের এক্সেস পেতে এবং এই লেসনটি দেখতে আপনাকে কোর্সে এনরোল করতে হবে। এই কোর্সে আপনি পাবেন {totalLessons}টি লেসন, লাইভ সাপোর্ট এবং আরও অনেক কিছু।
-            </p>
-            <div className="mt-8 space-y-3">
-              <button 
-                onClick={() => {
-                  setShowLockedModal(false);
-                  setShowModal(true);
-                }}
-                className="gloss-btn w-full justify-center"
-              >
-                এখনই এনরোল করুন
-              </button>
-              <button 
-                onClick={() => setShowLockedModal(false)}
-                className="w-full py-2 text-sm font-medium text-foreground/50 hover:text-foreground"
-              >
-                পরে দেখব
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+              <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.2] text-[clamp(2rem,4vw+0.5rem,3.25rem)]">
+                ভিডিও এডিটিংকে বানান আপনার ক্যারিয়ারের <span className="text-primary bg-clip-text">সুপারপাওয়ার</span>
+              </h1>
 
-      {activeVideo && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
-          <div className="relative aspect-video w-full max-w-4xl">
-            <button 
-              onClick={() => setActiveVideo(null)} 
-              className="absolute -top-10 right-0 text-white hover:text-white/70"
-            >
-              <X className="h-6 w-6" />
-            </button>
-            <iframe
-              className="h-full w-full rounded-xl"
-              src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1`}
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-            />
-          </div>
-        </div>
-      )}
+              <p className="font-bangla text-base sm:text-lg text-muted-foreground leading-relaxed">
+                বেসিক টুলস থেকে হাই-এন্ড সিনেমাটিক স্টোরিটেলিং—রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে শিখুন প্রিমিয়ার প্রো ও আফটার ইফেক্টস।
+              </p>
 
-      <section className="aurora-soft min-h-screen py-16 sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <Link to="/courses" className="mono-readout mb-8 inline-flex items-center gap-2 transition-opacity hover:opacity-70">
-            <ArrowLeft className="h-3.5 w-3.5" /> All courses
-          </Link>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                <div className="glass p-4 rounded-2xl border border-border/50 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
+                  <div className="p-2.5 rounded-xl bg-destructive/10 text-destructive shrink-0">
+                    <Radio className="w-5 h-5 animate-pulse" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="font-bangla font-semibold text-sm text-foreground">লাইভ হ্যান্ডস-অন সেশন</h3>
+                    <p className="font-bangla text-xs text-muted-foreground leading-normal">
+                      স্ক্রিন শেয়ারে প্র্যাকটিক্যাল লার্নিং + লাইফটাইম ক্লাউড রেকর্ডিং অ্যাক্সেস।
+                    </p>
+                  </div>
+                </div>
 
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.6fr_1fr] lg:gap-12">
-            {/* Left Column: Course Main Info */}
-            <div className="flex flex-col gap-6">
-              <div className="sticky-card tint-brand overflow-hidden p-0">
-               <div className="relative aspect-video w-full overflow-hidden bg-black/10">
-  <EditableImage
-    id={`course.thumb.${course.slug}`}
-    defaultSrc={course.thumb?.startsWith('http') ? course.thumb : ''}
-    className="w-full h-full"
-    imgClassName="w-full h-full object-cover"
-  />
-</div>
-                <div className="p-6 sm:p-8">
-                   <h1 className="font-display text-2xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-                     <EditableText id={`course.${course.slug}.title`}>{course.title}</EditableText>
-                  </h1>
-                  <p className="mt-4 text-sm leading-relaxed text-foreground/75 sm:text-base">
-                     <EditableText id={`course.${course.slug}.about`}>{course.about}</EditableText>
-                  </p>
-                  
-                  <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                     {course.outcomes.map((o, index) => (
-                      <div key={o} className="flex items-start gap-3 rounded-xl bg-foreground/5 p-3 text-sm text-foreground/80 ring-1 ring-black/5">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand)]" />
-                         <EditableText id={`course.${course.slug}.outcome.${index + 1}`}>{o}</EditableText>
-                      </div>
-                    ))}
+                <div className="glass p-4 rounded-2xl border border-border/50 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
+                  <div className="p-2.5 rounded-xl bg-primary/10 text-primary shrink-0">
+                    <MessageSquare className="w-5 h-5" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="font-bangla font-semibold text-sm text-foreground">ডেডিকেটেড ডিসকর্ড সাপোর্ট</h3>
+                    <p className="font-bangla text-xs text-muted-foreground leading-normal">
+                      ২৪/৭ প্রাইভেট স্টুডেন্ট কমিউনিটি, অ্যাসাইনমেন্ট ও উইকলি মেন্টর ফিডব্যাক।
+                    </p>
+                  </div>
+                </div>
+
+                <div className="glass p-4 rounded-2xl border border-border/50 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
+                  <div className="p-2.5 rounded-xl bg-accent/20 text-foreground shrink-0">
+                    <Briefcase className="w-5 h-5" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="font-bangla font-semibold text-sm text-foreground">পোর্টফোলিও ও ক্লায়েন্ট হান্টিং</h3>
+                    <p className="font-bangla text-xs text-muted-foreground leading-normal">
+                      মার্কেটপ্লেস ও ডিরেক্ট আউটরিচে হাই-টিকেটিং ক্লায়েন্ট ডিল ক্লোজিং গাইডলাইন।
+                    </p>
+                  </div>
+                </div>
+
+                <div className="glass p-4 rounded-2xl border border-border/50 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
+                  <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 shrink-0">
+                    <Gift className="w-5 h-5" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="font-bangla font-semibold text-sm text-foreground">প্রিমিয়াম রিসোর্স প্যাক</h3>
+                    <p className="font-bangla text-xs text-muted-foreground leading-normal">
+                      ফ্রি সাউন্ড এফেক্টস (SFX) লাইব্রেরি, সিনেমাটিক LUTs ও প্রজেক্ট প্রিসেট।
+                    </p>
                   </div>
                 </div>
               </div>
+
             </div>
 
+            {/* ডানপাশ: স্টিকি কার্ড */}
+            <div className="lg:col-span-5 lg:sticky lg:top-24">
+              <div className="glass-strong rounded-3xl p-5 sm:p-6 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
+                
+                <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-6">
+                  <EditableImage
+                    id={`course.thumb.${course.slug}`}
+                    defaultSrc={course.thumb?.startsWith('http') ? course.thumb : ''}
+                    alt="Batch 03 Preview"
+                    className="w-full h-full"
+                    imgClassName="transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors">
+                    <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
+                      <Play className="w-5 h-5 fill-white ml-0.5" />
+                    </div>
+                  </div>
+                  <div className="absolute top-3 left-3">
+                    <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-black/70 text-white backdrop-blur-md border border-white/10">
+                      Curriculum Preview
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-baseline justify-between mb-5">
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-3xl sm:text-4xl font-black tracking-tight text-foreground">৳৩,০০০</span>
+                    <span className="text-base text-muted-foreground line-through decoration-destructive/70 decoration-2 font-medium">
+                      ৳৫,০০০
+                    </span>
+                  </div>
+                  <span className="font-bangla px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/15 text-primary border border-primary/20">
+                    ৪০% ছাড় (সীমিত সময়)
+                  </span>
+                </div>
+
+                <div className="space-y-3 mb-6 border-y border-border/40 py-4 font-bangla text-xs sm:text-sm">
+                  <div className="flex items-center justify-between text-muted-foreground">
+                    <span className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-primary" /> ব্যাচ শুরু
+                    </span>
+                    <span className="font-semibold text-foreground">১৫ অক্টোবর, ২০২৬</span>
+                  </div>
+                  <div className="flex items-center justify-between text-muted-foreground">
+                    <span className="flex items-center gap-2">
+                      <Clock className="w-4 h-4 text-primary" /> সময়কাল
+                    </span>
+                    <span className="font-semibold text-foreground">৩০ দিন ইনটেনসিভ সেশন</span>
+                  </div>
+                  <div className="flex items-center justify-between text-muted-foreground">
+                    <span className="flex items-center gap-2">
+                      <User className="w-4 h-4 text-primary" /> মেন্টর
+                    </span>
+                    <span className="font-semibold text-foreground">Muhammad Ataullah</span>
+                  </div>
+                  <div className="flex items-center justify-between text-muted-foreground">
+                    <span className="flex items-center gap-2">
+                      <Send className="w-4 h-4 text-primary" /> সেশন প্ল্যাটফর্ম
+                    </span>
+                    <span className="font-semibold text-foreground">Discord Live Sessions</span>
+                  </div>
+                  <div className="flex items-center justify-between text-muted-foreground">
+                    <span className="flex items-center gap-2">
+                      <Lock className="w-4 h-4 text-primary" /> অ্যাক্সেস
+                    </span>
+                    <span className="font-semibold text-foreground">আজীবন ক্লাউড ব্যাকআপ</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.99] transition-all duration-150"
+                >
+                  <span>Enroll in Batch 03 Now</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+
+                <p className="mt-3 text-center text-[11px] text-muted-foreground flex items-center justify-center gap-1.5 font-bangla">
+                  <Sparkles className="w-3.5 h-3.5 text-primary" />
+                  ক্লিক করলেই হোয়াটসঅ্যাপে সরাসরি সিট কনফার্মেশন রিকোয়েস্ট যাবে
+                </p>
+
+              </div>
+            </div>
+
+          </div>
             {/* Right Column: Pricing & Enrollment */}
             <div className="flex flex-col gap-6">
               <div className="sticky-card tint-mint h-fit p-6 sm:p-8 lg:sticky lg:top-28">
