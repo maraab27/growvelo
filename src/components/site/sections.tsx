@@ -1354,10 +1354,32 @@ export function BigCTA() {
 /* ---------- footer ---------- */
 
 const FOOTER_COLS: { title: string; links: { to: string; label: string }[] }[] = [
-  { title: "একাডেমি", links: [{ to: "/portfolio", label: "স্টুডেন্ট শোকেস" }, { to: "/editors", label: "মেন্টরস" }] },
-  { title: "শিখুন", links: [{ to: "/courses", label: "সবগুলো কোর্স" }, { to: "/reviews", label: "রিভিউ" }] },
-  { title: "পলিসি", links: [{ to: "/about", label: "আমাদের সম্পর্কে" }, { to: "/", label: "রিফান্ড পলিসি" }] },
-  { title: "কমিউনিটি", links: [{ to: "/", label: "ফেসবুক গ্রুপ" }, { to: "/", label: "ডিসকর্ড" }] },
+  {
+    title: "Academy",
+    links: [
+      { to: "/portfolio", label: "Student Showcase" },
+      { to: "/editors", label: "Mentors" },
+      { to: "/courses", label: "Curriculum" },
+      { to: "/reviews", label: "Reviews" },
+    ],
+  },
+  {
+    title: "Learning / Resources",
+    links: [
+      { to: "/courses", label: "Free Resources" },
+      { to: "/", label: "Discord Community" },
+      { to: "/#faq", label: "Masterclass FAQ" },
+    ],
+  },
+  {
+    title: "Policy / Company",
+    links: [
+      { to: "/about", label: "Privacy Policy" },
+      { to: "/about", label: "Terms of Service" },
+      { to: "/", label: "Refund Policy" },
+      { to: "/about", label: "Contact Us" },
+    ],
+  },
 ];
 
 export function Footer() {
