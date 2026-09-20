@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import {
   Lock,
   Play,
-  Check,
   ArrowLeft,
   CalendarDays,
   Clock,
@@ -14,16 +13,15 @@ import {
   MessageSquare,
   Briefcase,
   Gift,
-  Calendar,
   Send,
   CheckCircle2,
   Copy,
+  Check,
   Sparkles,
   ArrowRight,
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
 import { EditableText } from "@/components/cms/EditableText";
 
 function EnrollmentModal({
@@ -45,9 +43,8 @@ function EnrollmentModal({
     trxId: "",
   });
 
-  // আপনার বিকাশ/নগদ ও হোয়াটসঅ্যাপ নম্বর
   const paymentNumber = "01790055690";
-  const supportWhatsapp = "880101410341220";
+  const supportWhatsapp = "8801410341220";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(paymentNumber);
@@ -58,7 +55,7 @@ function EnrollmentModal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.fullName || !formData.phone || !formData.trxId) {
-      alert("অনুগ্রহ করে সব তথ্য সঠিকভাবে পূরণ করুন।");
+      alert("Please fill in all the required fields.");
       return;
     }
 
@@ -90,18 +87,18 @@ TrxID: ${formData.trxId}`;
         {!isSubmitted ? (
           <>
             <div className="mb-5">
-              <h3 className="font-bangla text-xl font-bold text-foreground">
-                ব্যাচ ৩-এ আপনার আসন নিশ্চিত করুন
+              <h3 className="font-display text-xl font-bold text-foreground">
+                Confirm Your Seat in Batch 03
               </h3>
-              <p className="font-bangla text-xs text-muted-foreground mt-1">
-                নিচের নম্বরে ফি সেন্ড মানি করে ফর্মটি পূরণ করে সাবমিট করুন।
+              <p className="text-xs text-muted-foreground mt-1 font-sans">
+                Send money to the number below and complete the verification form.
               </p>
             </div>
 
             <div className="glass rounded-2xl p-3.5 border border-primary/20 bg-primary/5 mb-5 space-y-2">
-              <div className="flex items-center justify-between text-xs font-semibold">
-                <span className="font-bangla text-foreground">bKash / Nagad (Personal)</span>
-                <span className="text-primary font-mono">৳৩,০০০</span>
+              <div className="flex items-center justify-between text-xs font-medium">
+                <span className="text-foreground">bKash / Nagad (Personal)</span>
+                <span className="text-primary font-mono font-bold">৳3,000</span>
               </div>
               <div className="flex items-center justify-between gap-2 bg-background/50 p-2 rounded-xl border border-border/50">
                 <code className="text-xs sm:text-sm font-mono font-bold tracking-wider text-foreground">
@@ -118,9 +115,9 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-3.5 font-bangla text-xs">
+            <form onSubmit={handleSubmit} className="space-y-3.5 text-xs font-sans">
               <div>
-                <label className="block text-foreground font-medium mb-1">আপনার পূর্ণ নাম *</label>
+                <label className="block text-foreground font-medium mb-1">Full Name *</label>
                 <input
                   type="text"
                   required
@@ -133,7 +130,7 @@ TrxID: ${formData.trxId}`;
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-foreground font-medium mb-1">সচল হোয়াটসঅ্যাপ নম্বর *</label>
+                  <label className="block text-foreground font-medium mb-1">WhatsApp Number *</label>
                   <input
                     type="tel"
                     required
@@ -144,7 +141,7 @@ TrxID: ${formData.trxId}`;
                   />
                 </div>
                 <div>
-                  <label className="block text-foreground font-medium mb-1">ইমেইল এড্রেস</label>
+                  <label className="block text-foreground font-medium mb-1">Email Address</label>
                   <input
                     type="email"
                     placeholder="name@example.com"
@@ -157,7 +154,7 @@ TrxID: ${formData.trxId}`;
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-foreground font-medium mb-1">পেমেন্ট মাধ্যম *</label>
+                  <label className="block text-foreground font-medium mb-1">Payment Method *</label>
                   <select
                     value={formData.method}
                     onChange={(e) => setFormData({ ...formData, method: e.target.value })}
@@ -185,7 +182,7 @@ TrxID: ${formData.trxId}`;
                 className="w-full mt-4 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm flex items-center justify-center gap-2 shadow-md hover:brightness-110 active:scale-[0.99] transition-all"
               >
                 <Send className="w-4 h-4" />
-                <span>কনফার্মেশন মেসেজ পাঠান</span>
+                <span>Send Confirmation Message</span>
               </button>
             </form>
           </>
@@ -194,17 +191,17 @@ TrxID: ${formData.trxId}`;
             <div className="w-14 h-14 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h3 className="font-bangla text-lg font-bold text-foreground">
-              রিকোয়েস্ট প্রস্তুত হয়েছে!
+            <h3 className="font-display text-lg font-bold text-foreground">
+              Request Generated!
             </h3>
-            <p className="font-bangla text-xs text-muted-foreground max-w-sm mx-auto leading-relaxed">
-              হোয়াটসঅ্যাপ ওপেন হয়েছে। মেসেজটি পাঠিয়ে দিলে আমাদের টিম দ্রুত পেমেন্ট ভেরিফাই করে আপনাকে অ্যাক্সেস দিয়ে দেবে।
+            <p className="text-xs text-muted-foreground max-w-sm mx-auto leading-relaxed font-sans">
+              WhatsApp window has been opened. Hit send and our team will verify your payment and grant instant Discord access.
             </p>
             <button
               onClick={onClose}
               className="px-6 py-2.5 rounded-xl glass text-xs font-semibold text-foreground hover:bg-muted transition-colors"
             >
-              উইন্ডো বন্ধ করুন
+              Close Window
             </button>
           </div>
         )}
@@ -267,9 +264,9 @@ function CourseDetail() {
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--brand)]/10 text-[var(--brand)]">
               <Lock className="h-6 w-6" />
             </div>
-            <h2 className="mt-4 font-display text-xl font-bold">এই লেসনটি লক করা আছে</h2>
-            <p className="mt-2 text-sm text-foreground/70">
-              পুরো কোর্সের এক্সেস পেতে এবং এই লেসনটি দেখতে আপনাকে কোর্সে এনরোল করতে হবে। এই কোর্সে আপনি পাবেন {totalLessons} টি লেসন, লাইভ সাপোর্ট এবং রিসোর্স ফাইল।
+            <h2 className="mt-4 font-display text-xl font-bold">This lesson is locked</h2>
+            <p className="mt-2 text-sm text-foreground/70 font-sans">
+              Enroll in Batch 03 to unlock all {totalLessons} lessons, live Discord sessions, and resources.
             </p>
             <div className="mt-8 space-y-3">
               <button
@@ -279,13 +276,13 @@ function CourseDetail() {
                 }}
                 className="gloss-btn w-full justify-center"
               >
-                এখনই এনরোল করুন
+                Enroll Now
               </button>
               <button
                 onClick={() => setShowLockedModal(false)}
                 className="w-full py-2 text-sm font-medium text-foreground/50 hover:text-foreground"
               >
-                পরে দেখব
+                Close
               </button>
             </div>
           </div>
@@ -311,93 +308,140 @@ function CourseDetail() {
         </div>
       )}
 
-      <section className="aurora-soft min-h-screen py-10 sm:py-16">
+      {/* হেডার ওভারল্যাপ রোধে pt-28 sm:pt-36 প্যাডিং নিশ্চিত করা হলো */}
+      <section className="aurora-soft min-h-screen pt-28 sm:pt-36 pb-16 sm:pb-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          
+          {/* Back button clearly separated below floating header */}
           <Link
             to="/courses"
-            className="mono-readout mb-8 inline-flex items-center gap-2 transition-opacity hover:opacity-70"
+            className="mono-readout mb-8 inline-flex items-center gap-2 text-sm transition-opacity hover:opacity-70 text-foreground/70"
           >
-            <ArrowLeft className="h-3.5 w-3.5" /> All courses
+            <ArrowLeft className="h-4 w-4" /> All courses
           </Link>
 
-          {/* ================= আপগ্রেডেড টপ ফোল্ড (Hero & Sticky Card) ================= */}
+          {/* ================= আপগ্রেডেড টপ ফোল্ড ================= */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
-            {/* বামপাশ: ভ্যালু প্রোপজিশন ও ডিটেইলস */}
-            <div className="lg:col-span-7 flex flex-col space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass border border-primary/20 bg-primary/5 w-fit shadow-xs">
+            {/* বামপাশ: ফুল্লি CMS এডিটেবল ভ্যালু প্রোপজিশন */}
+            <div className="lg:col-span-7 flex flex-col space-y-5">
+              
+              {/* ব্যাজ */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass border border-primary/20 bg-primary/5 w-fit shadow-xs">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                 </span>
-                <span className="text-xs sm:text-sm font-medium tracking-wide text-foreground">
-                  Batch 03 • Live Masterclass + Private Discord Community
+                <span className="text-xs font-medium tracking-wide text-foreground font-sans">
+                  <EditableText id={`course.${course.slug}.hero.badge`}>
+                    Batch 03 • Live Masterclass + Private Discord Community
+                  </EditableText>
                 </span>
               </div>
 
-              <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.2] text-[clamp(2rem,4vw+0.5rem,3.25rem)]">
-                ভিডিও এডিটিংকে বানান আপনার ক্যারিয়ারের <span className="text-primary bg-clip-text">সুপারপাওয়ার</span>
+              {/* হেডিং */}
+              <h1 className="font-display font-extrabold tracking-tight text-foreground leading-[1.18] text-[clamp(1.85rem,3.2vw+0.5rem,2.85rem)]">
+                <EditableText id={`course.${course.slug}.hero.title`}>
+                  ভিডিও এডিটিংকে বানান আপনার ক্যারিয়ারের সুপারপাওয়ার
+                </EditableText>
               </h1>
 
-              <p className="font-bangla text-base sm:text-lg text-muted-foreground leading-relaxed">
-                বেসিক টুলস থেকে হাই-এন্ড সিনেমাটিক স্টোরিটেলিং—রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে শিখুন প্রিমিয়ার প্রো ও আফটার ইফেক্টস।
+              {/* সাবটাইটেল */}
+              <p className="text-sm sm:text-base text-foreground/75 leading-relaxed font-sans">
+                <EditableText id={`course.${course.slug}.hero.subtitle`}>
+                  বেসিক টুলস থেকে হাই-এন্ড সিনেমাটিক স্টোরিটেলিং—রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে শিখুন প্রিমিয়ার প্রো ও আফটার ইফেক্টস।
+                </EditableText>
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
-                <div className="glass p-4 rounded-2xl border border-border/50 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
-                  <div className="p-2.5 rounded-xl bg-destructive/10 text-destructive shrink-0">
-                    <Radio className="w-5 h-5 animate-pulse" />
+              {/* ৪টি কোর বেনিফিট কার্ড */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                
+                {/* কার্ড ১ */}
+                <div className="glass p-3.5 rounded-2xl border border-border/50 flex items-start gap-3 hover:border-primary/30 transition duration-200">
+                  <div className="p-2 rounded-xl bg-destructive/10 text-destructive shrink-0 mt-0.5">
+                    <Radio className="w-4 h-4 animate-pulse" />
                   </div>
-                  <div className="space-y-1">
-                    <h3 className="font-bangla font-semibold text-sm text-foreground">লাইভ হ্যান্ডস-অন সেশন</h3>
-                    <p className="font-bangla text-xs text-muted-foreground leading-normal">
-                      স্ক্রিন শেয়ারে প্র্যাকটিক্যাল লার্নিং + লাইফটাইম ক্লাউড রেকর্ডিং অ্যাক্সেস।
+                  <div className="space-y-0.5">
+                    <h3 className="font-semibold text-xs text-foreground">
+                      <EditableText id={`course.${course.slug}.benefit.1.title`}>
+                        লাইভ হ্যান্ডস-অন সেশন
+                      </EditableText>
+                    </h3>
+                    <p className="text-[11px] text-muted-foreground leading-normal font-sans">
+                      <EditableText id={`course.${course.slug}.benefit.1.desc`}>
+                        স্ক্রিন শেয়ারে প্র্যাকটিক্যাল লার্নিং + লাইফটাইম ক্লাউড রেকর্ডিং অ্যাক্সেস।
+                      </EditableText>
                     </p>
                   </div>
                 </div>
 
-                <div className="glass p-4 rounded-2xl border border-border/50 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
-                  <div className="p-2.5 rounded-xl bg-primary/10 text-primary shrink-0">
-                    <MessageSquare className="w-5 h-5" />
+                {/* কার্ড ২ */}
+                <div className="glass p-3.5 rounded-2xl border border-border/50 flex items-start gap-3 hover:border-primary/30 transition duration-200">
+                  <div className="p-2 rounded-xl bg-primary/10 text-primary shrink-0 mt-0.5">
+                    <MessageSquare className="w-4 h-4" />
                   </div>
-                  <div className="space-y-1">
-                    <h3 className="font-bangla font-semibold text-sm text-foreground">ডেডিকেটেড ডিসকর্ড সাপোর্ট</h3>
-                    <p className="font-bangla text-xs text-muted-foreground leading-normal">
-                      ২৪/৭ প্রাইভেট স্টুডেন্ট কমিউনিটি, অ্যাসাইনমেন্ট ও উইকলি মেন্টর ফিডব্যাক।
+                  <div className="space-y-0.5">
+                    <h3 className="font-semibold text-xs text-foreground">
+                      <EditableText id={`course.${course.slug}.benefit.2.title`}>
+                        ডেডিকেটেড ডিসকর্ড সাপোর্ট
+                      </EditableText>
+                    </h3>
+                    <p className="text-[11px] text-muted-foreground leading-normal font-sans">
+                      <EditableText id={`course.${course.slug}.benefit.2.desc`}>
+                        ২৪/৭ প্রাইভেট স্টুডেন্ট কমিউনিটি, অ্যাসাইনমেন্ট ও উইকলি মেন্টর ফিডব্যাক।
+                      </EditableText>
                     </p>
                   </div>
                 </div>
 
-                <div className="glass p-4 rounded-2xl border border-border/50 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
-                  <div className="p-2.5 rounded-xl bg-accent/20 text-foreground shrink-0">
-                    <Briefcase className="w-5 h-5" />
+                {/* কার্ড ৩ */}
+                <div className="glass p-3.5 rounded-2xl border border-border/50 flex items-start gap-3 hover:border-primary/30 transition duration-200">
+                  <div className="p-2 rounded-xl bg-accent/20 text-foreground shrink-0 mt-0.5">
+                    <Briefcase className="w-4 h-4" />
                   </div>
-                  <div className="space-y-1">
-                    <h3 className="font-bangla font-semibold text-sm text-foreground">পোর্টফোলিও ও ক্লায়েন্ট হান্টিং</h3>
-                    <p className="font-bangla text-xs text-muted-foreground leading-normal">
-                      মার্কেটপ্লেস ও ডিরেক্ট আউটরিচে হাই-টিকেটিং ক্লায়েন্ট ডিল ক্লোজিং গাইডলাইন।
+                  <div className="space-y-0.5">
+                    <h3 className="font-semibold text-xs text-foreground">
+                      <EditableText id={`course.${course.slug}.benefit.3.title`}>
+                        পোর্টফোলিও ও ক্লায়েন্ট হান্টিং
+                      </EditableText>
+                    </h3>
+                    <p className="text-[11px] text-muted-foreground leading-normal font-sans">
+                      <EditableText id={`course.${course.slug}.benefit.3.desc`}>
+                        মার্কেটপ্লেস ও ডিরেক্ট আউটরিচে হাই-টিকেটিং ক্লায়েন্ট ডিল ক্লোজিং গাইডলাইন।
+                      </EditableText>
                     </p>
                   </div>
                 </div>
 
-                <div className="glass p-4 rounded-2xl border border-border/50 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
-                  <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 shrink-0">
-                    <Gift className="w-5 h-5" />
+                {/* কার্ড ৪ */}
+                <div className="glass p-3.5 rounded-2xl border border-border/50 flex items-start gap-3 hover:border-primary/30 transition duration-200">
+                  <div className="p-2 rounded-xl bg-amber-500/10 text-amber-500 shrink-0 mt-0.5">
+                    <Gift className="w-4 h-4" />
                   </div>
-                  <div className="space-y-1">
-                    <h3 className="font-bangla font-semibold text-sm text-foreground">প্রিমিয়াম রিসোর্স প্যাক</h3>
-                    <p className="font-bangla text-xs text-muted-foreground leading-normal">
-                      ফ্রি সাউন্ড এফেক্টস (SFX) লাইব্রেরি, সিনেমাটিক LUTs ও প্রজেক্ট প্রিসেট।
+                  <div className="space-y-0.5">
+                    <h3 className="font-semibold text-xs text-foreground">
+                      <EditableText id={`course.${course.slug}.benefit.4.title`}>
+                        প্রিমিয়াম রিসোর্স প্যাক
+                      </EditableText>
+                    </h3>
+                    <p className="text-[11px] text-muted-foreground leading-normal font-sans">
+                      <EditableText id={`course.${course.slug}.benefit.4.desc`}>
+                        ফ্রি সাউন্ড এফেক্টস (SFX) লাইব্রেরি, সিনেমাটিক LUTs ও প্রজেক্ট প্রিসেট।
+                      </EditableText>
                     </p>
                   </div>
                 </div>
+
               </div>
+
             </div>
 
-            {/* ডানপাশ: স্টিকি কার্ড */}
-            <div className="lg:col-span-5 lg:sticky lg:top-24">
+            {/* ডানপাশ: সম্পূর্ণ ইংরেজি ও নরমাল ফন্টের স্টিকি কার্ড */}
+            <div className="lg:col-span-5 lg:sticky lg:top-28">
               <div className="glass-strong rounded-3xl p-5 sm:p-6 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
-                <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-6">
+                
+                {/* প্রিভিউ ইমেজ */}
+                <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5">
                   <EditableImage
                     id={`course.thumb.${course.slug}`}
                     defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
@@ -405,95 +449,124 @@ function CourseDetail() {
                     className="w-full h-full"
                     imgClassName="transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors">
-                    <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
-                      <Play className="w-5 h-5 fill-white ml-0.5" />
+                  <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors">
+                    <div className="w-11 h-11 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
+                      <Play className="w-4 h-4 fill-white ml-0.5" />
                     </div>
                   </div>
-                  <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-black/70 text-white backdrop-blur-md border border-white/10">
-                      Curriculum Preview
+                  <div className="absolute top-2.5 left-2.5">
+                    <span className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans">
+                      <EditableText id={`course.${course.slug}.preview.badge`}>
+                        Curriculum Preview
+                      </EditableText>
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-baseline justify-between mb-5">
-                  <div className="flex items-baseline gap-3">
-                    <span className="text-3xl sm:text-4xl font-black tracking-tight text-foreground">
+                {/* প্রাইসিং ও ডিসকাউন্ট */}
+                <div className="flex items-baseline justify-between mb-4">
+                  <div className="flex items-baseline gap-2.5">
+                    <span className="text-3xl font-bold tracking-tight text-foreground">
                       <EditableText id={`course.${course.slug}.price`}>{course.price}</EditableText>
                     </span>
                     {course.oldPrice && (
-                      <span className="text-base text-muted-foreground line-through decoration-destructive/70 decoration-2 font-medium">
+                      <span className="text-sm text-foreground/45 line-through decoration-destructive/60 decoration-2 font-normal">
                         <EditableText id={`course.${course.slug}.oldPrice`}>{course.oldPrice}</EditableText>
                       </span>
                     )}
                   </div>
-                  <span className="font-bangla px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/15 text-primary border border-primary/20">
-                    ৪০% ছাড় (সীমিত সময়)
+                  <span className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20 font-sans">
+                    <EditableText id={`course.${course.slug}.discount.tag`}>
+                      40% OFF (Limited Time)
+                    </EditableText>
                   </span>
                 </div>
 
-                <div className="space-y-3 mb-6 border-y border-border/40 py-4 font-bangla text-xs sm:text-sm">
-                  <div className="flex items-center justify-between text-muted-foreground">
-                    <span className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-primary" /> ব্যাচ শুরু
-                    </span>
-                    <span className="font-semibold text-foreground">
-                      <EditableText id={`course.${course.slug}.info.1`}>{course.start}</EditableText>
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between text-muted-foreground">
-                    <span className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-primary" /> সময়কাল
-                    </span>
-                    <span className="font-semibold text-foreground">
-                      <EditableText id={`course.${course.slug}.info.2`}>{course.length}</EditableText>
+                {/* ক্লিন মেটা ইনফরমেশন তালিকা (নরমাল ফন্ট ও ইংরেজি) */}
+                <div className="space-y-2.5 mb-5 border-y border-border/40 py-3.5 font-sans text-xs">
+                  
+                  <div className="flex items-center gap-3 text-foreground/75 font-normal">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
+                      <CalendarDays className="h-3.5 w-3.5" />
+                    </div>
+                    <span>
+                      <EditableText id={`course.${course.slug}.info.1`}>
+                        {course.start || "Batch 03 • Starts Soon"}
+                      </EditableText>
                     </span>
                   </div>
-                  <div className="flex items-center justify-between text-muted-foreground">
-                    <span className="flex items-center gap-2">
-                      <User className="w-4 h-4 text-primary" /> মেন্টর
-                    </span>
-                    <span className="font-semibold text-foreground">
-                      <EditableText id={`course.${course.slug}.info.3`}>{course.instructor}</EditableText>
+
+                  <div className="flex items-center gap-3 text-foreground/75 font-normal">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
+                      <Clock className="h-3.5 w-3.5" />
+                    </div>
+                    <span>
+                      <EditableText id={`course.${course.slug}.info.2`}>
+                        {course.length || "30 days • Intensive Class"}
+                      </EditableText>
                     </span>
                   </div>
-                  <div className="flex items-center justify-between text-muted-foreground">
-                    <span className="flex items-center gap-2">
-                      <Send className="w-4 h-4 text-primary" /> সেশন প্ল্যাটফর্ম
+
+                  <div className="flex items-center gap-3 text-foreground/75 font-normal">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
+                      <User className="h-3.5 w-3.5" />
+                    </div>
+                    <span>
+                      <EditableText id={`course.${course.slug}.info.3`}>
+                        {course.instructor || "Muhammad Ataullah"}
+                      </EditableText>
                     </span>
-                    <span className="font-semibold text-foreground">Discord Live Sessions</span>
                   </div>
-                  <div className="flex items-center justify-between text-muted-foreground">
-                    <span className="flex items-center gap-2">
-                      <Lock className="w-4 h-4 text-primary" /> অ্যাক্সেস
+
+                  <div className="flex items-center gap-3 text-foreground/75 font-normal">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
+                      <Send className="h-3.5 w-3.5" />
+                    </div>
+                    <span>
+                      <EditableText id={`course.${course.slug}.info.4`}>
+                        Discord Live Sessions + Private Channel
+                      </EditableText>
                     </span>
-                    <span className="font-semibold text-foreground">আজীবন ক্লাউড ব্যাকআপ</span>
                   </div>
+
+                  <div className="flex items-center gap-3 text-foreground/75 font-normal">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
+                      <Lock className="h-3.5 w-3.5" />
+                    </div>
+                    <span>
+                      <EditableText id={`course.${course.slug}.info.5`}>
+                        Lifetime Class Recordings & Asset Backup
+                      </EditableText>
+                    </span>
+                  </div>
+
                 </div>
 
                 {enrolled ? (
                   <Link
                     to="/courses/$slug/lessons/$lessonId"
                     params={{ slug, lessonId: "intro" }}
-                    className="gloss-btn w-full justify-center !py-4 text-base font-bold"
+                    className="gloss-btn w-full justify-center !py-3.5 text-sm font-bold"
                   >
                     Access Unlocked • Start Learning
                   </Link>
                 ) : (
                   <button
                     onClick={() => setShowModal(true)}
-                    className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.99] transition-all duration-150"
+                    className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.99] transition-all duration-150 font-sans"
                   >
-                    <span>Enroll in Batch 03 Now</span>
+                    <EditableText id={`course.${course.slug}.cta.button`}>
+                      Enroll in Batch 03 Now
+                    </EditableText>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 )}
 
-                <p className="mt-3 text-center text-[11px] text-muted-foreground flex items-center justify-center gap-1.5 font-bangla">
+                <p className="mt-2.5 text-center text-[11px] text-muted-foreground flex items-center justify-center gap-1.5 font-sans">
                   <Sparkles className="w-3.5 h-3.5 text-primary" />
-                  ক্লিক করলেই হোয়াটসঅ্যাপে সরাসরি সিট কনফার্মেশন রিকোয়েস্ট যাবে
+                  Instant WhatsApp seat confirmation flow
                 </p>
+
               </div>
             </div>
 
@@ -512,7 +585,7 @@ function CourseDetail() {
               </EditableText>
             </p>
 
-            <div className="mt-6 space-y-5">
+            <div className="mt-6 space-y-4">
               {course.modules.map((m, moduleIndex) => (
                 <div key={m.title} className="sticky-card p-4 sm:p-5">
                   <div className="font-display text-base font-semibold">
@@ -533,29 +606,29 @@ function CourseDetail() {
                               setShowLockedModal(true);
                             }
                           }}
-                          className="flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:py-3 sm:gap-3 group transition-colors cursor-pointer"
+                          className="flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:py-3 sm:gap-3 group transition-colors cursor-pointer"
                         >
                           <div className="flex items-center gap-3 min-w-0 flex-1">
                             <div
-                              className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all group-active:scale-90 ${
+                              className={`grid h-9 w-9 shrink-0 place-items-center rounded-full transition-all group-active:scale-90 ${
                                 open
                                   ? "bg-[var(--brand)]/15 text-[var(--brand)] group-hover:scale-110"
                                   : "bg-foreground/5 text-foreground/30"
                               }`}
                             >
-                              {open ? <Play className="h-4 w-4 fill-current" /> : <Lock className="h-4 w-4" />}
+                              {open ? <Play className="h-3.5 w-3.5 fill-current" /> : <Lock className="h-3.5 w-3.5" />}
                             </div>
                             <span
-                              className={`text-sm font-medium leading-tight sm:text-base line-clamp-2 transition-colors ${
+                              className={`text-sm font-medium leading-tight line-clamp-2 transition-colors ${
                                 open ? "text-foreground group-hover:text-[var(--brand)]" : "text-foreground/40"
                               }`}
                             >
                               {l.title}
                             </span>
                           </div>
-                          <div className="flex items-center justify-between pl-[52px] sm:ml-auto sm:pl-8 sm:shrink-0">
+                          <div className="flex items-center justify-between pl-[48px] sm:ml-auto sm:pl-8 sm:shrink-0">
                             {l.free && !enrolled && (
-                              <span className="rounded-full bg-[var(--mint)]/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--mint)]">
+                              <span className="rounded-full bg-[var(--mint)]/20 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[var(--mint)]">
                                 Free
                               </span>
                             )}
@@ -601,7 +674,7 @@ export const Route = createFileRoute("/courses/$slug")({
   notFoundComponent: () => (
     <SiteShell>
       <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-        <h1 className="font-display text-2xl font-semibold">Course পাওয়া যায়নি</h1>
+        <h1 className="font-display text-2xl font-semibold">Course not found</h1>
         <Link to="/courses" className="gloss-btn mt-6 inline-flex">
           Back to courses
         </Link>
@@ -611,7 +684,7 @@ export const Route = createFileRoute("/courses/$slug")({
   errorComponent: () => (
     <SiteShell>
       <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-        <h1 className="font-display text-2xl font-semibold">কিছু একটা সমস্যা হয়েছে</h1>
+        <h1 className="font-display text-2xl font-semibold">Something went wrong</h1>
         <Link to="/courses" className="gloss-btn mt-6 inline-flex">
           Back to courses
         </Link>
