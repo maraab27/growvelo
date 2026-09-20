@@ -864,11 +864,14 @@ export function Instructors({ limit }: { limit?: number } = {}) {
             <div className="pin" style={pinStyle(e.pin)} />
             <div className={`sticky-card tint-${e.tint} p-8`}>
               <div className="flex items-center gap-5">
-                {e.avatar.startsWith('linear-gradient') ? (
-                  <div className="h-20 w-20 shrink-0 rounded-full ring-4 ring-white shadow-lg" style={{ background: e.avatar }} />
-                ) : (
-                  <img src={e.avatar} alt={e.name} className="h-20 w-20 shrink-0 rounded-full object-cover ring-4 ring-white shadow-lg" />
-                )}
+               <div className="h-20 w-20 shrink-0 rounded-full ring-4 ring-white shadow-lg overflow-hidden">
+  <EditableImage
+    id="mentor.avatar.main"
+    defaultSrc={e.avatar}
+    className="h-full w-full rounded-full"
+    imgClassName="h-full w-full object-cover rounded-full"
+  />
+</div>
                 <div className="min-w-0">
                   <div className="font-display text-2xl font-bold leading-tight"><EditableText id={`instructors.${e.slug}.name`}>{e.name}</EditableText></div>
                   <div className="mono-readout mt-1 text-xs"><EditableText id={`instructors.${e.slug}.role`}>{e.role}</EditableText></div>
