@@ -48,8 +48,8 @@ function EnrollmentModal({
   });
 
   // আপনার বিকাশ/নগদ পার্সোনাল নম্বর ও সাপোর্ট হোয়াটসঅ্যাপ নম্বর
-  const paymentNumber = "01XXXXXXXXX";
-  const supportWhatsapp = "8801XXXXXXXXX";
+  const paymentNumber = "01790055690";
+  const supportWhatsapp = "880101410341220";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(paymentNumber);
