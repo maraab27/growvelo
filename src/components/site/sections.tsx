@@ -1080,13 +1080,21 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
                 params={{ slug: c.slug }}
                 className={`sticky-card tint-${c.tint} block p-3 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl active:scale-[0.98] cursor-pointer group`}
               >
-                <div className="relative aspect-[16/9] overflow-hidden rounded-xl" style={{ background: c.thumb }}>
-                  <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                  <div className="absolute left-2.5 top-2.5">
-                    <Chip color={c.chipColor}><EditableText id={`courses.${c.slug}.level`}>{c.level}</EditableText></Chip>
-                  </div>
-                  <div className="absolute bottom-2.5 left-3 text-xs font-medium text-white drop-shadow-sm"><EditableText id={`courses.${c.slug}.length`}>{c.length}</EditableText></div>
-                </div>
+                <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-black/10">
+  <EditableImage
+    id={`course.thumb.${c.slug}`}
+    defaultSrc={c.slug === 'video-editing-bootcamp' ? batch01Thumbnail.url : ''}
+    className="w-full h-full"
+    imgClassName="w-full h-full object-cover"
+  />
+  <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+  <div className="pointer-events-none absolute left-2.5 top-2.5 z-10">
+    <Chip color={c.chipColor}><EditableText id={`courses.${c.slug}.level`}>{c.level}</EditableText></Chip>
+  </div>
+  <div className="pointer-events-none absolute bottom-2.5 left-3 z-10 text-xs font-medium text-white drop-shadow-sm">
+    <EditableText id={`courses.${c.slug}.length`}>{c.length}</EditableText>
+  </div>
+</div>
                 <div className="p-4">
                   <div className="font-display text-lg font-semibold group-hover:text-[var(--brand)] transition-colors"><EditableText id={`courses.${c.slug}.title`}>{c.title}</EditableText></div>
                   <p className="mt-1 text-sm text-foreground/65 line-clamp-2"><EditableText id={`courses.${c.slug}.description`}>{c.desc}</EditableText></p>
