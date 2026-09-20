@@ -1,8 +1,29 @@
 import { EditableImage } from "@/components/cms/EditableImage";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Lock, Play, Check, ArrowLeft, CalendarDays, Clock, User, X, Smartphone, Mail, Hash } from "lucide-react";
-import { SiteShell, COURSES } from "../components/site/sections";
+import { 
+  Lock, 
+  Play, 
+  Check, 
+  ArrowLeft, 
+  CalendarDays, 
+  Clock, 
+  User, 
+  X, 
+  Smartphone, 
+  Mail, 
+  Hash,
+  Radio, 
+  MessageSquare, 
+  Briefcase, 
+  Gift, 
+  Calendar, 
+  Send, 
+  CheckCircle2, 
+  Copy, 
+  Sparkles,
+  ArrowRight
+} from "lucide-react";import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { EditableText } from "@/components/cms/EditableText";
