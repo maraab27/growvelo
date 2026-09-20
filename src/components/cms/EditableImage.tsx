@@ -3,27 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAdminSession } from '@/hooks/useAdminSession';
 import { Upload } from 'lucide-react';
 
-// গ্লোবাল মেমোরি ক্যাশ (পেজ পরিবর্তনে ব্লিংকিং আটকানোর জন্য)
 const memoryCache: Record<string, string> = {};
-
-const getCachedUrl = (id: string, fallback?: string): string => {
-  if (memoryCache[id]) return memoryCache[id];
-  if (typeof window !== 'undefined') {
-    const local = localStorage.getItem(`cache_img_${id}`);
-    if (local) {
-      memoryCache[id] = local;
-      return local;
-    }
-  }
-  return fallback || '';
-};
-
-const setCachedUrl = (id: string, url: string) => {
-  memoryCache[id] = url;
-  if (typeof window !== 'undefined') {
-    localStorage.setItem(`cache_img_${id}`, url);
-  }
-};
 
 export const EditableImage = ({
   id,
@@ -37,25 +17,43 @@ export const EditableImage = ({
   imgClassName?: string;
 }) => {
   const { isAdmin } = useAdminSession();
-  const [src, setSrc] = useState<string>(() => getCachedUrl(id, defaultSrc));
+
+  // মেমোরি ক্যাশ থাকলে সেটা, নইলে সাথে সাথে ডিফল্ট ইমেজ দেখাবে (০ সেকেন্ড ডিলে)
+  const [src, setSrc] = useState<string>(() => {
+    if (memoryCache[id]) return memoryCache[id];
+    if (typeof window !== 'undefined') {
+      const local = localStorage.getItem(`cache_img_${id}`);
+      if (local) {
+        memoryCache[id] = local;
+        return local;
+      }
+    }
+    return defaultSrc || '';
+  });
+
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
 
     const fetchImage = async () => {
-      const { data, error } = await supabase
-        .from('content_blocks')
-        .select('*')
-        .or(`id.eq.${id},key.eq.${id}`)
-        .maybeSingle();
+      try {
+        const { data } = await supabase
+          .from('content_blocks')
+          .select('*')
+          .or(`id.eq.${id},key.eq.${id}`)
+          .maybeSingle();
 
-      if (!error && data && isMounted) {
-        const foundUrl = data.content || data.value;
-        if (foundUrl) {
-          setSrc(foundUrl);
-          setCachedUrl(id, foundUrl);
+        if (data && isMounted) {
+          const foundUrl = data.content || data.value;
+          if (foundUrl && foundUrl !== src) {
+            setSrc(foundUrl);
+            memoryCache[id] = foundUrl;
+            localStorage.setItem(`cache_img_${id}`, foundUrl);
+          }
         }
+      } catch (e) {
+        // কোনো এরর হলেও যেন সাইট আটকে না থাকে
       }
     };
 
@@ -68,7 +66,7 @@ export const EditableImage = ({
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
     if (!e.target.files || e.target.files.length === 0) return;
-    
+
     setUploading(true);
     const file = e.target.files[0];
     const fileExt = file.name.split('.').pop();
@@ -105,29 +103,31 @@ export const EditableImage = ({
         await supabase.from('content_blocks').upsert(payload, { onConflict: 'id' });
       }
 
-      // স্টেট ও লোকাল ক্যাশ আপডেট
       setSrc(publicUrl);
-      setCachedUrl(id, publicUrl);
+      memoryCache[id] = publicUrl;
+      localStorage.setItem(`cache_img_${id}`, publicUrl);
     } catch (err: any) {
-      alert('আপলোড ব্যর্থ হয়েছে: ' + (err?.message || 'অজানা ত্রুটি'));
+      alert('আপলোড সমস্যা: ' + err?.message);
     } finally {
       setUploading(false);
     }
   };
 
+  const finalSrc = src || defaultSrc;
+
   return (
     <div className={`relative group inline-block overflow-hidden ${className}`}>
-      {src ? (
+      {finalSrc ? (
         <img
-          src={src}
-          alt="Editable asset"
+          src={finalSrc}
+          alt="GrowVelo Asset"
           loading="eager"
           decoding="async"
-          className={`w-full h-full object-cover transition duration-200 ${imgClassName}`}
+          className={`w-full h-full object-cover ${imgClassName}`}
         />
       ) : (
-        <div className="w-full h-full bg-neutral-900/60 flex items-center justify-center text-xs text-white/40">
-          No Image
+        <div className="w-full h-full bg-neutral-800 flex items-center justify-center text-xs text-white/30">
+          Loading...
         </div>
       )}
 
