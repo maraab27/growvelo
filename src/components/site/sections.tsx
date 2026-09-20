@@ -1034,39 +1034,32 @@ export const COURSES: Course[] = [
 
 
 export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomePage?: boolean } = {}) {
-  // If home page, show only the latest course (e.g., Batch 03)
   const items = isHomePage 
     ? COURSES.filter(c => c.slug === 'video-editing-batch-3')
     : (limit ? COURSES.slice(0, limit) : COURSES);
 
   return (
-    <section id={isHomePage ? "latest-course" : undefined} className="aurora-soft scroll-mt-24 py-24 sm:py-28">
+    <section className="aurora-soft py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
-        <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:items-end">
+        {/* Header - সম্পূর্ণ Center-Aligned */}
+        <div className="flex flex-col items-center justify-center text-center mx-auto max-w-3xl">
           <SectionHead
             cmsId="courses.head"
-          eyebrow="Courses"
+            eyebrow="Masterclass"
             eyebrowColor="brand"
             eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
             before={isHomePage ? "Featured" : "Master the art of"}
-            gradWord={isHomePage ? "Latest Course" : "Story"}
+            gradWord={isHomePage ? "Story" : "Story"}
             after={isHomePage ? "" : "first editing."}
             sub={isHomePage 
-              ? "আমাদের সর্বশেষ ব্যাচে যুক্ত হয়ে আপনার ক্যারিয়ার শুরু করুন।" 
+              ? "আমাদের সর্বশেষ ব্যাচে যুক্ত হয়ে আপনার ক্যারিয়ার শুরু করুন।" 
               : "Explore our specialized training programs designed to take you from beginner to professional."
             }
-            align="left"
+            align="center"
           />
-          {isHomePage && (
-            <Link 
-              to="/courses" 
-              className="gloss-btn mb-1 flex items-center gap-2"
-            >
-              <EditableText id="courses.viewAll">View All Courses</EditableText> <ArrowRight className="h-4 w-4" />
-            </Link>
-          )}
         </div>
 
+        {/* Course Card Showcase */}
         <div className={`mt-14 mx-auto grid grid-cols-1 gap-8 ${isHomePage ? 'max-w-xl' : 'max-w-[880px] sm:grid-cols-2'}`}>
           {items.map((c) => (
             <div key={c.slug} className="relative">
@@ -1102,6 +1095,19 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
             </div>
           ))}
         </div>
+
+        {/* কার্ডের নিচে সেন্টারে নতুন বাটন */}
+        {isHomePage && (
+          <div className="mt-10 flex justify-center">
+            <Link 
+              to="/courses" 
+              className="gloss-btn flex items-center gap-2 !px-6 !py-3 !text-sm"
+            >
+              <span>View All Masterclasses</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
