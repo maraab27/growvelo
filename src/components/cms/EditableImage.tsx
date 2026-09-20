@@ -6,13 +6,16 @@ import { Upload } from 'lucide-react';
 const memoryCache: Record<string, string> = {};
 
 export const EditableImage = ({
+  export const EditableImage = ({
   id,
   defaultSrc = '',
+  alt = 'growVelo course preview',
   className = '',
   imgClassName = '',
 }: {
   id: string;
   defaultSrc?: string;
+  alt?: string;
   className?: string;
   imgClassName?: string;
 }) => {
