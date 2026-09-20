@@ -118,7 +118,7 @@ export const EditableImage = ({
       {displaySrc ? (
         <img
           src={displaySrc}
-          alt="GrowVelo"
+          alt={alt}
           loading="eager"
           decoding="async"
           className={`w-full h-full object-cover transition-opacity duration-150 ${imgClassName}`}
