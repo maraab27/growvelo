@@ -233,9 +233,14 @@ function CourseDetail() {
             {/* Left Column: Course Main Info */}
             <div className="flex flex-col gap-6">
               <div className="sticky-card tint-brand overflow-hidden p-0">
-                <div className="aspect-video w-full overflow-hidden" style={{ background: course.thumb }}>
-                   {/* Fallback color/gradient if image fails, or just keep it as is if course.thumb is a color */}
-                </div>
+               <div className="relative aspect-video w-full overflow-hidden bg-black/10">
+  <EditableImage
+    id={`course.thumb.${course.slug}`}
+    defaultSrc={course.thumb?.startsWith('http') ? course.thumb : ''}
+    className="w-full h-full"
+    imgClassName="w-full h-full object-cover"
+  />
+</div>
                 <div className="p-6 sm:p-8">
                    <h1 className="font-display text-2xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
                      <EditableText id={`course.${course.slug}.title`}>{course.title}</EditableText>
