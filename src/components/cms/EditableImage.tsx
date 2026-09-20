@@ -7,7 +7,7 @@ const memoryCache: Record<string, string> = {};
 
 export const EditableImage = ({
   id,
-  defaultSrc,
+  defaultSrc = '',
   className = '',
   imgClassName = '',
 }: {
@@ -18,7 +18,7 @@ export const EditableImage = ({
 }) => {
   const { isAdmin } = useAdminSession();
 
-  // মেমোরি ক্যাশ থাকলে সেটা, নইলে সাথে সাথে ডিফল্ট ইমেজ দেখাবে (০ সেকেন্ড ডিলে)
+  // ১. ডিফল্ট বা ক্যাশ ইমেজ দিয়ে তাৎক্ষণিক রেন্ডার (জিরো মিলিসেকেন্ড ডিলে)
   const [src, setSrc] = useState<string>(() => {
     if (memoryCache[id]) return memoryCache[id];
     if (typeof window !== 'undefined') {
@@ -28,7 +28,7 @@ export const EditableImage = ({
         return local;
       }
     }
-    return defaultSrc || '';
+    return defaultSrc;
   });
 
   const [uploading, setUploading] = useState(false);
@@ -36,11 +36,12 @@ export const EditableImage = ({
   useEffect(() => {
     let isMounted = true;
 
+    // ব্যাকগ্রাউন্ডে চেক করবে কোনো কাস্টম আপলোড আছে কি না
     const fetchImage = async () => {
       try {
         const { data } = await supabase
           .from('content_blocks')
-          .select('*')
+          .select('content, value')
           .or(`id.eq.${id},key.eq.${id}`)
           .maybeSingle();
 
@@ -52,8 +53,8 @@ export const EditableImage = ({
             localStorage.setItem(`cache_img_${id}`, foundUrl);
           }
         }
-      } catch (e) {
-        // কোনো এরর হলেও যেন সাইট আটকে না থাকে
+      } catch (err) {
+        // ব্যাকগ্রাউন্ড রিকোয়েস্টে ফেইল করলেও ছবি যেন নষ্ট না হয়
       }
     };
 
@@ -78,7 +79,7 @@ export const EditableImage = ({
         .upload(fileName, file, { cacheControl: '31536000', upsert: true });
 
       if (uploadError) {
-        alert('স্টোরেজে আপলোড সমস্যা: ' + uploadError.message);
+        alert('আপলোড ত্রুটি: ' + uploadError.message);
         setUploading(false);
         return;
       }
@@ -95,40 +96,32 @@ export const EditableImage = ({
         updated_at: new Date().toISOString(),
       };
 
-      const { error: dbError } = await supabase
-        .from('content_blocks')
-        .upsert(payload, { onConflict: 'key' });
-
-      if (dbError) {
-        await supabase.from('content_blocks').upsert(payload, { onConflict: 'id' });
-      }
+      await supabase.from('content_blocks').upsert(payload, { onConflict: 'key' });
 
       setSrc(publicUrl);
       memoryCache[id] = publicUrl;
       localStorage.setItem(`cache_img_${id}`, publicUrl);
     } catch (err: any) {
-      alert('আপলোড সমস্যা: ' + err?.message);
+      alert('সমস্যা হয়েছে: ' + err.message);
     } finally {
       setUploading(false);
     }
   };
 
-  const finalSrc = src || defaultSrc;
+  const displaySrc = src || defaultSrc;
 
   return (
     <div className={`relative group inline-block overflow-hidden ${className}`}>
-      {finalSrc ? (
+      {displaySrc ? (
         <img
-          src={finalSrc}
-          alt="GrowVelo Asset"
+          src={displaySrc}
+          alt="GrowVelo"
           loading="eager"
           decoding="async"
-          className={`w-full h-full object-cover ${imgClassName}`}
+          className={`w-full h-full object-cover transition-opacity duration-150 ${imgClassName}`}
         />
       ) : (
-        <div className="w-full h-full bg-neutral-800 flex items-center justify-center text-xs text-white/30">
-          Loading...
-        </div>
+        <div className="w-full h-full bg-neutral-800" />
       )}
 
       {isAdmin && (
