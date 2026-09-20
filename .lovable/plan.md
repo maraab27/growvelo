@@ -1,29 +1,19 @@
-# Plan - Remove Lovable backend overrides and strictly use custom Supabase project
+# Fix homepage CMS flicker and update homepage calls to action
 
-The user wants to ensure the application connects exclusively to their custom Supabase project (via `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`) and that all auth redirects point to their Vercel domain instead of the Lovable domain.
+## Changes
+- Replace per-text database requests with one shared CMS content query.
+- Prime homepage CMS content before rendering, then reuse it through TanStack Query and local storage for instant repeat visits.
+- Keep inline editing, admin checks, optimistic updates, and database saves intact while synchronizing successful edits into the cache.
+- Change the hero buttons to “Join Batch 03” and “View Masterclass Details”, linking both to stable anchors in the Batch 03 course area.
+- Remove only the homepage tutorial/embed section and photo-gallery placeholder section.
+- Correct the existing `EditableImage` schema mismatch so the project compiles.
 
-## User Constraints
-- **Do not** modify any UI design or Bengali text.
-- **Strictly** use `process.env.NEXT_PUBLIC_SUPABASE_URL` and `process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY`.
-- **Remove** internal Lovable managed overrides or hardcoded redirects.
+## Validation
+- Confirm the homepage renders without the removed blocks or stale-text swaps.
+- Test both hero links, anonymous browsing, and the admin page at desktop and 320px widths.
+- Check the latest build and browser runtime logs.
 
-## Proposed Changes
-
-### 1. Supabase Client Configuration
-- Clean up `src/integrations/supabase/client.ts` to prioritize standard environment variables and remove any Lovable-specific fetch overrides that might interfere with custom projects if they are strictly using standard JWT-based Supabase.
-- Clean up `src/integrations/supabase/client.server.ts` to follow the same logic for the service role client.
-
-### 2. Auth Flow and Redirects
-- Update `src/routes/auth.tsx` to explicitly handle the `emailRedirectTo` option during `signUp`.
-- Ensure the redirect URL is derived from the current origin (`window.location.origin`) or a configurable environment variable, avoiding any hardcoded Lovable domains.
-
-### 3. Server-side Middleware
-- Verify `src/integrations/supabase/auth-middleware.ts` uses the standard environment variables to validate tokens.
-
-## Technical Details
-- In `src/integrations/supabase/client.ts`, I will remove the `isNewSupabaseApiKey` and `createSupabaseFetch` logic if it's primarily for Lovable's opaque keys, or ensure it doesn't break standard Supabase keys. The user specifically asked to remove "internal Lovable managed client overrides".
-- Use `import.meta.env` for Vite compatibility and `process.env` for server-side/Vercel compatibility.
-
-## Security
-- No secrets will be hardcoded.
-- RLS and standard Supabase auth flow will be maintained.
+## Technical details
+- Add a public `createServerFn` for `content_blocks`, use route loader `ensureQueryData`, and subscribe through `useSuspenseQuery` in the CMS provider.
+- Persist the latest content map in local storage as immediate client placeholder data; server-loaded query data remains authoritative.
+- Reuse `CmsProvider` values inside `EditableText` instead of issuing one request per text node.
