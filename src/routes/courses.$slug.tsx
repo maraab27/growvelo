@@ -28,66 +28,52 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { EditableText } from "@/components/cms/EditableText";
 
-function EnrollmentModal({ courseSlug, onClose, onSuccess }: { courseSlug: string, onClose: () => void, onSuccess: () => void }) {
-  const [email, setEmail] = useState("");
-  const [bkashNumber, setBkashNumber] = useState("");
-  const [transactionId, setTransactionId] = useState("");
-  const [loading, setLoading] = useState(false);
+function EnrollmentModal({ 
+  courseSlug, 
+  onClose, 
+  onSuccess 
+}: { 
+  courseSlug: string; 
+  onClose: () => void; 
+  onSuccess?: () => void; 
+}) {
+  const [copied, setCopied] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    phone: '',
+    email: '',
+    method: 'bKash',
+    trxId: ''
+  });
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        setEmail(user.email || "");
-      }
-    };
-    fetchUser();
-  }, []);
+  // আপনার বিকাশ/নগদ পার্সোনাল নম্বর ও সাপোর্ট হোয়াটসঅ্যাপ নম্বর
+  const paymentNumber = "01XXXXXXXXX";
+  const supportWhatsapp = "8801XXXXXXXXX";
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(paymentNumber);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        toast.error("অনুগ্রহ করে আগে লগইন করুন।");
-        setLoading(false);
-        return;
-      }
-
-      const response = await fetch('/api/public/enroll', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          courseSlug,
-          bkashNumber,
-          transactionId,
-          userId: user.id,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        if (response.status === 409) {
-          toast.error("আপনি ইতিমধ্যে এই কোর্সের জন্য আবেদন করেছেন।");
-        } else {
-          toast.error(result.error || "কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।");
-        }
-      } else {
-        toast.success("আবেদন জমা হয়েছে! অনুমোদন হলে আপনাকে জানানো হবে।");
-        onSuccess();
-      }
-    } catch (err) {
-      toast.error("Error submitting enrollment");
-    } finally {
-      setLoading(false);
+    if (!formData.fullName || !formData.phone || !formData.trxId) {
+      alert("অনুগ্রহ করে সব তথ্য সঠিকভাবে পূরণ করুন।");
+      return;
     }
+
+    const message = `Hello growVelo, I have sent an enrollment request for Batch 03.
+Name: ${formData.fullName}
+Phone: ${formData.phone}
+Email: ${formData.email || 'N/A'}
+Method: ${formData.method}
+TrxID: ${formData.trxId}`;
+
+    const whatsappUrl = `https://wa.me/${supportWhatsapp}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    setIsSubmitted(true);
   };
 
   return (
