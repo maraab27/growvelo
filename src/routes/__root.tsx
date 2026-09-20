@@ -111,6 +111,11 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
+        {/* Supabase এবং Google Fonts প্রিলোড ও প্রি-কানেক্ট */}
+        <link rel="preconnect" href="https://cffcugcwhqawxuhbvdov.supabase.co" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://cffcugcwhqawxuhbvdov.supabase.co" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <style dangerouslySetInnerHTML={{ __html: `
           #lovable-badge, 
