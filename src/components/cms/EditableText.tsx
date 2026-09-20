@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { useAdminSession } from '@/hooks/useAdminSession';
+import React, { useRef } from 'react';
+
+import { useCms } from '@/components/cms/CmsProvider';
 
 interface EditableTextProps {
   id: string;
@@ -15,42 +15,23 @@ export const EditableText: React.FC<EditableTextProps> = ({
   as: Tag = 'span',
   className = '' 
 }) => {
-  const { isAdmin } = useAdminSession();
-  const [content, setContent] = useState<string>(children?.toString() || '');
+  const { isAdmin, values, stage } = useCms();
+  const fallback = children?.toString() || '';
+  const content = values[id] ?? fallback;
   const elementRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const fetchContent = async () => {
-      const { data, error } = await supabase
-        .from('content_blocks')
-        .select('value')
-        .eq('key', id)
-        .single();
-        
-      if (!error && data) {
-        setContent(data.value);
-      }
-    };
-    fetchContent();
-  }, [id]);
-
-  const handleBlur = async () => {
+  const handleBlur = () => {
     if (!elementRef.current) return;
     
     const newText = elementRef.current.innerText;
     if (newText !== content) {
-      setContent(newText);
-      await supabase.from('content_blocks').upsert({ 
-        key: id, 
-        value: newText,
-        updated_at: new Date().toISOString()
-      });
+      stage(id, newText);
     }
   };
 
   return (
     <Tag
-      ref={elementRef as any}
+      ref={elementRef as React.Ref<never>}
       contentEditable={isAdmin}
       suppressContentEditableWarning
       onBlur={handleBlur}
