@@ -11,8 +11,8 @@ export const EditableImage = ({ id, defaultSrc, className }: { id: string, defau
   useEffect(() => {
     const fetchImage = async () => {
       // আমরা ছবিগুলোর URL-ও content_blocks টেবিলে সেভ রাখব
-      const { data } = await supabase.from('content_blocks').select('content').eq('id', id).single();
-      if (data && data.content) setSrc(data.content);
+      const { data } = await supabase.from('content_blocks').select('value').eq('key', id).single();
+      if (data?.value) setSrc(data.value);
     };
     fetchImage();
   }, [id]);
@@ -21,6 +21,10 @@ export const EditableImage = ({ id, defaultSrc, className }: { id: string, defau
     if (!e.target.files || e.target.files.length === 0) return;
     setUploading(true);
     const file = e.target.files[0];
+    if (!file) {
+      setUploading(false);
+      return;
+    }
     const fileExt = file.name.split('.').pop();
     const fileName = `img_${Math.random()}.${fileExt}`;
 
@@ -33,8 +37,8 @@ export const EditableImage = ({ id, defaultSrc, className }: { id: string, defau
       
       // নতুন ছবির লিঙ্কটি ডাটাবেজে আপডেট করা
       await supabase.from('content_blocks').upsert({
-        id,
-        content: publicUrl,
+        key: id,
+        value: publicUrl,
         updated_at: new Date().toISOString()
       });
     } else {

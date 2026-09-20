@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { themeInitScript } from "../components/site/theme-toggle";
 import { CmsProvider } from "../components/cms/CmsProvider";
 import { SaveBar } from "../components/cms/SaveBar";
+import { getContentBlocks } from "../lib/content.functions";
 
 
 function NotFoundComponent() {
@@ -73,6 +74,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  loader: () => getContentBlocks(),
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -135,6 +137,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const contentValues = Route.useLoaderData();
 
   useEffect(() => {
     const removeBadge = () => {
@@ -154,7 +157,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CmsProvider>
+      <CmsProvider initialValues={contentValues}>
         <SaveBar />
         <Outlet />
       </CmsProvider>

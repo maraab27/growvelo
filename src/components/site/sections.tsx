@@ -305,12 +305,12 @@ export function Hero() {
             </EditableText>
           </p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center">
-            <Link to="/courses" className="gloss-btn">
-              <EditableText id="hero.cta.primary">Explore Courses</EditableText> <ArrowRight className="h-5 w-5" />
+            <Link to="/courses/$slug" params={{ slug: "video-editing-batch-3" }} className="gloss-btn">
+              <EditableText id="hero.cta.primary">Join Batch 03</EditableText> <ArrowRight className="h-5 w-5" />
             </Link>
-            <Link to="/courses" className="gloss-btn-ghost">
-              <Play className="h-5 w-5" /> <EditableText id="hero.cta.secondary">Watch Free Masterclass</EditableText>
-            </Link>
+            <a href="#latest-course" className="gloss-btn-ghost">
+              <Play className="h-5 w-5" /> <EditableText id="hero.cta.secondary">View Masterclass Details</EditableText>
+            </a>
           </div>
         </div>
 
@@ -846,7 +846,7 @@ export function Instructors({ limit }: { limit?: number } = {}) {
   if (!e) return null;
 
   return (
-    <section className="aurora-soft py-24 sm:py-28">
+    <section id={isHomePage ? "latest-course" : undefined} className="aurora-soft scroll-mt-24 py-24 sm:py-28">
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           cmsId="instructors.head"

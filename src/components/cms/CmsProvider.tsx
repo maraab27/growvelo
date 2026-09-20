@@ -2,7 +2,6 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useRef,
   useState,
@@ -12,6 +11,9 @@ import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminSession } from "@/hooks/useAdminSession";
+import type { ContentValues } from "@/lib/content.functions";
+
+const CMS_CACHE_KEY = "growvelo:content-blocks:v1";
 
 type CmsContextValue = {
   isAdmin: boolean;
@@ -37,30 +39,12 @@ export function useCms() {
   return useContext(CmsContext);
 }
 
-export function CmsProvider({ children }: { children: ReactNode }) {
+export function CmsProvider({ children, initialValues }: { children: ReactNode; initialValues: ContentValues }) {
   const { isAdmin } = useAdminSession();
-  const [values, setValues] = useState<Record<string, string>>({});
-  const [loaded, setLoaded] = useState(false);
+  const [values, setValues] = useState<ContentValues>(initialValues);
   const [pendingCount, setPendingCount] = useState(0);
   const [saving, setSaving] = useState(false);
   const pending = useRef<Record<string, string>>({});
-
-  useEffect(() => {
-    let cancelled = false;
-    supabase
-      .from("content_blocks")
-      .select("key,value")
-      .then(({ data }) => {
-        if (cancelled) return;
-        const next: Record<string, string> = {};
-        for (const row of data ?? []) next[row.key] = row.value;
-        setValues(next);
-        setLoaded(true);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   const flush = useCallback(async (silent: boolean) => {
     const entries = Object.entries(pending.current);
@@ -77,12 +61,25 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       if (pending.current[key] === rows.find((r) => r.key === key)?.value) delete pending.current[key];
     }
     setPendingCount(Object.keys(pending.current).length);
+    try {
+      localStorage.setItem(CMS_CACHE_KEY, JSON.stringify(values));
+    } catch {
+      // Storage may be unavailable in privacy mode; server-loaded content remains authoritative.
+    }
     if (!silent) toast.success("All changes saved");
-  }, []);
+  }, [values]);
 
   const stage = useCallback(
     (key: string, value: string) => {
-      setValues((prev) => (prev[key] === value ? prev : { ...prev, [key]: value }));
+      setValues((prev) => {
+        const next = prev[key] === value ? prev : { ...prev, [key]: value };
+        try {
+          localStorage.setItem(CMS_CACHE_KEY, JSON.stringify(next));
+        } catch {
+          // Saving to the database still works when browser storage is unavailable.
+        }
+        return next;
+      });
       pending.current[key] = value;
       setPendingCount(Object.keys(pending.current).length);
       void flush(true);
@@ -93,8 +90,8 @@ export function CmsProvider({ children }: { children: ReactNode }) {
   const saveAll = useCallback(() => flush(false), [flush]);
 
   const value = useMemo(
-    () => ({ isAdmin, loaded, values, pendingCount, saving, stage, saveAll }),
-    [isAdmin, loaded, values, pendingCount, saving, stage, saveAll],
+    () => ({ isAdmin, loaded: true, values, pendingCount, saving, stage, saveAll }),
+    [isAdmin, values, pendingCount, saving, stage, saveAll],
   );
 
   return <CmsContext.Provider value={value}>{children}</CmsContext.Provider>;
