@@ -1,3 +1,4 @@
+import { EditableImage } from "@/components/cms/EditableImage";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Lock, Play, Check, ArrowLeft, CalendarDays, Clock, User, X, Smartphone, Mail, Hash } from "lucide-react";
