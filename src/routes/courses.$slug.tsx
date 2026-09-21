@@ -35,7 +35,9 @@ import {
   FileText,
   MessageCircle,
   HelpCircle,
-  Laptop,
+  LayoutDashboard,
+  Workflow,
+  HelpCircle as MessageCircleQuestion,
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
@@ -279,12 +281,12 @@ TrxID: ${formData.trxId}`;
   );
 }
 
-// সেকশন ২: মার্কেট অপরচুনিটি সেকশন
-function MarketOpportunitySection({ courseSlug }: { courseSlug: string }) {
+// ================= ট্যাব ১: ওভারভিউ (পেইন পয়েন্ট ও অপরচুনিটি) =================
+function TabOverview({ courseSlug }: { courseSlug: string }) {
   return (
-    <div className="mt-16 sm:mt-24 border-t border-border/40 pt-16 sm:pt-20">
+    <div className="space-y-12 animate-in fade-in duration-300">
       <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-4">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -294,135 +296,136 @@ function MarketOpportunitySection({ courseSlug }: { courseSlug: string }) {
           </EditableText>
         </div>
 
-        <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.75rem,3.2vw+0.5rem,2.75rem)] leading-[1.25]">
+        <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.65rem,2.8vw+0.5rem,2.4rem)] leading-[1.25]">
           <EditableText id={`course.${courseSlug}.painpoint.heading`}>
             ভিডিও এখন সব জায়গায়, কিন্তু ইন্ডাস্ট্রি স্ট্যান্ডার্ড এডিটরের অভাব কেন?
           </EditableText>
         </h2>
 
-        <p className="font-bangla text-muted-foreground text-sm sm:text-base leading-relaxed mt-4 max-w-2xl">
+        <p className="font-bangla text-muted-foreground text-sm sm:text-base leading-relaxed mt-3 max-w-2xl">
           <EditableText id={`course.${courseSlug}.painpoint.subheading`}>
             বর্তমানে শুধু টুলসের কাট-পেস্ট জানা কোনো স্কিল নয়; সফল ক্যারিয়ার গড়তে প্রয়োজন স্টোরিটেলিং, সাউন্ড সাইকোলজি ও হাই-কনভার্টিং এডিটিং সেন্স।
           </EditableText>
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 sm:mt-16">
-        <div className="glass-strong p-6 sm:p-7 rounded-3xl border border-border/60 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group shadow-xs hover:shadow-md">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="glass p-6 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs">
           <div>
-            <div className="icon-tile !bg-gradient-to-br !from-amber-500/20 !to-rose-500/20 text-rose-500 mb-5 group-hover:scale-105 transition-transform">
+            <div className="icon-tile !bg-gradient-to-br !from-amber-500/20 !to-rose-500/20 text-rose-500 mb-4 group-hover:scale-105 transition-transform">
               <Flame className="w-5 h-5" />
             </div>
-            <h3 className="font-bangla font-bold text-base sm:text-lg text-foreground leading-snug">
+            <h3 className="font-bangla font-bold text-base text-foreground leading-snug">
               <EditableText id={`course.${courseSlug}.card.1.title`}>
                 সবাই কনটেন্ট বানাচ্ছে, কিন্তু রিটেনশন পাচ্ছে কয়জন?
               </EditableText>
             </h3>
-            <p className="font-bangla text-xs sm:text-sm text-foreground/75 leading-relaxed mt-3">
+            <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed mt-2.5">
               <EditableText id={`course.${courseSlug}.card.1.desc`}>
                 ফেসবুক রিলস, ইউটিউব থেকে শুরু করে যেকোনো ব্র্যান্ড—সবারই ভিডিও প্রয়োজন। কিন্তু প্রথম ৩ সেকেন্ডে অডিয়েন্সকে ধরে রাখার মতো 'হুক' ও রিটেনশন সাইকোলজি জানা এডিটরের সংখ্যা খুবই নগণ্য।
               </EditableText>
             </p>
           </div>
-          <div className="pt-6 mt-6 border-t border-border/40 flex items-center gap-2 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
+          <div className="pt-4 mt-5 border-t border-border/40 flex items-center gap-1.5 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
             <span>অডিয়েন্স সাইকোলজি শিখুন</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
 
-        <div className="glass-strong p-6 sm:p-7 rounded-3xl border border-border/60 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group shadow-xs hover:shadow-md">
+        <div className="glass p-6 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs">
           <div>
-            <div className="icon-tile !bg-gradient-to-br !from-primary/25 !to-violet-500/20 text-primary mb-5 group-hover:scale-105 transition-transform">
+            <div className="icon-tile !bg-gradient-to-br !from-primary/25 !to-violet-500/20 text-primary mb-4 group-hover:scale-105 transition-transform">
               <Film className="w-5 h-5" />
             </div>
-            <h3 className="font-bangla font-bold text-base sm:text-lg text-foreground leading-snug">
+            <h3 className="font-bangla font-bold text-base text-foreground leading-snug">
               <EditableText id={`course.${courseSlug}.card.2.title`}>
                 সফটওয়্যারের বোতাম চেনা নয়, দরকার সিনেমাটিক ভিশন
               </EditableText>
             </h3>
-            <p className="font-bangla text-xs sm:text-sm text-foreground/75 leading-relaxed mt-3">
+            <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed mt-2.5">
               <EditableText id={`course.${courseSlug}.card.2.desc`}>
                 ইউটিউবের ফ্রি টিউটোরিয়াল দেখে সফটওয়্যার চালানো শেখা যায়, কিন্তু অডিয়েন্সের ইমোশন নিয়ন্ত্রণ করা, রাইট পেসিং এবং পাওয়ারফুল সাউন্ড ডিজাইন করার জন্য দরকার প্র্যাকটিক্যাল মেন্টরশিপ।
               </EditableText>
             </p>
           </div>
-          <div className="pt-6 mt-6 border-t border-border/40 flex items-center gap-2 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
+          <div className="pt-4 mt-5 border-t border-border/40 flex items-center gap-1.5 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
             <span>রিয়েল এডিটিং মেথডোলজি</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
 
-        <div className="glass-strong p-6 sm:p-7 rounded-3xl border border-border/60 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group shadow-xs hover:shadow-md">
+        <div className="glass p-6 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs">
           <div>
-            <div className="icon-tile !bg-gradient-to-br !from-emerald-500/20 !to-teal-500/20 text-emerald-500 mb-5 group-hover:scale-105 transition-transform">
+            <div className="icon-tile !bg-gradient-to-br !from-emerald-500/20 !to-teal-500/20 text-emerald-500 mb-4 group-hover:scale-105 transition-transform">
               <Globe className="w-5 h-5" />
             </div>
-            <h3 className="font-bangla font-bold text-base sm:text-lg text-foreground leading-snug">
+            <h3 className="font-bangla font-bold text-base text-foreground leading-snug">
               <EditableText id={`course.${courseSlug}.card.3.title`}>
                 সস্তা ফ্রিল্যান্সিং নয়, প্রিমিয়াম ক্লায়েন্ট ডিল
               </EditableText>
             </h3>
-            <p className="font-bangla text-xs sm:text-sm text-foreground/75 leading-relaxed mt-3">
+            <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed mt-2.5">
               <EditableText id={`course.${courseSlug}.card.3.desc`}>
                 লোকাল ব্র্যান্ড, এজেন্সি এবং আন্তর্জাতিক কনটেন্ট ক্রিয়েটররা এখন হাই-এন্ড ভিডিওর জন্য প্রিমিয়াম পে করতে প্রস্তুত। আপনার দরকার শুধু একটি স্ট্রং পোর্টফোলিও ও সঠিক কমিউনিকেশন সিস্টেম।
               </EditableText>
             </p>
           </div>
-          <div className="pt-6 mt-6 border-t border-border/40 flex items-center gap-2 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
+          <div className="pt-4 mt-5 border-t border-border/40 flex items-center gap-1.5 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
             <span>হাই-টিকেটিং ফ্রেমওয়ার্ক</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
       </div>
 
-      <div className="mt-12 sm:mt-16 glass-strong rounded-3xl border border-border/70 p-6 sm:p-10 shadow-lg relative overflow-hidden backdrop-blur-md">
-        <div className="text-center mb-8">
-          <h3 className="font-bangla text-lg sm:text-xl font-bold text-foreground">
+      {/* বিফোর বনাম আফটার কম্প্যারিজন ব্যানার */}
+      <div className="glass rounded-2xl border border-border/70 p-6 sm:p-8 relative overflow-hidden backdrop-blur-md">
+        <div className="text-center mb-6">
+          <h3 className="font-bangla text-base sm:text-lg font-bold text-foreground">
             <EditableText id={`course.${courseSlug}.compare.heading`}>
               আপনার এডিটিং জার্নির মোড় ঘুরিয়ে দেবে ব্যাচ ৩
             </EditableText>
           </h3>
-          <p className="font-bangla text-xs sm:text-sm text-muted-foreground mt-1">
+          <p className="font-bangla text-xs text-muted-foreground mt-1">
             একটি সাধারণ কাট-পেস্ট এডিটর আর হাই-ভ্যালু ভিডিও রিটেলারের পার্থক্য দেখে নিন
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 divide-y md:divide-y-0 md:divide-x divide-border/60">
-          <div className="space-y-4 pt-4 md:pt-0">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-destructive/10 text-destructive text-xs font-bangla font-semibold">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 divide-y md:divide-y-0 md:divide-x divide-border/60">
+          <div className="space-y-3.5 pt-3 md:pt-0">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-destructive/10 text-destructive text-xs font-bangla font-semibold">
               <span>সাধারণ এডিটর (YouTube Learner)</span>
             </div>
-            <ul className="space-y-3 font-bangla text-xs sm:text-sm text-foreground/75">
-              <li className="flex items-start gap-2.5">
+            <ul className="space-y-2.5 font-bangla text-xs sm:text-[13px] text-foreground/75">
+              <li className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
                 <span>ঘণ্টার পর ঘণ্টা এলোমেলো ইউটিউব টিউটোরিয়ালে কনফিউজড ও দিকহারা।</span>
               </li>
-              <li className="flex items-start gap-2.5">
+              <li className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
                 <span>সাউন্ড ডিজাইন ও কালার সাইকোলজি ছাড়া একদম ফ্ল্যাট, প্রাণহীন এডিট।</span>
               </li>
-              <li className="flex items-start gap-2.5">
+              <li className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
                 <span>মার্কেটপ্লেসে সস্তায় ৫০০-১০০০ টাকার কাজের জন্য বিড করে রিজেক্ট হওয়া।</span>
               </li>
             </ul>
           </div>
 
-          <div className="space-y-4 pt-6 md:pt-0 md:pl-8 lg:pl-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-bangla font-semibold">
+          <div className="space-y-3.5 pt-5 md:pt-0 md:pl-8">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-bangla font-semibold">
               <Sparkles className="w-3.5 h-3.5" />
               <span>ব্যাচ ৩ গ্র্যাজুয়েট (growVelo Pro Editor)</span>
             </div>
-            <ul className="space-y-3 font-bangla text-xs sm:text-sm text-foreground/90 font-medium">
-              <li className="flex items-start gap-2.5">
+            <ul className="space-y-2.5 font-bangla text-xs sm:text-[13px] text-foreground/90 font-medium">
+              <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                 <span>সরাসরি রিয়েল লাইফ প্রজেক্ট ও সিনেমাটিক স্টোরিটেলিং ফ্রেমওয়ার্ক মাস্টার করা।</span>
               </li>
-              <li className="flex items-start gap-2.5">
+              <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                 <span>প্রো-লেভেল সাউন্ড ডিজাইন, কালার গ্রেডিং ও হাই-রিটেনশন মোশন অ্যানিমেশন।</span>
               </li>
-              <li className="flex items-start gap-2.5">
+              <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                 <span>আন্তর্জাতিক মানের প্রফেশনাল পোর্টফোলিও ও সরাসরি ক্লায়েন্ট ডিল ক্লোজিং স্কিল।</span>
               </li>
@@ -434,8 +437,8 @@ function MarketOpportunitySection({ courseSlug }: { courseSlug: string }) {
   );
 }
 
-// সেকশন ৩: কারিকুলাম অ্যাকর্ডিয়ন
-function DetailedCurriculumSection({ courseSlug }: { courseSlug: string }) {
+// ================= ট্যাব ২: কারিকুলাম রোডম্যাপ =================
+function TabCurriculum({ courseSlug }: { courseSlug: string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const curriculumData = [
@@ -501,59 +504,55 @@ function DetailedCurriculumSection({ courseSlug }: { courseSlug: string }) {
     },
   ];
 
-  const toggleAccordion = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   return (
-    <div className="mt-20 sm:mt-28 border-t border-border/40 pt-16 sm:pt-20">
+    <div className="space-y-8 animate-in fade-in duration-300">
       <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-4">
           <Sparkles className="w-3.5 h-3.5" />
           <EditableText id={`course.${courseSlug}.curriculum.badge`}>
             প্র্যাকটিক্যাল কারিকুলাম
           </EditableText>
         </div>
 
-        <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.75rem,3.2vw+0.5rem,2.75rem)] leading-[1.25]">
+        <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.65rem,2.8vw+0.5rem,2.4rem)] leading-[1.25]">
           <EditableText id={`course.${courseSlug}.curriculum.heading`}>
             স্টেপ-বাই-স্টেপ মাস্টারক্লাস রোডম্যাপ
           </EditableText>
         </h2>
 
-        <p className="font-bangla text-muted-foreground text-sm sm:text-base leading-relaxed mt-4 max-w-2xl">
+        <p className="font-bangla text-muted-foreground text-sm leading-relaxed mt-2 max-w-xl">
           <EditableText id={`course.${courseSlug}.curriculum.subheading`}>
             স্ক্র্যাচ থেকে অ্যাডভান্সড সিনেমাটিক এডিটিং ও মোশন গ্রাফিক্স—প্রতিটি মডিউল বাস্তব প্রজেক্টের সাথে সাজানো।
           </EditableText>
         </p>
       </div>
 
-      <div className="max-w-4xl mx-auto mt-12 space-y-4">
+      <div className="max-w-3xl mx-auto space-y-3.5">
         {curriculumData.map((item, idx) => {
           const isOpen = openIndex === idx;
           return (
             <div
               key={idx}
-              className={`glass-strong rounded-2xl border transition-all duration-300 overflow-hidden ${
-                isOpen ? "border-primary/40 shadow-md" : "border-border/60 hover:border-primary/20"
+              className={`glass rounded-2xl border transition-all duration-200 overflow-hidden ${
+                isOpen ? "border-primary/40 shadow-xs" : "border-border/60 hover:border-primary/20"
               }`}
             >
               <button
                 type="button"
-                onClick={() => toggleAccordion(idx)}
-                className="w-full p-5 sm:p-6 text-left flex items-start sm:items-center justify-between gap-4 transition-colors select-none"
+                onClick={() => setOpenIndex(isOpen ? null : idx)}
+                className="w-full p-4 sm:p-5 text-left flex items-start sm:items-center justify-between gap-4 transition-colors select-none"
               >
-                <div className="flex items-start sm:items-center gap-3.5 sm:gap-4 flex-1">
-                  <div className={`p-2.5 rounded-xl shrink-0 transition-colors ${
+                <div className="flex items-start sm:items-center gap-3.5 flex-1">
+                  <div className={`p-2 rounded-xl shrink-0 transition-colors ${
                     isOpen ? "bg-primary text-primary-foreground" : "bg-foreground/5 text-foreground/70"
                   }`}>
-                    <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <BookOpen className="w-4 h-4" />
                   </div>
                   <div>
                     <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-primary block mb-0.5">
                       {item.moduleNo}
                     </span>
-                    <h3 className="font-display font-bold text-base sm:text-lg text-foreground">
+                    <h3 className="font-display font-bold text-sm sm:text-base text-foreground">
                       {item.title}
                     </h3>
                   </div>
@@ -567,14 +566,14 @@ function DetailedCurriculumSection({ courseSlug }: { courseSlug: string }) {
               </button>
 
               {isOpen && (
-                <div className="px-5 pb-6 sm:px-6 sm:pb-6 pt-1 border-t border-border/30 animate-in fade-in slide-in-from-top-2 duration-200">
-                  <p className="font-bangla text-xs sm:text-sm text-muted-foreground mb-4 leading-relaxed">
+                <div className="px-4 pb-5 sm:px-5 sm:pb-5 pt-1 border-t border-border/30 animate-in fade-in duration-200">
+                  <p className="font-bangla text-xs text-muted-foreground mb-3 leading-relaxed">
                     {item.desc}
                   </p>
                   
-                  <div className="bg-background/60 rounded-xl p-3.5 border border-border/40 space-y-2.5">
+                  <div className="bg-background/60 rounded-xl p-3 border border-border/40 space-y-2">
                     {item.lessons.map((lesson, lIdx) => (
-                      <div key={lIdx} className="flex items-center gap-2.5 font-bangla text-xs sm:text-sm text-foreground/85">
+                      <div key={lIdx} className="flex items-center gap-2 font-bangla text-xs text-foreground/85">
                         <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                         <span>{lesson}</span>
                       </div>
@@ -590,8 +589,8 @@ function DetailedCurriculumSection({ courseSlug }: { courseSlug: string }) {
   );
 }
 
-// সেকশন ৪: ফিচার ম্যাট্রিক্স (What's Included)
-function WhatsIncludedSection({ courseSlug }: { courseSlug: string }) {
+// ================= ট্যাব ৩: কী কী পাচ্ছেন (What's Included) =================
+function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
   const features = [
     {
       icon: Video,
@@ -638,49 +637,49 @@ function WhatsIncludedSection({ courseSlug }: { courseSlug: string }) {
   ];
 
   return (
-    <div className="mt-20 sm:mt-28 border-t border-border/40 pt-16 sm:pt-20">
+    <div className="space-y-8 animate-in fade-in duration-300">
       <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-4">
           <ShieldCheck className="w-3.5 h-3.5" />
           <EditableText id={`course.${courseSlug}.included.badge`}>
             সবকিছু এক প্ল্যাটফর্মে
           </EditableText>
         </div>
 
-        <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.75rem,3.2vw+0.5rem,2.75rem)] leading-[1.25]">
+        <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.65rem,2.8vw+0.5rem,2.4rem)] leading-[1.25]">
           <EditableText id={`course.${courseSlug}.included.heading`}>
             ব্যাচ ৩-এ আপনি যা যা পাচ্ছেন
           </EditableText>
         </h2>
 
-        <p className="font-bangla text-muted-foreground text-sm sm:text-base leading-relaxed mt-4 max-w-2xl">
+        <p className="font-bangla text-muted-foreground text-sm leading-relaxed mt-2 max-w-xl">
           <EditableText id={`course.${courseSlug}.included.subheading`}>
             শুধুমাত্র ক্লাস নয়—আপনার প্রফেশনাল এডিটর হওয়ার সম্পূর্ণ ইকোসিস্টেম প্রস্তুত করা হয়েছে।
           </EditableText>
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 sm:mt-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {features.map((feat, fIdx) => (
           <div
             key={fIdx}
-            className="glass-strong p-6 sm:p-7 rounded-3xl border border-border/60 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group shadow-xs hover:shadow-md"
+            className="glass p-5 sm:p-6 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs"
           >
             <div>
-              <div className={`icon-tile !bg-gradient-to-br ${feat.gradient} ${feat.iconColor} mb-5 group-hover:scale-105 transition-transform`}>
+              <div className={`icon-tile !bg-gradient-to-br ${feat.gradient} ${feat.iconColor} mb-4 group-hover:scale-105 transition-transform`}>
                 <feat.icon className="w-5 h-5" />
               </div>
 
-              <h3 className="font-bangla font-bold text-base sm:text-lg text-foreground leading-snug">
+              <h3 className="font-bangla font-bold text-base text-foreground leading-snug">
                 {feat.title}
               </h3>
 
-              <p className="font-bangla text-xs sm:text-sm text-foreground/75 leading-relaxed mt-2.5">
+              <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed mt-2">
                 {feat.desc}
               </p>
             </div>
 
-            <div className="pt-5 mt-5 border-t border-border/40 flex items-center gap-2 text-xs font-bangla font-medium text-emerald-600 dark:text-emerald-400">
+            <div className="pt-4 mt-4 border-t border-border/40 flex items-center gap-1.5 text-xs font-bangla font-medium text-emerald-600 dark:text-emerald-400">
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>ইনক্লুডেড অ্যাক্সেস</span>
             </div>
@@ -691,8 +690,8 @@ function WhatsIncludedSection({ courseSlug }: { courseSlug: string }) {
   );
 }
 
-// ================= সেকশন ৫: হাউ দ্য সিস্টেম ওয়ার্কস (৩-ধাপের অনবোর্ডিং ফ্লো) =================
-function HowItWorksSection({ courseSlug }: { courseSlug: string }) {
+// ================= ট্যাব ৪: যেভাবে শুরু করবেন (How It Works) =================
+function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
   const steps = [
     {
       step: "01",
@@ -724,44 +723,40 @@ function HowItWorksSection({ courseSlug }: { courseSlug: string }) {
   ];
 
   return (
-    <div className="mt-20 sm:mt-28 border-t border-border/40 pt-16 sm:pt-20">
-      
-      {/* সেকশন হেডার */}
+    <div className="space-y-8 animate-in fade-in duration-300">
       <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
-          <Sparkles className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-4">
+          <Workflow className="w-3.5 h-3.5" />
           <EditableText id={`course.${courseSlug}.howitworks.badge`}>
             সহজ ৩টি ধাপ
           </EditableText>
         </div>
 
-        <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.75rem,3.2vw+0.5rem,2.75rem)] leading-[1.25]">
+        <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.65rem,2.8vw+0.5rem,2.4rem)] leading-[1.25]">
           <EditableText id={`course.${courseSlug}.howitworks.heading`}>
             কীভাবে ব্যাচ ৩-এ যুক্ত হবেন ও ক্লাস শুরু করবেন?
           </EditableText>
         </h2>
 
-        <p className="font-bangla text-muted-foreground text-sm sm:text-base leading-relaxed mt-4 max-w-2xl">
+        <p className="font-bangla text-muted-foreground text-sm leading-relaxed mt-2 max-w-xl">
           <EditableText id={`course.${courseSlug}.howitworks.subheading`}>
             ঝামেলাহীন ও দ্রুত এনরোলমেন্ট প্রসেস—আপনার রেজিস্ট্রেশন সম্পন্ন হওয়া মাত্রই শুরু হবে জার্নি।
           </EditableText>
         </p>
       </div>
 
-      {/* ৩-কলাম ইন্টারঅ্যাক্টিভ স্টেপ গ্রিড */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 sm:mt-16 relative">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
         {steps.map((item, index) => (
           <div
             key={index}
-            className="glass-strong p-6 sm:p-7 rounded-3xl border border-border/60 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group shadow-xs hover:shadow-md relative overflow-hidden"
+            className="glass p-6 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative overflow-hidden"
           >
-            {/* ব্যাকগ্রাউন্ড স্টেপ নম্বর ওয়াটারমার্ক */}
-            <span className="absolute -top-3 right-4 font-mono font-black text-6xl text-foreground/[0.04] select-none pointer-events-none group-hover:text-primary/10 transition-colors">
+            <span className="absolute -top-3 right-3 font-mono font-black text-6xl text-foreground/[0.04] select-none pointer-events-none group-hover:text-primary/10 transition-colors">
               {item.step}
             </span>
 
             <div>
-              <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center justify-between mb-4">
                 <div className={`icon-tile !bg-gradient-to-br ${item.gradient} ${item.iconColor} group-hover:scale-105 transition-transform`}>
                   <item.icon className="w-5 h-5" />
                 </div>
@@ -770,39 +765,32 @@ function HowItWorksSection({ courseSlug }: { courseSlug: string }) {
                 </span>
               </div>
 
-              <span className="text-[11px] font-bangla font-semibold text-primary block mb-1.5">
+              <span className="text-[11px] font-bangla font-semibold text-primary block mb-1">
                 {item.badgeTitle}
               </span>
 
-              <h3 className="font-bangla font-bold text-base sm:text-lg text-foreground leading-snug">
+              <h3 className="font-bangla font-bold text-base text-foreground leading-snug">
                 {item.title}
               </h3>
 
-              <p className="font-bangla text-xs sm:text-sm text-foreground/75 leading-relaxed mt-2.5">
+              <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed mt-2">
                 {item.desc}
               </p>
             </div>
 
-            <div className="pt-5 mt-5 border-t border-border/40 flex items-center gap-2 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
+            <div className="pt-4 mt-5 border-t border-border/40 flex items-center gap-1.5 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
               <span>পরবর্তী ধাপে চলুন</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
         ))}
       </div>
-
     </div>
   );
 }
 
-// ================= সেকশন ৬: FAQ ও ফাইনাল ক্লোজিং CTA ব্যানার =================
-function FaqAndFinalCtaSection({
-  courseSlug,
-  onOpenModal,
-}: {
-  courseSlug: string;
-  onOpenModal: () => void;
-}) {
+// ================= ট্যাব ৫: সাধারণ প্রশ্ন (FAQ) =================
+function TabFaq({ courseSlug }: { courseSlug: string }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const faqs = [
@@ -829,45 +817,42 @@ function FaqAndFinalCtaSection({
   ];
 
   return (
-    <div className="mt-20 sm:mt-28 border-t border-border/40 pt-16 sm:pt-20">
-      
-      {/* FAQ হেডার */}
+    <div className="space-y-8 animate-in fade-in duration-300">
       <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-4">
           <HelpCircle className="w-3.5 h-3.5" />
           <EditableText id={`course.${courseSlug}.faq.badge`}>
             সাধারণ প্রশ্নোত্তর
           </EditableText>
         </div>
 
-        <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.75rem,3.2vw+0.5rem,2.75rem)] leading-[1.25]">
+        <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.65rem,2.8vw+0.5rem,2.4rem)] leading-[1.25]">
           <EditableText id={`course.${courseSlug}.faq.heading`}>
             আপনার মনে কি কোনো প্রশ্ন আছে?
           </EditableText>
         </h2>
 
-        <p className="font-bangla text-muted-foreground text-sm sm:text-base leading-relaxed mt-4 max-w-2xl">
+        <p className="font-bangla text-muted-foreground text-sm leading-relaxed mt-2 max-w-xl">
           <EditableText id={`course.${courseSlug}.faq.subheading`}>
             কোর্সে যুক্ত হওয়ার আগে সাধারণ কিছু দ্বিধার সুস্পষ্ট উত্তর।
           </EditableText>
         </p>
       </div>
 
-      {/* FAQ কলাপসিবল লিস্ট */}
-      <div className="max-w-4xl mx-auto mt-12 space-y-3.5">
+      <div className="max-w-3xl mx-auto space-y-3">
         {faqs.map((faq, i) => {
           const isOpen = openFaq === i;
           return (
             <div
               key={i}
-              className={`glass-strong rounded-2xl border transition-all duration-300 overflow-hidden ${
-                isOpen ? "border-primary/40 shadow-sm" : "border-border/60 hover:border-primary/20"
+              className={`glass rounded-2xl border transition-all duration-200 overflow-hidden ${
+                isOpen ? "border-primary/40 shadow-xs" : "border-border/60 hover:border-primary/20"
               }`}
             >
               <button
                 type="button"
                 onClick={() => setOpenFaq(isOpen ? null : i)}
-                className="w-full p-5 sm:p-6 text-left flex items-start justify-between gap-4 select-none"
+                className="w-full p-4 sm:p-5 text-left flex items-start justify-between gap-4 select-none"
               >
                 <span className="font-bangla font-bold text-sm sm:text-base text-foreground leading-snug">
                   {faq.q}
@@ -882,8 +867,8 @@ function FaqAndFinalCtaSection({
               </button>
 
               {isOpen && (
-                <div className="px-5 pb-6 sm:px-6 sm:pb-6 pt-1 border-t border-border/30 animate-in fade-in slide-in-from-top-2 duration-200">
-                  <p className="font-bangla text-xs sm:text-sm text-foreground/80 leading-relaxed">
+                <div className="px-4 pb-5 sm:px-5 sm:pb-5 pt-1 border-t border-border/30 animate-in fade-in duration-200">
+                  <p className="font-bangla text-xs sm:text-[13px] text-foreground/80 leading-relaxed">
                     {faq.a}
                   </p>
                 </div>
@@ -892,45 +877,6 @@ function FaqAndFinalCtaSection({
           );
         })}
       </div>
-
-      {/* ================= ফাইনাল হাই-কনভার্টিং ক্লোজিং CTA ব্যানার ================= */}
-      <div className="mt-20 sm:mt-28 relative">
-        <div className="glass-strong rounded-3xl border border-primary/30 p-8 sm:p-12 text-center max-w-4xl mx-auto shadow-2xl relative overflow-hidden backdrop-blur-md">
-          
-          {/* ব্যাকগ্রাউন্ড অ্যাম্পলিফায়ার গ্লো */}
-          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/30 bg-primary/10 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
-            <Flame className="w-3.5 h-3.5 fill-primary text-primary animate-pulse" />
-            <span>সীমিত সময়ের অফার</span>
-          </div>
-
-          <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl lg:text-4xl text-foreground leading-[1.25] tracking-tight">
-            দেরি না করে আজই আপনার সিনেমাটিক এডিটিং জার্নি শুরু করুন
-          </h3>
-
-          <p className="font-bangla text-sm sm:text-base text-foreground/85 leading-relaxed mt-4 max-w-2xl mx-auto">
-            ব্যাচ ৩-এ সীমিত আসনে বিশেষ ছাড় চলছে—রেগুলার ফি <span className="line-through text-muted-foreground">৳৫,০০০</span>-এর বদলে মাত্র <span className="font-bold text-primary font-mono text-lg">৳৩,০০০</span>।
-          </p>
-
-          <div className="mt-8 flex flex-col items-center justify-center gap-3">
-            <button
-              onClick={onOpenModal}
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base sm:text-lg flex items-center justify-center gap-3 shadow-xl shadow-primary/30 hover:brightness-110 active:scale-[0.99] transition-all font-sans"
-            >
-              <span>Enroll in Batch 03 Now</span>
-              <ArrowRight className="w-5 h-5" />
-            </button>
-
-            <p className="text-xs text-muted-foreground font-bangla flex items-center gap-1.5 mt-1">
-              <ShieldCheck className="w-4 h-4 text-emerald-500" />
-              <span>১০০% মানি-ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট | সুরক্ষিত পেমেন্ট ভেরিফিকেশন</span>
-            </p>
-          </div>
-
-        </div>
-      </div>
-
     </div>
   );
 }
@@ -942,6 +888,9 @@ function CourseDetail() {
   const [showModal, setShowModal] = useState(false);
   const [showLockedModal, setShowLockedModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
+  // সক্রিয় ট্যাব স্টেট
+  const [activeTab, setActiveTab] = useState<"overview" | "curriculum" | "included" | "how" | "faq">("overview");
 
   const timer = useEvergreenTimer(24);
 
@@ -964,6 +913,14 @@ function CourseDetail() {
   }, [slug]);
 
   const formatDigit = (num: number) => String(num).padStart(2, "0");
+
+  const tabList = [
+    { id: "overview", label: "ওভারভিউ", icon: LayoutDashboard },
+    { id: "curriculum", label: "কারিকুলাম", icon: BookOpen },
+    { id: "included", label: "কী কী পাচ্ছেন", icon: Gift },
+    { id: "how", label: "যেভাবে শুরু করবেন", icon: Workflow },
+    { id: "faq", label: "সাধারণ প্রশ্ন (FAQ)", icon: MessageCircleQuestion },
+  ] as const;
 
   return (
     <SiteShell>
@@ -1044,7 +1001,7 @@ function CourseDetail() {
           </Link>
 
           {/* ================= টপ ফোল্ড (Hero & Sticky Card) ================= */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-20">
             
             {/* বামপাশ: ভ্যালু প্রোপজিশন */}
             <div className="lg:col-span-7 flex flex-col space-y-6">
@@ -1314,23 +1271,73 @@ function CourseDetail() {
 
           </div>
 
-          {/* ================= সেকশন ২: মার্কেট অপরচুনিটি ও পেইন পয়েন্ট ================= */}
-          <MarketOpportunitySection courseSlug={course.slug} />
+          {/* ================= ১. স্টিকি ট্যাব বার কন্ট্রোলার ================= */}
+          <div className="sticky top-20 z-30 mb-8 py-2.5 backdrop-blur-md">
+            <div className="max-w-5xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+              {tabList.map((tab) => {
+                const isActive = activeTab === tab.id;
+                const Icon = tab.icon;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bangla text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer select-none ${
+                      isActive
+                        ? "bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-[1.02]"
+                        : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
+                    }`}
+                  >
+                    <Icon className="w-4 h-4 shrink-0" />
+                    <span>{tab.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-          {/* ================= সেকশন ৩: কারিকুলাম অ্যাকর্ডিয়ন ================= */}
-          <DetailedCurriculumSection courseSlug={course.slug} />
+          {/* ================= ২. ইউনিফাইড কন্টেন্ট মাস্টার কার্ড ================= */}
+          <div className="max-w-5xl mx-auto glass-strong rounded-3xl border border-border/80 p-6 sm:p-10 lg:p-12 shadow-xl mb-16 relative overflow-hidden backdrop-blur-md">
+            {activeTab === "overview" && <TabOverview courseSlug={course.slug} />}
+            {activeTab === "curriculum" && <TabCurriculum courseSlug={course.slug} />}
+            {activeTab === "included" && <TabWhatsIncluded courseSlug={course.slug} />}
+            {activeTab === "how" && <TabHowItWorks courseSlug={course.slug} />}
+            {activeTab === "faq" && <TabFaq courseSlug={course.slug} />}
+          </div>
 
-          {/* ================= সেকশন ৪: ফিচার ম্যাট্রিক্স (What's Included) ================= */}
-          <WhatsIncludedSection courseSlug={course.slug} />
+          {/* ================= ৩. ফাইনাল ক্লোজিং হাই-কনভার্টিং CTA ব্যানার ================= */}
+          <div className="relative max-w-5xl mx-auto">
+            <div className="glass-strong rounded-3xl border border-primary/30 p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden backdrop-blur-md">
+              <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
-          {/* ================= সেকশন ৫: ৩-ধাপের অনবোর্ডিং ফ্লো ================= */}
-          <HowItWorksSection courseSlug={course.slug} />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/30 bg-primary/10 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
+                <Flame className="w-3.5 h-3.5 fill-primary text-primary animate-pulse" />
+                <span>সীমিত সময়ের অফার</span>
+              </div>
 
-          {/* ================= সেকশন ৬: FAQ ও ফাইনাল ক্লোজিং CTA ব্যানার ================= */}
-          <FaqAndFinalCtaSection
-            courseSlug={course.slug}
-            onOpenModal={() => setShowModal(true)}
-          />
+              <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl lg:text-4xl text-foreground leading-[1.25] tracking-tight">
+                দেরি না করে আজই আপনার সিনেমাটিক এডিটিং জার্নি শুরু করুন
+              </h3>
+
+              <p className="font-bangla text-sm sm:text-base text-foreground/85 leading-relaxed mt-4 max-w-2xl mx-auto">
+                ব্যাচ ৩-এ সীমিত আসনে বিশেষ ছাড় চলছে—রেগুলার ফি <span className="line-through text-muted-foreground">৳৫,০০০</span>-এর বদলে মাত্র <span className="font-bold text-primary font-mono text-lg">৳৩,০০০</span>।
+              </p>
+
+              <div className="mt-8 flex flex-col items-center justify-center gap-3">
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base sm:text-lg flex items-center justify-center gap-3 shadow-xl shadow-primary/30 hover:brightness-110 active:scale-[0.99] transition-all font-sans cursor-pointer"
+                >
+                  <span>Enroll in Batch 03 Now</span>
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+
+                <p className="text-xs text-muted-foreground font-bangla flex items-center gap-1.5 mt-1">
+                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                  <span>১০০% মানি-ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট | সুরক্ষিত পেমেন্ট ভেরিফিকেশন</span>
+                </p>
+              </div>
+            </div>
+          </div>
 
         </div>
       </section>
