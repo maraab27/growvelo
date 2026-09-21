@@ -41,6 +41,7 @@ import {
   TrendingUp,
   Plus,
   Trash2,
+  AlertCircle,
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
@@ -145,7 +146,7 @@ function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
   return { items, addItem, removeItem, updateItem };
 }
 
-// এনরোলমেন্ট মডাল
+// ================= উন্নত ইনস্ট্রাকশনসহ এনরোলমেন্ট মডাল =================
 function EnrollmentModal({
   courseSlug,
   onClose,
@@ -157,11 +158,11 @@ function EnrollmentModal({
 }) {
   const [copied, setCopied] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [selectedMethod, setSelectedMethod] = useState<"bKash" | "Nagad">("bKash");
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
     email: "",
-    method: "bKash",
     trxId: "",
   });
 
@@ -177,7 +178,7 @@ function EnrollmentModal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.fullName || !formData.phone || !formData.trxId) {
-      alert("অনুগ্রহ করে সব তথ্য সঠিকভাবে পূরণ করুন।");
+      alert("অনুগ্রহ করে আপনার নাম, হোয়াটসঅ্যাপ নম্বর এবং ট্রানজেকশন আইডি দিন।");
       return;
     }
 
@@ -185,7 +186,7 @@ function EnrollmentModal({
 Name: ${formData.fullName}
 Phone: ${formData.phone}
 Email: ${formData.email || "N/A"}
-Method: ${formData.method}
+Method: ${selectedMethod} Personal
 TrxID: ${formData.trxId}`;
 
     const whatsappUrl = `https://wa.me/${supportWhatsapp}?text=${encodeURIComponent(message)}`;
@@ -194,54 +195,121 @@ TrxID: ${formData.trxId}`;
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className="glass-strong rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-border/80 shadow-2xl relative max-h-[92vh] overflow-y-auto font-bangla"
+        className="glass-strong rounded-3xl max-w-lg w-full p-5 sm:p-8 border border-border/80 shadow-2xl relative max-h-[92vh] overflow-y-auto font-bangla"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full glass text-muted-foreground hover:text-foreground transition-colors"
+          className="absolute top-4 right-4 p-2 rounded-full glass text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
         {!isSubmitted ? (
           <>
-            <div className="mb-6">
-              <h3 className="font-bangla text-xl sm:text-2xl font-bold text-foreground">
-                <EditableText id={`course.${courseSlug}.modal.title`}>ব্যাচ ৩ এ আপনার আসন নিশ্চিত করুন</EditableText>
+            {/* হেডার */}
+            <div className="text-center mb-6">
+              <span className="text-xs text-muted-foreground uppercase font-mono tracking-wider">Total Amount</span>
+              <div className="text-3xl sm:text-4xl font-extrabold text-foreground font-mono mt-0.5">৳৩,০০০</div>
+              <h3 className="font-bangla text-base font-bold text-foreground mt-2">
+                <EditableText id={`course.${courseSlug}.modal.title`}>ব্যাচ ৩ এ সিট কনফার্মেশন ও পেমেন্ট</EditableText>
               </h3>
-              <p className="font-bangla text-sm text-muted-foreground mt-1">
-                <EditableText id={`course.${courseSlug}.modal.subtitle`}>
-                  নিচের নম্বরে ফি সেন্ড মানি করে ভেরিফিকেশন ফর্মটি পূরণ করুন।
-                </EditableText>
-              </p>
             </div>
 
-            <div className="glass rounded-2xl p-4 border border-primary/20 bg-primary/5 mb-6 space-y-2">
-              <div className="flex items-center justify-between text-sm font-medium">
-                <span className="text-foreground">bKash / Nagad (Personal)</span>
-                <span className="text-primary font-mono font-bold text-base">৳৩,০০০</span>
+            {/* পেমেন্ট মেথড সিলেকশন ট্যাব */}
+            <div className="flex gap-2 p-1 rounded-xl glass border border-border/60 mb-4">
+              <button
+                type="button"
+                onClick={() => setSelectedMethod("bKash")}
+                className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                  selectedMethod === "bKash"
+                    ? "bg-[#D12053] text-white shadow-sm"
+                    : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
+                }`}
+              >
+                bKash (বিকাশ)
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedMethod("Nagad")}
+                className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                  selectedMethod === "Nagad"
+                    ? "bg-[#F7921E] text-white shadow-sm"
+                    : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
+                }`}
+              >
+                Nagad (নগদ)
+              </button>
+            </div>
+
+            {/* নম্বর এবং সেন্ড মানি কার্ড */}
+            <div className="glass rounded-2xl p-4 border border-primary/30 bg-primary/5 mb-5 space-y-2.5">
+              <div className="flex items-center justify-between text-xs sm:text-sm">
+                <span className="text-foreground/85 font-medium">
+                  Send exactly <strong className="font-mono text-primary font-bold">৳৩,০০০</strong> to this {selectedMethod} number
+                </span>
+                <span className="px-2 py-0.5 rounded-md bg-foreground/5 text-[11px] font-mono font-semibold text-foreground/70">
+                  Personal
+                </span>
               </div>
-              <div className="flex items-center justify-between gap-2 bg-background/50 p-2.5 rounded-xl border border-border/50">
+
+              <div className="flex items-center justify-between gap-2 bg-background/80 p-2.5 rounded-xl border border-border/60">
                 <code className="text-sm sm:text-base font-mono font-bold tracking-wider text-foreground">
                   {paymentNumber}
                 </code>
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="px-3 py-1.5 text-xs rounded-lg glass font-sans flex items-center gap-1.5 text-foreground hover:bg-primary hover:text-primary-foreground transition-colors font-medium"
+                  className="px-3 py-1.5 text-xs rounded-lg glass font-sans flex items-center gap-1.5 text-foreground hover:bg-primary hover:text-primary-foreground transition-colors font-medium cursor-pointer"
                 >
-                  {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                   {copied ? "Copied" : "Copy"}
                 </button>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 text-sm">
+            {/* নির্দেশনাবলী (NextLevel.bd স্টাইলে স্পষ্ট ও নির্ভুল) */}
+            <div className="glass rounded-2xl p-4 sm:p-5 border border-border/70 mb-6 space-y-3 bg-foreground/[0.02]">
+              <div className="flex items-center gap-2 text-foreground font-bold text-xs sm:text-sm">
+                <AlertCircle className="w-4 h-4 text-amber-500" />
+                <span><EditableText id={`course.${courseSlug}.modal.guide.title`}>কীভাবে পেমেন্ট করবেন (ইনস্ট্রাকশন):</EditableText></span>
+              </div>
+
+              {/* লাল সতর্কতা যাতে ভুল করে পেমেন্ট না করে */}
+              <div className="p-2.5 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-xs font-semibold leading-relaxed">
+                ⚠️ দয়া করে <strong>"Send Money" (সেন্ড মানি)</strong> করবেন। ভুল করেও "Payment" অপশনে যাবেন না, কারণ এটি একটি পার্সোনাল নম্বর।
+              </div>
+
+              <ol className="space-y-2 text-xs sm:text-[13px] text-foreground/80 leading-relaxed list-decimal list-inside pl-1">
+                <li>
+                  <EditableText id={`course.${courseSlug}.modal.guide.step1`}>
+                    আপনার ফোনে {selectedMethod === "bKash" ? "bKash" : "Nagad"} অ্যাপটি ওপেন করুন।
+                  </EditableText>
+                </li>
+                <li>
+                  <EditableText id={`course.${courseSlug}.modal.guide.step2`}>
+                    অ্যাপের মূল মেনু থেকে <strong>"Send Money"</strong> অপশনটিতে ক্লিক করুন।
+                  </EditableText>
+                </li>
+                <li>
+                  <EditableText id={`course.${courseSlug}.modal.guide.step3`}>
+                    উপরের নম্বরটি কপি করে প্রাপক নম্বরে বসান এবং নির্ধারিত <strong>৳৩,০০০</strong> টাকা সেন্ড মানি সম্পন্ন করুন।
+                  </EditableText>
+                </li>
+                <li>
+                  <EditableText id={`course.${courseSlug}.modal.guide.step4`}>
+                    টাকা পাঠানো সফল হলে এসএমএস বা অ্যাপ থেকে <strong>Transaction ID (TrxID)</strong> কপি করে নিচের বক্সে বসান।
+                  </EditableText>
+                </li>
+              </ol>
+            </div>
+
+            {/* ভেরিফিকেশন ফর্ম */}
+            <form onSubmit={handleSubmit} className="space-y-3.5 text-xs sm:text-sm">
               <div>
-                <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">
+                <label className="block text-foreground font-medium mb-1 uppercase tracking-wider text-[11px]">
                   আপনার পূর্ণ নাম *
                 </label>
                 <input
@@ -250,13 +318,13 @@ TrxID: ${formData.trxId}`;
                   placeholder="যেমন: মাহিম মারাব"
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs sm:text-sm"
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">
+                  <label className="block text-foreground font-medium mb-1 uppercase tracking-wider text-[11px]">
                     সচল হোয়াটসঅ্যাপ নম্বর *
                   </label>
                   <input
@@ -265,59 +333,53 @@ TrxID: ${formData.trxId}`;
                     placeholder="01XXXXXXXXX"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs sm:text-sm"
                   />
                 </div>
                 <div>
-                  <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">
-                    ইমেইল এড্রেস
+                  <label className="block text-foreground font-medium mb-1 uppercase tracking-wider text-[11px]">
+                    ইমেইল এড্রেস (ঐচ্ছিক)
                   </label>
                   <input
                     type="email"
                     placeholder="name@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs sm:text-sm"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">
-                    পেমেন্ট মাধ্যম *
-                  </label>
-                  <select
-                    value={formData.method}
-                    onChange={(e) => setFormData({ ...formData, method: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-sm bg-background font-sans"
-                  >
-                    <option value="bKash">bKash Personal</option>
-                    <option value="Nagad">Nagad Personal</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">
-                    Transaction ID (TrxID) *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. BL92XK82"
-                    value={formData.trxId}
-                    onChange={(e) => setFormData({ ...formData, trxId: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-sm font-mono uppercase"
-                  />
-                </div>
+              <div>
+                <label className="block text-foreground font-medium mb-1 uppercase tracking-wider text-[11px]">
+                  Transaction ID (TrxID) *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="যেমন: BL92XK82"
+                  value={formData.trxId}
+                  onChange={(e) => setFormData({ ...formData, trxId: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs sm:text-sm font-mono uppercase"
+                />
               </div>
 
-              <button
-                type="submit"
-                className="w-full mt-5 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:brightness-110 active:scale-[0.99] transition-all cursor-pointer"
-              >
-                <Send className="w-4 h-4" />
-                <span><EditableText id={`course.${courseSlug}.modal.btn`}>কনফার্মেশন মেসেজ পাঠান</EditableText></span>
-              </button>
+              <div className="flex gap-2.5 pt-2">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="flex-1 py-3 rounded-xl glass text-foreground font-semibold text-xs sm:text-sm hover:bg-foreground/5 transition-colors cursor-pointer"
+                >
+                  ফিরে যান (Back)
+                </button>
+                <button
+                  type="submit"
+                  className="flex-2 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:brightness-110 active:scale-[0.99] transition-all cursor-pointer"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>আমি পেমেন্ট করেছি (I've Paid)</span>
+                </button>
+              </div>
             </form>
           </>
         ) : (
@@ -442,7 +504,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             <button
               type="button"
               onClick={() => removeCard(idx)}
-              className="absolute top-3 right-3 p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+              className="absolute top-3 right-3 p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
               title="এই কার্ডটি মুছুন"
             >
               <Trash2 className="w-4 h-4" />
@@ -475,7 +537,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
-      {/* নতুন কার্ড যোগ করার বাটন */}
+      {/* নতুন কার্ড যোগ বাটন */}
       <div className="text-center pt-2">
         <button
           type="button"
@@ -523,7 +585,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
                   <button
                     type="button"
                     onClick={() => removeBadPoint(idx)}
-                    className="p-1 text-muted-foreground hover:text-destructive transition-colors"
+                    className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
                     title="মুছুন"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -561,7 +623,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
                   <button
                     type="button"
                     onClick={() => removeGoodPoint(idx)}
-                    className="p-1 text-muted-foreground hover:text-destructive transition-colors"
+                    className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
                     title="মুছুন"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -738,7 +800,7 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
                   <button
                     type="button"
                     onClick={() => removeModule(idx)}
-                    className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                    className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
                     title="মডিউল ডিলিট করুন"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -772,7 +834,7 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
                         <button
                           type="button"
                           onClick={() => handleRemoveLesson(idx, lIdx)}
-                          className="p-1 text-muted-foreground hover:text-destructive transition-colors"
+                          className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
                           title="লেসন মুছুন"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -890,7 +952,7 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
             <button
               type="button"
               onClick={() => removeFeature(fIdx)}
-              className="absolute top-3 right-3 p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+              className="absolute top-3 right-3 p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
               title="ফিচার ডিলিট করুন"
             >
               <Trash2 className="w-4 h-4" />
@@ -1002,7 +1064,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
             <button
               type="button"
               onClick={() => removeStep(index)}
-              className="absolute top-3 right-3 p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors z-10"
+              className="absolute top-3 right-3 p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors z-10 cursor-pointer"
               title="স্টেপ ডিলিট করুন"
             >
               <Trash2 className="w-4 h-4" />
@@ -1026,7 +1088,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
                 <EditableText id={`course.${courseSlug}.step.${index + 1}.badge`}>{item.badgeTitle}</EditableText>
               </span>
 
-              <h3 className="font-bangla font-bold text-base sm:text-lg text-foreground leading-snug">
+              <h3 className="font-bangla font-bold text-base sm:text-lg text-foreground leading-snug pr-6">
                 <EditableText id={`course.${courseSlug}.step.${index + 1}.title`}>{item.title}</EditableText>
               </h3>
 
@@ -1150,7 +1212,7 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
                   <button
                     type="button"
                     onClick={() => removeFaq(i)}
-                    className="p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
+                    className="p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors cursor-pointer"
                     title="FAQ মুছুন"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -1235,7 +1297,7 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
-    // সাইটের আসল হেডার অক্ষুণ্ণ রাখা হলো
+    // হোম পেজের আসল SiteShell ব্যবহার করা হয়েছে
     <SiteShell>
       {showModal && (
         <EnrollmentModal
@@ -1250,7 +1312,7 @@ function CourseDetail() {
           <div className="sticky-card tint-brand relative w-full max-w-md overflow-hidden p-6 sm:p-8">
             <button
               onClick={() => setShowLockedModal(false)}
-              className="absolute right-4 top-4 text-foreground/40 hover:text-foreground"
+              className="absolute right-4 top-4 text-foreground/40 hover:text-foreground cursor-pointer"
             >
               <X className="h-5 w-5" />
             </button>
@@ -1458,8 +1520,8 @@ function CourseDetail() {
             </div>
 
             {/* ডানপাশ: স্টিকি কার্ড */}
-            <div className="lg:col-span-5 lg:sticky lg:top-24 w-full">
-              <div className="glass-strong rounded-3xl p-5 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
+            <div className="lg:col-span-5 lg:sticky lg:top-28">
+              <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
                 
                 <div 
                   onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
@@ -1490,7 +1552,7 @@ function CourseDetail() {
                   </div>
                 </div>
 
-                {/* প্রাইসিং ও ৪০% অফ ফিক্স */}
+                {/* প্রাইসিং ও ৪০% অফ */}
                 <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pb-1">
                   <div className="flex items-baseline gap-2.5">
                     <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-mono">
@@ -1711,7 +1773,7 @@ function CourseDetail() {
             </div>
           </div>
 
-          {/* ================= ৪. কোর্স পেজের জন্য একক স্লিম ফুটার ================= */}
+          {/* ================= ৪. কোর্স পেজের জন্য স্লিম ফুটার ================= */}
           <footer className="w-full py-6 border-t border-border/40 text-center font-sans">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
               <p>© 2026 growVelo Studio. All rights reserved.</p>
