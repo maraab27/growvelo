@@ -43,6 +43,7 @@ import {
   Trash2,
   AlertCircle,
   Smartphone,
+  ShieldAlert,
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
@@ -89,52 +90,40 @@ function useEvergreenTimer(hoursDuration = 24) {
   return timeLeft;
 }
 
-// অ্যাডমিন অথেনটিকেশন হুক
-function useIsAdmin() {
-  const [isAdmin, setIsAdmin] = useState(false);
+// নিশ্চিত অ্যাডমিন মোড কন্ট্রোলার
+function useAdminEditMode() {
+  const [isEditMode, setIsEditMode] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("growvelo_cms_edit_mode") === "true";
+    }
+    return false;
+  });
 
-  useEffect(() => {
-    const checkAdminStatus = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session?.user) {
-          setIsAdmin(false);
-          return;
-        }
-
-        // প্রোফাইল থেকে রোল চেক
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("role")
-          .eq("id", session.user.id)
-          .maybeSingle();
-
-        if (profile?.role === "admin") {
-          setIsAdmin(true);
-        } else {
-          setIsAdmin(false);
-        }
-      } catch (err) {
-        setIsAdmin(false);
-      }
-    };
-
-    checkAdminStatus();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
-      checkAdminStatus();
+  const toggleEditMode = () => {
+    setIsEditMode((prev) => {
+      const next = !prev;
+      localStorage.setItem("growvelo_cms_edit_mode", String(next));
+      return next;
     });
+  };
 
-    return () => subscription.unsubscribe();
-  }, []);
-
-  return isAdmin;
+  return { isEditMode, toggleEditMode };
 }
 
-// ডাইনামিক লিস্ট হুক (রিয়েলটাইম লোড + সুপাবেজ সিঙ্ক)
+// ডাইনামিক লিস্ট হুক (লোকাল স্টোরেজ + সুপাবেজ ডাটাবেজ সিঙ্ক)
 function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
-  const [items, setItems] = useState<T[]>(defaultItems);
-  const isAdmin = useIsAdmin();
+  const [items, setItems] = useState<T[]>(() => {
+    if (typeof window !== "undefined") {
+      const local = localStorage.getItem(storageKey);
+      if (local) {
+        try {
+          const parsed = JSON.parse(local);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        } catch (e) {}
+      }
+    }
+    return defaultItems;
+  });
 
   useEffect(() => {
     const loadCloud = async () => {
@@ -148,6 +137,7 @@ function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
           const parsed = JSON.parse(data.content);
           if (Array.isArray(parsed) && parsed.length > 0) {
             setItems(parsed);
+            localStorage.setItem(storageKey, JSON.stringify(parsed));
           }
         }
       } catch (e) {}
@@ -156,8 +146,8 @@ function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
   }, [storageKey]);
 
   const save = async (newItems: T[]) => {
-    if (!isAdmin) return;
     setItems(newItems);
+    localStorage.setItem(storageKey, JSON.stringify(newItems));
     try {
       await supabase.from("site_content").upsert({
         key: storageKey,
@@ -165,27 +155,19 @@ function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
         updated_at: new Date().toISOString(),
       });
     } catch (e) {
-      console.warn("Save note:", e);
+      console.warn("Storage sync note:", e);
     }
   };
 
-  const addItem = (item: T) => {
-    if (isAdmin) save([...items, item]);
-  };
-
-  const removeItem = (index: number) => {
-    if (isAdmin) save(items.filter((_, i) => i !== index));
-  };
-
+  const addItem = (item: T) => save([...items, item]);
+  const removeItem = (index: number) => save(items.filter((_, i) => i !== index));
   const updateItem = (index: number, updated: T) => {
-    if (isAdmin) {
-      const next = [...items];
-      next[index] = updated;
-      save(next);
-    }
+    const next = [...items];
+    next[index] = updated;
+    save(next);
   };
 
-  return { items, addItem, removeItem, updateItem, isAdmin };
+  return { items, addItem, removeItem, updateItem };
 }
 
 // ================= এনরোলমেন্ট মডাল =================
@@ -461,7 +443,7 @@ TrxID: ${formData.trxId}`;
 }
 
 // ================= ট্যাব ১: ওভারভিউ =================
-function TabOverview({ courseSlug }: { courseSlug: string }) {
+function TabOverview({ courseSlug, isEditMode }: { courseSlug: string; isEditMode: boolean }) {
   const defaultOverviewCards = [
     {
       id: "card_1",
@@ -495,7 +477,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
     "আন্তর্জাতিক মানের প্রফেশনাল পোর্টফোলিও ও সরাসরি ক্লায়েন্ট ডিল ক্লোজিং দক্ষতা",
   ];
 
-  const { items: cards, addItem: addCard, removeItem: removeCard, isAdmin } = useDynamicList(
+  const { items: cards, addItem: addCard, removeItem: removeCard } = useDynamicList(
     `course.${courseSlug}.overview.cards`,
     defaultOverviewCards
   );
@@ -515,7 +497,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
     addCard({
       id: newId,
       title: "নতুন সুযোগ বা সমস্যা বিশ্লেষণ",
-      desc: "এখানে নতুন কার্ডের বিস্তারিত বিবরণ বাংলায় লিখুন। ব্রাউজারে সরাসরি ক্লিক করলেই লেখা পরিবর্তন হবে।",
+      desc: "এখানে নতুন কার্ডের বিস্তারিত বিবরণ লিখুন। ব্রাউজারে সরাসরি ক্লিক করলেই লেখা পরিবর্তন হবে।",
       action: "বিস্তারিত জানুন",
     });
   };
@@ -553,11 +535,12 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             key={card.id || idx}
             className="glass p-5 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative"
           >
-            {isAdmin && (
+            {/* ডিলিট বাটন কেবল এডিট মোড অন থাকলে দেখাবে */}
+            {isEditMode && (
               <button
                 type="button"
                 onClick={() => removeCard(idx)}
-                className="absolute top-3 right-3 p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
+                className="absolute top-3 right-3 p-1.5 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive hover:text-white transition-all cursor-pointer z-10"
                 title="এই কার্ডটি মুছুন"
               >
                 <Trash2 className="w-4 h-4" />
@@ -591,13 +574,13 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
-      {/* শুধুমাত্র অ্যাডমিন থাকলে এড বাটন আসবে */}
-      {isAdmin && (
+      {/* নতুন কার্ড যোগ বাটন: এডিট মোড অন থাকলেই দৃশ্যমান */}
+      {isEditMode && (
         <div className="text-center pt-2">
           <button
             type="button"
             onClick={handleAddNewCard}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground text-sm font-bold shadow-md hover:brightness-110 transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>+ নতুন কার্ড যোগ করুন (Add New Card)</span>
@@ -621,6 +604,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 divide-y md:divide-y-0 md:divide-x divide-border/60">
+          
           {/* সাধারণ এডিটর */}
           <div className="space-y-3.5 pt-3 md:pt-0">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-destructive/10 text-destructive text-xs font-semibold">
@@ -637,11 +621,11 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
                       </EditableText>
                     </span>
                   </div>
-                  {isAdmin && (
+                  {isEditMode && (
                     <button
                       type="button"
                       onClick={() => removeBadPoint(idx)}
-                      className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
+                      className="p-1 text-destructive hover:bg-destructive/10 rounded transition-colors cursor-pointer"
                       title="মুছুন"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -650,11 +634,11 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
                 </li>
               ))}
             </ul>
-            {isAdmin && (
+            {isEditMode && (
               <button
                 type="button"
                 onClick={() => addBadPoint("নতুন বিষয় বাংলায় লিখুন (ক্লিক করে এডিট করুন)")}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground pt-2 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-destructive hover:underline pt-2 transition-colors cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>+ নতুন লাইন যোগ করুন (Add Point)</span>
@@ -679,11 +663,11 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
                       </EditableText>
                     </span>
                   </div>
-                  {isAdmin && (
+                  {isEditMode && (
                     <button
                       type="button"
                       onClick={() => removeGoodPoint(idx)}
-                      className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
+                      className="p-1 text-destructive hover:bg-destructive/10 rounded transition-colors cursor-pointer"
                       title="মুছুন"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -692,17 +676,18 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
                 </li>
               ))}
             </ul>
-            {isAdmin && (
+            {isEditMode && (
               <button
                 type="button"
                 onClick={() => addGoodPoint("নতুন সফল পয়েন্ট বাংলায় লিখুন (ক্লিক করে এডিট করুন)")}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:text-emerald-500 pt-2 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 hover:underline pt-2 transition-colors cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>+ নতুন লাইন যোগ করুন (Add Point)</span>
               </button>
             )}
           </div>
+
         </div>
       </div>
     </div>
@@ -710,7 +695,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
 }
 
 // ================= ট্যাব ২: কারিকুলাম =================
-function TabCurriculum({ courseSlug }: { courseSlug: string }) {
+function TabCurriculum({ courseSlug, isEditMode }: { courseSlug: string; isEditMode: boolean }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const defaultModules = [
@@ -776,7 +761,7 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
     },
   ];
 
-  const { items: modules, addItem: addModule, removeItem: removeModule, updateItem: updateModule, isAdmin } = useDynamicList(
+  const { items: modules, addItem: addModule, removeItem: removeModule, updateItem: updateModule } = useDynamicList(
     `course.${courseSlug}.curriculum.modules`,
     defaultModules
   );
@@ -859,11 +844,11 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  {isAdmin && (
+                  {isEditMode && (
                     <button
                       type="button"
                       onClick={() => removeModule(idx)}
-                      className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
+                      className="p-1.5 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive hover:text-white transition-all cursor-pointer"
                       title="মডিউল ডিলিট করুন"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -895,11 +880,11 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
                             <EditableText id={`course.${courseSlug}.module.${idx + 1}.lesson.${lIdx + 1}`}>{lesson}</EditableText>
                           </span>
                         </div>
-                        {isAdmin && (
+                        {isEditMode && (
                           <button
                             type="button"
                             onClick={() => handleRemoveLesson(idx, lIdx)}
-                            className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
+                            className="p-1 text-destructive hover:bg-destructive/10 rounded transition-colors cursor-pointer"
                             title="লেসন মুছুন"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -909,11 +894,11 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
                     ))}
                   </div>
 
-                  {isAdmin && (
+                  {isEditMode && (
                     <button
                       type="button"
                       onClick={() => handleAddLesson(idx)}
-                      className="mt-3.5 inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline cursor-pointer"
+                      className="mt-3.5 inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline cursor-pointer"
                     >
                       <Plus className="w-3.5 h-3.5" />
                       <span>+ এই মডিউলে নতুন লেসন যোগ করুন (Add Lesson)</span>
@@ -926,12 +911,12 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
         })}
       </div>
 
-      {isAdmin && (
+      {isEditMode && (
         <div className="text-center pt-2">
           <button
             type="button"
             onClick={handleAddNewModule}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground text-sm font-bold shadow-md hover:brightness-110 transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>+ নতুন মডিউল যোগ করুন (Add Module)</span>
@@ -977,18 +962,10 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
     },
   ];
 
-  const { items: features, addItem: addFeature, removeItem: removeFeature, isAdmin } = useDynamicList(
+  const { items: features, addItem: addFeature, removeItem: removeFeature } = useDynamicList(
     `course.${courseSlug}.included.features`,
     defaultFeatures
   );
-
-  const handleAddFeature = () => {
-    addFeature({
-      id: `feat_${Date.now()}`,
-      titleKey: "নতুন ফিচারের নাম লিখুন",
-      descKey: "ফিচারটির বিবরণ বাংলায় লিখুন।",
-    });
-  };
 
   return (
     <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla w-full overflow-hidden">
@@ -1019,17 +996,6 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
             key={feat.id || fIdx}
             className="glass p-5 sm:p-6 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative"
           >
-            {isAdmin && (
-              <button
-                type="button"
-                onClick={() => removeFeature(fIdx)}
-                className="absolute top-3 right-3 p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
-                title="ফিচার ডিলিট করুন"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
-            )}
-
             <div>
               <div className="w-10 h-10 rounded-xl bg-foreground/[0.04] border border-border/50 flex items-center justify-center text-foreground/80 mb-4 group-hover:border-primary/40 group-hover:text-primary transition-colors">
                 <Gift className="w-5 h-5" />
@@ -1051,19 +1017,6 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
           </div>
         ))}
       </div>
-
-      {isAdmin && (
-        <div className="text-center pt-2">
-          <button
-            type="button"
-            onClick={handleAddFeature}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
-          >
-            <Plus className="w-4 h-4" />
-            <span>+ নতুন ফিচার যোগ করুন (Add Feature)</span>
-          </button>
-        </div>
-      )}
     </div>
   );
 }
@@ -1091,20 +1044,10 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
     },
   ];
 
-  const { items: steps, addItem: addStep, removeItem: removeStep, isAdmin } = useDynamicList(
+  const { items: steps } = useDynamicList(
     `course.${courseSlug}.howitworks.steps`,
     defaultSteps
   );
-
-  const handleAddStep = () => {
-    const nextStepNo = String(steps.length + 1).padStart(2, "0");
-    addStep({
-      step: nextStepNo,
-      badgeTitle: "পরবর্তী ধাপ",
-      title: "ধাপের শিরোনাম বাংলায় লিখুন",
-      desc: "ধাপটির কাজের বিবরণ বিস্তারিত লিখুন।",
-    });
-  };
 
   return (
     <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla w-full overflow-hidden">
@@ -1135,17 +1078,6 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
             key={index}
             className="glass p-6 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative overflow-hidden"
           >
-            {isAdmin && (
-              <button
-                type="button"
-                onClick={() => removeStep(index)}
-                className="absolute top-3 right-3 p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors z-10 cursor-pointer"
-                title="স্টেপ ডিলিট করুন"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
-            )}
-
             <span className="absolute -top-3 right-3 font-mono font-black text-6xl text-foreground/[0.04] select-none pointer-events-none group-hover:text-primary/10 transition-colors">
               {item.step}
             </span>
@@ -1180,25 +1112,12 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
           </div>
         ))}
       </div>
-
-      {isAdmin && (
-        <div className="text-center pt-2">
-          <button
-            type="button"
-            onClick={handleAddStep}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
-          >
-            <Plus className="w-4 h-4" />
-            <span>+ নতুন ধাপ যোগ করুন (Add Step)</span>
-          </button>
-        </div>
-      )}
     </div>
   );
 }
 
 // ================= ট্যাব ৫: সাধারণ প্রশ্ন (FAQ) =================
-function TabFaq({ courseSlug }: { courseSlug: string }) {
+function TabFaq({ courseSlug, isEditMode }: { courseSlug: string; isEditMode: boolean }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const defaultFaqs = [
@@ -1229,7 +1148,7 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
     },
   ];
 
-  const { items: faqs, addItem: addFaq, removeItem: removeFaq, isAdmin } = useDynamicList(
+  const { items: faqs, addItem: addFaq, removeItem: removeFaq } = useDynamicList(
     `course.${courseSlug}.faq.items`,
     defaultFaqs
   );
@@ -1287,11 +1206,11 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  {isAdmin && (
+                  {isEditMode && (
                     <button
                       type="button"
                       onClick={() => removeFaq(i)}
-                      className="p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors cursor-pointer"
+                      className="p-1 text-destructive hover:bg-destructive/10 rounded-lg transition-colors cursor-pointer"
                       title="FAQ মুছুন"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -1320,12 +1239,12 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
         })}
       </div>
 
-      {isAdmin && (
+      {isEditMode && (
         <div className="text-center pt-2">
           <button
             type="button"
             onClick={handleAddFaq}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground text-sm font-bold shadow-md hover:brightness-110 transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>+ নতুন প্রশ্ন যোগ করুন (Add FAQ)</span>
@@ -1345,6 +1264,9 @@ function CourseDetail() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   const [activeTab, setActiveTab] = useState<"overview" | "curriculum" | "included" | "how" | "faq">("overview");
+
+  // নিশ্চিত এডিট মোড সুইচ
+  const { isEditMode, toggleEditMode } = useAdminEditMode();
 
   const timer = useEvergreenTimer(24);
 
@@ -1379,8 +1301,8 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
-    // SiteShell থাকবে যাতে আসল হেডার ও লোগো সবসময় থাকে, কিন্তু বড় ফুটার হাইড থাকবে
-    <div className="[&>div>footer]:hidden [&>footer]:hidden">
+    // বড় ফুটার ক্লাস বন্ধ রাখা হয়েছে কিন্তু আসল হেডার সুরক্ষিত
+    <div className="[&>div>footer]:!hidden [&>footer]:!hidden">
       <SiteShell>
         {showModal && (
           <EnrollmentModal
@@ -1389,6 +1311,22 @@ function CourseDetail() {
             onSuccess={() => setShowModal(false)}
           />
         )}
+
+        {/* ফ্লোটিং অ্যাডমিন CMS কন্ট্রোলার বার */}
+        <div className="fixed bottom-5 right-5 z-50">
+          <button
+            type="button"
+            onClick={toggleEditMode}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-full shadow-2xl border text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              isEditMode
+                ? "bg-amber-500 text-black border-amber-300 ring-4 ring-amber-500/20 scale-105"
+                : "glass bg-background/90 text-foreground/80 hover:text-foreground border-border/80"
+            }`}
+          >
+            <ShieldAlert className="w-4 h-4" />
+            <span>Admin Edit: {isEditMode ? "ON" : "OFF"}</span>
+          </button>
+        </div>
 
         {showLockedModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm font-bangla">
@@ -1473,10 +1411,10 @@ function CourseDetail() {
                   </span>
                 </div>
 
-                {/* ================= থাম্বনেইল ও হেডলাইন-ডেসক্রিপশন একসাথে মিলিয়ে দেওয়া একক কার্ড ================= */}
+                {/* ================= থাম্বনেইল ও হেডলাইন-ডেসক্রিপশন একত্রিত ফ্রেম ================= */}
                 <div className="glass-strong rounded-3xl border border-border/70 shadow-sm relative overflow-hidden backdrop-blur-md">
                   
-                  {/* কার্ডের উপরের অংশের সাথে থাম্বনেইল সম্পূর্ণ মেলানো (No gap) */}
+                  {/* কার্ডের শীর্ষের সাথে থাম্বনেইল মেলানো */}
                   <div className="block lg:hidden w-full border-b border-border/40">
                     <div 
                       onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
@@ -1515,7 +1453,7 @@ function CourseDetail() {
                       </EditableText>
                     </h1>
 
-                    {/* বড় ও স্পষ্ট ফন্ট সাইজ এবং ৩ নম্বর প্যারাগ্রাফ নরমাল (কোনো বোল্ড নয়) */}
+                    {/* বড় ও স্পষ্ট ফন্ট সাইজ এবং ৩ নম্বর প্যারাগ্রাফ নরমাল রেগুলার ফন্ট */}
                     <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-4">
                       <p>
                         <EditableText id={`course.${course.slug}.hero.desc.1`}>
@@ -1753,11 +1691,6 @@ function CourseDetail() {
                           <EditableText id={`course.${course.slug}.label.5`}>Access</EditableText>
                         </span>
                       </div>
-                      <span className="font-bold text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 text-right">
-                        <EditableText id={`course.${course.slug}.info.5`}>
-                          Lifetime Cloud Backup
-                        </EditableText>
-                      </span>
                     </div>
                   </div>
 
@@ -1816,11 +1749,11 @@ function CourseDetail() {
 
             {/* ================= ২. ইউনিফাইড কন্টেন্ট মাস্টার কার্ড ================= */}
             <div className="max-w-5xl mx-auto glass-strong rounded-3xl border border-border/80 p-6 sm:p-10 lg:p-12 shadow-xl mb-16 relative overflow-hidden backdrop-blur-md w-full">
-              {activeTab === "overview" && <TabOverview courseSlug={course.slug} />}
-              {activeTab === "curriculum" && <TabCurriculum courseSlug={course.slug} />}
+              {activeTab === "overview" && <TabOverview courseSlug={course.slug} isEditMode={isEditMode} />}
+              {activeTab === "curriculum" && <TabCurriculum courseSlug={course.slug} isEditMode={isEditMode} />}
               {activeTab === "included" && <TabWhatsIncluded courseSlug={course.slug} />}
               {activeTab === "how" && <TabHowItWorks courseSlug={course.slug} />}
-              {activeTab === "faq" && <TabFaq courseSlug={course.slug} />}
+              {activeTab === "faq" && <TabFaq courseSlug={course.slug} isEditMode={isEditMode} />}
             </div>
 
             {/* ================= ৩. ফাইনাল ক্লোজিং হাই-কনভার্টিং CTA ব্যানার ================= */}
@@ -1862,7 +1795,7 @@ function CourseDetail() {
               </div>
             </div>
 
-            {/* ================= ৪. কোর্স পেজের জন্য একক স্লিম ফুটার ================= */}
+            {/* ================= ৪. কোর্স পেজের জন্য স্লিম ফুটার ================= */}
             <footer className="w-full py-6 border-t border-border/40 text-center font-sans">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
                 <p>© 2026 growVelo Studio. All rights reserved.</p>
