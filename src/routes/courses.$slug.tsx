@@ -32,6 +32,10 @@ import {
   FolderArchive,
   FileCheck,
   Award,
+  FileText,
+  MessageCircle,
+  HelpCircle,
+  Laptop,
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
@@ -430,7 +434,7 @@ function MarketOpportunitySection({ courseSlug }: { courseSlug: string }) {
   );
 }
 
-// ================= সেকশন ৩: ইন্টারেক্টিভ কারিকুলাম অ্যাকর্ডিয়ন =================
+// সেকশন ৩: কারিকুলাম অ্যাকর্ডিয়ন
 function DetailedCurriculumSection({ courseSlug }: { courseSlug: string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -503,8 +507,6 @@ function DetailedCurriculumSection({ courseSlug }: { courseSlug: string }) {
 
   return (
     <div className="mt-20 sm:mt-28 border-t border-border/40 pt-16 sm:pt-20">
-      
-      {/* সেকশন হেডার */}
       <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
           <Sparkles className="w-3.5 h-3.5" />
@@ -526,7 +528,6 @@ function DetailedCurriculumSection({ courseSlug }: { courseSlug: string }) {
         </p>
       </div>
 
-      {/* ইন্টারেক্টিভ অ্যাকর্ডিয়ন তালিকা */}
       <div className="max-w-4xl mx-auto mt-12 space-y-4">
         {curriculumData.map((item, idx) => {
           const isOpen = openIndex === idx;
@@ -537,7 +538,6 @@ function DetailedCurriculumSection({ courseSlug }: { courseSlug: string }) {
                 isOpen ? "border-primary/40 shadow-md" : "border-border/60 hover:border-primary/20"
               }`}
             >
-              {/* অ্যাকর্ডিয়ন বাটন */}
               <button
                 type="button"
                 onClick={() => toggleAccordion(idx)}
@@ -566,7 +566,6 @@ function DetailedCurriculumSection({ courseSlug }: { courseSlug: string }) {
                 </div>
               </button>
 
-              {/* এক্সপ্যান্ডেড কন্টেন্ট */}
               {isOpen && (
                 <div className="px-5 pb-6 sm:px-6 sm:pb-6 pt-1 border-t border-border/30 animate-in fade-in slide-in-from-top-2 duration-200">
                   <p className="font-bangla text-xs sm:text-sm text-muted-foreground mb-4 leading-relaxed">
@@ -587,12 +586,11 @@ function DetailedCurriculumSection({ courseSlug }: { courseSlug: string }) {
           );
         })}
       </div>
-
     </div>
   );
 }
 
-// ================= সেকশন ৪: ফিচার ও বোনাসেস ম্যাট্রিক্স (What's Included) =================
+// সেকশন ৪: ফিচার ম্যাট্রিক্স (What's Included)
 function WhatsIncludedSection({ courseSlug }: { courseSlug: string }) {
   const features = [
     {
@@ -641,8 +639,6 @@ function WhatsIncludedSection({ courseSlug }: { courseSlug: string }) {
 
   return (
     <div className="mt-20 sm:mt-28 border-t border-border/40 pt-16 sm:pt-20">
-      
-      {/* সেকশন হেডার */}
       <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
           <ShieldCheck className="w-3.5 h-3.5" />
@@ -664,7 +660,6 @@ function WhatsIncludedSection({ courseSlug }: { courseSlug: string }) {
         </p>
       </div>
 
-      {/* ৬-কার্ড রেসপনসিভ গ্রিড */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 sm:mt-16">
         {features.map((feat, fIdx) => (
           <div
@@ -691,6 +686,249 @@ function WhatsIncludedSection({ courseSlug }: { courseSlug: string }) {
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+// ================= সেকশন ৫: হাউ দ্য সিস্টেম ওয়ার্কস (৩-ধাপের অনবোর্ডিং ফ্লো) =================
+function HowItWorksSection({ courseSlug }: { courseSlug: string }) {
+  const steps = [
+    {
+      step: "01",
+      icon: FileText,
+      gradient: "from-primary/20 to-violet-500/20",
+      iconColor: "text-primary",
+      badgeTitle: "এনরোলমেন্ট রিকোয়েস্ট পাঠান",
+      title: "তথ্য দিয়ে ফর্ম পূরণ করুন",
+      desc: "ওয়েবসাইটের 'Enroll in Batch 03' বাটনে ক্লিক করে আপনার নাম, সচল হোয়াটসঅ্যাপ নম্বর এবং পেমেন্ট ট্রানজেকশন আইডি (TrxID) দিয়ে সাবমিট করুন।",
+    },
+    {
+      step: "02",
+      icon: MessageCircle,
+      gradient: "from-emerald-500/20 to-teal-500/20",
+      iconColor: "text-emerald-500",
+      badgeTitle: "হোয়াটসঅ্যাপে কনফার্মেশন ও ভেরিফিকেশন",
+      title: "টিমের সাথে ভেরিফিকেশন",
+      desc: "ফর্ম সাবমিট করতেই হোয়াটসঅ্যাপে অটো-মেসেজ চলে আসবে। আমাদের সাপোর্ট টিম তৎক্ষণাৎ ট্রানজেকশন ভেরিফাই করে আপনার আসন নিশ্চিত করবে।",
+    },
+    {
+      step: "03",
+      icon: ShieldCheck,
+      gradient: "from-purple-500/20 to-pink-500/20",
+      iconColor: "text-purple-500",
+      badgeTitle: "প্রাইভেট ডিসকর্ড ও ড্যাশবোর্ড অ্যাক্সেস",
+      title: "ডিসকর্ড কমিউনিটিতে প্রবেশ",
+      desc: "কনফার্মেশনের সাথে সাথেই পাবেন ব্যাচ ৩-এর প্রাইভেট ডিসকর্ড সার্ভারের ইনভাইট লিংক। সেখানে লাইভ ক্লাসে অংশ নিন এবং ওয়েবসাইট ড্যাশবোর্ড থেকে রেকর্ডিং ও ফাইল ডাউনলোড করুন।",
+    },
+  ];
+
+  return (
+    <div className="mt-20 sm:mt-28 border-t border-border/40 pt-16 sm:pt-20">
+      
+      {/* সেকশন হেডার */}
+      <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
+          <Sparkles className="w-3.5 h-3.5" />
+          <EditableText id={`course.${courseSlug}.howitworks.badge`}>
+            সহজ ৩টি ধাপ
+          </EditableText>
+        </div>
+
+        <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.75rem,3.2vw+0.5rem,2.75rem)] leading-[1.25]">
+          <EditableText id={`course.${courseSlug}.howitworks.heading`}>
+            কীভাবে ব্যাচ ৩-এ যুক্ত হবেন ও ক্লাস শুরু করবেন?
+          </EditableText>
+        </h2>
+
+        <p className="font-bangla text-muted-foreground text-sm sm:text-base leading-relaxed mt-4 max-w-2xl">
+          <EditableText id={`course.${courseSlug}.howitworks.subheading`}>
+            ঝামেলাহীন ও দ্রুত এনরোলমেন্ট প্রসেস—আপনার রেজিস্ট্রেশন সম্পন্ন হওয়া মাত্রই শুরু হবে জার্নি।
+          </EditableText>
+        </p>
+      </div>
+
+      {/* ৩-কলাম ইন্টারঅ্যাক্টিভ স্টেপ গ্রিড */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 sm:mt-16 relative">
+        {steps.map((item, index) => (
+          <div
+            key={index}
+            className="glass-strong p-6 sm:p-7 rounded-3xl border border-border/60 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group shadow-xs hover:shadow-md relative overflow-hidden"
+          >
+            {/* ব্যাকগ্রাউন্ড স্টেপ নম্বর ওয়াটারমার্ক */}
+            <span className="absolute -top-3 right-4 font-mono font-black text-6xl text-foreground/[0.04] select-none pointer-events-none group-hover:text-primary/10 transition-colors">
+              {item.step}
+            </span>
+
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <div className={`icon-tile !bg-gradient-to-br ${item.gradient} ${item.iconColor} group-hover:scale-105 transition-transform`}>
+                  <item.icon className="w-5 h-5" />
+                </div>
+                <span className="px-2.5 py-0.5 rounded-full glass border border-primary/20 bg-primary/5 text-primary font-mono text-xs font-bold">
+                  Step {item.step}
+                </span>
+              </div>
+
+              <span className="text-[11px] font-bangla font-semibold text-primary block mb-1.5">
+                {item.badgeTitle}
+              </span>
+
+              <h3 className="font-bangla font-bold text-base sm:text-lg text-foreground leading-snug">
+                {item.title}
+              </h3>
+
+              <p className="font-bangla text-xs sm:text-sm text-foreground/75 leading-relaxed mt-2.5">
+                {item.desc}
+              </p>
+            </div>
+
+            <div className="pt-5 mt-5 border-t border-border/40 flex items-center gap-2 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
+              <span>পরবর্তী ধাপে চলুন</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  );
+}
+
+// ================= সেকশন ৬: FAQ ও ফাইনাল ক্লোজিং CTA ব্যানার =================
+function FaqAndFinalCtaSection({
+  courseSlug,
+  onOpenModal,
+}: {
+  courseSlug: string;
+  onOpenModal: () => void;
+}) {
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  const faqs = [
+    {
+      q: "আমি একদম নতুন, আগে কখনো এডিটিং করিনি। আমি কি এই ব্যাচটি করতে পারব?",
+      a: "হ্যাঁ, মাস্টারক্লাসটি একদম বেসিক প্রিমিয়ার প্রো ইন্টারফেস থেকে শুরু করে অ্যাডভান্সড সিনেমাটিক স্টোরিটেলিং পর্যন্ত ধাপে ধাপে সাজানো হয়েছে। আপনার শুধু শেখার আগ্রহ প্রয়োজন।",
+    },
+    {
+      q: "ক্লাসগুলো কীভাবে হবে এবং সময়সূচি কী?",
+      a: "ক্লাসগুলো হবে সরাসরি আমাদের ডেডিকেটেড ডিসকর্ড প্রাইভেট চ্যানেলে স্ক্রিন শেয়ারের মাধ্যমে। প্রতি সপ্তাহে নির্ধারিত লাইভ সেশন এবং রিয়েল-টাইম প্রশ্নোত্তর পর্ব থাকবে।",
+    },
+    {
+      q: "কোনো কারণে লাইভ ক্লাস মিস করলে কি রেকর্ডিং পাওয়া যাবে?",
+      a: "অবশ্যই! প্রতিটি লাইভ ক্লাসের পরপরই ওয়েবসাইট ড্যাশবোর্ডে ফুল এইচডি ইউটিউব আনলিস্টেড ক্লাউড রেকর্ডিং ব্যাকআপ আপডেট করে দেওয়া হবে, যা আপনি যেকোনো সময় আজীবন দেখতে পারবেন।",
+    },
+    {
+      q: "এডিটিং শেখার জন্য আমার পিসি বা ল্যাপটপের কনফিগারেশন কেমন হতে হবে?",
+      a: "মিনিমাম Core i5/Ryzen 5 প্রসেসর, 8GB RAM (16GB রিকমেন্ডেড) এবং একটি বেসিক ডেডিকেটেড গ্রাফিক্স কার্ড হলেই স্মুথলি প্র্যাকটিস করতে পারবেন।",
+    },
+    {
+      q: "প্র্যাকটিসের সময় কোনো সমস্যায় পড়লে সাপোর্ট পাব কীভাবে?",
+      a: "ডিসকর্ড সার্ভারে আমাদের ২৪/৭ ডেডিকেটেড সাপোর্ট চ্যানেল (#batch-03, #ask-mentor) থাকবে। আপনি সেখানে স্ক্রিনশট দিতে পারবেন কিংবা সরাসরি স্ক্রিন শেয়ার করে মেন্টরের কাছ থেকে সমাধান নিতে পারবেন।",
+    },
+  ];
+
+  return (
+    <div className="mt-20 sm:mt-28 border-t border-border/40 pt-16 sm:pt-20">
+      
+      {/* FAQ হেডার */}
+      <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
+          <HelpCircle className="w-3.5 h-3.5" />
+          <EditableText id={`course.${courseSlug}.faq.badge`}>
+            সাধারণ প্রশ্নোত্তর
+          </EditableText>
+        </div>
+
+        <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.75rem,3.2vw+0.5rem,2.75rem)] leading-[1.25]">
+          <EditableText id={`course.${courseSlug}.faq.heading`}>
+            আপনার মনে কি কোনো প্রশ্ন আছে?
+          </EditableText>
+        </h2>
+
+        <p className="font-bangla text-muted-foreground text-sm sm:text-base leading-relaxed mt-4 max-w-2xl">
+          <EditableText id={`course.${courseSlug}.faq.subheading`}>
+            কোর্সে যুক্ত হওয়ার আগে সাধারণ কিছু দ্বিধার সুস্পষ্ট উত্তর।
+          </EditableText>
+        </p>
+      </div>
+
+      {/* FAQ কলাপসিবল লিস্ট */}
+      <div className="max-w-4xl mx-auto mt-12 space-y-3.5">
+        {faqs.map((faq, i) => {
+          const isOpen = openFaq === i;
+          return (
+            <div
+              key={i}
+              className={`glass-strong rounded-2xl border transition-all duration-300 overflow-hidden ${
+                isOpen ? "border-primary/40 shadow-sm" : "border-border/60 hover:border-primary/20"
+              }`}
+            >
+              <button
+                type="button"
+                onClick={() => setOpenFaq(isOpen ? null : i)}
+                className="w-full p-5 sm:p-6 text-left flex items-start justify-between gap-4 select-none"
+              >
+                <span className="font-bangla font-bold text-sm sm:text-base text-foreground leading-snug">
+                  {faq.q}
+                </span>
+                <div
+                  className={`p-1.5 rounded-lg glass text-muted-foreground shrink-0 transition-transform duration-300 ${
+                    isOpen ? "rotate-180 text-primary" : ""
+                  }`}
+                >
+                  <ChevronDown className="w-4 h-4" />
+                </div>
+              </button>
+
+              {isOpen && (
+                <div className="px-5 pb-6 sm:px-6 sm:pb-6 pt-1 border-t border-border/30 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <p className="font-bangla text-xs sm:text-sm text-foreground/80 leading-relaxed">
+                    {faq.a}
+                  </p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* ================= ফাইনাল হাই-কনভার্টিং ক্লোজিং CTA ব্যানার ================= */}
+      <div className="mt-20 sm:mt-28 relative">
+        <div className="glass-strong rounded-3xl border border-primary/30 p-8 sm:p-12 text-center max-w-4xl mx-auto shadow-2xl relative overflow-hidden backdrop-blur-md">
+          
+          {/* ব্যাকগ্রাউন্ড অ্যাম্পলিফায়ার গ্লো */}
+          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/30 bg-primary/10 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
+            <Flame className="w-3.5 h-3.5 fill-primary text-primary animate-pulse" />
+            <span>সীমিত সময়ের অফার</span>
+          </div>
+
+          <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl lg:text-4xl text-foreground leading-[1.25] tracking-tight">
+            দেরি না করে আজই আপনার সিনেমাটিক এডিটিং জার্নি শুরু করুন
+          </h3>
+
+          <p className="font-bangla text-sm sm:text-base text-foreground/85 leading-relaxed mt-4 max-w-2xl mx-auto">
+            ব্যাচ ৩-এ সীমিত আসনে বিশেষ ছাড় চলছে—রেগুলার ফি <span className="line-through text-muted-foreground">৳৫,০০০</span>-এর বদলে মাত্র <span className="font-bold text-primary font-mono text-lg">৳৩,০০০</span>।
+          </p>
+
+          <div className="mt-8 flex flex-col items-center justify-center gap-3">
+            <button
+              onClick={onOpenModal}
+              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base sm:text-lg flex items-center justify-center gap-3 shadow-xl shadow-primary/30 hover:brightness-110 active:scale-[0.99] transition-all font-sans"
+            >
+              <span>Enroll in Batch 03 Now</span>
+              <ArrowRight className="w-5 h-5" />
+            </button>
+
+            <p className="text-xs text-muted-foreground font-bangla flex items-center gap-1.5 mt-1">
+              <ShieldCheck className="w-4 h-4 text-emerald-500" />
+              <span>১০০% মানি-ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট | সুরক্ষিত পেমেন্ট ভেরিফিকেশন</span>
+            </p>
+          </div>
+
+        </div>
       </div>
 
     </div>
@@ -1079,11 +1317,20 @@ function CourseDetail() {
           {/* ================= সেকশন ২: মার্কেট অপরচুনিটি ও পেইন পয়েন্ট ================= */}
           <MarketOpportunitySection courseSlug={course.slug} />
 
-          {/* ================= সেকশন ৩: ইন্টারেক্টিভ কারিকুলাম অ্যাকর্ডিয়ন ================= */}
+          {/* ================= সেকশন ৩: কারিকুলাম অ্যাকর্ডিয়ন ================= */}
           <DetailedCurriculumSection courseSlug={course.slug} />
 
-          {/* ================= সেকশন ৪: ফিচার ও বোনাসেস ম্যাট্রিক্স (What's Included) ================= */}
+          {/* ================= সেকশন ৪: ফিচার ম্যাট্রিক্স (What's Included) ================= */}
           <WhatsIncludedSection courseSlug={course.slug} />
+
+          {/* ================= সেকশন ৫: ৩-ধাপের অনবোর্ডিং ফ্লো ================= */}
+          <HowItWorksSection courseSlug={course.slug} />
+
+          {/* ================= সেকশন ৬: FAQ ও ফাইনাল ক্লোজিং CTA ব্যানার ================= */}
+          <FaqAndFinalCtaSection
+            courseSlug={course.slug}
+            onOpenModal={() => setShowModal(true)}
+          />
 
         </div>
       </section>
