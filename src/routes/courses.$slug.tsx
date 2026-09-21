@@ -26,10 +26,23 @@ import {
   Sparkles,
   ChevronDown,
   BookOpen,
+  Video,
+  CloudDownload,
+  Users,
+  FolderArchive,
+  FileCheck,
+  Award,
+  FileText,
+  MessageCircle,
+  HelpCircle,
+  LayoutDashboard,
+  Workflow,
+  HelpCircle as MessageCircleQuestion,
+  TrendingUp,
+  Plus,
   Trash2,
   AlertCircle,
   Smartphone,
-  Plus,
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
@@ -77,10 +90,13 @@ function useEvergreenTimer(hoursDuration = 24) {
 }
 
 // =========================================================================
-// ১০০% কড়াকড়ি জিমেইল-নির্ভর অ্যাডমিন চেক (স্টুডেন্টরা লগইন করলেও ব্লক খাবে)
+// ১০০% কড়াকড়ি জিমেইল-নির্ভর অ্যাডমিন চেক (স্টুডেন্টরা লগইন করলেও পার পাবে না)
 // =========================================================================
 function useStrictAdminCheck() {
   const [isAdmin, setIsAdmin] = useState(false);
+
+  // ⚠️ আপনার যে জিমেইল দিয়ে অ্যাডমিন প্যানেল এক্সেস করেন, সেটি এখানে দিন:
+  const ADMIN_EMAIL = "আপনার-জিমেইলটি-এখানে-দিন@gmail.com";
 
   useEffect(() => {
     let isMounted = true;
@@ -89,19 +105,17 @@ function useStrictAdminCheck() {
       try {
         const { data: { session } } = await supabase.auth.getSession();
         
-        // ১. লগইন সেশন না থাকলে সাথে সাথে ব্লক
+        // ১. যদি কোনো লগইন সেশনই না থাকে, বাতিল।
         if (!session?.user?.email) {
           if (isMounted) setIsAdmin(false);
           return;
         }
 
-        const email = session.user.email.toLowerCase();
-        
-        // ২. শুধুমাত্র আপনার জিমেইলে 'maraab' বা 'admin' শব্দ থাকলে অ্যাক্সেস পাবে
-        if (email.includes("maraab") || email.includes("admin")) {
+        // ২. সেশনের ইমেইল যদি আপনার অ্যাডমিন ইমেইলের সাথে হুবহু মিলে যায়
+        if (session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
           if (isMounted) setIsAdmin(true);
         } else {
-          if (isMounted) setIsAdmin(false); // অন্য যেকোনো স্টুডেন্ট অ্যাকাউন্টের জন্য ব্লক
+          if (isMounted) setIsAdmin(false); // অন্য যেকোনো ইউজারের জন্য ব্লক
         }
       } catch (e) {
         if (isMounted) setIsAdmin(false);
@@ -157,7 +171,9 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
         content: JSON.stringify(newItems),
         updated_at: new Date().toISOString(),
       });
-    } catch (e) {}
+    } catch (e) {
+      console.error("Database save failed:", e);
+    }
   };
 
   const addItem = (item: T) => {
@@ -502,8 +518,9 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
   );
 
   const handleAddNewCard = () => {
+    const newId = `card_${Date.now()}`;
     addCard({
-      id: `card_${Date.now()}`,
+      id: newId,
       title: "নতুন সুযোগ বা সমস্যা বিশ্লেষণ",
       desc: "এখানে নতুন কার্ডের বিস্তারিত বিবরণ বাংলায় লিখুন।",
       action: "বিস্তারিত জানুন",
@@ -536,6 +553,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         </p>
       </div>
 
+      {/* কার্ড গ্রিড */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 w-full">
         {cards.map((card, idx) => (
           <div
@@ -580,6 +598,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
+      {/* অ্যাডমিন নতুন কার্ড বাটন */}
       {isAdmin && (
         <div className="text-center pt-2">
           <button
@@ -1499,12 +1518,12 @@ function CourseDetail() {
                     </h1>
 
                     <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-4">
-                      <p className="font-normal text-foreground/80">
+                      <p>
                         <EditableText id={`course.${course.slug}.hero.desc.1`}>
                           ইউটিউবে শত শত টিউটোরিয়াল দেখেও আসল এডিটিং ফ্লো মিলছে না? শুধু সফটওয়্যারের বাটন চেনা কোনো স্থায়ী স্কিল নয়।
                         </EditableText>
                       </p>
-                      <p className="font-normal text-foreground/80">
+                      <p>
                         <EditableText id={`course.${course.slug}.hero.desc.2`}>
                           এই মাস্টারক্লাসে আপনি শিখবেন আন্তর্জাতিক মানের সিনেমাটিক স্টোরিটেলিং, ৩ সেকেন্ড রিটেনশন হুক এবং সাউন্ড ডিজাইনের আসল সিক্রেট।
                         </EditableText>
