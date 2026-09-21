@@ -89,51 +89,60 @@ function useEvergreenTimer(hoursDuration = 24) {
   return timeLeft;
 }
 
-// ১০০% নির্ভরযোগ্য অ্যাডমিন চেক হুক (সরাসরি সেশন ও ব্রাউজার অথেন্টিকেশন ডিটেকশন)
-function useDirectAdminCheck() {
+// ১০০% কড়াকড়ি ডাটাবেজ-নির্ভর অ্যাডমিন চেক (স্টুডেন্টরা লগইন করলেও পার পাবে না)
+function useStrictAdminCheck() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const checkStatus = async () => {
+    let isMounted = true;
+
+    const verifyAdmin = async () => {
       try {
-        // ১. সরাসরি সুপাবেজ সেশন আছে কিনা
         const { data: { session } } = await supabase.auth.getSession();
-        if (session?.user) {
-          setIsAdmin(true);
+        
+        // ১. যদি কোনো লগইন সেশনই না থাকে, সরাসরি বাতিল।
+        if (!session?.user) {
+          if (isMounted) setIsAdmin(false);
           return;
         }
 
-        // ২. লোকাল মেমোরি ফ্ল্যাগ চেক
-        const localAuth = Object.keys(localStorage).some((k) => 
-          k.includes("supabase.auth.token") || k.includes("admin") || k.includes("cms")
-        );
-        if (localAuth) {
-          setIsAdmin(true);
-          return;
-        }
+        // ২. যদি লগইন থাকে (স্টুডেন্ট বা অ্যাডমিন), সরাসরি ডাটাবেজে গিয়ে রোল চেক করবে।
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", session.user.id)
+          .maybeSingle();
 
-        setIsAdmin(false);
+        // ৩. শুধুমাত্র ডাটাবেজে role 'admin' থাকলেই সে বাটনগুলো দেখতে পাবে।
+        if (profile?.role === "admin") {
+          if (isMounted) setIsAdmin(true);
+        } else {
+          if (isMounted) setIsAdmin(false); // স্টুডেন্টদের জন্য ব্লক
+        }
       } catch (e) {
-        setIsAdmin(false);
+        if (isMounted) setIsAdmin(false);
       }
     };
 
-    checkStatus();
+    verifyAdmin();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
-      setIsAdmin(!!session?.user);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+      verifyAdmin();
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   return isAdmin;
 }
 
-// সাইট কন্টেন্ট ডাটাবেজ সিঙ্ক হুক
+// ডাটাবেজ সিঙ্ক হুক (নিরাপদ)
 function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
   const [items, setItems] = useState<T[]>(defaultItems);
-  const isAdmin = useDirectAdminCheck();
+  const isAdmin = useStrictAdminCheck();
 
   useEffect(() => {
     const fetchCloudData = async () => {
@@ -154,7 +163,9 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
     fetchCloudData();
   }, [storageKey]);
 
+  // যদি অ্যাডমিন না হয়, সেভ রিকোয়েস্ট ডাটাবেজ পর্যন্ত যাবেই না
   const save = async (newItems: T[]) => {
+    if (!isAdmin) return; 
     setItems(newItems);
     try {
       await supabase.from("site_content").upsert({
@@ -163,16 +174,24 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
         updated_at: new Date().toISOString(),
       });
     } catch (e) {
-      console.warn("Database sync note:", e);
+      console.error("Database save failed:", e);
     }
   };
 
-  const addItem = (item: T) => save([...items, item]);
-  const removeItem = (index: number) => save(items.filter((_, i) => i !== index));
+  const addItem = (item: T) => {
+    if (isAdmin) save([...items, item]);
+  };
+
+  const removeItem = (index: number) => {
+    if (isAdmin) save(items.filter((_, i) => i !== index));
+  };
+
   const updateItem = (index: number, updated: T) => {
-    const next = [...items];
-    next[index] = updated;
-    save(next);
+    if (isAdmin) {
+      const next = [...items];
+      next[index] = updated;
+      save(next);
+    }
   };
 
   return { items, addItem, removeItem, updateItem, isAdmin };
@@ -581,7 +600,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
-      {/* অ্যাডমিন নতুন কার্ড বাটন */}
       {isAdmin && (
         <div className="text-center pt-2">
           <button
@@ -611,7 +629,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 divide-y md:divide-y-0 md:divide-x divide-border/60">
-          {/* সাধারণ এডিটর */}
           <div className="space-y-3.5 pt-3 md:pt-0">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-destructive/10 text-destructive text-xs font-semibold">
               <span><EditableText id={`course.${courseSlug}.compare.bad.badge`}>সাধারণ এডিটর (YouTube Learner)</EditableText></span>
@@ -652,7 +669,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             )}
           </div>
 
-          {/* ব্যাচ ৩ মাস্টারক্লাস গ্র্যাজুয়েট */}
           <div className="space-y-3.5 pt-5 md:pt-0 md:pl-8">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-semibold">
               <Sparkles className="w-3.5 h-3.5" />
@@ -967,10 +983,18 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
     },
   ];
 
-  const { items: features } = useDynamicCmsList(
+  const { items: features, addItem: addFeature, removeItem: removeFeature, isAdmin } = useDynamicCmsList(
     `course.${courseSlug}.included.features`,
     defaultFeatures
   );
+
+  const handleAddFeature = () => {
+    addFeature({
+      id: `feat_${Date.now()}`,
+      titleKey: "নতুন ফিচারের নাম লিখুন",
+      descKey: "ফিচারটির বিবরণ বাংলায় লিখুন।",
+    });
+  };
 
   return (
     <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla w-full overflow-hidden">
@@ -1001,6 +1025,17 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
             key={feat.id || fIdx}
             className="glass p-5 sm:p-6 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative"
           >
+            {isAdmin && (
+              <button
+                type="button"
+                onClick={() => removeFeature(fIdx)}
+                className="absolute top-3 right-3 p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
+                title="ফিচার ডিলিট করুন"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            )}
+
             <div>
               <div className="w-10 h-10 rounded-xl bg-foreground/[0.04] border border-border/50 flex items-center justify-center text-foreground/80 mb-4 group-hover:border-primary/40 group-hover:text-primary transition-colors">
                 <Gift className="w-5 h-5" />
@@ -1022,6 +1057,19 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
           </div>
         ))}
       </div>
+
+      {isAdmin && (
+        <div className="text-center pt-2">
+          <button
+            type="button"
+            onClick={handleAddFeature}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground text-sm font-bold shadow-md hover:brightness-110 transition-all cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>+ নতুন ফিচার যোগ করুন (Add Feature)</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -1049,10 +1097,20 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
     },
   ];
 
-  const { items: steps } = useDynamicCmsList(
+  const { items: steps, addItem: addStep, removeItem: removeStep, isAdmin } = useDynamicCmsList(
     `course.${courseSlug}.howitworks.steps`,
     defaultSteps
   );
+
+  const handleAddStep = () => {
+    const nextStepNo = String(steps.length + 1).padStart(2, "0");
+    addStep({
+      step: nextStepNo,
+      badgeTitle: "পরবর্তী ধাপ",
+      title: "ধাপের শিরোনাম বাংলায় লিখুন",
+      desc: "ধাপটির কাজের বিবরণ বিস্তারিত লিখুন।",
+    });
+  };
 
   return (
     <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla w-full overflow-hidden">
@@ -1083,6 +1141,17 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
             key={index}
             className="glass p-6 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative overflow-hidden"
           >
+            {isAdmin && (
+              <button
+                type="button"
+                onClick={() => removeStep(index)}
+                className="absolute top-3 right-3 p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors z-10 cursor-pointer"
+                title="স্টেপ ডিলিট করুন"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            )}
+
             <span className="absolute -top-3 right-3 font-mono font-black text-6xl text-foreground/[0.04] select-none pointer-events-none group-hover:text-primary/10 transition-colors">
               {item.step}
             </span>
@@ -1117,6 +1186,19 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
           </div>
         ))}
       </div>
+
+      {isAdmin && (
+        <div className="text-center pt-2">
+          <button
+            type="button"
+            onClick={handleAddStep}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground text-sm font-bold shadow-md hover:brightness-110 transition-all cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>+ নতুন ধাপ যোগ করুন (Add Step)</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -1303,7 +1385,6 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
-    // SiteShell দিয়ে মোড়ানো যাতে অরিজিনাল হেডার ও লোগো পুরোপুরি অক্ষুণ্ণ থাকে
     <div className="[&>div>footer]:!hidden [&>footer]:!hidden">
       <SiteShell>
         {showModal && (
@@ -1373,7 +1454,6 @@ function CourseDetail() {
         <div className="pt-24 sm:pt-32 pb-12 sm:pb-16 overflow-x-hidden">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             
-            {/* All courses লিঙ্ক */}
             <Link
               to="/courses"
               className="mb-6 inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono tracking-wider uppercase transition-opacity hover:opacity-60 text-foreground/60"
@@ -1385,7 +1465,6 @@ function CourseDetail() {
             {/* ================= টপ ফোল্ড ================= */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-20">
               
-              {/* বামপাশ: ভ্যালু প্রোপজিশন */}
               <div className="lg:col-span-7 flex flex-col space-y-5 sm:space-y-6 font-bangla min-w-0">
                 
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-border/80 bg-foreground/[0.04] w-fit shadow-2xs">
@@ -1397,10 +1476,9 @@ function CourseDetail() {
                   </span>
                 </div>
 
-                {/* ================= থাম্বনেইল ও হেডলাইন-ডেসক্রিপশন একত্রিত ফ্রেম ================= */}
+                {/* থাম্বনেইল ও হেডলাইন-ডেসক্রিপশন একত্রিত ফ্রেম (মোবাইলে একদম মিশে থাকবে) */}
                 <div className="glass-strong rounded-3xl border border-border/70 shadow-sm relative overflow-hidden backdrop-blur-md">
                   
-                  {/* কার্ডের শীর্ষের সাথে থাম্বনেইল মেলানো */}
                   <div className="block lg:hidden w-full border-b border-border/40">
                     <div 
                       onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
@@ -1431,7 +1509,6 @@ function CourseDetail() {
                     </div>
                   </div>
 
-                  {/* টেক্সট কন্টেন্ট */}
                   <div className="p-5 sm:p-7 space-y-4">
                     <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.25] text-2xl sm:text-3xl lg:text-4xl text-left break-words">
                       <EditableText id={`course.${course.slug}.hero.title`}>
@@ -1439,7 +1516,6 @@ function CourseDetail() {
                       </EditableText>
                     </h1>
 
-                    {/* ৩ নম্বর প্যারাগ্রাফ রেগুলার ফন্ট */}
                     <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-4">
                       <p>
                         <EditableText id={`course.${course.slug}.hero.desc.1`}>
@@ -1461,7 +1537,6 @@ function CourseDetail() {
 
                 </div>
 
-                {/* ৪টি কোর বেনিফিট কার্ড */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                   <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                     <div className="p-2.5 rounded-xl bg-destructive/10 text-destructive shrink-0 mt-0.5">
@@ -1565,7 +1640,6 @@ function CourseDetail() {
                     </div>
                   </div>
 
-                  {/* প্রাইসিং ও ৪০% অফ */}
                   <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pb-1">
                     <div className="flex items-baseline gap-2.5">
                       <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-mono">
