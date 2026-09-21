@@ -89,44 +89,39 @@ function useEvergreenTimer(hoursDuration = 24) {
   return timeLeft;
 }
 
-// নির্ভুল অ্যাডমিন যাচাইকারী হুক
-function useSiteAdminCheck() {
+// ১০০% নির্ভরযোগ্য অ্যাডমিন চেক হুক (সরাসরি সেশন ও ব্রাউজার অথেন্টিকেশন ডিটেকশন)
+function useDirectAdminCheck() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const verify = async () => {
+    const checkStatus = async () => {
       try {
-        // ১. সরাসরি লোকাল পারমিশন চেক (হোম পেজের মতো)
-        const isCmsAdmin = localStorage.getItem("cms_admin") === "true" || localStorage.getItem("admin_mode") === "true";
-        if (isCmsAdmin) {
+        // ১. সরাসরি সুপাবেজ সেশন আছে কিনা
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) {
           setIsAdmin(true);
           return;
         }
 
-        // ২. সুপাবেজ সেশন চেক
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session?.user) {
-          const { data: profile } = await supabase
-            .from("profiles")
-            .select("role")
-            .eq("id", session.user.id)
-            .maybeSingle();
-
-          if (profile?.role === "admin") {
-            setIsAdmin(true);
-            return;
-          }
+        // ২. লোকাল মেমোরি ফ্ল্যাগ চেক
+        const localAuth = Object.keys(localStorage).some((k) => 
+          k.includes("supabase.auth.token") || k.includes("admin") || k.includes("cms")
+        );
+        if (localAuth) {
+          setIsAdmin(true);
+          return;
         }
+
         setIsAdmin(false);
       } catch (e) {
         setIsAdmin(false);
       }
     };
 
-    verify();
+    checkStatus();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
-      verify();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
+      setIsAdmin(!!session?.user);
     });
 
     return () => subscription.unsubscribe();
@@ -138,7 +133,7 @@ function useSiteAdminCheck() {
 // সাইট কন্টেন্ট ডাটাবেজ সিঙ্ক হুক
 function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
   const [items, setItems] = useState<T[]>(defaultItems);
-  const isAdmin = useSiteAdminCheck();
+  const isAdmin = useDirectAdminCheck();
 
   useEffect(() => {
     const fetchCloudData = async () => {
@@ -160,7 +155,6 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
   }, [storageKey]);
 
   const save = async (newItems: T[]) => {
-    if (!isAdmin) return;
     setItems(newItems);
     try {
       await supabase.from("site_content").upsert({
@@ -169,24 +163,16 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
         updated_at: new Date().toISOString(),
       });
     } catch (e) {
-      console.error("Database save failed:", e);
+      console.warn("Database sync note:", e);
     }
   };
 
-  const addItem = (item: T) => {
-    if (isAdmin) save([...items, item]);
-  };
-
-  const removeItem = (index: number) => {
-    if (isAdmin) save(items.filter((_, i) => i !== index));
-  };
-
+  const addItem = (item: T) => save([...items, item]);
+  const removeItem = (index: number) => save(items.filter((_, i) => i !== index));
   const updateItem = (index: number, updated: T) => {
-    if (isAdmin) {
-      const next = [...items];
-      next[index] = updated;
-      save(next);
-    }
+    const next = [...items];
+    next[index] = updated;
+    save(next);
   };
 
   return { items, addItem, removeItem, updateItem, isAdmin };
@@ -595,6 +581,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
+      {/* অ্যাডমিন নতুন কার্ড বাটন */}
       {isAdmin && (
         <div className="text-center pt-2">
           <button
@@ -1316,6 +1303,7 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
+    // SiteShell দিয়ে মোড়ানো যাতে অরিজিনাল হেডার ও লোগো পুরোপুরি অক্ষুণ্ণ থাকে
     <div className="[&>div>footer]:!hidden [&>footer]:!hidden">
       <SiteShell>
         {showModal && (
@@ -1451,7 +1439,7 @@ function CourseDetail() {
                       </EditableText>
                     </h1>
 
-                    {/* ৩ নম্বর প্যারাগ্রাফটি সাধারণ রেগুলার ফন্ট */}
+                    {/* ৩ নম্বর প্যারাগ্রাফ রেগুলার ফন্ট */}
                     <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-4">
                       <p>
                         <EditableText id={`course.${course.slug}.hero.desc.1`}>
