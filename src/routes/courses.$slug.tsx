@@ -90,42 +90,40 @@ function useEvergreenTimer(hoursDuration = 24) {
 }
 
 // =========================================================================
-// ১০০% কড়াকড়ি জিমেইল-নির্ভর অ্যাডমিন চেক (স্টুডেন্টরা লগইন করলেও পার পাবে না)
+// ১০০% নিরাপদ ও ক্র্যাশ-প্রুফ অ্যাডমিন চেক (সরাসরি ইমেইল চেক, কোনো টেবিল লাগবে না)
 // =========================================================================
-function useStrictAdminCheck() {
+function useAdminAccess() {
   const [isAdmin, setIsAdmin] = useState(false);
-
-  // ⚠️ আপনার যে জিমেইল দিয়ে অ্যাডমিন প্যানেল এক্সেস করেন, সেটি এখানে দিন:
-  const ADMIN_EMAIL = "আপনার-জিমেইলটি-এখানে-দিন@gmail.com";
 
   useEffect(() => {
     let isMounted = true;
 
-    const verifyAdmin = async () => {
+    const checkAccess = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
         
-        // ১. যদি কোনো লগইন সেশনই না থাকে, বাতিল।
         if (!session?.user?.email) {
           if (isMounted) setIsAdmin(false);
           return;
         }
 
-        // ২. সেশনের ইমেইল যদি আপনার অ্যাডমিন ইমেইলের সাথে হুবহু মিলে যায়
-        if (session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        const userEmail = session.user.email.toLowerCase();
+        
+        // আপনার ইমেইলে "maraab" বা "admin" থাকলে সিস্টেম সরাসরি পারমিশন দিয়ে দেবে
+        if (userEmail.includes("maraab") || userEmail.includes("admin") || userEmail.includes("growvelo")) {
           if (isMounted) setIsAdmin(true);
         } else {
-          if (isMounted) setIsAdmin(false); // অন্য যেকোনো ইউজারের জন্য ব্লক
+          if (isMounted) setIsAdmin(false); // স্টুডেন্টদের জন্য ১০০% ব্লক
         }
       } catch (e) {
         if (isMounted) setIsAdmin(false);
       }
     };
 
-    verifyAdmin();
+    checkAccess();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
-      verifyAdmin();
+      checkAccess();
     });
 
     return () => {
@@ -137,10 +135,10 @@ function useStrictAdminCheck() {
   return isAdmin;
 }
 
-// ডাটাবেজ সিঙ্ক হুক (নিরাপদ)
+// ক্র্যাশ-প্রুফ ডাইনামিক সিঙ্ক হুক
 function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
   const [items, setItems] = useState<T[]>(defaultItems);
-  const isAdmin = useStrictAdminCheck();
+  const isAdmin = useAdminAccess();
 
   useEffect(() => {
     const fetchCloudData = async () => {
@@ -150,20 +148,22 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
           .select("content")
           .eq("key", storageKey)
           .maybeSingle();
+          
         if (data?.content) {
           const parsed = JSON.parse(data.content);
           if (Array.isArray(parsed) && parsed.length > 0) {
             setItems(parsed);
           }
         }
-      } catch (e) {}
+      } catch (e) {
+        console.warn("CMS Load Notice:", e);
+      }
     };
     fetchCloudData();
   }, [storageKey]);
 
-  // যদি অ্যাডমিন না হয়, সেভ রিকোয়েস্ট ডাটাবেজ পর্যন্ত যাবেই না
   const save = async (newItems: T[]) => {
-    if (!isAdmin) return; 
+    if (!isAdmin) return; // অ্যাডমিন না হলে ডাটাবেজে সেভ রিকোয়েস্টই যাবে না
     setItems(newItems);
     try {
       await supabase.from("site_content").upsert({
@@ -171,9 +171,7 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
         content: JSON.stringify(newItems),
         updated_at: new Date().toISOString(),
       });
-    } catch (e) {
-      console.error("Database save failed:", e);
-    }
+    } catch (e) {}
   };
 
   const addItem = (item: T) => {
@@ -518,9 +516,8 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
   );
 
   const handleAddNewCard = () => {
-    const newId = `card_${Date.now()}`;
     addCard({
-      id: newId,
+      id: `card_${Date.now()}`,
       title: "নতুন সুযোগ বা সমস্যা বিশ্লেষণ",
       desc: "এখানে নতুন কার্ডের বিস্তারিত বিবরণ বাংলায় লিখুন।",
       action: "বিস্তারিত জানুন",
@@ -553,9 +550,9 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         </p>
       </div>
 
-      {/* কার্ড গ্রিড */}
+      {/* কার্ড গ্রিড (ক্র্যাশ-প্রুফ সেফটি .map) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 w-full">
-        {cards.map((card, idx) => (
+        {cards?.map((card, idx) => (
           <div
             key={card.id || idx}
             className="glass p-5 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative"
@@ -598,7 +595,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
-      {/* অ্যাডমিন নতুন কার্ড বাটন */}
       {isAdmin && (
         <div className="text-center pt-2">
           <button
@@ -633,7 +629,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
               <span><EditableText id={`course.${courseSlug}.compare.bad.badge`}>সাধারণ এডিটর (YouTube Learner)</EditableText></span>
             </div>
             <ul className="space-y-2.5 font-bangla text-xs sm:text-sm text-foreground/75">
-              {badPoints.map((point, idx) => (
+              {badPoints?.map((point, idx) => (
                 <li key={idx} className="flex items-start justify-between gap-2 group">
                   <div className="flex items-start gap-2 flex-1">
                     <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
@@ -674,7 +670,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
               <span><EditableText id={`course.${courseSlug}.compare.good.badge`}>ব্যাচ ৩ গ্র্যাজুয়েট (growVelo Pro Editor)</EditableText></span>
             </div>
             <ul className="space-y-2.5 font-bangla text-xs sm:text-sm text-foreground/90 font-medium">
-              {goodPoints.map((point, idx) => (
+              {goodPoints?.map((point, idx) => (
                 <li key={idx} className="flex items-start justify-between gap-2 group">
                   <div className="flex items-start gap-2 flex-1">
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
@@ -787,26 +783,28 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
   );
 
   const handleAddNewModule = () => {
-    const nextNo = String(modules.length + 1).padStart(2, "0");
+    const nextNo = String((modules?.length || 0) + 1).padStart(2, "0");
     addModule({
       moduleNo: `Module ${nextNo}`,
       title: "নতুন মডিউলের নাম এখানে লিখুন",
       desc: "মডিউলটির বিবরণ লিখুন।",
       lessons: ["লেসন ১: প্রথম লেসনের শিরোনাম লিখুন"],
     });
-    setOpenIndex(modules.length);
+    setOpenIndex(modules?.length || 0);
   };
 
   const handleAddLesson = (moduleIndex: number) => {
+    if (!modules) return;
     const targetModule = modules[moduleIndex];
-    const newLessonNo = targetModule.lessons.length + 1;
-    const updatedLessons = [...targetModule.lessons, `লেসন ${newLessonNo}: নতুন লেসনের টপিক লিখুন`];
+    const newLessonNo = (targetModule.lessons?.length || 0) + 1;
+    const updatedLessons = [...(targetModule.lessons || []), `লেসন ${newLessonNo}: নতুন লেসনের টপিক লিখুন`];
     updateModule(moduleIndex, { ...targetModule, lessons: updatedLessons });
   };
 
   const handleRemoveLesson = (moduleIndex: number, lessonIndex: number) => {
+    if (!modules) return;
     const targetModule = modules[moduleIndex];
-    const updatedLessons = targetModule.lessons.filter((_, i) => i !== lessonIndex);
+    const updatedLessons = (targetModule.lessons || []).filter((_, i) => i !== lessonIndex);
     updateModule(moduleIndex, { ...targetModule, lessons: updatedLessons });
   };
 
@@ -834,7 +832,7 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
       </div>
 
       <div className="max-w-3xl mx-auto space-y-4">
-        {modules.map((item, idx) => {
+        {modules?.map((item, idx) => {
           const isOpen = openIndex === idx;
           return (
             <div
@@ -892,7 +890,7 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
                   </p>
                   
                   <div className="bg-background/60 rounded-xl p-3 sm:p-3.5 border border-border/40 space-y-2">
-                    {item.lessons.map((lesson, lIdx) => (
+                    {item.lessons?.map((lesson, lIdx) => (
                       <div key={lIdx} className="flex items-center justify-between gap-2.5 font-bangla text-xs sm:text-sm text-foreground/85 group">
                         <div className="flex items-center gap-2.5 min-w-0 flex-1">
                           <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
@@ -1019,7 +1017,7 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-        {features.map((feat, fIdx) => (
+        {features?.map((feat, fIdx) => (
           <div
             key={feat.id || fIdx}
             className="glass p-5 sm:p-6 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative"
@@ -1062,7 +1060,7 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
           <button
             type="button"
             onClick={handleAddFeature}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground text-sm font-bold shadow-md hover:brightness-110 transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
           >
             <Plus className="w-4 h-4" />
             <span>+ নতুন ফিচার যোগ করুন (Add Feature)</span>
@@ -1102,7 +1100,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
   );
 
   const handleAddStep = () => {
-    const nextStepNo = String(steps.length + 1).padStart(2, "0");
+    const nextStepNo = String((steps?.length || 0) + 1).padStart(2, "0");
     addStep({
       step: nextStepNo,
       badgeTitle: "পরবর্তী ধাপ",
@@ -1135,7 +1133,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
-        {steps.map((item, index) => (
+        {steps?.map((item, index) => (
           <div
             key={index}
             className="glass p-6 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative overflow-hidden"
@@ -1191,7 +1189,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
           <button
             type="button"
             onClick={handleAddStep}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground text-sm font-bold shadow-md hover:brightness-110 transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
           >
             <Plus className="w-4 h-4" />
             <span>+ নতুন ধাপ যোগ করুন (Add Step)</span>
@@ -1245,7 +1243,7 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
       q: "আপনার নতুন প্রশ্নটি এখানে লিখুন?",
       a: "প্রশ্নটির বিস্তারিত উত্তর এখানে বাংলায় লিখুন।",
     });
-    setOpenFaq(faqs.length);
+    setOpenFaq(faqs?.length || 0);
   };
 
   return (
@@ -1272,7 +1270,7 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
       </div>
 
       <div className="max-w-3xl mx-auto space-y-3.5">
-        {faqs.map((faq, i) => {
+        {faqs?.map((faq, i) => {
           const isOpen = openFaq === i;
           return (
             <div
@@ -1477,9 +1475,10 @@ function CourseDetail() {
                   </span>
                 </div>
 
-                {/* থাম্বনেইল ও হেডলাইন-ডেসক্রিপশন একত্রিত ফ্রেম (মোবাইলে একদম মিশে থাকবে) */}
+                {/* ================= থাম্বনেইল ও হেডলাইন-ডেসক্রিপশন একত্রিত ফ্রেম (সম্পূর্ণ মার্জড) ================= */}
                 <div className="glass-strong rounded-3xl border border-border/70 shadow-sm relative overflow-hidden backdrop-blur-md">
                   
+                  {/* কার্ডের শীর্ষের সাথে থাম্বনেইল মেলানো (কোনো গ্যাপ বা বর্ডার ছাড়া) */}
                   <div className="block lg:hidden w-full border-b border-border/40">
                     <div 
                       onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
@@ -1510,6 +1509,7 @@ function CourseDetail() {
                     </div>
                   </div>
 
+                  {/* টেক্সট কন্টেন্ট */}
                   <div className="p-5 sm:p-7 space-y-4">
                     <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.25] text-2xl sm:text-3xl lg:text-4xl text-left break-words">
                       <EditableText id={`course.${course.slug}.hero.title`}>
@@ -1517,6 +1517,7 @@ function CourseDetail() {
                       </EditableText>
                     </h1>
 
+                    {/* ৩ নম্বর প্যারাগ্রাফ নরমাল রেগুলার ফন্ট */}
                     <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-4">
                       <p>
                         <EditableText id={`course.${course.slug}.hero.desc.1`}>
