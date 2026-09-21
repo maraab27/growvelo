@@ -47,7 +47,6 @@ import {
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { EditableText } from "@/components/cms/EditableText";
-import { useCms } from "@/components/cms/CmsContext";
 
 // ২৪ ঘণ্টার রোলিং কাউন্টডাউন হুক
 function useEvergreenTimer(hoursDuration = 24) {
@@ -90,22 +89,21 @@ function useEvergreenTimer(hoursDuration = 24) {
   return timeLeft;
 }
 
-// সাইটের আসল CMS অনুমতি যাচাইকারী হুক
+// নির্ভুল অ্যাডমিন যাচাইকারী হুক
 function useSiteAdminCheck() {
-  let cmsIsAdmin = false;
-  try {
-    const cms = useCms();
-    // সাইটের CMS এ যে প্রপার্টি দিয়ে হোম পেজ এডিট হয়
-    cmsIsAdmin = !!(cms?.isAdmin || cms?.canEdit || cms?.enabled || cms?.editMode);
-  } catch (e) {
-    cmsIsAdmin = false;
-  }
-
-  const [authIsAdmin, setAuthIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const verifyAuth = async () => {
+    const verify = async () => {
       try {
+        // ১. সরাসরি লোকাল পারমিশন চেক (হোম পেজের মতো)
+        const isCmsAdmin = localStorage.getItem("cms_admin") === "true" || localStorage.getItem("admin_mode") === "true";
+        if (isCmsAdmin) {
+          setIsAdmin(true);
+          return;
+        }
+
+        // ২. সুপাবেজ সেশন চেক
         const { data: { session } } = await supabase.auth.getSession();
         if (session?.user) {
           const { data: profile } = await supabase
@@ -113,17 +111,28 @@ function useSiteAdminCheck() {
             .select("role")
             .eq("id", session.user.id)
             .maybeSingle();
+
           if (profile?.role === "admin") {
-            setAuthIsAdmin(true);
+            setIsAdmin(true);
+            return;
           }
         }
-      } catch (e) {}
+        setIsAdmin(false);
+      } catch (e) {
+        setIsAdmin(false);
+      }
     };
-    verifyAuth();
+
+    verify();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+      verify();
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  // হোম পেজে যে অনুমতি পায় অথবা সুপাবেজের অ্যাডমিন হলে সত্য হবে
-  return cmsIsAdmin || authIsAdmin;
+  return isAdmin;
 }
 
 // সাইট কন্টেন্ট ডাটাবেজ সিঙ্ক হুক
@@ -586,7 +595,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
-      {/* অ্যাডমিন নতুন কার্ড বাটন */}
       {isAdmin && (
         <div className="text-center pt-2">
           <button
@@ -616,6 +624,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 divide-y md:divide-y-0 md:divide-x divide-border/60">
+          {/* সাধারণ এডিটর */}
           <div className="space-y-3.5 pt-3 md:pt-0">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-destructive/10 text-destructive text-xs font-semibold">
               <span><EditableText id={`course.${courseSlug}.compare.bad.badge`}>সাধারণ এডিটর (YouTube Learner)</EditableText></span>
@@ -656,6 +665,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             )}
           </div>
 
+          {/* ব্যাচ ৩ মাস্টারক্লাস গ্র্যাজুয়েট */}
           <div className="space-y-3.5 pt-5 md:pt-0 md:pl-8">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-semibold">
               <Sparkles className="w-3.5 h-3.5" />
@@ -1306,7 +1316,6 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
-    // বড় ফুটার বন্ধ থাকবে কিন্তু আসল হেডার ও লোগো পুরোপুরি অক্ষুণ্ণ
     <div className="[&>div>footer]:!hidden [&>footer]:!hidden">
       <SiteShell>
         {showModal && (
@@ -1442,7 +1451,7 @@ function CourseDetail() {
                       </EditableText>
                     </h1>
 
-                    {/* বড় ও স্পষ্ট ফন্ট সাইজ এবং ৩ নম্বর প্যারাগ্রাফ নরমাল রেগুলার ফন্ট */}
+                    {/* ৩ নম্বর প্যারাগ্রাফটি সাধারণ রেগুলার ফন্ট */}
                     <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-4">
                       <p>
                         <EditableText id={`course.${course.slug}.hero.desc.1`}>
@@ -1781,34 +1790,34 @@ function CourseDetail() {
                     <ArrowRight className="w-5 h-5" />
                   </button>
 
-                <p className="text-xs text-muted-foreground font-bangla flex items-center gap-1.5 mt-1">
-                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                  <span><EditableText id={`course.${course.slug}.final.cta.trust`}>১০০% মানি ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট | সুরক্ষিত পেমেন্ট ভেরিফিকেশন</EditableText></span>
-                </p>
+                  <p className="text-xs text-muted-foreground font-bangla flex items-center gap-1.5 mt-1">
+                    <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                    <span><EditableText id={`course.${course.slug}.final.cta.trust`}>১০০% মানি ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট | সুরক্ষিত পেমেন্ট ভেরিফিকেশন</EditableText></span>
+                  </p>
+                </div>
               </div>
             </div>
+
+            {/* ================= ৪. কোর্স পেজের জন্য স্লিম ফুটার ================= */}
+            <footer className="w-full py-6 border-t border-border/40 text-center font-sans">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+                <p>© 2026 growVelo Studio. All rights reserved.</p>
+                <div className="flex items-center gap-4 text-[11px] tracking-wide">
+                  <Link to="/legal" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+                  <span>•</span>
+                  <Link to="/legal" className="hover:text-foreground transition-colors">Terms of Service</Link>
+                  <span>•</span>
+                  <a href={`https://wa.me/8801410341220`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+                    WhatsApp Support
+                  </a>
+                </div>
+              </div>
+            </footer>
+
           </div>
-
-          {/* ================= ৪. কোর্স পেজের জন্য স্লিম ফুটার ================= */}
-          <footer className="w-full py-6 border-t border-border/40 text-center font-sans">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-              <p>© 2026 growVelo Studio. All rights reserved.</p>
-              <div className="flex items-center gap-4 text-[11px] tracking-wide">
-                <Link to="/legal" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-                <span>•</span>
-                <Link to="/legal" className="hover:text-foreground transition-colors">Terms of Service</Link>
-                <span>•</span>
-                <a href={`https://wa.me/8801410341220`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                  WhatsApp Support
-                </a>
-              </div>
-            </div>
-          </footer>
-
         </div>
-      </div>
-    </SiteShell>
-  </div>
+      </SiteShell>
+    </div>
   );
 }
 
