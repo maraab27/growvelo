@@ -43,6 +43,7 @@ import {
   Trash2,
   AlertCircle,
   Smartphone,
+  CheckSquare,
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
@@ -89,7 +90,7 @@ function useEvergreenTimer(hoursDuration = 24) {
   return timeLeft;
 }
 
-// ১০০% কড়াকড়ি ডাটাবেজ-নির্ভর অ্যাডমিন চেক (স্টুডেন্টরা লগইন করলেও পার পাবে না)
+// ১০০% কড়াকড়ি ডাটাবেজ-নির্ভর অ্যাডমিন চেক
 function useStrictAdminCheck() {
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -100,24 +101,21 @@ function useStrictAdminCheck() {
       try {
         const { data: { session } } = await supabase.auth.getSession();
         
-        // ১. যদি কোনো লগইন সেশনই না থাকে, সরাসরি বাতিল।
         if (!session?.user) {
           if (isMounted) setIsAdmin(false);
           return;
         }
 
-        // ২. যদি লগইন থাকে (স্টুডেন্ট বা অ্যাডমিন), সরাসরি ডাটাবেজে গিয়ে রোল চেক করবে।
         const { data: profile } = await supabase
           .from("profiles")
           .select("role")
           .eq("id", session.user.id)
           .maybeSingle();
 
-        // ৩. শুধুমাত্র ডাটাবেজে role 'admin' থাকলেই সে বাটনগুলো দেখতে পাবে।
         if (profile?.role === "admin") {
           if (isMounted) setIsAdmin(true);
         } else {
-          if (isMounted) setIsAdmin(false); // স্টুডেন্টদের জন্য ব্লক
+          if (isMounted) setIsAdmin(false);
         }
       } catch (e) {
         if (isMounted) setIsAdmin(false);
@@ -139,7 +137,7 @@ function useStrictAdminCheck() {
   return isAdmin;
 }
 
-// ডাটাবেজ সিঙ্ক হুক (নিরাপদ)
+// নিরাপদ ডাইনামিক ডাটাবেজ সিঙ্ক হুক
 function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
   const [items, setItems] = useState<T[]>(defaultItems);
   const isAdmin = useStrictAdminCheck();
@@ -163,7 +161,6 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
     fetchCloudData();
   }, [storageKey]);
 
-  // যদি অ্যাডমিন না হয়, সেভ রিকোয়েস্ট ডাটাবেজ পর্যন্ত যাবেই না
   const save = async (newItems: T[]) => {
     if (!isAdmin) return; 
     setItems(newItems);
@@ -253,7 +250,7 @@ TrxID: ${formData.trxId}`;
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full glass text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+          className="absolute top-4 right-4 p-2 rounded-full glass text-muted-foreground hover:text-foreground transition-colors cursor-pointer z-10"
         >
           <X className="w-5 h-5" />
         </button>
@@ -520,9 +517,8 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
   );
 
   const handleAddNewCard = () => {
-    const newId = `card_${Date.now()}`;
     addCard({
-      id: newId,
+      id: `card_${Date.now()}`,
       title: "নতুন সুযোগ বা সমস্যা বিশ্লেষণ",
       desc: "এখানে নতুন কার্ডের বিস্তারিত বিবরণ বাংলায় লিখুন।",
       action: "বিস্তারিত জানুন",
@@ -600,6 +596,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
+      {/* অ্যাডমিন নতুন কার্ড বাটন */}
       {isAdmin && (
         <div className="text-center pt-2">
           <button
@@ -648,7 +645,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
                     <button
                       type="button"
                       onClick={() => removeBadPoint(idx)}
-                      className="p-1 text-destructive hover:bg-destructive/10 rounded transition-colors cursor-pointer"
+                      className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
                       title="মুছুন"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -689,7 +686,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
                     <button
                       type="button"
                       onClick={() => removeGoodPoint(idx)}
-                      className="p-1 text-destructive hover:bg-destructive/10 rounded transition-colors cursor-pointer"
+                      className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
                       title="মুছুন"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -1385,6 +1382,8 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
+    // SiteShell দিয়ে মোড়ানো যাতে আপনার অরিজিনাল হেডার ও লোগো পুরোপুরি সুরক্ষিত থাকে
+    // সিএসএস দিয়ে পেজের নিচের ডিফল্ট বড় ফুটার বন্ধ রাখা হয়েছে
     <div className="[&>div>footer]:!hidden [&>footer]:!hidden">
       <SiteShell>
         {showModal && (
@@ -1454,6 +1453,7 @@ function CourseDetail() {
         <div className="pt-24 sm:pt-32 pb-12 sm:pb-16 overflow-x-hidden">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             
+            {/* All courses লিঙ্ক */}
             <Link
               to="/courses"
               className="mb-6 inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono tracking-wider uppercase transition-opacity hover:opacity-60 text-foreground/60"
@@ -1465,6 +1465,7 @@ function CourseDetail() {
             {/* ================= টপ ফোল্ড ================= */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-20">
               
+              {/* বামপাশ: ভ্যালু প্রোপজিশন */}
               <div className="lg:col-span-7 flex flex-col space-y-5 sm:space-y-6 font-bangla min-w-0">
                 
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-border/80 bg-foreground/[0.04] w-fit shadow-2xs">
@@ -1476,9 +1477,10 @@ function CourseDetail() {
                   </span>
                 </div>
 
-                {/* থাম্বনেইল ও হেডলাইন-ডেসক্রিপশন একত্রিত ফ্রেম (মোবাইলে একদম মিশে থাকবে) */}
+                {/* ================= থাম্বনেইল ও হেডলাইন-ডেসক্রিপশন একত্রিত ফ্রেম (সম্পূর্ণ মার্জড) ================= */}
                 <div className="glass-strong rounded-3xl border border-border/70 shadow-sm relative overflow-hidden backdrop-blur-md">
                   
+                  {/* কার্ডের শীর্ষের সাথে থাম্বনেইল মেলানো (কোনো গ্যাপ বা বর্ডার ছাড়া) */}
                   <div className="block lg:hidden w-full border-b border-border/40">
                     <div 
                       onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
@@ -1509,6 +1511,7 @@ function CourseDetail() {
                     </div>
                   </div>
 
+                  {/* টেক্সট কন্টেন্ট */}
                   <div className="p-5 sm:p-7 space-y-4">
                     <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.25] text-2xl sm:text-3xl lg:text-4xl text-left break-words">
                       <EditableText id={`course.${course.slug}.hero.title`}>
@@ -1516,6 +1519,7 @@ function CourseDetail() {
                       </EditableText>
                     </h1>
 
+                    {/* ৩ নম্বর প্যারাগ্রাফ নরমাল রেগুলার ফন্ট */}
                     <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-4">
                       <p>
                         <EditableText id={`course.${course.slug}.hero.desc.1`}>
@@ -1537,6 +1541,7 @@ function CourseDetail() {
 
                 </div>
 
+                {/* ৪টি কোর বেনিফিট কার্ড */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                   <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                     <div className="p-2.5 rounded-xl bg-destructive/10 text-destructive shrink-0 mt-0.5">
@@ -1640,6 +1645,7 @@ function CourseDetail() {
                     </div>
                   </div>
 
+                  {/* প্রাইসিং ও ৪০% অফ */}
                   <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pb-1">
                     <div className="flex items-baseline gap-2.5">
                       <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-mono">
