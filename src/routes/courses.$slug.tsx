@@ -19,6 +19,7 @@ import {
   Check,
   ArrowRight,
   Flame,
+  ShieldCheck,
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
@@ -113,7 +114,7 @@ TrxID: ${formData.trxId}`;
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-200">
       <div
         className="glass-strong rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-border/80 shadow-2xl relative max-h-[92vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
@@ -403,7 +404,7 @@ function CourseDetail() {
                 </EditableText>
               </p>
 
-              {/* ৪টি কোর বেনিফিট কার্ড (ফ্রেন্ডলি বাংলা ও আই-কমফোর্ট টাইপোগ্রাফি) */}
+              {/* ৪টি কোর বেনিফিট কার্ড */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
                 
                 {/* কার্ড ১ */}
@@ -437,7 +438,9 @@ function CourseDetail() {
                       </EditableText>
                     </h3>
                     <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                      স্টুডেন্ট কমিউনিটি, যেকোনো টেকনিক্যাল সাপোর্ট ও উইকলি মেন্টর ফিডব্যাক।
+                      <EditableText id={`course.${course.slug}.benefit.2.desc`}>
+                        স্টুডেন্ট কমিউনিটি, যেকোনো টেকনিক্যাল সাপোর্ট ও উইকলি মেন্টর ফিডব্যাক।
+                      </EditableText>
                     </p>
                   </div>
                 </div>
@@ -454,7 +457,9 @@ function CourseDetail() {
                       </EditableText>
                     </h3>
                     <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                      স্ট্রং পোর্টফোলিও তৈরি এবং সরাসরি হাই-টিকেটিং ক্লায়েন্ট হান্টিং গাইড।
+                      <EditableText id={`course.${course.slug}.benefit.3.desc`}>
+                        স্ট্রং পোর্টফোলিও তৈরি এবং সরাসরি হাই-টিকেটিং ক্লায়েন্ট হান্টিং গাইড।
+                      </EditableText>
                     </p>
                   </div>
                 </div>
@@ -471,7 +476,9 @@ function CourseDetail() {
                       </EditableText>
                     </h3>
                     <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                      প্রিমিয়াম সাউন্ড এফেক্টস (SFX), কালার LUTs এবং রেডি মোশন প্রিসেট ফাইল।
+                      <EditableText id={`course.${course.slug}.benefit.4.desc`}>
+                        প্রিমিয়াম সাউন্ড এফেক্টস (SFX), কালার LUTs এবং রেডি মোশন প্রিসেট ফাইল।
+                      </EditableText>
                     </p>
                   </div>
                 </div>
@@ -550,7 +557,7 @@ function CourseDetail() {
                 {/* মেটা ইনফরমেশন তালিকা */}
                 <div className="space-y-3.5 mb-6 border-y border-border/40 py-4 font-sans text-sm">
                   
-                  {/* আইটেম ১ */}
+                  {/* আইটেম ১: ব্যাচ শুরু ১৫ অক্টোবর */}
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2.5 text-foreground/60 font-medium">
                       <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
@@ -560,14 +567,14 @@ function CourseDetail() {
                         <EditableText id={`course.${course.slug}.label.1`}>Batch Starts</EditableText>
                       </span>
                     </div>
-                    <span className="font-normal text-foreground/90 text-right">
+                    <span className="font-semibold text-foreground/95 text-right">
                       <EditableText id={`course.${course.slug}.info.1`}>
-                        {course.start || "October 15, 2026"}
+                        October 15, 2026
                       </EditableText>
                     </span>
                   </div>
 
-                  {/* আইটেম ২ */}
+                  {/* আইটেম ২: সময়কাল */}
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2.5 text-foreground/60 font-medium">
                       <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
@@ -584,7 +591,7 @@ function CourseDetail() {
                     </span>
                   </div>
 
-                  {/* আইটেম ৩ */}
+                  {/* আইটেম ৩: মেন্টর */}
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2.5 text-foreground/60 font-medium">
                       <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
@@ -601,7 +608,7 @@ function CourseDetail() {
                     </span>
                   </div>
 
-                  {/* আইটেম ৪ */}
+                  {/* আইটেম ৪: প্ল্যাটফর্ম */}
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2.5 text-foreground/60 font-medium">
                       <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
@@ -618,17 +625,17 @@ function CourseDetail() {
                     </span>
                   </div>
 
-                  {/* আইটেম ৫ */}
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2.5 text-foreground/60 font-medium">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
-                        <Lock className="h-4 w-4" />
+                  {/* আইটেম ৫: আকর্ষণীয় পান্না-সবুজ (Emerald / Green) লাইফটাইম ক্লাউড ব্যাকআপ ব্যাজ */}
+                  <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 dark:bg-emerald-950/30 dark:border-emerald-500/40 transition-colors">
+                    <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-medium">
+                      <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shrink-0">
+                        <ShieldCheck className="h-4 w-4" />
                       </div>
-                      <span>
+                      <span className="text-xs uppercase tracking-wider font-semibold">
                         <EditableText id={`course.${course.slug}.label.5`}>Access</EditableText>
                       </span>
                     </div>
-                    <span className="font-normal text-foreground/90 text-right">
+                    <span className="font-bold text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 text-right">
                       <EditableText id={`course.${course.slug}.info.5`}>
                         Lifetime Cloud Backup
                       </EditableText>
