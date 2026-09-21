@@ -286,11 +286,11 @@ TrxID: ${formData.trxId}`;
   );
 }
 
-// ================= ট্যাব ১: ওভারভিউ (NextLevel.bd স্ট্যান্ডার্ড সাইজ) =================
+// ================= ট্যাব ১: ওভারভিউ (মোবাইল কাট-অফ ফিক্সড) =================
 function TabOverview({ courseSlug }: { courseSlug: string }) {
   return (
-    <div className="space-y-10 sm:space-y-12 animate-in fade-in duration-300 font-bangla">
-      <div className="max-w-3xl mx-auto text-center flex flex-col items-center px-2">
+    <div className="space-y-10 sm:space-y-12 animate-in fade-in duration-300 font-bangla w-full overflow-hidden">
+      <div className="max-w-3xl mx-auto text-center flex flex-col items-center px-1 sm:px-2">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs sm:text-sm font-medium tracking-wide mb-4">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -314,8 +314,8 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="glass p-6 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 w-full">
+        <div className="glass p-5 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs">
           <div>
             <div className="w-10 h-10 rounded-xl bg-foreground/[0.04] border border-border/50 flex items-center justify-center text-foreground/80 mb-4 transition-colors group-hover:border-primary/40 group-hover:text-primary">
               <TrendingUp className="w-5 h-5" />
@@ -337,7 +337,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
           </div>
         </div>
 
-        <div className="glass p-6 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs">
+        <div className="glass p-5 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs">
           <div>
             <div className="w-10 h-10 rounded-xl bg-foreground/[0.04] border border-border/50 flex items-center justify-center text-foreground/80 mb-4 transition-colors group-hover:border-primary/40 group-hover:text-primary">
               <Film className="w-5 h-5" />
@@ -359,7 +359,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
           </div>
         </div>
 
-        <div className="glass p-6 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs">
+        <div className="glass p-5 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs">
           <div>
             <div className="w-10 h-10 rounded-xl bg-foreground/[0.04] border border-border/50 flex items-center justify-center text-foreground/80 mb-4 transition-colors group-hover:border-primary/40 group-hover:text-primary">
               <Globe className="w-5 h-5" />
@@ -383,7 +383,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
       </div>
 
       {/* বিফোর বনাম আফটার কম্প্যারিজন ব্যানার */}
-      <div className="glass rounded-2xl border border-border/70 p-6 sm:p-8 relative overflow-hidden backdrop-blur-md">
+      <div className="glass rounded-2xl border border-border/70 p-5 sm:p-8 relative overflow-hidden backdrop-blur-md w-full">
         <div className="text-center mb-6">
           <h3 className="font-bangla text-base sm:text-lg font-bold text-foreground">
             <EditableText id={`course.${courseSlug}.compare.heading`}>
@@ -512,8 +512,8 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
   ];
 
   return (
-    <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla">
-      <div className="max-w-3xl mx-auto text-center flex flex-col items-center px-2">
+    <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla w-full overflow-hidden">
+      <div className="max-w-3xl mx-auto text-center flex flex-col items-center px-1 sm:px-2">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs sm:text-sm font-medium tracking-wide mb-4">
           <Sparkles className="w-3.5 h-3.5" />
           <EditableText id={`course.${courseSlug}.curriculum.badge`}>
@@ -547,7 +547,7 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : idx)}
-                className="w-full p-5 sm:p-6 text-left flex items-start sm:items-center justify-between gap-4 transition-colors select-none cursor-pointer"
+                className="w-full p-4.5 sm:p-6 text-left flex items-start sm:items-center justify-between gap-4 transition-colors select-none cursor-pointer"
               >
                 <div className="flex items-start sm:items-center gap-3.5 sm:gap-4 min-w-0 flex-1">
                   <div className={`p-2 sm:p-2.5 rounded-xl shrink-0 transition-colors ${
@@ -573,7 +573,7 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
               </button>
 
               {isOpen && (
-                <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-1 border-t border-border/30 animate-in fade-in duration-200">
+                <div className="px-4.5 pb-5 sm:px-6 sm:pb-6 pt-1 border-t border-border/30 animate-in fade-in duration-200">
                   <p className="font-bangla text-xs sm:text-sm text-muted-foreground mb-3.5 leading-relaxed">
                     <EditableText id={`course.${courseSlug}.module.${idx + 1}.desc`}>{item.desc}</EditableText>
                   </p>
@@ -634,8 +634,8 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
   ];
 
   return (
-    <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla">
-      <div className="max-w-3xl mx-auto text-center flex flex-col items-center px-2">
+    <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla w-full overflow-hidden">
+      <div className="max-w-3xl mx-auto text-center flex flex-col items-center px-1 sm:px-2">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs sm:text-sm font-medium tracking-wide mb-4">
           <ShieldCheck className="w-3.5 h-3.5" />
           <EditableText id={`course.${courseSlug}.included.badge`}>
@@ -714,8 +714,8 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
   ];
 
   return (
-    <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla">
-      <div className="max-w-3xl mx-auto text-center flex flex-col items-center px-2">
+    <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla w-full overflow-hidden">
+      <div className="max-w-3xl mx-auto text-center flex flex-col items-center px-1 sm:px-2">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs sm:text-sm font-medium tracking-wide mb-4">
           <Workflow className="w-3.5 h-3.5" />
           <EditableText id={`course.${courseSlug}.howitworks.badge`}>
@@ -808,8 +808,8 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
   ];
 
   return (
-    <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla">
-      <div className="max-w-3xl mx-auto text-center flex flex-col items-center px-2">
+    <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla w-full overflow-hidden">
+      <div className="max-w-3xl mx-auto text-center flex flex-col items-center px-1 sm:px-2">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs sm:text-sm font-medium tracking-wide mb-4">
           <HelpCircle className="w-3.5 h-3.5" />
           <EditableText id={`course.${courseSlug}.faq.badge`}>
@@ -911,8 +911,12 @@ function CourseDetail() {
     { id: "faq", label: "FAQ", icon: MessageCircleQuestion },
   ] as const;
 
+  // কোর্স প্রিভিউ ভিডিও আইডি
+  const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
+
   return (
-    <SiteShell>
+    // hideFooter দিয়ে গ্লোবাল বড় ফুটার অফ রাখা হয়েছে যাতে মোবাইলের অতিরিক্ত স্পেস নষ্ট না হয়
+    <SiteShell hideFooter={true}>
       {showModal && (
         <EnrollmentModal
           courseSlug={slug}
@@ -977,7 +981,7 @@ function CourseDetail() {
         </div>
       )}
 
-      <section className="bg-background min-h-screen pt-24 sm:pt-32 pb-16 sm:pb-24">
+      <section className="bg-background min-h-screen pt-24 sm:pt-32 pb-12 sm:pb-16 overflow-x-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
           {/* All courses লিঙ্ক */}
@@ -1002,6 +1006,41 @@ function CourseDetail() {
                     Batch 03 • Live Masterclass + Private Discord Community
                   </EditableText>
                 </span>
+              </div>
+
+              {/* মোবাইল প্রিভিউ কভার ও ভিডিও বাটন (শুধু মোবাইলে হেডিংয়ের ঠিক ওপরে দেখাবে) */}
+              <div className="block lg:hidden w-full my-2">
+                <div 
+                  onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
+                  className={`relative aspect-video w-full rounded-2xl overflow-hidden border border-border/50 group shadow-md ${
+                    previewVideoId ? "cursor-pointer" : ""
+                  }`}
+                >
+                  <EditableImage
+                    id={`course.thumb.${course.slug}`}
+                    defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
+                    alt="Batch 03 Cover Preview"
+                    className="w-full h-full"
+                    imgClassName="transition-transform duration-500 group-hover:scale-105"
+                  />
+                  
+                  {/* যদি ভিডিও লিংক থাকে তবে প্লে বাটন শো করবে */}
+                  {previewVideoId ? (
+                    <>
+                      <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors">
+                        <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
+                          <Play className="w-5 h-5 fill-white ml-0.5" />
+                        </div>
+                      </div>
+                      <div className="absolute top-2.5 left-2.5">
+                        <span className="px-2 py-0.5 rounded-[4px] text-[10px] font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans flex items-center gap-1">
+                          <Play className="w-2.5 h-2.5 fill-white" />
+                          <span>Watch Intro</span>
+                        </span>
+                      </div>
+                    </>
+                  ) : null}
+                </div>
               </div>
 
               <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.24] text-[clamp(2rem,3.4vw+0.5rem,3rem)] break-words">
@@ -1038,7 +1077,7 @@ function CourseDetail() {
 
                 <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                   <div className="p-2.5 rounded-xl bg-primary/10 text-primary shrink-0 mt-0.5">
-                    <MessageSquare className="w-5 h-5" />
+                    <MessageSquare className="w-4 h-4" />
                   </div>
                   <div className="space-y-1 min-w-0">
                     <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
@@ -1054,7 +1093,7 @@ function CourseDetail() {
 
                 <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                   <div className="p-2.5 rounded-xl bg-accent/20 text-foreground shrink-0 mt-0.5">
-                    <Briefcase className="w-5 h-5" />
+                    <Briefcase className="w-4 h-4" />
                   </div>
                   <div className="space-y-1 min-w-0">
                     <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
@@ -1070,7 +1109,7 @@ function CourseDetail() {
 
                 <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                   <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 shrink-0 mt-0.5">
-                    <Gift className="w-5 h-5" />
+                    <Gift className="w-4 h-4" />
                   </div>
                   <div className="space-y-1 min-w-0">
                     <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
@@ -1087,11 +1126,17 @@ function CourseDetail() {
 
             </div>
 
-            {/* ডানপাশ: স্টিকি কার্ড */}
+            {/* ডানপাশ: স্টিকি কার্ড (ডেস্কটপ) */}
             <div className="lg:col-span-5 lg:sticky lg:top-28">
               <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
                 
-                <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5">
+                {/* ডেসকটপ কভার ও প্লে বাটন */}
+                <div 
+                  onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
+                  className={`relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5 ${
+                    previewVideoId ? "cursor-pointer" : ""
+                  }`}
+                >
                   <EditableImage
                     id={`course.thumb.${course.slug}`}
                     defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
@@ -1099,11 +1144,13 @@ function CourseDetail() {
                     className="w-full h-full"
                     imgClassName="transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors">
-                    <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
-                      <Play className="w-5 h-5 fill-white ml-0.5" />
+                  {previewVideoId && (
+                    <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors">
+                      <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
+                        <Play className="w-5 h-5 fill-white ml-0.5" />
+                      </div>
                     </div>
-                  </div>
+                  )}
                   <div className="absolute top-3 left-3">
                     <span className="px-2.5 py-1 rounded-[4px] text-xs font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans">
                       <EditableText id={`course.${course.slug}.preview.badge`}>
@@ -1263,7 +1310,7 @@ function CourseDetail() {
 
           {/* ================= ১. স্টিকি ট্যাব বার কন্ট্রোলার ================= */}
           <div className="sticky top-20 z-30 mb-8 py-2.5 backdrop-blur-md">
-            <div className="max-w-4xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar">
+            <div className="max-w-4xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center justify-start sm:justify-center gap-1.5 overflow-x-auto no-scrollbar">
               {tabList.map((tab) => {
                 const isActive = activeTab === tab.id;
                 const Icon = tab.icon;
@@ -1271,7 +1318,7 @@ function CourseDetail() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer select-none ${
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer select-none shrink-0 ${
                       isActive
                         ? "bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-[1.02]"
                         : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
@@ -1285,8 +1332,8 @@ function CourseDetail() {
             </div>
           </div>
 
-          {/* ================= ২. ইউনিফাইড কন্টেন্ট মাস্টার কার্ড (NextLevel.bd স্ট্যান্ডার্ড স্পেস) ================= */}
-          <div className="max-w-5xl mx-auto glass-strong rounded-3xl border border-border/80 p-6 sm:p-10 lg:p-12 shadow-xl mb-16 relative overflow-hidden backdrop-blur-md">
+          {/* ================= ২. ইউনিফাইড কন্টেন্ট মাস্টার কার্ড (বামদিক কাট-অফ রোধে w-full ও নিরাপদ প্যাডিং) ================= */}
+          <div className="max-w-5xl mx-auto glass-strong rounded-3xl border border-border/80 p-4 sm:p-8 lg:p-12 shadow-xl mb-16 relative overflow-hidden backdrop-blur-md w-full">
             {activeTab === "overview" && <TabOverview courseSlug={course.slug} />}
             {activeTab === "curriculum" && <TabCurriculum courseSlug={course.slug} />}
             {activeTab === "included" && <TabWhatsIncluded courseSlug={course.slug} />}
@@ -1295,7 +1342,7 @@ function CourseDetail() {
           </div>
 
           {/* ================= ৩. ফাইনাল ক্লোজিং হাই-কনভার্টিং CTA ব্যানার ================= */}
-          <div className="relative max-w-5xl mx-auto font-bangla">
+          <div className="relative max-w-5xl mx-auto font-bangla mb-16">
             <div className="glass-strong rounded-3xl border border-primary/30 p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden backdrop-blur-md">
               <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -1332,6 +1379,22 @@ function CourseDetail() {
               </div>
             </div>
           </div>
+
+          {/* ================= ৪. কোর্স পেজের জন্য স্লিম ও মিনিমাল ফুটার ================= */}
+          <footer className="pt-6 pb-4 border-t border-border/40 text-center font-sans">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+              <p>© 2026 growVelo Studio. All rights reserved.</p>
+              <div className="flex items-center gap-4 text-[11px] tracking-wide">
+                <Link to="/legal" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+                <span>•</span>
+                <Link to="/legal" className="hover:text-foreground transition-colors">Terms of Service</Link>
+                <span>•</span>
+                <a href={`https://wa.me/8801410341220`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+                  WhatsApp Support
+                </a>
+              </div>
+            </div>
+          </footer>
 
         </div>
       </section>
