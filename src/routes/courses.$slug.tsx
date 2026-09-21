@@ -24,7 +24,7 @@ import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { EditableText } from "@/components/cms/EditableText";
 
-// ২৪ ঘণ্টার রোলিং কাউন্টডাউন হুক (CRO Scarcity Booster)
+// ২৪ ঘণ্টার রোলিং কাউন্টডাউন হুক
 function useEvergreenTimer(hoursDuration = 24) {
   const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number }>({
     hours: 23,
@@ -46,7 +46,6 @@ function useEvergreenTimer(hoursDuration = 24) {
       const now = new Date().getTime();
       let diff = parseInt(deadline!, 10) - now;
 
-      // ২৪ ঘণ্টা পার হয়ে গেলে পুনরায় সাইকেল শুরু হবে যাতে অফার কখনও ভেঙে না যায়
       if (diff <= 0) {
         const resetTarget = new Date().getTime() + hoursDuration * 60 * 60 * 1000;
         localStorage.setItem(storageKey, resetTarget.toString());
@@ -270,7 +269,6 @@ function CourseDetail() {
   const [showLockedModal, setShowLockedModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
-  // লাইভ কাউন্টডাউন টাইমার
   const timer = useEvergreenTimer(24);
 
   useEffect(() => {
@@ -365,7 +363,6 @@ function CourseDetail() {
         </div>
       )}
 
-      {/* ব্যাকগ্রাউন্ড সম্পূর্ণ সাদা ও প্রিমিয়াম */}
       <section className="bg-background min-h-screen pt-28 sm:pt-36 pb-16 sm:pb-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
@@ -379,10 +376,10 @@ function CourseDetail() {
           {/* ================= আপগ্রেডেড টপ ফোল্ড ================= */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
-            {/* বামপাশ: ভ্যালু প্রোপজিশন ও ৪টি কার্ড */}
+            {/* বামপাশ: ফ্রেন্ডলি বাংলা ও ক্লিন কার্ডস */}
             <div className="lg:col-span-7 flex flex-col space-y-6">
               
-              {/* চারকোনা একদম হালকা কার্ভ ব্যাজ (Sharp Minimalist - No AI Bubble Look) */}
+              {/* চারকোনা হালকা কার্ভ ব্যাজ */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-border/80 bg-foreground/[0.04] w-fit shadow-2xs">
                 <span className="h-1.5 w-1.5 rounded-[1px] bg-primary shrink-0"></span>
                 <span className="text-xs sm:text-[13px] font-medium tracking-normal text-foreground/90 font-sans">
@@ -392,37 +389,37 @@ function CourseDetail() {
                 </span>
               </div>
 
-              {/* হেডিং */}
-              <h1 className="font-display font-extrabold tracking-tight text-foreground leading-[1.2] text-[clamp(2rem,3.4vw+0.5rem,3rem)]">
+              {/* মেইন হেডিং */}
+              <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.22] text-[clamp(2rem,3.4vw+0.5rem,3rem)]">
                 <EditableText id={`course.${course.slug}.hero.title`}>
-                  ভিডিও এডিটিংকে বানান আপনার ক্যারিয়ারের সুপারপাওয়ার
+                  ভিডিও এডিটিংকে বানান আপনার ক্যারিয়ারের সেরা সুপারপাওয়ার
                 </EditableText>
               </h1>
 
               {/* সাবটাইটেল */}
-              <p className="text-base text-foreground/80 leading-relaxed font-sans">
+              <p className="font-bangla text-base text-foreground/80 leading-relaxed">
                 <EditableText id={`course.${course.slug}.hero.subtitle`}>
-                  বেসিক টুলস থেকে হাই-এন্ড সিনেমাটিক স্টোরিটেলিং—রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে শিখুন প্রিমিয়ার প্রো ও আফটার ইফেক্টস।
+                  একদম বেসিক থেকে শুরু করে রিয়েল লাইফ প্রজেক্টের মাধ্যমে শিখুন সিনেমাটিক স্টোরিটেলিং, প্রিমিয়ার প্রো এবং আফটার ইফেক্টস।
                 </EditableText>
               </p>
 
-              {/* ৪টি কোর বেনিফিট কার্ড */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              {/* ৪টি কোর বেনিফিট কার্ড (ফ্রেন্ডলি বাংলা ও আই-কমফোর্ট টাইপোগ্রাফি) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
                 
                 {/* কার্ড ১ */}
                 <div className="glass p-4 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                   <div className="p-2.5 rounded-xl bg-destructive/10 text-destructive shrink-0 mt-0.5">
-                    <Radio className="w-5 h-5 animate-pulse" />
+                    <Radio className="w-4 h-4 animate-pulse" />
                   </div>
                   <div className="space-y-1">
-                    <h3 className="font-semibold text-sm sm:text-base text-foreground">
+                    <h3 className="font-bangla font-semibold text-sm sm:text-base text-foreground">
                       <EditableText id={`course.${course.slug}.benefit.1.title`}>
-                        লাইভ হ্যান্ডস-অন সেশন
+                        হাতে-কলমে লাইভ সেশন
                       </EditableText>
                     </h3>
-                    <p className="text-xs sm:text-sm text-foreground/75 leading-relaxed font-sans">
+                    <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
                       <EditableText id={`course.${course.slug}.benefit.1.desc`}>
-                        স্ক্রিন শেয়ারে প্র্যাকটিক্যাল লার্নিং + লাইফটাইম ক্লাউড রেকর্ডিং অ্যাক্সেস।
+                        স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা এবং আজীবন ক্লাউড রেকর্ডিং অ্যাক্সেস।
                       </EditableText>
                     </p>
                   </div>
@@ -431,18 +428,16 @@ function CourseDetail() {
                 {/* কার্ড ২ */}
                 <div className="glass p-4 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                   <div className="p-2.5 rounded-xl bg-primary/10 text-primary shrink-0 mt-0.5">
-                    <MessageSquare className="w-5 h-5" />
+                    <MessageSquare className="w-4 h-4" />
                   </div>
                   <div className="space-y-1">
-                    <h3 className="font-semibold text-sm sm:text-base text-foreground">
+                    <h3 className="font-bangla font-semibold text-sm sm:text-base text-foreground">
                       <EditableText id={`course.${course.slug}.benefit.2.title`}>
-                        ডেডিকেটেড ডিসকর্ড সাপোর্ট
+                        ২৪/৭ ডিসকর্ড হেল্পডেস্ক
                       </EditableText>
                     </h3>
-                    <p className="text-xs sm:text-sm text-foreground/75 leading-relaxed font-sans">
-                      <EditableText id={`course.${course.slug}.benefit.2.desc`}>
-                        ২৪/৭ প্রাইভেট স্টুডেন্ট কমিউনিটি, অ্যাসাইনমেন্ট ও উইকলি মেন্টর ফিডব্যাক।
-                      </EditableText>
+                    <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
+                      স্টুডেন্ট কমিউনিটি, যেকোনো টেকনিক্যাল সাপোর্ট ও উইকলি মেন্টর ফিডব্যাক।
                     </p>
                   </div>
                 </div>
@@ -450,18 +445,16 @@ function CourseDetail() {
                 {/* কার্ড ৩ */}
                 <div className="glass p-4 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                   <div className="p-2.5 rounded-xl bg-accent/20 text-foreground shrink-0 mt-0.5">
-                    <Briefcase className="w-5 h-5" />
+                    <Briefcase className="w-4 h-4" />
                   </div>
                   <div className="space-y-1">
-                    <h3 className="font-semibold text-sm sm:text-base text-foreground">
+                    <h3 className="font-bangla font-semibold text-sm sm:text-base text-foreground">
                       <EditableText id={`course.${course.slug}.benefit.3.title`}>
-                        পোর্টফোলিও ও ক্লায়েন্ট হান্টিং
+                        মার্কেটপ্লেস ও ডিরেক্ট ক্লায়েন্ট
                       </EditableText>
                     </h3>
-                    <p className="text-xs sm:text-sm text-foreground/75 leading-relaxed font-sans">
-                      <EditableText id={`course.${course.slug}.benefit.3.desc`}>
-                        মার্কেটপ্লেস ও ডিরেক্ট আউটরিচে হাই-টিকেটিং ক্লায়েন্ট ডিল ক্লোজিং গাইডলাইন।
-                      </EditableText>
+                    <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
+                      স্ট্রং পোর্টফোলিও তৈরি এবং সরাসরি হাই-টিকেটিং ক্লায়েন্ট হান্টিং গাইড।
                     </p>
                   </div>
                 </div>
@@ -469,18 +462,16 @@ function CourseDetail() {
                 {/* কার্ড ৪ */}
                 <div className="glass p-4 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                   <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 shrink-0 mt-0.5">
-                    <Gift className="w-5 h-5" />
+                    <Gift className="w-4 h-4" />
                   </div>
                   <div className="space-y-1">
-                    <h3 className="font-semibold text-sm sm:text-base text-foreground">
+                    <h3 className="font-bangla font-semibold text-sm sm:text-base text-foreground">
                       <EditableText id={`course.${course.slug}.benefit.4.title`}>
-                        প্রিমিয়াম রিসোর্স প্যাক
+                        এডিটিং রিসোর্স প্যাক
                       </EditableText>
                     </h3>
-                    <p className="text-xs sm:text-sm text-foreground/75 leading-relaxed font-sans">
-                      <EditableText id={`course.${course.slug}.benefit.4.desc`}>
-                        ফ্রি সাউন্ড এফেক্টস (SFX) লাইব্রেরি, সিনেমাটিক LUTs ও প্রজেক্ট প্রিসেট।
-                      </EditableText>
+                    <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
+                      প্রিমিয়াম সাউন্ড এফেক্টস (SFX), কালার LUTs এবং রেডি মোশন প্রিসেট ফাইল।
                     </p>
                   </div>
                 </div>
@@ -489,7 +480,7 @@ function CourseDetail() {
 
             </div>
 
-            {/* ডানপাশ: লাইভ টাইমার ও মেটাসহ স্টিকি কার্ড */}
+            {/* ডানপাশ: হাইলাইটেড টাইমার ও স্টিকি কার্ড */}
             <div className="lg:col-span-5 lg:sticky lg:top-28">
               <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
                 
@@ -535,22 +526,22 @@ function CourseDetail() {
                   </span>
                 </div>
 
-                {/* লাইভ কাউন্টডাউন টাইমার বক্স (Urgency / Scarcity Hook) */}
-                <div className="mb-5 p-3 rounded-xl border border-destructive/20 bg-destructive/5 flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-destructive font-medium text-xs font-sans">
-                    <Flame className="w-4 h-4 animate-bounce" />
-                    <span>Special Offer Ends In:</span>
+                {/* চোখে পড়ার মতো হাইলাইটেড টাইমার বার */}
+                <div className="mb-5 p-3 sm:p-3.5 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-transparent flex items-center justify-between shadow-xs">
+                  <div className="flex items-center gap-2 font-sans font-medium text-xs sm:text-[13px] text-amber-600 dark:text-amber-400">
+                    <Flame className="w-4 h-4 fill-amber-500 text-amber-500 animate-pulse" />
+                    <span className="tracking-tight font-semibold">Special Offer Ends In:</span>
                   </div>
-                  <div className="flex items-center gap-1.5 font-mono text-xs font-bold text-foreground">
-                    <span className="px-1.5 py-0.5 rounded-[4px] bg-background border border-border shadow-2xs">
+                  <div className="flex items-center gap-1.5 font-mono text-xs sm:text-sm font-bold">
+                    <span className="px-2 py-1 rounded-lg bg-background/90 text-foreground border border-amber-500/20 shadow-xs">
                       {formatDigit(timer.hours)}h
                     </span>
-                    <span>:</span>
-                    <span className="px-1.5 py-0.5 rounded-[4px] bg-background border border-border shadow-2xs">
+                    <span className="text-amber-500">:</span>
+                    <span className="px-2 py-1 rounded-lg bg-background/90 text-foreground border border-amber-500/20 shadow-xs">
                       {formatDigit(timer.minutes)}m
                     </span>
-                    <span>:</span>
-                    <span className="px-1.5 py-0.5 rounded-[4px] bg-background border border-border shadow-2xs text-destructive">
+                    <span className="text-amber-500">:</span>
+                    <span className="px-2 py-1 rounded-lg bg-background/90 text-rose-600 dark:text-rose-400 border border-rose-500/20 shadow-xs">
                       {formatDigit(timer.seconds)}s
                     </span>
                   </div>
