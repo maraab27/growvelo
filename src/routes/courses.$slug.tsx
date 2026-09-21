@@ -18,10 +18,53 @@ import {
   Copy,
   Check,
   ArrowRight,
+  Flame,
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { EditableText } from "@/components/cms/EditableText";
+
+// ২৪ ঘণ্টার রোলিং কাউন্টডাউন হুক (CRO Scarcity Booster)
+function useEvergreenTimer(hoursDuration = 24) {
+  const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number }>({
+    hours: 23,
+    minutes: 59,
+    seconds: 59,
+  });
+
+  useEffect(() => {
+    const storageKey = "batch03_offer_deadline";
+    let deadline = localStorage.getItem(storageKey);
+
+    if (!deadline) {
+      const targetTime = new Date().getTime() + hoursDuration * 60 * 60 * 1000;
+      deadline = targetTime.toString();
+      localStorage.setItem(storageKey, deadline);
+    }
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      let diff = parseInt(deadline!, 10) - now;
+
+      // ২৪ ঘণ্টা পার হয়ে গেলে পুনরায় সাইকেল শুরু হবে যাতে অফার কখনও ভেঙে না যায়
+      if (diff <= 0) {
+        const resetTarget = new Date().getTime() + hoursDuration * 60 * 60 * 1000;
+        localStorage.setItem(storageKey, resetTarget.toString());
+        diff = resetTarget - now;
+      }
+
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      setTimeLeft({ hours, minutes, seconds });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [hoursDuration]);
+
+  return timeLeft;
+}
 
 function EnrollmentModal({
   courseSlug,
@@ -42,7 +85,6 @@ function EnrollmentModal({
     trxId: "",
   });
 
-  // মারাব ভাইয়ের নির্দিষ্ট করা নম্বর দুটি এখানে সরাসরি যুক্ত করা হলো
   const paymentNumber = "01790055690";
   const supportWhatsapp = "8801410341220";
 
@@ -228,6 +270,9 @@ function CourseDetail() {
   const [showLockedModal, setShowLockedModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
+  // লাইভ কাউন্টডাউন টাইমার
+  const timer = useEvergreenTimer(24);
+
   useEffect(() => {
     const checkEnrollment = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -251,6 +296,8 @@ function CourseDetail() {
     (n, m) => n + m.lessons.filter((l) => l.free).length,
     0
   );
+
+  const formatDigit = (num: number) => String(num).padStart(2, "0");
 
   return (
     <SiteShell>
@@ -318,7 +365,7 @@ function CourseDetail() {
         </div>
       )}
 
-      {/* ব্যাকগ্রাউন্ড ক্লিন ও সাদা রাখতে aurora-soft সরিয়ে bg-background দেওয়া হলো */}
+      {/* ব্যাকগ্রাউন্ড সম্পূর্ণ সাদা ও প্রিমিয়াম */}
       <section className="bg-background min-h-screen pt-28 sm:pt-36 pb-16 sm:pb-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
@@ -335,9 +382,9 @@ function CourseDetail() {
             {/* বামপাশ: ভ্যালু প্রোপজিশন ও ৪টি কার্ড */}
             <div className="lg:col-span-7 flex flex-col space-y-6">
               
-              {/* মডার্ন স্লিক চারকোনা হালকা কার্ভ ব্যাজ (Rounded-lg, কোনো গোল এআই লুক নেই) */}
-              <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-lg border border-border/70 bg-foreground/[0.03] w-fit shadow-2xs backdrop-blur-xs">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0"></span>
+              {/* চারকোনা একদম হালকা কার্ভ ব্যাজ (Sharp Minimalist - No AI Bubble Look) */}
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-border/80 bg-foreground/[0.04] w-fit shadow-2xs">
+                <span className="h-1.5 w-1.5 rounded-[1px] bg-primary shrink-0"></span>
                 <span className="text-xs sm:text-[13px] font-medium tracking-normal text-foreground/90 font-sans">
                   <EditableText id={`course.${course.slug}.hero.badge`}>
                     Batch 03 • Live Masterclass + Private Discord Community
@@ -442,12 +489,12 @@ function CourseDetail() {
 
             </div>
 
-            {/* ডানপাশ: স্টিকি কার্ড */}
+            {/* ডানপাশ: লাইভ টাইমার ও মেটাসহ স্টিকি কার্ড */}
             <div className="lg:col-span-5 lg:sticky lg:top-28">
               <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
                 
                 {/* প্রিভিউ ইমেজ */}
-                <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-6">
+                <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5">
                   <EditableImage
                     id={`course.thumb.${course.slug}`}
                     defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
@@ -461,7 +508,7 @@ function CourseDetail() {
                     </div>
                   </div>
                   <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 rounded-md text-xs font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans">
+                    <span className="px-2.5 py-1 rounded-[4px] text-xs font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans">
                       <EditableText id={`course.${course.slug}.preview.badge`}>
                         Curriculum Preview
                       </EditableText>
@@ -470,7 +517,7 @@ function CourseDetail() {
                 </div>
 
                 {/* প্রাইসিং ও ডিসকাউন্ট */}
-                <div className="flex items-baseline justify-between mb-5">
+                <div className="flex items-baseline justify-between mb-4">
                   <div className="flex items-baseline gap-3">
                     <span className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
                       <EditableText id={`course.${course.slug}.price`}>{course.price}</EditableText>
@@ -481,11 +528,32 @@ function CourseDetail() {
                       </span>
                     )}
                   </div>
-                  <span className="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border border-primary/20 font-sans">
+                  <span className="px-3 py-1 text-xs font-semibold rounded-[4px] bg-primary/10 text-primary border border-primary/20 font-sans">
                     <EditableText id={`course.${course.slug}.discount.tag`}>
                       40% OFF (Limited Time)
                     </EditableText>
                   </span>
+                </div>
+
+                {/* লাইভ কাউন্টডাউন টাইমার বক্স (Urgency / Scarcity Hook) */}
+                <div className="mb-5 p-3 rounded-xl border border-destructive/20 bg-destructive/5 flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-destructive font-medium text-xs font-sans">
+                    <Flame className="w-4 h-4 animate-bounce" />
+                    <span>Special Offer Ends In:</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 font-mono text-xs font-bold text-foreground">
+                    <span className="px-1.5 py-0.5 rounded-[4px] bg-background border border-border shadow-2xs">
+                      {formatDigit(timer.hours)}h
+                    </span>
+                    <span>:</span>
+                    <span className="px-1.5 py-0.5 rounded-[4px] bg-background border border-border shadow-2xs">
+                      {formatDigit(timer.minutes)}m
+                    </span>
+                    <span>:</span>
+                    <span className="px-1.5 py-0.5 rounded-[4px] bg-background border border-border shadow-2xs text-destructive">
+                      {formatDigit(timer.seconds)}s
+                    </span>
+                  </div>
                 </div>
 
                 {/* মেটা ইনফরমেশন তালিকা */}
@@ -598,7 +666,6 @@ function CourseDetail() {
                   </button>
                 )}
 
-                {/* তারা চিহ্ন ছাড়া একদম পরিষ্কার টেক্সট */}
                 <p className="mt-3 text-center text-xs text-muted-foreground font-sans">
                   Instant WhatsApp seat confirmation flow
                 </p>
