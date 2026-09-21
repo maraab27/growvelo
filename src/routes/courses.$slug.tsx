@@ -364,20 +364,22 @@ function CourseDetail() {
         </div>
       )}
 
-      <section className="bg-background min-h-screen pt-28 sm:pt-36 pb-16 sm:pb-24">
+      <section className="bg-background min-h-screen pt-24 sm:pt-32 pb-16 sm:pb-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
+          {/* All courses লিঙ্ক: ৩০-৪০% ছোট এবং স্লিক মিনিমাল অ্যাডজাস্টমেন্ট */}
           <Link
             to="/courses"
-            className="mono-readout mb-8 inline-flex items-center gap-2 text-sm transition-opacity hover:opacity-70 text-foreground/70"
+            className="mb-6 inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono tracking-wider uppercase transition-opacity hover:opacity-60 text-foreground/60"
           >
-            <ArrowLeft className="h-4 w-4" /> All courses
+            <ArrowLeft className="h-3 w-3" />
+            <span>All courses</span>
           </Link>
 
           {/* ================= আপগ্রেডেড টপ ফোল্ড ================= */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
-            {/* বামপাশ: ফ্রেন্ডলি বাংলা ও ক্লিন কার্ডস */}
+            {/* বামপাশ: ভ্যালু প্রোপজিশন ও ৪টি কার্ড */}
             <div className="lg:col-span-7 flex flex-col space-y-6">
               
               {/* চারকোনা হালকা কার্ভ ব্যাজ */}
@@ -487,7 +489,7 @@ function CourseDetail() {
 
             </div>
 
-            {/* ডানপাশ: হাইলাইটেড টাইমার ও স্টিকি কার্ড */}
+            {/* ডানপাশ: স্টিকি কার্ড */}
             <div className="lg:col-span-5 lg:sticky lg:top-28">
               <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
                 
@@ -514,18 +516,20 @@ function CourseDetail() {
                   </div>
                 </div>
 
-                {/* প্রাইসিং ও ডিসকাউন্ট */}
+                {/* প্রাইসিং ও স্পষ্ট ৫০০০ টাকার স্ট্রাইকথ্রু ক্রস লাইন */}
                 <div className="flex items-baseline justify-between mb-4">
                   <div className="flex items-baseline gap-3">
-                    <span className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-                      <EditableText id={`course.${course.slug}.price`}>{course.price}</EditableText>
+                    {/* ৩,০০০ টাকা ছাড়ের অফার প্রাইস */}
+                    <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-mono">
+                      <EditableText id={`course.${course.slug}.price`}>{course.price || "৳৩,০০০"}</EditableText>
                     </span>
-                    {course.oldPrice && (
-                      <span className="text-base text-foreground/45 line-through decoration-destructive/60 decoration-2 font-normal">
-                        <EditableText id={`course.${course.slug}.oldPrice`}>{course.oldPrice}</EditableText>
-                      </span>
-                    )}
+
+                    {/* ৫,০০০ টাকা ক্রস (স্পষ্ট ভিজিবল স্ট্রাইকথ্রু) */}
+                    <span className="text-base sm:text-lg text-muted-foreground/60 line-through decoration-rose-500/80 decoration-[1.5px] font-mono font-medium">
+                      <EditableText id={`course.${course.slug}.oldPrice`}>৳৫,০০০</EditableText>
+                    </span>
                   </div>
+
                   <span className="px-3 py-1 text-xs font-semibold rounded-[4px] bg-primary/10 text-primary border border-primary/20 font-sans">
                     <EditableText id={`course.${course.slug}.discount.tag`}>
                       40% OFF (Limited Time)
@@ -533,7 +537,7 @@ function CourseDetail() {
                   </span>
                 </div>
 
-                {/* চোখে পড়ার মতো হাইলাইটেড টাইমার বার */}
+                {/* হাইলাইটেড কাউন্টডাউন টাইমার */}
                 <div className="mb-5 p-3 sm:p-3.5 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-transparent flex items-center justify-between shadow-xs">
                   <div className="flex items-center gap-2 font-sans font-medium text-xs sm:text-[13px] text-amber-600 dark:text-amber-400">
                     <Flame className="w-4 h-4 fill-amber-500 text-amber-500 animate-pulse" />
@@ -554,14 +558,14 @@ function CourseDetail() {
                   </div>
                 </div>
 
-                {/* মেটা ইনফরমেশন তালিকা */}
+                {/* মেটা ইনফরমেশন তালিকা: থিম কালার টিউন করা আইকনবক্স */}
                 <div className="space-y-3.5 mb-6 border-y border-border/40 py-4 font-sans text-sm">
                   
                   {/* আইটেম ১: ব্যাচ শুরু ১৫ অক্টোবর */}
                   <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2.5 text-foreground/60 font-medium">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
-                        <CalendarDays className="h-4 w-4" />
+                    <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
+                        <CalendarDays className="h-3.5 w-3.5" />
                       </div>
                       <span>
                         <EditableText id={`course.${course.slug}.label.1`}>Batch Starts</EditableText>
@@ -576,9 +580,9 @@ function CourseDetail() {
 
                   {/* আইটেম ২: সময়কাল */}
                   <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2.5 text-foreground/60 font-medium">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
-                        <Clock className="h-4 w-4" />
+                    <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
+                        <Clock className="h-3.5 w-3.5" />
                       </div>
                       <span>
                         <EditableText id={`course.${course.slug}.label.2`}>Duration</EditableText>
@@ -593,9 +597,9 @@ function CourseDetail() {
 
                   {/* আইটেম ৩: মেন্টর */}
                   <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2.5 text-foreground/60 font-medium">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
-                        <User className="h-4 w-4" />
+                    <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
+                        <User className="h-3.5 w-3.5" />
                       </div>
                       <span>
                         <EditableText id={`course.${course.slug}.label.3`}>Mentor</EditableText>
@@ -610,9 +614,9 @@ function CourseDetail() {
 
                   {/* আইটেম ৪: প্ল্যাটফর্ম */}
                   <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2.5 text-foreground/60 font-medium">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/5 text-foreground/60 shrink-0">
-                        <Send className="h-4 w-4" />
+                    <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
+                        <Send className="h-3.5 w-3.5" />
                       </div>
                       <span>
                         <EditableText id={`course.${course.slug}.label.4`}>Platform</EditableText>
@@ -625,11 +629,11 @@ function CourseDetail() {
                     </span>
                   </div>
 
-                  {/* আইটেম ৫: আকর্ষণীয় পান্না-সবুজ (Emerald / Green) লাইফটাইম ক্লাউড ব্যাকআপ ব্যাজ */}
+                  {/* আইটেম ৫: পান্না-সবুজ অ্যাক্সেস ব্যাজ */}
                   <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 dark:bg-emerald-950/30 dark:border-emerald-500/40 transition-colors">
                     <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-medium">
                       <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shrink-0">
-                        <ShieldCheck className="h-4 w-4" />
+                        <ShieldCheck className="h-3.5 w-3.5" />
                       </div>
                       <span className="text-xs uppercase tracking-wider font-semibold">
                         <EditableText id={`course.${course.slug}.label.5`}>Access</EditableText>
