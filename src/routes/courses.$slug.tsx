@@ -44,7 +44,7 @@ import {
   AlertCircle,
   Smartphone,
 } from "lucide-react";
-import { COURSES } from "../components/site/sections";
+import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { EditableText } from "@/components/cms/EditableText";
 
@@ -89,18 +89,52 @@ function useEvergreenTimer(hoursDuration = 24) {
   return timeLeft;
 }
 
-// ডাইনামিক লিস্ট হুক (রিয়েলটাইম লোড + লোকালস্টোরেজ + সুপাবেজ সিঙ্ক)
-function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
-  const [items, setItems] = useState<T[]>(() => {
-    const local = typeof window !== "undefined" ? localStorage.getItem(storageKey) : null;
-    if (local) {
+// অ্যাডমিন অথেনটিকেশন হুক
+function useIsAdmin() {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
       try {
-        const parsed = JSON.parse(local);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-      } catch (e) {}
-    }
-    return defaultItems;
-  });
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) {
+          setIsAdmin(false);
+          return;
+        }
+
+        // প্রোফাইল থেকে রোল চেক
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", session.user.id)
+          .maybeSingle();
+
+        if (profile?.role === "admin") {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+        }
+      } catch (err) {
+        setIsAdmin(false);
+      }
+    };
+
+    checkAdminStatus();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+      checkAdminStatus();
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  return isAdmin;
+}
+
+// ডাইনামিক লিস্ট হুক (রিয়েলটাইম লোড + সুপাবেজ সিঙ্ক)
+function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
+  const [items, setItems] = useState<T[]>(defaultItems);
+  const isAdmin = useIsAdmin();
 
   useEffect(() => {
     const loadCloud = async () => {
@@ -114,7 +148,6 @@ function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
           const parsed = JSON.parse(data.content);
           if (Array.isArray(parsed) && parsed.length > 0) {
             setItems(parsed);
-            localStorage.setItem(storageKey, JSON.stringify(parsed));
           }
         }
       } catch (e) {}
@@ -123,8 +156,8 @@ function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
   }, [storageKey]);
 
   const save = async (newItems: T[]) => {
+    if (!isAdmin) return;
     setItems(newItems);
-    localStorage.setItem(storageKey, JSON.stringify(newItems));
     try {
       await supabase.from("site_content").upsert({
         key: storageKey,
@@ -132,19 +165,27 @@ function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
         updated_at: new Date().toISOString(),
       });
     } catch (e) {
-      console.warn("Saved to local storage", e);
+      console.warn("Save note:", e);
     }
   };
 
-  const addItem = (item: T) => save([...items, item]);
-  const removeItem = (index: number) => save(items.filter((_, i) => i !== index));
-  const updateItem = (index: number, updated: T) => {
-    const next = [...items];
-    next[index] = updated;
-    save(next);
+  const addItem = (item: T) => {
+    if (isAdmin) save([...items, item]);
   };
 
-  return { items, addItem, removeItem, updateItem };
+  const removeItem = (index: number) => {
+    if (isAdmin) save(items.filter((_, i) => i !== index));
+  };
+
+  const updateItem = (index: number, updated: T) => {
+    if (isAdmin) {
+      const next = [...items];
+      next[index] = updated;
+      save(next);
+    }
+  };
+
+  return { items, addItem, removeItem, updateItem, isAdmin };
 }
 
 // ================= এনরোলমেন্ট মডাল =================
@@ -454,7 +495,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
     "আন্তর্জাতিক মানের প্রফেশনাল পোর্টফোলিও ও সরাসরি ক্লায়েন্ট ডিল ক্লোজিং দক্ষতা",
   ];
 
-  const { items: cards, addItem: addCard, removeItem: removeCard } = useDynamicList(
+  const { items: cards, addItem: addCard, removeItem: removeCard, isAdmin } = useDynamicList(
     `course.${courseSlug}.overview.cards`,
     defaultOverviewCards
   );
@@ -512,14 +553,16 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             key={card.id || idx}
             className="glass p-5 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative"
           >
-            <button
-              type="button"
-              onClick={() => removeCard(idx)}
-              className="absolute top-3 right-3 p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
-              title="এই কার্ডটি মুছুন"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
+            {isAdmin && (
+              <button
+                type="button"
+                onClick={() => removeCard(idx)}
+                className="absolute top-3 right-3 p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
+                title="এই কার্ডটি মুছুন"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            )}
 
             <div>
               <div className="w-10 h-10 rounded-xl bg-foreground/[0.04] border border-border/50 flex items-center justify-center text-foreground/80 mb-4 transition-colors group-hover:border-primary/40 group-hover:text-primary">
@@ -548,16 +591,19 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
-      <div className="text-center pt-2">
-        <button
-          type="button"
-          onClick={handleAddNewCard}
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
-        >
-          <Plus className="w-4 h-4" />
-          <span>+ নতুন কার্ড যোগ করুন (Add New Card)</span>
-        </button>
-      </div>
+      {/* শুধুমাত্র অ্যাডমিন থাকলে এড বাটন আসবে */}
+      {isAdmin && (
+        <div className="text-center pt-2">
+          <button
+            type="button"
+            onClick={handleAddNewCard}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
+          >
+            <Plus className="w-4 h-4" />
+            <span>+ নতুন কার্ড যোগ করুন (Add New Card)</span>
+          </button>
+        </div>
+      )}
 
       {/* বিফোর বনাম আফটার কম্প্যারিজন ব্যানার */}
       <div className="glass rounded-2xl border border-border/70 p-5 sm:p-8 relative overflow-hidden backdrop-blur-md w-full">
@@ -575,6 +621,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 divide-y md:divide-y-0 md:divide-x divide-border/60">
+          {/* সাধারণ এডিটর */}
           <div className="space-y-3.5 pt-3 md:pt-0">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-destructive/10 text-destructive text-xs font-semibold">
               <span><EditableText id={`course.${courseSlug}.compare.bad.badge`}>সাধারণ এডিটর (YouTube Learner)</EditableText></span>
@@ -590,27 +637,32 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
                       </EditableText>
                     </span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => removeBadPoint(idx)}
-                    className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
-                    title="মুছুন"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
+                  {isAdmin && (
+                    <button
+                      type="button"
+                      onClick={() => removeBadPoint(idx)}
+                      className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
+                      title="মুছুন"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
-            <button
-              type="button"
-              onClick={() => addBadPoint("নতুন বিষয় বাংলায় লিখুন (ক্লিক করে এডিট করুন)")}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground pt-2 transition-colors cursor-pointer"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>+ নতুন লাইন যোগ করুন (Add Point)</span>
-            </button>
+            {isAdmin && (
+              <button
+                type="button"
+                onClick={() => addBadPoint("নতুন বিষয় বাংলায় লিখুন (ক্লিক করে এডিট করুন)")}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground pt-2 transition-colors cursor-pointer"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>+ নতুন লাইন যোগ করুন (Add Point)</span>
+              </button>
+            )}
           </div>
 
+          {/* ব্যাচ ৩ মাস্টারক্লাস গ্র্যাজুয়েট */}
           <div className="space-y-3.5 pt-5 md:pt-0 md:pl-8">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-semibold">
               <Sparkles className="w-3.5 h-3.5" />
@@ -627,25 +679,29 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
                       </EditableText>
                     </span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => removeGoodPoint(idx)}
-                    className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
-                    title="মুছুন"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
+                  {isAdmin && (
+                    <button
+                      type="button"
+                      onClick={() => removeGoodPoint(idx)}
+                      className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
+                      title="মুছুন"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
-            <button
-              type="button"
-              onClick={() => addGoodPoint("নতুন সফল পয়েন্ট বাংলায় লিখুন (ক্লিক করে এডিট করুন)")}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:text-emerald-500 pt-2 transition-colors cursor-pointer"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>+ নতুন লাইন যোগ করুন (Add Point)</span>
-            </button>
+            {isAdmin && (
+              <button
+                type="button"
+                onClick={() => addGoodPoint("নতুন সফল পয়েন্ট বাংলায় লিখুন (ক্লিক করে এডিট করুন)")}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:text-emerald-500 pt-2 transition-colors cursor-pointer"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>+ নতুন লাইন যোগ করুন (Add Point)</span>
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -720,7 +776,7 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
     },
   ];
 
-  const { items: modules, addItem: addModule, removeItem: removeModule, updateItem: updateModule } = useDynamicList(
+  const { items: modules, addItem: addModule, removeItem: removeModule, updateItem: updateModule, isAdmin } = useDynamicList(
     `course.${courseSlug}.curriculum.modules`,
     defaultModules
   );
@@ -803,14 +859,16 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => removeModule(idx)}
-                    className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
-                    title="মডিউল ডিলিট করুন"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                  {isAdmin && (
+                    <button
+                      type="button"
+                      onClick={() => removeModule(idx)}
+                      className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
+                      title="মডিউল ডিলিট করুন"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  )}
                   <div 
                     onClick={() => setOpenIndex(isOpen ? null : idx)} 
                     className={`p-1.5 rounded-lg glass text-muted-foreground shrink-0 transition-transform duration-300 cursor-pointer ${
@@ -837,26 +895,30 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
                             <EditableText id={`course.${courseSlug}.module.${idx + 1}.lesson.${lIdx + 1}`}>{lesson}</EditableText>
                           </span>
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveLesson(idx, lIdx)}
-                          className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
-                          title="লেসন মুছুন"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
+                        {isAdmin && (
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveLesson(idx, lIdx)}
+                            className="p-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
+                            title="লেসন মুছুন"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
                       </div>
                     ))}
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={() => handleAddLesson(idx)}
-                    className="mt-3.5 inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline cursor-pointer"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                    <span>+ এই মডিউলে নতুন লেসন যোগ করুন (Add Lesson)</span>
-                  </button>
+                  {isAdmin && (
+                    <button
+                      type="button"
+                      onClick={() => handleAddLesson(idx)}
+                      className="mt-3.5 inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>+ এই মডিউলে নতুন লেসন যোগ করুন (Add Lesson)</span>
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -864,16 +926,18 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
         })}
       </div>
 
-      <div className="text-center pt-2">
-        <button
-          type="button"
-          onClick={handleAddNewModule}
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
-        >
-          <Plus className="w-4 h-4" />
-          <span>+ নতুন মডিউল যোগ করুন (Add Module)</span>
-        </button>
-      </div>
+      {isAdmin && (
+        <div className="text-center pt-2">
+          <button
+            type="button"
+            onClick={handleAddNewModule}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
+          >
+            <Plus className="w-4 h-4" />
+            <span>+ নতুন মডিউল যোগ করুন (Add Module)</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -913,7 +977,7 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
     },
   ];
 
-  const { items: features, addItem: addFeature, removeItem: removeFeature } = useDynamicList(
+  const { items: features, addItem: addFeature, removeItem: removeFeature, isAdmin } = useDynamicList(
     `course.${courseSlug}.included.features`,
     defaultFeatures
   );
@@ -955,14 +1019,16 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
             key={feat.id || fIdx}
             className="glass p-5 sm:p-6 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative"
           >
-            <button
-              type="button"
-              onClick={() => removeFeature(fIdx)}
-              className="absolute top-3 right-3 p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
-              title="ফিচার ডিলিট করুন"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
+            {isAdmin && (
+              <button
+                type="button"
+                onClick={() => removeFeature(fIdx)}
+                className="absolute top-3 right-3 p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
+                title="ফিচার ডিলিট করুন"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            )}
 
             <div>
               <div className="w-10 h-10 rounded-xl bg-foreground/[0.04] border border-border/50 flex items-center justify-center text-foreground/80 mb-4 group-hover:border-primary/40 group-hover:text-primary transition-colors">
@@ -986,16 +1052,18 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
-      <div className="text-center pt-2">
-        <button
-          type="button"
-          onClick={handleAddFeature}
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
-        >
-          <Plus className="w-4 h-4" />
-          <span>+ নতুন ফিচার যোগ করুন (Add Feature)</span>
-        </button>
-      </div>
+      {isAdmin && (
+        <div className="text-center pt-2">
+          <button
+            type="button"
+            onClick={handleAddFeature}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
+          >
+            <Plus className="w-4 h-4" />
+            <span>+ নতুন ফিচার যোগ করুন (Add Feature)</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -1023,7 +1091,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
     },
   ];
 
-  const { items: steps, addItem: addStep, removeItem: removeStep } = useDynamicList(
+  const { items: steps, addItem: addStep, removeItem: removeStep, isAdmin } = useDynamicList(
     `course.${courseSlug}.howitworks.steps`,
     defaultSteps
   );
@@ -1067,14 +1135,16 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
             key={index}
             className="glass p-6 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative overflow-hidden"
           >
-            <button
-              type="button"
-              onClick={() => removeStep(index)}
-              className="absolute top-3 right-3 p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors z-10 cursor-pointer"
-              title="স্টেপ ডিলিট করুন"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
+            {isAdmin && (
+              <button
+                type="button"
+                onClick={() => removeStep(index)}
+                className="absolute top-3 right-3 p-1 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors z-10 cursor-pointer"
+                title="স্টেপ ডিলিট করুন"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            )}
 
             <span className="absolute -top-3 right-3 font-mono font-black text-6xl text-foreground/[0.04] select-none pointer-events-none group-hover:text-primary/10 transition-colors">
               {item.step}
@@ -1111,16 +1181,18 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
-      <div className="text-center pt-2">
-        <button
-          type="button"
-          onClick={handleAddStep}
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
-        >
-          <Plus className="w-4 h-4" />
-          <span>+ নতুন ধাপ যোগ করুন (Add Step)</span>
-        </button>
-      </div>
+      {isAdmin && (
+        <div className="text-center pt-2">
+          <button
+            type="button"
+            onClick={handleAddStep}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
+          >
+            <Plus className="w-4 h-4" />
+            <span>+ নতুন ধাপ যোগ করুন (Add Step)</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -1157,7 +1229,7 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
     },
   ];
 
-  const { items: faqs, addItem: addFaq, removeItem: removeFaq } = useDynamicList(
+  const { items: faqs, addItem: addFaq, removeItem: removeFaq, isAdmin } = useDynamicList(
     `course.${courseSlug}.faq.items`,
     defaultFaqs
   );
@@ -1215,14 +1287,16 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => removeFaq(i)}
-                    className="p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors cursor-pointer"
-                    title="FAQ মুছুন"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                  {isAdmin && (
+                    <button
+                      type="button"
+                      onClick={() => removeFaq(i)}
+                      className="p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors cursor-pointer"
+                      title="FAQ মুছুন"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  )}
                   <div
                     onClick={() => setOpenFaq(isOpen ? null : i)}
                     className={`p-1.5 rounded-lg glass text-muted-foreground shrink-0 transition-transform duration-300 cursor-pointer ${
@@ -1246,16 +1320,18 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
         })}
       </div>
 
-      <div className="text-center pt-2">
-        <button
-          type="button"
-          onClick={handleAddFaq}
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
-        >
-          <Plus className="w-4 h-4" />
-          <span>+ নতুন প্রশ্ন যোগ করুন (Add FAQ)</span>
-        </button>
-      </div>
+      {isAdmin && (
+        <div className="text-center pt-2">
+          <button
+            type="button"
+            onClick={handleAddFaq}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground text-sm font-semibold transition-all cursor-pointer shadow-sm"
+          >
+            <Plus className="w-4 h-4" />
+            <span>+ নতুন প্রশ্ন যোগ করুন (Add FAQ)</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -1303,518 +1379,508 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
-    // বড় ডিফল্ট ফুটার বন্ধ রাখার জন্য কাস্টম ফ্রেম ব্যবহার করা হলো
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
-      
-      {/* স্লিক টপ নেভিগেশন বার */}
-      <header className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md border-b border-border/40 bg-background/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold text-foreground hover:opacity-80 transition-opacity">
-            <span className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-black text-sm">gV</span>
-            <span>GrowVelo</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <Link to="/dashboard" className="gloss-btn !py-2 !px-4 text-xs sm:text-sm font-semibold">
-              Dashboard <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
-      </header>
+    // SiteShell থাকবে যাতে আসল হেডার ও লোগো সবসময় থাকে, কিন্তু বড় ফুটার হাইড থাকবে
+    <div className="[&>div>footer]:hidden [&>footer]:hidden">
+      <SiteShell>
+        {showModal && (
+          <EnrollmentModal
+            courseSlug={slug}
+            onClose={() => setShowModal(false)}
+            onSuccess={() => setShowModal(false)}
+          />
+        )}
 
-      {showModal && (
-        <EnrollmentModal
-          courseSlug={slug}
-          onClose={() => setShowModal(false)}
-          onSuccess={() => setShowModal(false)}
-        />
-      )}
-
-      {showLockedModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm font-bangla">
-          <div className="sticky-card tint-brand relative w-full max-w-md overflow-hidden p-6 sm:p-8">
-            <button
-              onClick={() => setShowLockedModal(false)}
-              className="absolute right-4 top-4 text-foreground/40 hover:text-foreground cursor-pointer"
-            >
-              <X className="h-5 w-5" />
-            </button>
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--brand)]/10 text-[var(--brand)]">
-              <Lock className="h-6 w-6" />
-            </div>
-            <h2 className="mt-4 font-bangla text-xl font-bold">এই লেসনটি লক করা আছে</h2>
-            <p className="mt-2 text-sm text-foreground/70 leading-relaxed">
-              পুরো কোর্সের এক্সেস পেতে এবং এই লেসনটি দেখতে আপনাকে ব্যাচ ৩ এ এনরোল করতে হবে।
-            </p>
-            <div className="mt-8 space-y-3">
-              <button
-                onClick={() => {
-                  setShowLockedModal(false);
-                  setShowModal(true);
-                }}
-                className="gloss-btn w-full justify-center cursor-pointer"
-              >
-                এখনই এনরোল করুন
-              </button>
+        {showLockedModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm font-bangla">
+            <div className="sticky-card tint-brand relative w-full max-w-md overflow-hidden p-6 sm:p-8">
               <button
                 onClick={() => setShowLockedModal(false)}
-                className="w-full py-2 text-sm font-medium text-foreground/50 hover:text-foreground cursor-pointer"
+                className="absolute right-4 top-4 text-foreground/40 hover:text-foreground cursor-pointer"
               >
-                পরে দেখব
+                <X className="h-5 w-5" />
               </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {activeVideo && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
-          <div className="relative aspect-video w-full max-w-4xl">
-            <button
-              onClick={() => setActiveVideo(null)}
-              className="absolute -top-10 right-0 text-white hover:text-white/70 cursor-pointer"
-            >
-              <X className="h-6 w-6" />
-            </button>
-            <iframe
-              className="h-full w-full rounded-xl"
-              src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1`}
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-            />
-          </div>
-        </div>
-      )}
-
-      <main className="flex-1 pt-24 sm:pt-28 pb-12 sm:pb-16 overflow-x-hidden">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          
-          {/* All courses লিঙ্ক */}
-          <Link
-            to="/courses"
-            className="mb-6 inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono tracking-wider uppercase transition-opacity hover:opacity-60 text-foreground/60"
-          >
-            <ArrowLeft className="h-3 w-3" />
-            <span>All courses</span>
-          </Link>
-
-          {/* ================= টপ ফোল্ড ================= */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-20">
-            
-            {/* বামপাশ: ভ্যালু প্রোপজিশন */}
-            <div className="lg:col-span-7 flex flex-col space-y-5 sm:space-y-6 font-bangla min-w-0">
-              
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-border/80 bg-foreground/[0.04] w-fit shadow-2xs">
-                <span className="h-1.5 w-1.5 rounded-[1px] bg-primary shrink-0"></span>
-                <span className="text-xs sm:text-[13px] font-medium tracking-normal text-foreground/90 font-sans truncate">
-                  <EditableText id={`course.${course.slug}.hero.badge`}>
-                    Batch 03 • Live Masterclass + Private Discord Community
-                  </EditableText>
-                </span>
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--brand)]/10 text-[var(--brand)]">
+                <Lock className="h-6 w-6" />
               </div>
-
-              {/* ================= থাম্বনেইল ও হেডলাইন-ডেসক্রিপশন একত্রিত কার্ড ================= */}
-              <div className="glass-strong rounded-3xl p-4 sm:p-7 border border-border/70 shadow-sm relative overflow-hidden backdrop-blur-md space-y-4 sm:space-y-5">
-                
-                {/* কার্ডের শীর্ষে প্রিভিউ কভার ও ভিডিও বাটন (শুধু মোবাইলে দেখাবে) */}
-                <div className="block lg:hidden w-full overflow-hidden rounded-2xl border border-border/50 shadow-xs mb-2">
-                  <div 
-                    onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
-                    className={`relative aspect-video w-full group ${previewVideoId ? "cursor-pointer" : ""}`}
-                  >
-                    <EditableImage
-                      id={`course.thumb.${course.slug}`}
-                      defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
-                      alt="Batch 03 Cover Preview"
-                      className="w-full h-full"
-                      imgClassName="transition-transform duration-500 group-hover:scale-105"
-                    />
-                    {previewVideoId ? (
-                      <>
-                        <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors">
-                          <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
-                            <Play className="w-5 h-5 fill-white ml-0.5" />
-                          </div>
-                        </div>
-                        <div className="absolute top-2.5 left-2.5">
-                          <span className="px-2 py-0.5 rounded-[4px] text-[10px] font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans flex items-center gap-1">
-                            <Play className="w-2.5 h-2.5 fill-white" />
-                            <span>Watch Intro</span>
-                          </span>
-                        </div>
-                      </>
-                    ) : null}
-                  </div>
-                </div>
-
-                <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.25] text-2xl sm:text-3xl lg:text-4xl text-left break-words">
-                  <EditableText id={`course.${course.slug}.hero.title`}>
-                    Advanced Video Editing & Retelling (Batch 03)
-                  </EditableText>
-                </h1>
-
-                {/* বড় ও স্পষ্ট ফন্ট সাইজ এবং আরামদায়ক লাইন স্পেসিং */}
-                <div className="space-y-3.5 text-[13px] sm:text-base text-foreground/85 leading-[1.7] font-bangla border-t border-border/40 pt-4">
-                  <p>
-                    <EditableText id={`course.${course.slug}.hero.desc.1`}>
-                      ইউটিউবে শত শত টিউটোরিয়াল দেখেও আসল এডিটিং ফ্লো মিলছে না? শুধু সফটওয়্যারের বাটন চেনা কোনো স্থায়ী স্কিল নয়।
-                    </EditableText>
-                  </p>
-                  <p>
-                    <EditableText id={`course.${course.slug}.hero.desc.2`}>
-                      এই মাস্টারক্লাসে আপনি শিখবেন আন্তর্জাতিক মানের সিনেমাটিক স্টোরিটেলিং, ৩ সেকেন্ড রিটেনশন হুক এবং সাউন্ড ডিজাইনের আসল সিক্রেট।
-                    </EditableText>
-                  </p>
-                  <p className="text-foreground font-semibold">
-                    <EditableText id={`course.${course.slug}.hero.desc.3`}>
-                      একদম স্ক্র্যাচ থেকে শুরু করে রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে নিজের হাই পেয়িং পোর্টফোলিও তৈরি করুন আমাদের সাথে।
-                    </EditableText>
-                  </p>
-                </div>
-              </div>
-
-              {/* ৪টি কোর বেনিফিট কার্ড */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-                <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
-                  <div className="p-2.5 rounded-xl bg-destructive/10 text-destructive shrink-0 mt-0.5">
-                    <Radio className="w-5 h-5 animate-pulse" />
-                  </div>
-                  <div className="space-y-1 min-w-0">
-                    <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
-                      <EditableText id={`course.${course.slug}.benefit.1.title`}>
-                        হাতে কলমে লাইভ সেশন
-                      </EditableText>
-                    </h3>
-                    <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                      <EditableText id={`course.${course.slug}.benefit.1.desc`}>
-                        স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা এবং আজীবন ক্লাউড রেকর্ডিং অ্যাক্সেস।
-                      </EditableText>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
-                  <div className="p-2.5 rounded-xl bg-primary/10 text-primary shrink-0 mt-0.5">
-                    <MessageSquare className="w-4 h-4" />
-                  </div>
-                  <div className="space-y-1 min-w-0">
-                    <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
-                      <EditableText id={`course.${course.slug}.benefit.2.title`}>
-                        ২৪/৭ ডিসকর্ড হেল্পডেস্ক
-                      </EditableText>
-                    </h3>
-                    <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                      স্টুডেন্ট কমিউনিটি, যেকোনো টেকনিক্যাল সাপোর্ট ও উইকলি মেন্টর ফিডব্যাক।
-                    </p>
-                  </div>
-                </div>
-
-                <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
-                  <div className="p-2.5 rounded-xl bg-accent/20 text-foreground shrink-0 mt-0.5">
-                    <Briefcase className="w-4 h-4" />
-                  </div>
-                  <div className="space-y-1 min-w-0">
-                    <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
-                      <EditableText id={`course.${course.slug}.benefit.3.title`}>
-                        মার্কেটপ্লেস ও ডিরেক্ট ক্লায়েন্ট
-                      </EditableText>
-                    </h3>
-                    <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                      স্ট্রং পোর্টফোলিও তৈরি এবং সরাসরি হাই টিকেটিং ক্লায়েন্ট হান্টিং গাইড।
-                    </p>
-                  </div>
-                </div>
-
-                <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
-                  <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 shrink-0 mt-0.5">
-                    <Gift className="w-4 h-4" />
-                  </div>
-                  <div className="space-y-1 min-w-0">
-                    <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
-                      <EditableText id={`course.${course.slug}.benefit.4.title`}>
-                        এডিটিং রিসোর্স প্যাক
-                      </EditableText>
-                    </h3>
-                    <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                      প্রিমিয়াম সাউন্ড এফেক্টস (SFX), কালার LUTs এবং রেডি মোশন প্রিসেট ফাইল।
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            {/* ডানপাশ: স্টিকি কার্ড */}
-            <div className="lg:col-span-5 lg:sticky lg:top-24 w-full">
-              <div className="glass-strong rounded-3xl p-5 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
-                
-                <div 
-                  onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
-                  className={`relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5 ${
-                    previewVideoId ? "cursor-pointer" : ""
-                  }`}
+              <h2 className="mt-4 font-bangla text-xl font-bold">এই লেসনটি লক করা আছে</h2>
+              <p className="mt-2 text-sm text-foreground/70 leading-relaxed">
+                পুরো কোর্সের এক্সেস পেতে এবং এই লেসনটি দেখতে আপনাকে ব্যাচ ৩ এ এনরোল করতে হবে।
+              </p>
+              <div className="mt-8 space-y-3">
+                <button
+                  onClick={() => {
+                    setShowLockedModal(false);
+                    setShowModal(true);
+                  }}
+                  className="gloss-btn w-full justify-center cursor-pointer"
                 >
-                  <EditableImage
-                    id={`course.thumb.${course.slug}`}
-                    defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
-                    alt="Batch 03 Preview"
-                    className="w-full h-full"
-                    imgClassName="transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {previewVideoId && (
-                    <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors">
-                      <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
-                        <Play className="w-5 h-5 fill-white ml-0.5" />
-                      </div>
-                    </div>
-                  )}
-                  <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 rounded-[4px] text-xs font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans">
-                      <EditableText id={`course.${course.slug}.preview.badge`}>
-                        Curriculum Preview
-                      </EditableText>
-                    </span>
-                  </div>
-                </div>
+                  এখনই এনরোল করুন
+                </button>
+                <button
+                  onClick={() => setShowLockedModal(false)}
+                  className="w-full py-2 text-sm font-medium text-foreground/50 hover:text-foreground cursor-pointer"
+                >
+                  পরে দেখব
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
-                <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pb-1">
-                  <div className="flex items-baseline gap-2.5">
-                    <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-mono">
-                      <EditableText id={`course.${course.slug}.price`}>{course.price || "৳৩,০০০"}</EditableText>
-                    </span>
-                    <span className="text-base sm:text-lg text-muted-foreground/60 line-through decoration-rose-500/80 decoration-[1.5px] font-mono font-medium">
-                      <EditableText id={`course.${course.slug}.oldPrice`}>৳৫,০০০</EditableText>
-                    </span>
-                  </div>
+        {activeVideo && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
+            <div className="relative aspect-video w-full max-w-4xl">
+              <button
+                onClick={() => setActiveVideo(null)}
+                className="absolute -top-10 right-0 text-white hover:text-white/70 cursor-pointer"
+              >
+                <X className="h-6 w-6" />
+              </button>
+              <iframe
+                className="h-full w-full rounded-xl"
+                src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1`}
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        )}
 
-                  <span className="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border border-primary/20 font-sans tracking-wide shrink-0">
-                    <EditableText id={`course.${course.slug}.discount.tag`}>
-                      40% OFF (Limited Time)
+        <div className="pt-24 sm:pt-32 pb-12 sm:pb-16 overflow-x-hidden">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            
+            {/* All courses লিঙ্ক */}
+            <Link
+              to="/courses"
+              className="mb-6 inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono tracking-wider uppercase transition-opacity hover:opacity-60 text-foreground/60"
+            >
+              <ArrowLeft className="h-3 w-3" />
+              <span>All courses</span>
+            </Link>
+
+            {/* ================= টপ ফোল্ড ================= */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-20">
+              
+              {/* বামপাশ: ভ্যালু প্রোপজিশন */}
+              <div className="lg:col-span-7 flex flex-col space-y-5 sm:space-y-6 font-bangla min-w-0">
+                
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-border/80 bg-foreground/[0.04] w-fit shadow-2xs">
+                  <span className="h-1.5 w-1.5 rounded-[1px] bg-primary shrink-0"></span>
+                  <span className="text-xs sm:text-[13px] font-medium tracking-normal text-foreground/90 font-sans truncate">
+                    <EditableText id={`course.${course.slug}.hero.badge`}>
+                      Batch 03 • Live Masterclass + Private Discord Community
                     </EditableText>
                   </span>
                 </div>
 
-                <div className="mb-5 p-3 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-transparent flex items-center justify-between shadow-xs">
-                  <div className="flex items-center gap-2 font-sans font-medium text-xs sm:text-[13px] text-amber-600 dark:text-amber-400">
-                    <Flame className="w-4 h-4 fill-amber-500 text-amber-500 animate-pulse" />
-                    <span className="tracking-tight font-semibold">Special Offer Ends In:</span>
+                {/* ================= থাম্বনেইল ও হেডলাইন-ডেসক্রিপশন একসাথে মিলিয়ে দেওয়া একক কার্ড ================= */}
+                <div className="glass-strong rounded-3xl border border-border/70 shadow-sm relative overflow-hidden backdrop-blur-md">
+                  
+                  {/* কার্ডের উপরের অংশের সাথে থাম্বনেইল সম্পূর্ণ মেলানো (No gap) */}
+                  <div className="block lg:hidden w-full border-b border-border/40">
+                    <div 
+                      onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
+                      className={`relative aspect-video w-full group ${previewVideoId ? "cursor-pointer" : ""}`}
+                    >
+                      <EditableImage
+                        id={`course.thumb.${course.slug}`}
+                        defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
+                        alt="Batch 03 Cover Preview"
+                        className="w-full h-full"
+                        imgClassName="transition-transform duration-500 group-hover:scale-105"
+                      />
+                      {previewVideoId && (
+                        <>
+                          <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors">
+                            <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
+                              <Play className="w-5 h-5 fill-white ml-0.5" />
+                            </div>
+                          </div>
+                          <div className="absolute top-2.5 left-2.5">
+                            <span className="px-2 py-0.5 rounded-[4px] text-[10px] font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans flex items-center gap-1">
+                              <Play className="w-2.5 h-2.5 fill-white" />
+                              <span>Watch Intro</span>
+                            </span>
+                          </div>
+                        </>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1.5 font-mono text-xs sm:text-sm font-bold">
-                    <span className="px-2 py-0.5 rounded-lg bg-background/90 text-foreground border border-amber-500/20 shadow-xs">
-                      {formatDigit(timer.hours)}h
-                    </span>
-                    <span className="text-amber-500">:</span>
-                    <span className="px-2 py-0.5 rounded-lg bg-background/90 text-foreground border border-amber-500/20 shadow-xs">
-                      {formatDigit(timer.minutes)}m
-                    </span>
-                    <span className="text-amber-500">:</span>
-                    <span className="px-2 py-0.5 rounded-lg bg-background/90 text-rose-600 dark:text-rose-400 border border-rose-500/20 shadow-xs">
-                      {formatDigit(timer.seconds)}s
-                    </span>
+
+                  {/* টেক্সট কন্টেন্ট */}
+                  <div className="p-5 sm:p-7 space-y-4">
+                    <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.25] text-2xl sm:text-3xl lg:text-4xl text-left break-words">
+                      <EditableText id={`course.${course.slug}.hero.title`}>
+                        Advanced Video Editing & Retelling (Batch 03)
+                      </EditableText>
+                    </h1>
+
+                    {/* বড় ও স্পষ্ট ফন্ট সাইজ এবং ৩ নম্বর প্যারাগ্রাফ নরমাল (কোনো বোল্ড নয়) */}
+                    <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-4">
+                      <p>
+                        <EditableText id={`course.${course.slug}.hero.desc.1`}>
+                          ইউটিউবে শত শত টিউটোরিয়াল দেখেও আসল এডিটিং ফ্লো মিলছে না? শুধু সফটওয়্যারের বাটন চেনা কোনো স্থায়ী স্কিল নয়।
+                        </EditableText>
+                      </p>
+                      <p>
+                        <EditableText id={`course.${course.slug}.hero.desc.2`}>
+                          এই মাস্টারক্লাসে আপনি শিখবেন আন্তর্জাতিক মানের সিনেমাটিক স্টোরিটেলিং, ৩ সেকেন্ড রিটেনশন হুক এবং সাউন্ড ডিজাইনের আসল সিক্রেট।
+                        </EditableText>
+                      </p>
+                      <p className="font-normal text-foreground/80">
+                        <EditableText id={`course.${course.slug}.hero.desc.3`}>
+                          একদম স্ক্র্যাচ থেকে শুরু করে রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে নিজের হাই পেয়িং পোর্টফোলিও তৈরি করুন আমাদের সাথে।
+                        </EditableText>
+                      </p>
+                    </div>
                   </div>
+
                 </div>
 
-                <div className="space-y-3.5 mb-6 border-y border-border/40 py-4 font-sans text-sm">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
-                        <CalendarDays className="h-3.5 w-3.5" />
-                      </div>
-                      <span>
-                        <EditableText id={`course.${course.slug}.label.1`}>Batch Starts</EditableText>
-                      </span>
+                {/* ৪টি কোর বেনিফিট কার্ড */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                  <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
+                    <div className="p-2.5 rounded-xl bg-destructive/10 text-destructive shrink-0 mt-0.5">
+                      <Radio className="w-5 h-5 animate-pulse" />
                     </div>
-                    <span className="font-semibold text-foreground/95 text-right">
-                      <EditableText id={`course.${course.slug}.info.1`}>
-                        October 15, 2026
-                      </EditableText>
-                    </span>
+                    <div className="space-y-1 min-w-0">
+                      <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
+                        <EditableText id={`course.${course.slug}.benefit.1.title`}>
+                          হাতে কলমে লাইভ সেশন
+                        </EditableText>
+                      </h3>
+                      <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
+                        <EditableText id={`course.${course.slug}.benefit.1.desc`}>
+                          স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা এবং আজীবন ক্লাউড রেকর্ডিং অ্যাক্সেস।
+                        </EditableText>
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
-                        <Clock className="h-3.5 w-3.5" />
-                      </div>
-                      <span>
-                        <EditableText id={`course.${course.slug}.label.2`}>Duration</EditableText>
-                      </span>
+                  <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
+                    <div className="p-2.5 rounded-xl bg-primary/10 text-primary shrink-0 mt-0.5">
+                      <MessageSquare className="w-4 h-4" />
                     </div>
-                    <span className="font-normal text-foreground/90 text-right">
-                      <EditableText id={`course.${course.slug}.info.2`}>
-                        {course.length || "30 Days Intensive"}
-                      </EditableText>
-                    </span>
+                    <div className="space-y-1 min-w-0">
+                      <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
+                        <EditableText id={`course.${course.slug}.benefit.2.title`}>
+                          ২৪/৭ ডিসকর্ড হেল্পডেস্ক
+                        </EditableText>
+                      </h3>
+                      <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
+                        স্টুডেন্ট কমিউনিটি, যেকোনো টেকনিক্যাল সাপোর্ট ও উইকলি মেন্টর ফিডব্যাক।
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
-                        <User className="h-3.5 w-3.5" />
-                      </div>
-                      <span>
-                        <EditableText id={`course.${course.slug}.label.3`}>Mentor</EditableText>
-                      </span>
+                  <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
+                    <div className="p-2.5 rounded-xl bg-accent/20 text-foreground shrink-0 mt-0.5">
+                      <Briefcase className="w-4 h-4" />
                     </div>
-                    <span className="font-normal text-foreground/90 text-right">
-                      <EditableText id={`course.${course.slug}.info.3`}>
-                        {course.instructor || "Muhammad Ataullah"}
-                      </EditableText>
-                    </span>
+                    <div className="space-y-1 min-w-0">
+                      <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
+                        <EditableText id={`course.${course.slug}.benefit.3.title`}>
+                          মার্কেটপ্লেস ও ডিরেক্ট ক্লায়েন্ট
+                        </EditableText>
+                      </h3>
+                      <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
+                        স্ট্রং পোর্টফোলিও তৈরি এবং সরাসরি হাই টিকেটিং ক্লায়েন্ট হান্টিং গাইড।
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
-                        <Send className="h-3.5 w-3.5" />
-                      </div>
-                      <span>
-                        <EditableText id={`course.${course.slug}.label.4`}>Platform</EditableText>
-                      </span>
+                  <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
+                    <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 shrink-0 mt-0.5">
+                      <Gift className="w-4 h-4" />
                     </div>
-                    <span className="font-normal text-foreground/90 text-right">
-                      <EditableText id={`course.${course.slug}.info.4`}>
-                        Discord Live Sessions
-                      </EditableText>
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 dark:bg-emerald-950/30 dark:border-emerald-500/40 transition-colors">
-                    <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-medium">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shrink-0">
-                        <ShieldCheck className="h-3.5 w-3.5" />
-                      </div>
-                      <span className="text-xs uppercase tracking-wider font-semibold">
-                        <EditableText id={`course.${course.slug}.label.5`}>Access</EditableText>
-                      </span>
+                    <div className="space-y-1 min-w-0">
+                      <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
+                        <EditableText id={`course.${course.slug}.benefit.4.title`}>
+                          এডিটিং রিসোর্স প্যাক
+                        </EditableText>
+                      </h3>
+                      <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
+                        প্রিমিয়াম সাউন্ড এফেক্টস (SFX), কালার LUTs এবং রেডি মোশন প্রিসেট ফাইল।
+                      </p>
                     </div>
-                    <span className="font-bold text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 text-right">
-                      <EditableText id={`course.${course.slug}.info.5`}>
-                        Lifetime Cloud Backup
-                      </EditableText>
-                    </span>
                   </div>
                 </div>
-
-                {enrolled ? (
-                  <Link
-                    to="/courses/$slug/lessons/$lessonId"
-                    params={{ slug, lessonId: "intro" }}
-                    className="gloss-btn w-full justify-center !py-3.5 text-base font-bold cursor-pointer"
-                  >
-                    Access Unlocked • Start Learning
-                  </Link>
-                ) : (
-                  <button
-                    onClick={() => setShowModal(true)}
-                    className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.99] transition-all duration-150 font-sans cursor-pointer"
-                  >
-                    <EditableText id={`course.${course.slug}.cta.button`}>
-                      Enroll in Batch 03 Now
-                    </EditableText>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                )}
-
-                <p className="mt-3 text-center text-xs text-muted-foreground font-sans">
-                  Instant WhatsApp seat confirmation flow
-                </p>
 
               </div>
-            </div>
 
-          </div>
-
-          {/* ================= ১. স্টিকি ট্যাব বার কন্ট্রোলার ================= */}
-          <div className="sticky top-20 z-30 mb-8 py-2.5 backdrop-blur-md">
-            <div className="max-w-4xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar">
-              {tabList.map((tab) => {
-                const isActive = activeTab === tab.id;
-                const Icon = tab.icon;
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer select-none ${
-                      isActive
-                        ? "bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-[1.02]"
-                        : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
+              {/* ডানপাশ: স্টিকি কার্ড */}
+              <div className="lg:col-span-5 lg:sticky lg:top-28">
+                <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
+                  
+                  <div 
+                    onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
+                    className={`relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5 ${
+                      previewVideoId ? "cursor-pointer" : ""
                     }`}
                   >
-                    <Icon className="w-4 h-4 shrink-0" />
-                    <span>{tab.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+                    <EditableImage
+                      id={`course.thumb.${course.slug}`}
+                      defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
+                      alt="Batch 03 Preview"
+                      className="w-full h-full"
+                      imgClassName="transition-transform duration-500 group-hover:scale-105"
+                    />
+                    {previewVideoId && (
+                      <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors">
+                        <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
+                          <Play className="w-5 h-5 fill-white ml-0.5" />
+                        </div>
+                      </div>
+                    )}
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2.5 py-1 rounded-[4px] text-xs font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans">
+                        <EditableText id={`course.${course.slug}.preview.badge`}>
+                          Curriculum Preview
+                        </EditableText>
+                      </span>
+                    </div>
+                  </div>
 
-          {/* ================= ২. ইউনিফাইড কন্টেন্ট মাস্টার কার্ড ================= */}
-          <div className="max-w-5xl mx-auto glass-strong rounded-3xl border border-border/80 p-6 sm:p-10 lg:p-12 shadow-xl mb-16 relative overflow-hidden backdrop-blur-md w-full">
-            {activeTab === "overview" && <TabOverview courseSlug={course.slug} />}
-            {activeTab === "curriculum" && <TabCurriculum courseSlug={course.slug} />}
-            {activeTab === "included" && <TabWhatsIncluded courseSlug={course.slug} />}
-            {activeTab === "how" && <TabHowItWorks courseSlug={course.slug} />}
-            {activeTab === "faq" && <TabFaq courseSlug={course.slug} />}
-          </div>
+                  {/* প্রাইসিং ও ৪০% অফ */}
+                  <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pb-1">
+                    <div className="flex items-baseline gap-2.5">
+                      <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-mono">
+                        <EditableText id={`course.${course.slug}.price`}>{course.price || "৳৩,০০০"}</EditableText>
+                      </span>
+                      <span className="text-base sm:text-lg text-muted-foreground/60 line-through decoration-rose-500/80 decoration-[1.5px] font-mono font-medium">
+                        <EditableText id={`course.${course.slug}.oldPrice`}>৳৫,০০০</EditableText>
+                      </span>
+                    </div>
 
-          {/* ================= ৩. ফাইনাল ক্লোজিং হাই-কনভার্টিং CTA ব্যানার ================= */}
-          <div className="relative max-w-5xl mx-auto font-bangla mb-16">
-            <div className="glass-strong rounded-3xl border border-primary/30 p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden backdrop-blur-md">
-              <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+                    <span className="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border border-primary/20 font-sans tracking-wide shrink-0">
+                      <EditableText id={`course.${course.slug}.discount.tag`}>
+                        40% OFF (Limited Time)
+                      </EditableText>
+                    </span>
+                  </div>
 
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/30 bg-primary/10 text-primary text-xs font-semibold tracking-wide shadow-2xs mb-5">
-                <Flame className="w-3.5 h-3.5 fill-primary text-primary animate-pulse" />
-                <span><EditableText id={`course.${course.slug}.final.cta.badge`}>সীমিত সময়ের অফার</EditableText></span>
+                  <div className="mb-5 p-3 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-transparent flex items-center justify-between shadow-xs">
+                    <div className="flex items-center gap-2 font-sans font-medium text-xs sm:text-[13px] text-amber-600 dark:text-amber-400">
+                      <Flame className="w-4 h-4 fill-amber-500 text-amber-500 animate-pulse" />
+                      <span className="tracking-tight font-semibold">Special Offer Ends In:</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 font-mono text-xs sm:text-sm font-bold">
+                      <span className="px-2 py-0.5 rounded-lg bg-background/90 text-foreground border border-amber-500/20 shadow-xs">
+                        {formatDigit(timer.hours)}h
+                      </span>
+                      <span className="text-amber-500">:</span>
+                      <span className="px-2 py-0.5 rounded-lg bg-background/90 text-foreground border border-amber-500/20 shadow-xs">
+                        {formatDigit(timer.minutes)}m
+                      </span>
+                      <span className="text-amber-500">:</span>
+                      <span className="px-2 py-0.5 rounded-lg bg-background/90 text-rose-600 dark:text-rose-400 border border-rose-500/20 shadow-xs">
+                        {formatDigit(timer.seconds)}s
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3.5 mb-6 border-y border-border/40 py-4 font-sans text-sm">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
+                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
+                          <CalendarDays className="h-3.5 w-3.5" />
+                        </div>
+                        <span>
+                          <EditableText id={`course.${course.slug}.label.1`}>Batch Starts</EditableText>
+                        </span>
+                      </div>
+                      <span className="font-semibold text-foreground/95 text-right">
+                        <EditableText id={`course.${course.slug}.info.1`}>
+                          October 15, 2026
+                        </EditableText>
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
+                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
+                          <Clock className="h-3.5 w-3.5" />
+                        </div>
+                        <span>
+                          <EditableText id={`course.${course.slug}.label.2`}>Duration</EditableText>
+                        </span>
+                      </div>
+                      <span className="font-normal text-foreground/90 text-right">
+                        <EditableText id={`course.${course.slug}.info.2`}>
+                          {course.length || "30 Days Intensive"}
+                        </EditableText>
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
+                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
+                          <User className="h-3.5 w-3.5" />
+                        </div>
+                        <span>
+                          <EditableText id={`course.${course.slug}.label.3`}>Mentor</EditableText>
+                        </span>
+                      </div>
+                      <span className="font-normal text-foreground/90 text-right">
+                        <EditableText id={`course.${course.slug}.info.3`}>
+                          {course.instructor || "Muhammad Ataullah"}
+                        </EditableText>
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
+                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
+                          <Send className="h-3.5 w-3.5" />
+                        </div>
+                        <span>
+                          <EditableText id={`course.${course.slug}.label.4`}>Platform</EditableText>
+                        </span>
+                      </div>
+                      <span className="font-normal text-foreground/90 text-right">
+                        <EditableText id={`course.${course.slug}.info.4`}>
+                          Discord Live Sessions
+                        </EditableText>
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 dark:bg-emerald-950/30 dark:border-emerald-500/40 transition-colors">
+                      <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-medium">
+                        <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shrink-0">
+                          <ShieldCheck className="h-3.5 w-3.5" />
+                        </div>
+                        <span className="text-xs uppercase tracking-wider font-semibold">
+                          <EditableText id={`course.${course.slug}.label.5`}>Access</EditableText>
+                        </span>
+                      </div>
+                      <span className="font-bold text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 text-right">
+                        <EditableText id={`course.${course.slug}.info.5`}>
+                          Lifetime Cloud Backup
+                        </EditableText>
+                      </span>
+                    </div>
+                  </div>
+
+                  {enrolled ? (
+                    <Link
+                      to="/courses/$slug/lessons/$lessonId"
+                      params={{ slug, lessonId: "intro" }}
+                      className="gloss-btn w-full justify-center !py-3.5 text-base font-bold cursor-pointer"
+                    >
+                      Access Unlocked • Start Learning
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => setShowModal(true)}
+                      className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.99] transition-all duration-150 font-sans cursor-pointer"
+                    >
+                      <EditableText id={`course.${course.slug}.cta.button`}>
+                        Enroll in Batch 03 Now
+                      </EditableText>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  )}
+
+                  <p className="mt-3 text-center text-xs text-muted-foreground font-sans">
+                    Instant WhatsApp seat confirmation flow
+                  </p>
+
+                </div>
               </div>
 
-              <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl lg:text-4xl text-foreground leading-[1.28] tracking-tight">
-                <EditableText id={`course.${course.slug}.final.cta.title`}>
-                  দেরি না করে আজই আপনার সিনেমাটিক এডিটিং জার্নি শুরু করুন
-                </EditableText>
-              </h3>
+            </div>
 
-              <p className="font-bangla text-sm sm:text-base text-foreground/85 leading-relaxed mt-4 max-w-2xl mx-auto">
-                <EditableText id={`course.${course.slug}.final.cta.subtitle`}>
-                  ব্যাচ ৩ এ সীমিত আসনে বিশেষ ছাড় চলছে। রেগুলার ফি ৫,০০০ টাকার বদলে এখন মাত্র ৩,০০০ টাকা।
-                </EditableText>
-              </p>
+            {/* ================= ১. স্টিকি ট্যাব বার কন্ট্রোলার ================= */}
+            <div className="sticky top-20 z-30 mb-8 py-2.5 backdrop-blur-md">
+              <div className="max-w-4xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar">
+                {tabList.map((tab) => {
+                  const isActive = activeTab === tab.id;
+                  const Icon = tab.icon;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer select-none ${
+                        isActive
+                          ? "bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-[1.02]"
+                          : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
+                      }`}
+                    >
+                      <Icon className="w-4 h-4 shrink-0" />
+                      <span>{tab.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
-              <div className="mt-8 flex flex-col items-center justify-center gap-3">
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base sm:text-lg flex items-center justify-center gap-3 shadow-xl shadow-primary/30 hover:brightness-110 active:scale-[0.99] transition-all font-sans cursor-pointer"
-                >
-                  <span><EditableText id={`course.${course.slug}.final.cta.btn`}>Enroll in Batch 03 Now</EditableText></span>
-                  <ArrowRight className="w-5 h-5" />
-                </button>
+            {/* ================= ২. ইউনিফাইড কন্টেন্ট মাস্টার কার্ড ================= */}
+            <div className="max-w-5xl mx-auto glass-strong rounded-3xl border border-border/80 p-6 sm:p-10 lg:p-12 shadow-xl mb-16 relative overflow-hidden backdrop-blur-md w-full">
+              {activeTab === "overview" && <TabOverview courseSlug={course.slug} />}
+              {activeTab === "curriculum" && <TabCurriculum courseSlug={course.slug} />}
+              {activeTab === "included" && <TabWhatsIncluded courseSlug={course.slug} />}
+              {activeTab === "how" && <TabHowItWorks courseSlug={course.slug} />}
+              {activeTab === "faq" && <TabFaq courseSlug={course.slug} />}
+            </div>
 
-                <p className="text-xs text-muted-foreground font-bangla flex items-center gap-1.5 mt-1">
-                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                  <span><EditableText id={`course.${course.slug}.final.cta.trust`}>১০০% মানি ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট | সুরক্ষিত পেমেন্ট ভেরিফিকেশন</EditableText></span>
+            {/* ================= ৩. ফাইনাল ক্লোজিং হাই-কনভার্টিং CTA ব্যানার ================= */}
+            <div className="relative max-w-5xl mx-auto font-bangla mb-16">
+              <div className="glass-strong rounded-3xl border border-primary/30 p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden backdrop-blur-md">
+                <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/30 bg-primary/10 text-primary text-xs font-semibold tracking-wide shadow-2xs mb-5">
+                  <Flame className="w-3.5 h-3.5 fill-primary text-primary animate-pulse" />
+                  <span><EditableText id={`course.${course.slug}.final.cta.badge`}>সীমিত সময়ের অফার</EditableText></span>
+                </div>
+
+                <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl lg:text-4xl text-foreground leading-[1.28] tracking-tight">
+                  <EditableText id={`course.${course.slug}.final.cta.title`}>
+                    দেরি না করে আজই আপনার সিনেমাটিক এডিটিং জার্নি শুরু করুন
+                  </EditableText>
+                </h3>
+
+                <p className="font-bangla text-sm sm:text-base text-foreground/85 leading-relaxed mt-4 max-w-2xl mx-auto">
+                  <EditableText id={`course.${course.slug}.final.cta.subtitle`}>
+                    ব্যাচ ৩ এ সীমিত আসনে বিশেষ ছাড় চলছে। রেগুলার ফি ৫,০০০ টাকার বদলে এখন মাত্র ৩,০০০ টাকা।
+                  </EditableText>
                 </p>
+
+                <div className="mt-8 flex flex-col items-center justify-center gap-3">
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base sm:text-lg flex items-center justify-center gap-3 shadow-xl shadow-primary/30 hover:brightness-110 active:scale-[0.99] transition-all font-sans cursor-pointer"
+                  >
+                    <span><EditableText id={`course.${course.slug}.final.cta.btn`}>Enroll in Batch 03 Now</EditableText></span>
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+
+                  <p className="text-xs text-muted-foreground font-bangla flex items-center gap-1.5 mt-1">
+                    <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                    <span><EditableText id={`course.${course.slug}.final.cta.trust`}>১০০% মানি ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট | সুরক্ষিত পেমেন্ট ভেরিফিকেশন</EditableText></span>
+                  </p>
+                </div>
               </div>
             </div>
+
+            {/* ================= ৪. কোর্স পেজের জন্য একক স্লিম ফুটার ================= */}
+            <footer className="w-full py-6 border-t border-border/40 text-center font-sans">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+                <p>© 2026 growVelo Studio. All rights reserved.</p>
+                <div className="flex items-center gap-4 text-[11px] tracking-wide">
+                  <Link to="/legal" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+                  <span>•</span>
+                  <Link to="/legal" className="hover:text-foreground transition-colors">Terms of Service</Link>
+                  <span>•</span>
+                  <a href={`https://wa.me/8801410341220`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+                    WhatsApp Support
+                  </a>
+                </div>
+              </div>
+            </footer>
+
           </div>
-
         </div>
-      </main>
-
-      {/* ================= ৪. কোর্স পেজের জন্য একক স্লিম ফুটার (বড় ফুটার চিরতরে বন্ধ) ================= */}
-      <footer className="w-full py-6 border-t border-border/40 text-center font-sans bg-background">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-          <p>© 2026 growVelo Studio. All rights reserved.</p>
-          <div className="flex items-center gap-4 text-[11px] tracking-wide">
-            <Link to="/legal" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-            <span>•</span>
-            <Link to="/legal" className="hover:text-foreground transition-colors">Terms of Service</Link>
-            <span>•</span>
-            <a href={`https://wa.me/8801410341220`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-              WhatsApp Support
-            </a>
-          </div>
-        </div>
-      </footer>
-
+      </SiteShell>
     </div>
   );
 }
@@ -1840,20 +1906,24 @@ export const Route = createFileRoute("/courses/$slug")({
     };
   },
   notFoundComponent: () => (
-    <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-      <h1 className="font-display text-2xl font-semibold">Course not found</h1>
-      <Link to="/courses" className="gloss-btn mt-6 inline-flex">
-        Back to courses
-      </Link>
-    </div>
+    <SiteShell>
+      <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
+        <h1 className="font-display text-2xl font-semibold">Course not found</h1>
+        <Link to="/courses" className="gloss-btn mt-6 inline-flex">
+          Back to courses
+        </Link>
+      </div>
+    </SiteShell>
   ),
   errorComponent: () => (
-    <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-      <h1 className="font-display text-2xl font-semibold">Something went wrong</h1>
-      <Link to="/courses" className="gloss-btn mt-6 inline-flex">
-        Back to courses
-      </Link>
-    </div>
+    <SiteShell>
+      <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
+        <h1 className="font-display text-2xl font-semibold">Something went wrong</h1>
+        <Link to="/courses" className="gloss-btn mt-6 inline-flex">
+          Back to courses
+        </Link>
+      </div>
+    </SiteShell>
   ),
   component: CourseDetail,
 });
