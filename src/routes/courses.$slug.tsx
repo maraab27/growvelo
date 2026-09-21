@@ -17,7 +17,6 @@ import {
   CheckCircle2,
   Copy,
   Check,
-  Sparkles,
   ArrowRight,
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
@@ -43,6 +42,7 @@ function EnrollmentModal({
     trxId: "",
   });
 
+  // মারাব ভাইয়ের নির্দিষ্ট করা নম্বর দুটি এখানে সরাসরি যুক্ত করা হলো
   const paymentNumber = "01790055690";
   const supportWhatsapp = "8801410341220";
 
@@ -117,7 +117,9 @@ TrxID: ${formData.trxId}`;
 
             <form onSubmit={handleSubmit} className="space-y-4 text-sm font-sans">
               <div>
-                <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">Full Name *</label>
+                <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">
+                  Full Name *
+                </label>
                 <input
                   type="text"
                   required
@@ -130,7 +132,9 @@ TrxID: ${formData.trxId}`;
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">WhatsApp Number *</label>
+                  <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">
+                    WhatsApp Number *
+                  </label>
                   <input
                     type="tel"
                     required
@@ -141,7 +145,9 @@ TrxID: ${formData.trxId}`;
                   />
                 </div>
                 <div>
-                  <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">Email Address</label>
+                  <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">
+                    Email Address
+                  </label>
                   <input
                     type="email"
                     placeholder="name@example.com"
@@ -154,7 +160,9 @@ TrxID: ${formData.trxId}`;
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">Payment Method *</label>
+                  <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">
+                    Payment Method *
+                  </label>
                   <select
                     value={formData.method}
                     onChange={(e) => setFormData({ ...formData, method: e.target.value })}
@@ -165,7 +173,9 @@ TrxID: ${formData.trxId}`;
                   </select>
                 </div>
                 <div>
-                  <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">Transaction ID (TrxID) *</label>
+                  <label className="block text-foreground font-medium mb-1.5 text-xs uppercase tracking-wider">
+                    Transaction ID (TrxID) *
+                  </label>
                   <input
                     type="text"
                     required
@@ -308,7 +318,8 @@ function CourseDetail() {
         </div>
       )}
 
-      <section className="aurora-soft min-h-screen pt-28 sm:pt-36 pb-16 sm:pb-24">
+      {/* ব্যাকগ্রাউন্ড ক্লিন ও সাদা রাখতে aurora-soft সরিয়ে bg-background দেওয়া হলো */}
+      <section className="bg-background min-h-screen pt-28 sm:pt-36 pb-16 sm:pb-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
           <Link
@@ -324,13 +335,10 @@ function CourseDetail() {
             {/* বামপাশ: ভ্যালু প্রোপজিশন ও ৪টি কার্ড */}
             <div className="lg:col-span-7 flex flex-col space-y-6">
               
-              {/* ব্যাজ */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass border border-primary/20 bg-primary/5 w-fit shadow-xs">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                </span>
-                <span className="text-xs sm:text-sm font-medium tracking-wide text-foreground font-sans">
+              {/* মডার্ন স্লিক চারকোনা হালকা কার্ভ ব্যাজ (Rounded-lg, কোনো গোল এআই লুক নেই) */}
+              <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-lg border border-border/70 bg-foreground/[0.03] w-fit shadow-2xs backdrop-blur-xs">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0"></span>
+                <span className="text-xs sm:text-[13px] font-medium tracking-normal text-foreground/90 font-sans">
                   <EditableText id={`course.${course.slug}.hero.badge`}>
                     Batch 03 • Live Masterclass + Private Discord Community
                   </EditableText>
@@ -434,7 +442,7 @@ function CourseDetail() {
 
             </div>
 
-            {/* ডানপাশ: দুই পাশের সুবিন্যস্ত ইংরেজি মেটাসহ স্টিকি কার্ড */}
+            {/* ডানপাশ: স্টিকি কার্ড */}
             <div className="lg:col-span-5 lg:sticky lg:top-28">
               <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
                 
@@ -480,7 +488,7 @@ function CourseDetail() {
                   </span>
                 </div>
 
-                {/* মেটা ইনফরমেশন তালিকা: বামপাশে আইকন ও লেবেল, ডানপাশে ডিটেইলস */}
+                {/* মেটা ইনফরমেশন তালিকা */}
                 <div className="space-y-3.5 mb-6 border-y border-border/40 py-4 font-sans text-sm">
                   
                   {/* আইটেম ১ */}
@@ -590,8 +598,8 @@ function CourseDetail() {
                   </button>
                 )}
 
-                <p className="mt-3 text-center text-xs text-muted-foreground flex items-center justify-center gap-1.5 font-sans">
-                  <Sparkles className="w-3.5 h-3.5 text-primary" />
+                {/* তারা চিহ্ন ছাড়া একদম পরিষ্কার টেক্সট */}
+                <p className="mt-3 text-center text-xs text-muted-foreground font-sans">
                   Instant WhatsApp seat confirmation flow
                 </p>
 
