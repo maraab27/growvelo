@@ -149,10 +149,12 @@ TrxID: ${formData.trxId}`;
           <>
             <div className="mb-6">
               <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground">
-                Confirm Your Seat in Batch 03
+                <EditableText id={`course.${courseSlug}.modal.title`}>Confirm Your Seat in Batch 03</EditableText>
               </h3>
               <p className="text-sm text-muted-foreground mt-1 font-sans">
-                Send money to the number below and complete the verification form.
+                <EditableText id={`course.${courseSlug}.modal.subtitle`}>
+                  Send money to the number below and complete the verification form.
+                </EditableText>
               </p>
             </div>
 
@@ -253,7 +255,7 @@ TrxID: ${formData.trxId}`;
                 className="w-full mt-5 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:brightness-110 active:scale-[0.99] transition-all"
               >
                 <Send className="w-4 h-4" />
-                <span>Send Confirmation Message</span>
+                <span><EditableText id={`course.${courseSlug}.modal.btn`}>Send Confirmation Message</EditableText></span>
               </button>
             </form>
           </>
@@ -263,10 +265,12 @@ TrxID: ${formData.trxId}`;
               <CheckCircle2 className="w-8 h-8" />
             </div>
             <h3 className="font-display text-xl font-bold text-foreground">
-              Request Generated!
+              <EditableText id={`course.${courseSlug}.modal.success.title`}>Request Generated!</EditableText>
             </h3>
             <p className="text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed font-sans">
-              WhatsApp window has been opened. Hit send and our team will verify your payment and grant instant Discord access.
+              <EditableText id={`course.${courseSlug}.modal.success.desc`}>
+                WhatsApp window has been opened. Hit send and our team will verify your payment and grant instant Discord access.
+              </EditableText>
             </p>
             <button
               onClick={onClose}
@@ -281,7 +285,7 @@ TrxID: ${formData.trxId}`;
   );
 }
 
-// ================= ট্যাব ১: ওভারভিউ (পেইন পয়েন্ট ও অপরচুনিটি) =================
+// ================= ট্যাব ১: ওভারভিউ =================
 function TabOverview({ courseSlug }: { courseSlug: string }) {
   return (
     <div className="space-y-12 animate-in fade-in duration-300">
@@ -327,7 +331,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             </p>
           </div>
           <div className="pt-4 mt-5 border-t border-border/40 flex items-center gap-1.5 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
-            <span>অডিয়েন্স সাইকোলজি শিখুন</span>
+            <span><EditableText id={`course.${courseSlug}.card.1.action`}>অডিয়েন্স সাইকোলজি শিখুন</EditableText></span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
@@ -349,7 +353,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             </p>
           </div>
           <div className="pt-4 mt-5 border-t border-border/40 flex items-center gap-1.5 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
-            <span>রিয়েল এডিটিং মেথডোলজি</span>
+            <span><EditableText id={`course.${courseSlug}.card.2.action`}>রিয়েল এডিটিং মেথডোলজি</EditableText></span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
@@ -371,7 +375,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             </p>
           </div>
           <div className="pt-4 mt-5 border-t border-border/40 flex items-center gap-1.5 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
-            <span>হাই-টিকেটিং ফ্রেমওয়ার্ক</span>
+            <span><EditableText id={`course.${courseSlug}.card.3.action`}>হাই-টিকেটিং ফ্রেমওয়ার্ক</EditableText></span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
@@ -386,27 +390,29 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             </EditableText>
           </h3>
           <p className="font-bangla text-xs text-muted-foreground mt-1">
-            একটি সাধারণ কাট-পেস্ট এডিটর আর হাই-ভ্যালু ভিডিও রিটেলারের পার্থক্য দেখে নিন
+            <EditableText id={`course.${courseSlug}.compare.subheading`}>
+              একটি সাধারণ কাট-পেস্ট এডিটর আর হাই-ভ্যালু ভিডিও রিটেলারের পার্থক্য দেখে নিন
+            </EditableText>
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 divide-y md:divide-y-0 md:divide-x divide-border/60">
           <div className="space-y-3.5 pt-3 md:pt-0">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-destructive/10 text-destructive text-xs font-bangla font-semibold">
-              <span>সাধারণ এডিটর (YouTube Learner)</span>
+              <span><EditableText id={`course.${courseSlug}.compare.bad.badge`}>সাধারণ এডিটর (YouTube Learner)</EditableText></span>
             </div>
             <ul className="space-y-2.5 font-bangla text-xs sm:text-[13px] text-foreground/75">
               <li className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
-                <span>ঘণ্টার পর ঘণ্টা এলোমেলো ইউটিউব টিউটোরিয়ালে কনফিউজড ও দিকহারা।</span>
+                <span><EditableText id={`course.${courseSlug}.compare.bad.1`}>ঘণ্টার পর ঘণ্টা এলোমেলো ইউটিউব টিউটোরিয়ালে কনফিউজড ও দিকহারা।</EditableText></span>
               </li>
               <li className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
-                <span>সাউন্ড ডিজাইন ও কালার সাইকোলজি ছাড়া একদম ফ্ল্যাট, প্রাণহীন এডিট।</span>
+                <span><EditableText id={`course.${courseSlug}.compare.bad.2`}>সাউন্ড ডিজাইন ও কালার সাইকোলজি ছাড়া একদম ফ্ল্যাট, প্রাণহীন এডিট।</EditableText></span>
               </li>
               <li className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
-                <span>মার্কেটপ্লেসে সস্তায় ৫০০-১০০০ টাকার কাজের জন্য বিড করে রিজেক্ট হওয়া।</span>
+                <span><EditableText id={`course.${courseSlug}.compare.bad.3`}>মার্কেটপ্লেসে সস্তায় ৫০০-১০০০ টাকার কাজের জন্য বিড করে রিজেক্ট হওয়া।</EditableText></span>
               </li>
             </ul>
           </div>
@@ -414,20 +420,20 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
           <div className="space-y-3.5 pt-5 md:pt-0 md:pl-8">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-bangla font-semibold">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>ব্যাচ ৩ গ্র্যাজুয়েট (growVelo Pro Editor)</span>
+              <span><EditableText id={`course.${courseSlug}.compare.good.badge`}>ব্যাচ ৩ গ্র্যাজুয়েট (growVelo Pro Editor)</EditableText></span>
             </div>
             <ul className="space-y-2.5 font-bangla text-xs sm:text-[13px] text-foreground/90 font-medium">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span>সরাসরি রিয়েল লাইফ প্রজেক্ট ও সিনেমাটিক স্টোরিটেলিং ফ্রেমওয়ার্ক মাস্টার করা।</span>
+                <span><EditableText id={`course.${courseSlug}.compare.good.1`}>সরাসরি রিয়েল লাইফ প্রজেক্ট ও সিনেমাটিক স্টোরিটেলিং ফ্রেমওয়ার্ক মাস্টার করা।</EditableText></span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span>প্রো-লেভেল সাউন্ড ডিজাইন, কালার গ্রেডিং ও হাই-রিটেনশন মোশন অ্যানিমেশন।</span>
+                <span><EditableText id={`course.${courseSlug}.compare.good.2`}>প্রো-লেভেল সাউন্ড ডিজাইন, কালার গ্রেডিং ও হাই-রিটেনশন মোশন অ্যানিমেশন।</EditableText></span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span>আন্তর্জাতিক মানের প্রফেশনাল পোর্টফোলিও ও সরাসরি ক্লায়েন্ট ডিল ক্লোজিং স্কিল।</span>
+                <span><EditableText id={`course.${courseSlug}.compare.good.3`}>আন্তর্জাতিক মানের প্রফেশনাল পোর্টফোলিও ও সরাসরি ক্লায়েন্ট ডিল ক্লোজিং স্কিল।</EditableText></span>
               </li>
             </ul>
           </div>
@@ -437,7 +443,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
   );
 }
 
-// ================= ট্যাব ২: কারিকুলাম রোডম্যাপ =================
+// ================= ট্যাব ২: কারিকুলাম =================
 function TabCurriculum({ courseSlug }: { courseSlug: string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -550,10 +556,10 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
                   </div>
                   <div>
                     <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-primary block mb-0.5">
-                      {item.moduleNo}
+                      <EditableText id={`course.${courseSlug}.module.${idx + 1}.no`}>{item.moduleNo}</EditableText>
                     </span>
                     <h3 className="font-display font-bold text-sm sm:text-base text-foreground">
-                      {item.title}
+                      <EditableText id={`course.${courseSlug}.module.${idx + 1}.title`}>{item.title}</EditableText>
                     </h3>
                   </div>
                 </div>
@@ -568,14 +574,16 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
               {isOpen && (
                 <div className="px-4 pb-5 sm:px-5 sm:pb-5 pt-1 border-t border-border/30 animate-in fade-in duration-200">
                   <p className="font-bangla text-xs text-muted-foreground mb-3 leading-relaxed">
-                    {item.desc}
+                    <EditableText id={`course.${courseSlug}.module.${idx + 1}.desc`}>{item.desc}</EditableText>
                   </p>
                   
                   <div className="bg-background/60 rounded-xl p-3 border border-border/40 space-y-2">
                     {item.lessons.map((lesson, lIdx) => (
                       <div key={lIdx} className="flex items-center gap-2 font-bangla text-xs text-foreground/85">
                         <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                        <span>{lesson}</span>
+                        <span>
+                          <EditableText id={`course.${courseSlug}.module.${idx + 1}.lesson.${lIdx + 1}`}>{lesson}</EditableText>
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -589,50 +597,50 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
   );
 }
 
-// ================= ট্যাব ৩: কী কী পাচ্ছেন (What's Included) =================
+// ================= ট্যাব ৩: কী কী পাচ্ছেন =================
 function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
   const features = [
     {
       icon: Video,
       gradient: "from-blue-500/20 to-cyan-500/20",
       iconColor: "text-blue-500",
-      title: "লাইভ ইন্টারেক্টিভ ক্লাস",
-      desc: "সরাসরি স্ক্রিন শেয়ারে প্র্যাকটিক্যাল লার্নিং ও লাইভ ডাউট সলভিং সেশন।",
+      titleKey: "লাইভ ইন্টারেক্টিভ ক্লাস",
+      descKey: "সরাসরি স্ক্রিন শেয়ারে প্র্যাকটিক্যাল লার্নিং ও লাইভ ডাউট সলভিং সেশন।",
     },
     {
       icon: CloudDownload,
       gradient: "from-emerald-500/20 to-teal-500/20",
       iconColor: "text-emerald-500",
-      title: "লাইফটাইম ক্লাউড রেকর্ডিং ব্যাকআপ",
-      desc: "ক্লাস শেষ হলেই ওয়েবসাইট ড্যাশবোর্ডে ইউটিউব আনলিস্টেড ফুল এইচডি রেকর্ডিং আপডেট।",
+      titleKey: "লাইফটাইম ক্লাউড রেকর্ডিং ব্যাকআপ",
+      descKey: "ক্লাস শেষ হলেই ওয়েবসাইট ড্যাশবোর্ডে ইউটিউব আনলিস্টেড ফুল এইচডি রেকর্ডিং আপডেট।",
     },
     {
       icon: Users,
       gradient: "from-violet-500/20 to-purple-500/20",
       iconColor: "text-violet-500",
-      title: "ডেডিকেটেড ডিসকর্ড প্রাইভেট কমিউনিটি",
-      desc: "২৪/৭ ব্যাচভিত্তিক প্রাইভেট চ্যানেল (#batch-03), অ্যাসাইনমেন্ট সাবমিশন ও সহপাঠীদের সাথে নেটওয়ার্কিং।",
+      titleKey: "ডেডিকেটেড ডিসকর্ড প্রাইভেট কমিউনিটি",
+      descKey: "২৪/৭ ব্যাচভিত্তিক প্রাইভেট চ্যানেল (#batch-03), অ্যাসাইনমেন্ট সাবমিশন ও সহপাঠীদের সাথে নেটওয়ার্কিং।",
     },
     {
       icon: FolderArchive,
       gradient: "from-amber-500/20 to-orange-500/20",
       iconColor: "text-amber-500",
-      title: "১০০+ প্রিমিয়াম সাউন্ড ও সিনেমাটিক অ্যাসেটস",
-      desc: "প্র্যাকটিসের জন্য মেটেরিয়ালস, সাউন্ড প্যাক, সিনেমাটিক LUTs ও মোশন প্রিসেট সম্পূর্ণ ফ্রি।",
+      titleKey: "১০০+ প্রিমিয়াম সাউন্ড ও সিনেমাটিক অ্যাসেটস",
+      descKey: "প্র্যাকটিসের জন্য মেটেরিয়ালস, সাউন্ড প্যাক, সিনেমাটিক LUTs ও মোশন প্রিসেট সম্পূর্ণ ফ্রি।",
     },
     {
       icon: FileCheck,
       gradient: "from-rose-500/20 to-red-500/20",
       iconColor: "text-rose-500",
-      title: "উইকলি পার্সোনালাইজড ফিডব্যাক",
-      desc: "আপনার প্রতিটি এডিটের ভুল-ত্রুটি ধরিয়ে দিয়ে মেন্টর সরাসরি স্ক্রিনে পার্সোনাল ফিডব্যাক দেবেন।",
+      titleKey: "উইকলি পার্সোনালাইজড ফিডব্যাক",
+      descKey: "আপনার প্রতিটি এডিটের ভুল-ত্রুটি ধরিয়ে দিয়ে মেন্টর সরাসরি স্ক্রিনে পার্সোনাল ফিডব্যাক দেবেন।",
     },
     {
       icon: Award,
       gradient: "from-primary/25 to-indigo-500/20",
       iconColor: "text-primary",
-      title: "কমপ্লিশন ভেরিফাইড সার্টিফিকেট",
-      desc: "ব্যাচের সব প্রজেক্ট সফলভাবে শেষ করার পর ভেরিফায়েড ডিজিটাল সার্টিফিকেট।",
+      titleKey: "কমপ্লিশন ভেরিফাইড সার্টিফিকেট",
+      descKey: "ব্যাচের সব প্রজেক্ট সফলভাবে শেষ করার পর ভেরিফায়েড ডিজিটাল সার্টিফিকেট।",
     },
   ];
 
@@ -671,17 +679,17 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
               </div>
 
               <h3 className="font-bangla font-bold text-base text-foreground leading-snug">
-                {feat.title}
+                <EditableText id={`course.${courseSlug}.feature.${fIdx + 1}.title`}>{feat.titleKey}</EditableText>
               </h3>
 
               <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed mt-2">
-                {feat.desc}
+                <EditableText id={`course.${courseSlug}.feature.${fIdx + 1}.desc`}>{feat.descKey}</EditableText>
               </p>
             </div>
 
             <div className="pt-4 mt-4 border-t border-border/40 flex items-center gap-1.5 text-xs font-bangla font-medium text-emerald-600 dark:text-emerald-400">
               <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>ইনক্লুডেড অ্যাক্সেস</span>
+              <span><EditableText id={`course.${courseSlug}.feature.${fIdx + 1}.tag`}>ইনক্লুডেড অ্যাক্সেস</EditableText></span>
             </div>
           </div>
         ))}
@@ -690,7 +698,7 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
   );
 }
 
-// ================= ট্যাব ৪: যেভাবে শুরু করবেন (How It Works) =================
+// ================= ট্যাব ৪: যেভাবে শুরু করবেন =================
 function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
   const steps = [
     {
@@ -766,20 +774,20 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
               </div>
 
               <span className="text-[11px] font-bangla font-semibold text-primary block mb-1">
-                {item.badgeTitle}
+                <EditableText id={`course.${courseSlug}.step.${index + 1}.badge`}>{item.badgeTitle}</EditableText>
               </span>
 
               <h3 className="font-bangla font-bold text-base text-foreground leading-snug">
-                {item.title}
+                <EditableText id={`course.${courseSlug}.step.${index + 1}.title`}>{item.title}</EditableText>
               </h3>
 
               <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed mt-2">
-                {item.desc}
+                <EditableText id={`course.${courseSlug}.step.${index + 1}.desc`}>{item.desc}</EditableText>
               </p>
             </div>
 
             <div className="pt-4 mt-5 border-t border-border/40 flex items-center gap-1.5 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
-              <span>পরবর্তী ধাপে চলুন</span>
+              <span><EditableText id={`course.${courseSlug}.step.${index + 1}.action`}>পরবর্তী ধাপে চলুন</EditableText></span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
@@ -855,7 +863,7 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
                 className="w-full p-4 sm:p-5 text-left flex items-start justify-between gap-4 select-none"
               >
                 <span className="font-bangla font-bold text-sm sm:text-base text-foreground leading-snug">
-                  {faq.q}
+                  <EditableText id={`course.${courseSlug}.faq.item.${i + 1}.q`}>{faq.q}</EditableText>
                 </span>
                 <div
                   className={`p-1.5 rounded-lg glass text-muted-foreground shrink-0 transition-transform duration-300 ${
@@ -869,7 +877,7 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
               {isOpen && (
                 <div className="px-4 pb-5 sm:px-5 sm:pb-5 pt-1 border-t border-border/30 animate-in fade-in duration-200">
                   <p className="font-bangla text-xs sm:text-[13px] text-foreground/80 leading-relaxed">
-                    {faq.a}
+                    <EditableText id={`course.${courseSlug}.faq.item.${i + 1}.a`}>{faq.a}</EditableText>
                   </p>
                 </div>
               )}
@@ -914,12 +922,13 @@ function CourseDetail() {
 
   const formatDigit = (num: number) => String(num).padStart(2, "0");
 
+  // ইংরেজি লেবেলযুক্ত ট্যাব তালিকা
   const tabList = [
-    { id: "overview", label: "ওভারভিউ", icon: LayoutDashboard },
-    { id: "curriculum", label: "কারিকুলাম", icon: BookOpen },
-    { id: "included", label: "কী কী পাচ্ছেন", icon: Gift },
-    { id: "how", label: "যেভাবে শুরু করবেন", icon: Workflow },
-    { id: "faq", label: "সাধারণ প্রশ্ন (FAQ)", icon: MessageCircleQuestion },
+    { id: "overview", label: "Overview", icon: LayoutDashboard },
+    { id: "curriculum", label: "Curriculum", icon: BookOpen },
+    { id: "included", label: "What's Included", icon: Gift },
+    { id: "how", label: "How It Works", icon: Workflow },
+    { id: "faq", label: "FAQ", icon: MessageCircleQuestion },
   ] as const;
 
   return (
@@ -1271,9 +1280,9 @@ function CourseDetail() {
 
           </div>
 
-          {/* ================= ১. স্টিকি ট্যাব বার কন্ট্রোলার ================= */}
+          {/* ================= ১. স্টিকি ট্যাব বার কন্ট্রোলার (Center Aligned & English Labels) ================= */}
           <div className="sticky top-20 z-30 mb-8 py-2.5 backdrop-blur-md">
-            <div className="max-w-5xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+            <div className="max-w-4xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar">
               {tabList.map((tab) => {
                 const isActive = activeTab === tab.id;
                 const Icon = tab.icon;
@@ -1281,7 +1290,7 @@ function CourseDetail() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bangla text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer select-none ${
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer select-none ${
                       isActive
                         ? "bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-[1.02]"
                         : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
@@ -1311,15 +1320,19 @@ function CourseDetail() {
 
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/30 bg-primary/10 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
                 <Flame className="w-3.5 h-3.5 fill-primary text-primary animate-pulse" />
-                <span>সীমিত সময়ের অফার</span>
+                <span><EditableText id={`course.${course.slug}.final.cta.badge`}>সীমিত সময়ের অফার</EditableText></span>
               </div>
 
               <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl lg:text-4xl text-foreground leading-[1.25] tracking-tight">
-                দেরি না করে আজই আপনার সিনেমাটিক এডিটিং জার্নি শুরু করুন
+                <EditableText id={`course.${course.slug}.final.cta.title`}>
+                  দেরি না করে আজই আপনার সিনেমাটিক এডিটিং জার্নি শুরু করুন
+                </EditableText>
               </h3>
 
               <p className="font-bangla text-sm sm:text-base text-foreground/85 leading-relaxed mt-4 max-w-2xl mx-auto">
-                ব্যাচ ৩-এ সীমিত আসনে বিশেষ ছাড় চলছে—রেগুলার ফি <span className="line-through text-muted-foreground">৳৫,০০০</span>-এর বদলে মাত্র <span className="font-bold text-primary font-mono text-lg">৳৩,০০০</span>।
+                <EditableText id={`course.${course.slug}.final.cta.subtitle`}>
+                  ব্যাচ ৩-এ সীমিত আসনে বিশেষ ছাড় চলছে—রেগুলার ফি ৳৫,০০০-এর বদলে মাত্র ৳৩,০০০।
+                </EditableText>
               </p>
 
               <div className="mt-8 flex flex-col items-center justify-center gap-3">
@@ -1327,13 +1340,13 @@ function CourseDetail() {
                   onClick={() => setShowModal(true)}
                   className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base sm:text-lg flex items-center justify-center gap-3 shadow-xl shadow-primary/30 hover:brightness-110 active:scale-[0.99] transition-all font-sans cursor-pointer"
                 >
-                  <span>Enroll in Batch 03 Now</span>
+                  <span><EditableText id={`course.${course.slug}.final.cta.btn`}>Enroll in Batch 03 Now</EditableText></span>
                   <ArrowRight className="w-5 h-5" />
                 </button>
 
                 <p className="text-xs text-muted-foreground font-bangla flex items-center gap-1.5 mt-1">
                   <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                  <span>১০০% মানি-ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট | সুরক্ষিত পেমেন্ট ভেরিফিকেশন</span>
+                  <span><EditableText id={`course.${course.slug}.final.cta.trust`}>১০০% মানি-ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট | সুরক্ষিত পেমেন্ট ভেরিফিকেশন</EditableText></span>
                 </p>
               </div>
             </div>
