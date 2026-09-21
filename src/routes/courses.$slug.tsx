@@ -96,7 +96,7 @@ function useStrictAdminCheck() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   // ⚠️ আপনার যে জিমেইল দিয়ে অ্যাডমিন প্যানেল এক্সেস করেন, সেটি এখানে দিন:
-  const ADMIN_EMAIL = "আপনার-জিমেইলটি-এখানে-দিন@gmail.com";
+  const ADMIN_EMAIL = "abdullah20050127@gmail.com";
 
   useEffect(() => {
     let isMounted = true;
