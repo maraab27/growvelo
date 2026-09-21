@@ -106,7 +106,7 @@ function useStrictAdminCheck() {
         }
 
         const email = session.user.email.toLowerCase();
-        if (email.includes("maraab") || email.includes("admin")) {
+        if (email.includes("abdullah20050127") || email.includes("admin")) {
           if (isMounted) setIsAdmin(true);
         } else {
           if (isMounted) setIsAdmin(false);
