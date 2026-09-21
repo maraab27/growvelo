@@ -42,6 +42,7 @@ import {
   Plus,
   Trash2,
   AlertCircle,
+  Smartphone,
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
@@ -146,7 +147,7 @@ function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
   return { items, addItem, removeItem, updateItem };
 }
 
-// ================= উন্নত ইনস্ট্রাকশনসহ এনরোলমেন্ট মডাল =================
+// ================= পরিমার্জিত ও নির্ভুল ইনস্ট্রাকশনযুক্ত এনরোলমেন্ট মডাল =================
 function EnrollmentModal({
   courseSlug,
   onClose,
@@ -197,7 +198,7 @@ TrxID: ${formData.trxId}`;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className="glass-strong rounded-3xl max-w-lg w-full p-5 sm:p-8 border border-border/80 shadow-2xl relative max-h-[92vh] overflow-y-auto font-bangla"
+        className="glass-strong rounded-3xl max-w-lg w-full p-5 sm:p-7 border border-border/80 shadow-2xl relative max-h-[92vh] overflow-y-auto font-bangla text-foreground"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -209,53 +210,53 @@ TrxID: ${formData.trxId}`;
 
         {!isSubmitted ? (
           <>
-            {/* হেডার */}
-            <div className="text-center mb-6">
-              <span className="text-xs text-muted-foreground uppercase font-mono tracking-wider">Total Amount</span>
+            {/* টপ হেডার ও অ্যামাউন্ট */}
+            <div className="text-center mb-5">
+              <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground">Total Fee</span>
               <div className="text-3xl sm:text-4xl font-extrabold text-foreground font-mono mt-0.5">৳৩,০০০</div>
-              <h3 className="font-bangla text-base font-bold text-foreground mt-2">
+              <h3 className="font-bangla text-base font-bold text-foreground mt-1.5">
                 <EditableText id={`course.${courseSlug}.modal.title`}>ব্যাচ ৩ এ সিট কনফার্মেশন ও পেমেন্ট</EditableText>
               </h3>
             </div>
 
-            {/* পেমেন্ট মেথড সিলেকশন ট্যাব */}
-            <div className="flex gap-2 p-1 rounded-xl glass border border-border/60 mb-4">
+            {/* মেথড সিলেকশন বাটন */}
+            <div className="grid grid-cols-2 gap-2 p-1.5 rounded-2xl glass border border-border/70 mb-4 bg-foreground/[0.03]">
               <button
                 type="button"
                 onClick={() => setSelectedMethod("bKash")}
-                className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                className={`py-2 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
                   selectedMethod === "bKash"
-                    ? "bg-[#D12053] text-white shadow-sm"
-                    : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
+                    ? "bg-[#E2136E] text-white shadow-md"
+                    : "text-foreground/75 hover:text-foreground hover:bg-foreground/5"
                 }`}
               >
-                bKash (বিকাশ)
+                <span>bKash (বিকাশ)</span>
               </button>
               <button
                 type="button"
                 onClick={() => setSelectedMethod("Nagad")}
-                className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                className={`py-2 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
                   selectedMethod === "Nagad"
-                    ? "bg-[#F7921E] text-white shadow-sm"
-                    : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
+                    ? "bg-[#F7921E] text-white shadow-md"
+                    : "text-foreground/75 hover:text-foreground hover:bg-foreground/5"
                 }`}
               >
-                Nagad (নগদ)
+                <span>Nagad (নগদ)</span>
               </button>
             </div>
 
-            {/* নম্বর এবং সেন্ড মানি কার্ড */}
-            <div className="glass rounded-2xl p-4 border border-primary/30 bg-primary/5 mb-5 space-y-2.5">
+            {/* নম্বর কপি কার্ড */}
+            <div className="glass rounded-2xl p-4 border border-primary/30 bg-primary/5 mb-4 space-y-2.5">
               <div className="flex items-center justify-between text-xs sm:text-sm">
-                <span className="text-foreground/85 font-medium">
-                  Send exactly <strong className="font-mono text-primary font-bold">৳৩,০০০</strong> to this {selectedMethod} number
+                <span className="text-foreground/90 font-medium">
+                  সেন্ড মানি করার নম্বর ({selectedMethod}):
                 </span>
-                <span className="px-2 py-0.5 rounded-md bg-foreground/5 text-[11px] font-mono font-semibold text-foreground/70">
+                <span className="px-2 py-0.5 rounded-md bg-foreground/10 text-[11px] font-mono font-bold text-foreground">
                   Personal
                 </span>
               </div>
 
-              <div className="flex items-center justify-between gap-2 bg-background/80 p-2.5 rounded-xl border border-border/60">
+              <div className="flex items-center justify-between gap-2 bg-background/90 p-2.5 rounded-xl border border-border/80 shadow-2xs">
                 <code className="text-sm sm:text-base font-mono font-bold tracking-wider text-foreground">
                   {paymentNumber}
                 </code>
@@ -270,44 +271,64 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            {/* নির্দেশনাবলী (NextLevel.bd স্টাইলে স্পষ্ট ও নির্ভুল) */}
-            <div className="glass rounded-2xl p-4 sm:p-5 border border-border/70 mb-6 space-y-3 bg-foreground/[0.02]">
-              <div className="flex items-center gap-2 text-foreground font-bold text-xs sm:text-sm">
-                <AlertCircle className="w-4 h-4 text-amber-500" />
-                <span><EditableText id={`course.${courseSlug}.modal.guide.title`}>কীভাবে পেমেন্ট করবেন (ইনস্ট্রাকশন):</EditableText></span>
+            {/* স্পষ্ট সতর্কবার্তা */}
+            <div className="p-3 rounded-xl bg-destructive/10 border border-destructive/25 text-destructive text-xs sm:text-[13px] font-semibold leading-relaxed flex items-start gap-2 mb-4">
+              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-destructive" />
+              <span>
+                দয়া করে <strong>"Send Money" (সেন্ড মানি)</strong> করবেন। এটি পার্সোনাল নম্বর, তাই ভুল করেও "Payment" অপশনে যাবেন না।
+              </span>
+            </div>
+
+            {/* পরিচ্ছন্ন ও সুন্দর ১, ২, ৩, ৪ স্টেপ লিস্ট (কোনো ওভারল্যাপিং ছাড়া) */}
+            <div className="glass rounded-2xl p-4 sm:p-4.5 border border-border/70 mb-5 space-y-3 bg-foreground/[0.02]">
+              <div className="text-xs font-bold text-foreground uppercase tracking-wide flex items-center gap-1.5 mb-1">
+                <Smartphone className="w-3.5 h-3.5 text-primary" />
+                <span>পেমেন্ট করার নিয়মাবলী:</span>
               </div>
 
-              {/* লাল সতর্কতা যাতে ভুল করে পেমেন্ট না করে */}
-              <div className="p-2.5 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-xs font-semibold leading-relaxed">
-                ⚠️ দয়া করে <strong>"Send Money" (সেন্ড মানি)</strong> করবেন। ভুল করেও "Payment" অপশনে যাবেন না, কারণ এটি একটি পার্সোনাল নম্বর।
+              {/* স্টেপ ১ */}
+              <div className="flex items-start gap-3">
+                <span className="w-5 h-5 rounded-full bg-primary/15 text-primary font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5 font-mono">
+                  ১
+                </span>
+                <p className="text-xs sm:text-[13px] text-foreground/85 leading-relaxed">
+                  আপনার ফোনের <strong>{selectedMethod === "bKash" ? "bKash" : "Nagad"}</strong> অ্যাপটি ওপেন করুন।
+                </p>
               </div>
 
-              <ol className="space-y-2 text-xs sm:text-[13px] text-foreground/80 leading-relaxed list-decimal list-inside pl-1">
-                <li>
-                  <EditableText id={`course.${courseSlug}.modal.guide.step1`}>
-                    আপনার ফোনে {selectedMethod === "bKash" ? "bKash" : "Nagad"} অ্যাপটি ওপেন করুন।
-                  </EditableText>
-                </li>
-                <li>
-                  <EditableText id={`course.${courseSlug}.modal.guide.step2`}>
-                    অ্যাপের মূল মেনু থেকে <strong>"Send Money"</strong> অপশনটিতে ক্লিক করুন।
-                  </EditableText>
-                </li>
-                <li>
-                  <EditableText id={`course.${courseSlug}.modal.guide.step3`}>
-                    উপরের নম্বরটি কপি করে প্রাপক নম্বরে বসান এবং নির্ধারিত <strong>৳৩,০০০</strong> টাকা সেন্ড মানি সম্পন্ন করুন।
-                  </EditableText>
-                </li>
-                <li>
-                  <EditableText id={`course.${courseSlug}.modal.guide.step4`}>
-                    টাকা পাঠানো সফল হলে এসএমএস বা অ্যাপ থেকে <strong>Transaction ID (TrxID)</strong> কপি করে নিচের বক্সে বসান।
-                  </EditableText>
-                </li>
-              </ol>
+              {/* স্টেপ ২ */}
+              <div className="flex items-start gap-3">
+                <span className="w-5 h-5 rounded-full bg-primary/15 text-primary font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5 font-mono">
+                  ২
+                </span>
+                <p className="text-xs sm:text-[13px] text-foreground/85 leading-relaxed">
+                  অ্যাপের হোম স্ক্রিন থেকে <strong>"Send Money"</strong> অপশনটিতে যান।
+                </p>
+              </div>
+
+              {/* স্টেপ ৩ */}
+              <div className="flex items-start gap-3">
+                <span className="w-5 h-5 rounded-full bg-primary/15 text-primary font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5 font-mono">
+                  ৩
+                </span>
+                <p className="text-xs sm:text-[13px] text-foreground/85 leading-relaxed">
+                  উপরের নম্বরটি পেস্ট করুন এবং ঠিক <strong>৳৩,০০০</strong> টাকা সেন্ড মানি করুন।
+                </p>
+              </div>
+
+              {/* স্টেপ ৪ */}
+              <div className="flex items-start gap-3">
+                <span className="w-5 h-5 rounded-full bg-primary/15 text-primary font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5 font-mono">
+                  ৪
+                </span>
+                <p className="text-xs sm:text-[13px] text-foreground/85 leading-relaxed">
+                  টাকা পাঠানো হলে প্রাপ্ত <strong>Transaction ID (TrxID)</strong> কপি করে নিচের বক্সে দিন।
+                </p>
+              </div>
             </div>
 
             {/* ভেরিফিকেশন ফর্ম */}
-            <form onSubmit={handleSubmit} className="space-y-3.5 text-xs sm:text-sm">
+            <form onSubmit={handleSubmit} className="space-y-3 text-xs sm:text-sm">
               <div>
                 <label className="block text-foreground font-medium mb-1 uppercase tracking-wider text-[11px]">
                   আপনার পূর্ণ নাম *
@@ -318,11 +339,11 @@ TrxID: ${formData.trxId}`;
                   placeholder="যেমন: মাহিম মারাব"
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs sm:text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs sm:text-sm bg-background/50"
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-foreground font-medium mb-1 uppercase tracking-wider text-[11px]">
                     সচল হোয়াটসঅ্যাপ নম্বর *
@@ -333,7 +354,7 @@ TrxID: ${formData.trxId}`;
                     placeholder="01XXXXXXXXX"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs sm:text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs sm:text-sm bg-background/50"
                   />
                 </div>
                 <div>
@@ -345,7 +366,7 @@ TrxID: ${formData.trxId}`;
                     placeholder="name@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs sm:text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs sm:text-sm bg-background/50"
                   />
                 </div>
               </div>
@@ -360,7 +381,7 @@ TrxID: ${formData.trxId}`;
                   placeholder="যেমন: BL92XK82"
                   value={formData.trxId}
                   onChange={(e) => setFormData({ ...formData, trxId: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs sm:text-sm font-mono uppercase"
+                  className="w-full px-3.5 py-2.5 rounded-xl glass border border-border/80 focus:outline-none focus:border-primary text-foreground text-xs sm:text-sm font-mono uppercase bg-background/50"
                 />
               </div>
 
@@ -370,7 +391,7 @@ TrxID: ${formData.trxId}`;
                   onClick={onClose}
                   className="flex-1 py-3 rounded-xl glass text-foreground font-semibold text-xs sm:text-sm hover:bg-foreground/5 transition-colors cursor-pointer"
                 >
-                  ফিরে যান (Back)
+                  ফিরে যান
                 </button>
                 <button
                   type="submit"
@@ -537,7 +558,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
-      {/* নতুন কার্ড যোগ বাটন */}
       <div className="text-center pt-2">
         <button
           type="button"
@@ -806,7 +826,7 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
                     <Trash2 className="w-4 h-4" />
                   </button>
                   <div 
-                    onClick={() => setOpenIndex(isOpen ? null : idx)}
+                    onClick={() => setOpenIndex(isOpen ? null : idx)} 
                     className={`p-1.5 rounded-lg glass text-muted-foreground shrink-0 transition-transform duration-300 cursor-pointer ${
                       isOpen ? "rotate-180 text-primary" : ""
                     }`}
@@ -1297,7 +1317,6 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
-    // হোম পেজের আসল SiteShell ব্যবহার করা হয়েছে
     <SiteShell>
       {showModal && (
         <EnrollmentModal
@@ -1375,7 +1394,7 @@ function CourseDetail() {
             <span>All courses</span>
           </Link>
 
-          {/* ================= টপ ফোল্ড (Hero & Sticky Card) ================= */}
+          {/* ================= টপ ফোল্ড ================= */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-20">
             
             {/* বামপাশ: ভ্যালু প্রোপজিশন */}
@@ -1391,7 +1410,7 @@ function CourseDetail() {
               </div>
 
               {/* মোবাইল প্রিভিউ কভার ও ভিডিও বাটন */}
-              <div className="block lg:hidden w-full my-2">
+              <div className="block lg:hidden w-full my-1">
                 <div 
                   onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
                   className={`relative aspect-video w-full rounded-2xl overflow-hidden border border-border/50 group shadow-md ${
@@ -1423,33 +1442,35 @@ function CourseDetail() {
                 </div>
               </div>
 
-              <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.24] text-2xl sm:text-3xl lg:text-4xl text-left break-words">
-                <EditableText id={`course.${course.slug}.hero.title`}>
-                  Advanced Video Editing & Retelling (Batch 03)
-                </EditableText>
-              </h1>
+              {/* টাইটেল ও ডেসক্রিপশন লাক্সারি গ্লাস কার্ড */}
+              <div className="glass-strong rounded-3xl p-5 sm:p-7 border border-border/70 shadow-sm relative overflow-hidden backdrop-blur-md space-y-4">
+                <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.24] text-2xl sm:text-3xl lg:text-4xl text-left break-words">
+                  <EditableText id={`course.${course.slug}.hero.title`}>
+                    Advanced Video Editing & Retelling (Batch 03)
+                  </EditableText>
+                </h1>
 
-              {/* ৩টি স্পেসড প্যারাগ্রাফ */}
-              <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-relaxed font-bangla">
-                <p>
-                  <EditableText id={`course.${course.slug}.hero.desc.1`}>
-                    ইউটিউবে শত শত টিউটোরিয়াল দেখেও আসল এডিটিং ফ্লো মিলছে না? শুধু সফটওয়্যারের বাটন চেনা কোনো স্থায়ী স্কিল নয়।
-                  </EditableText>
-                </p>
-                <p>
-                  <EditableText id={`course.${course.slug}.hero.desc.2`}>
-                    এই মাস্টারক্লাসে আপনি শিখবেন আন্তর্জাতিক মানের সিনেমাটিক স্টোরিটেলিং, ৩ সেকেন্ড রিটেনশন হুক এবং সাউন্ড ডিজাইনের আসল সিক্রেট।
-                  </EditableText>
-                </p>
-                <p className="text-foreground/90 font-medium">
-                  <EditableText id={`course.${course.slug}.hero.desc.3`}>
-                    একদম স্ক্র্যাচ থেকে শুরু করে রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে নিজের হাই পেয়িং পোর্টফোলিও তৈরি করুন আমাদের সাথে।
-                  </EditableText>
-                </p>
+                <div className="space-y-3 text-xs sm:text-sm text-foreground/80 leading-relaxed font-bangla border-t border-border/40 pt-4">
+                  <p>
+                    <EditableText id={`course.${course.slug}.hero.desc.1`}>
+                      ইউটিউবে শত শত টিউটোরিয়াল দেখেও আসল এডিটিং ফ্লো মিলছে না? শুধু সফটওয়্যারের বাটন চেনা কোনো স্থায়ী স্কিল নয়।
+                    </EditableText>
+                  </p>
+                  <p>
+                    <EditableText id={`course.${course.slug}.hero.desc.2`}>
+                      এই মাস্টারক্লাসে আপনি শিখবেন আন্তর্জাতিক মানের সিনেমাটিক স্টোরিটেলিং, ৩ সেকেন্ড রিটেনশন হুক এবং সাউন্ড ডিজাইনের আসল সিক্রেট।
+                    </EditableText>
+                  </p>
+                  <p className="text-foreground/90 font-medium">
+                    <EditableText id={`course.${course.slug}.hero.desc.3`}>
+                      একদম স্ক্র্যাচ থেকে শুরু করে রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে নিজের হাই পেয়িং পোর্টফোলিও তৈরি করুন আমাদের সাথে।
+                    </EditableText>
+                  </p>
+                </div>
               </div>
 
               {/* ৪টি কোর বেনিফিট কার্ড */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                 <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                   <div className="p-2.5 rounded-xl bg-destructive/10 text-destructive shrink-0 mt-0.5">
                     <Radio className="w-5 h-5 animate-pulse" />
@@ -1552,7 +1573,6 @@ function CourseDetail() {
                   </div>
                 </div>
 
-                {/* প্রাইসিং ও ৪০% অফ */}
                 <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pb-1">
                   <div className="flex items-baseline gap-2.5">
                     <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-mono">
