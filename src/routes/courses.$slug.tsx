@@ -41,8 +41,9 @@ import {
   TrendingUp,
   Plus,
   Trash2,
+  Menu,
 } from "lucide-react";
-import { SiteShell, COURSES } from "../components/site/sections";
+import { COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { EditableText } from "@/components/cms/EditableText";
 
@@ -128,7 +129,7 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
           }
         }
       } catch (e) {
-        // fallback to default
+        // fallback
       }
     };
     loadFromCms();
@@ -144,18 +145,12 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
         updated_at: new Date().toISOString(),
       });
     } catch (e) {
-      console.error("Failed to sync CMS list to Supabase", e);
+      console.error("Failed to sync CMS list", e);
     }
   };
 
-  const addItem = (item: T) => {
-    saveItems([...items, item]);
-  };
-
-  const removeItem = (index: number) => {
-    saveItems(items.filter((_, i) => i !== index));
-  };
-
+  const addItem = (item: T) => saveItems([...items, item]);
+  const removeItem = (index: number) => saveItems(items.filter((_, i) => i !== index));
   const updateItem = (index: number, updated: T) => {
     const next = [...items];
     next[index] = updated;
@@ -366,7 +361,7 @@ TrxID: ${formData.trxId}`;
   );
 }
 
-// ================= ট্যাব ১: ওভারভিউ (ডাইনামিক কার্ড ও কম্প্যারিজন আইটেম অ্যাড/রিমুভ) =================
+// ================= ট্যাব ১: ওভারভিউ =================
 function TabOverview({ courseSlug }: { courseSlug: string }) {
   const defaultOverviewCards = [
     {
@@ -417,9 +412,8 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
   );
 
   const handleAddNewCard = () => {
-    const newId = `card_${Date.now()}`;
     addCard({
-      id: newId,
+      id: `card_${Date.now()}`,
       title: "নতুন সুযোগ বা সমস্যা বিশ্লেষণ",
       desc: "এখানে নতুন কার্ডের বিস্তারিত বিবরণ বাংলায় লিখুন।",
       action: "বিস্তারিত জানুন",
@@ -452,7 +446,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         </p>
       </div>
 
-      {/* ডাইনামিক ৩+ কার্ড গ্রিড */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 w-full">
         {cards.map((card, idx) => (
           <div
@@ -497,7 +490,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
-      {/* অ্যাডমিন নতুন কার্ড যোগ করার বাটন */}
       {isAdmin && (
         <div className="text-center pt-2">
           <button
@@ -511,7 +503,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         </div>
       )}
 
-      {/* বিফোর বনাম আফটার কম্প্যারিজন ব্যানার (ডাইনামিক পয়েন্ট সহ) */}
+      {/* বিফোর বনাম আফটার কম্প্যারিজন ব্যানার */}
       <div className="glass rounded-2xl border border-border/70 p-5 sm:p-8 relative overflow-hidden backdrop-blur-md w-full">
         <div className="text-center mb-6">
           <h3 className="font-bangla text-base sm:text-lg font-bold text-foreground">
@@ -527,8 +519,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 divide-y md:divide-y-0 md:divide-x divide-border/60">
-          
-          {/* সাধারণ এডিটর */}
           <div className="space-y-3.5 pt-3 md:pt-0">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-destructive/10 text-destructive text-xs font-semibold">
               <span><EditableText id={`course.${courseSlug}.compare.bad.badge`}>সাধারণ এডিটর (YouTube Learner)</EditableText></span>
@@ -568,7 +558,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             )}
           </div>
 
-          {/* ব্যাচ ৩ মাস্টারক্লাস গ্র্যাজুয়েট */}
           <div className="space-y-3.5 pt-5 md:pt-0 md:pl-8">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-semibold">
               <Sparkles className="w-3.5 h-3.5" />
@@ -608,14 +597,13 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
               </button>
             )}
           </div>
-
         </div>
       </div>
     </div>
   );
 }
 
-// ================= ট্যাব ২: কারিকুলাম (নতুন মডিউল ও লেসন অ্যাড/রিমুভ) =================
+// ================= ট্যাব ২: কারিকুলাম =================
 function TabCurriculum({ courseSlug }: { courseSlug: string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -1103,7 +1091,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
   );
 }
 
-// ================= ট্যাব ৫: সাধারণ প্রশ্ন (FAQ - নতুন FAQ অ্যাড/রিমুভ) =================
+// ================= ট্যাব ৫: সাধারণ প্রশ্ন (FAQ) =================
 function TabFaq({ courseSlug }: { courseSlug: string }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -1285,7 +1273,24 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
-    <SiteShell hideFooter={true}>
+    // বড় ডিফল্ট ফুটার এড়াতে কাস্টম ফ্রেম ব্যবহার করা হলো
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
+      
+      {/* স্লিক টপ নেভিগেশন বার */}
+      <header className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md border-b border-border/40 bg-background/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold text-foreground hover:opacity-80 transition-opacity">
+            <span className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-black text-sm">gV</span>
+            <span>GrowVelo</span>
+          </Link>
+          <div className="flex items-center gap-3">
+            <Link to="/dashboard" className="gloss-btn !py-2 !px-4 text-xs sm:text-sm font-semibold">
+              Dashboard <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </header>
+
       {showModal && (
         <EnrollmentModal
           courseSlug={slug}
@@ -1350,7 +1355,7 @@ function CourseDetail() {
         </div>
       )}
 
-      <section className="bg-background min-h-screen pt-24 sm:pt-32 pb-12 sm:pb-16 overflow-x-hidden">
+      <main className="flex-1 pt-24 sm:pt-28 pb-12 sm:pb-16 overflow-x-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
           {/* All courses লিঙ্ক */}
@@ -1410,17 +1415,31 @@ function CourseDetail() {
                 </div>
               </div>
 
-              <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.24] text-[clamp(2rem,3.4vw+0.5rem,3rem)] break-words">
+              {/* মোবাইল ফ্রেন্ডলি পরিচ্ছন্ন টাইটেল */}
+              <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.24] text-2xl sm:text-3xl lg:text-4xl text-left break-words">
                 <EditableText id={`course.${course.slug}.hero.title`}>
-                  ভিডিও এডিটিংকে বানান আপনার ক্যারিয়ারের সেরা সুপারপাওয়ার
+                  Advanced Video Editing & Retelling (Batch 03)
                 </EditableText>
               </h1>
 
-              <p className="font-bangla text-base text-foreground/80 leading-relaxed max-w-2xl">
-                <EditableText id={`course.${course.slug}.hero.subtitle`}>
-                  একদম বেসিক থেকে শুরু করে রিয়েল লাইফ প্রজেক্টের মাধ্যমে শিখুন সিনেমাটিক স্টোরিটেলিং, প্রিমিয়ার প্রো এবং আফটার ইফেক্টস।
-                </EditableText>
-              </p>
+              {/* জগাখিচুড়ি মুক্ত ৩টি স্পেসড প্যারাগ্রাফ */}
+              <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-relaxed font-bangla">
+                <p>
+                  <EditableText id={`course.${course.slug}.hero.desc.1`}>
+                    ইউটিউবে শত শত টিউটোরিয়াল দেখেও আসল এডিটিং ফ্লো মিলছে না? শুধু সফটওয়্যারের বাটন চেনা কোনো স্থায়ী স্কিল নয়।
+                  </EditableText>
+                </p>
+                <p>
+                  <EditableText id={`course.${course.slug}.hero.desc.2`}>
+                    এই মাস্টারক্লাসে আপনি শিখবেন আন্তর্জাতিক মানের সিনেমাটিক স্টোরিটেলিং, ৩ সেকেন্ড রিটেনশন হুক এবং সাউন্ড ডিজাইনের আসল সিক্রেট।
+                  </EditableText>
+                </p>
+                <p className="text-foreground/90 font-medium">
+                  <EditableText id={`course.${course.slug}.hero.desc.3`}>
+                    একদম স্ক্র্যাচ থেকে শুরু করে রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে নিজের হাই পেয়িং পোর্টফোলিও তৈরি করুন আমাদের সাথে।
+                  </EditableText>
+                </p>
+              </div>
 
               {/* ৪টি কোর বেনিফিট কার্ড */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
@@ -1493,9 +1512,9 @@ function CourseDetail() {
 
             </div>
 
-            {/* ডানপাশ: স্টিকি কার্ড (ডেস্কটপ) */}
-            <div className="lg:col-span-5 lg:sticky lg:top-28">
-              <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
+            {/* ডানপাশ: স্টিকি কার্ড (প্রাইস ও ৪০% অফ ফিক্স সহ) */}
+            <div className="lg:col-span-5 lg:sticky lg:top-24 w-full">
+              <div className="glass-strong rounded-3xl p-5 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
                 
                 <div 
                   onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
@@ -1526,8 +1545,9 @@ function CourseDetail() {
                   </div>
                 </div>
 
-                <div className="flex items-baseline justify-between mb-4">
-                  <div className="flex items-baseline gap-3">
+                {/* প্রাইসিং ও ৪০% অফ ব্যাজ: ওভারল্যাপ ছাড়া সুন্দর দুটি কলাম বা রিস্ট্রাকচার */}
+                <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pb-1">
+                  <div className="flex items-baseline gap-2.5">
                     <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-mono">
                       <EditableText id={`course.${course.slug}.price`}>{course.price || "৳৩,০০০"}</EditableText>
                     </span>
@@ -1536,28 +1556,28 @@ function CourseDetail() {
                     </span>
                   </div>
 
-                  <span className="px-3 py-1 text-xs font-semibold rounded-[4px] bg-primary/10 text-primary border border-primary/20 font-sans">
+                  <span className="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border border-primary/20 font-sans tracking-wide shrink-0">
                     <EditableText id={`course.${course.slug}.discount.tag`}>
                       40% OFF (Limited Time)
                     </EditableText>
                   </span>
                 </div>
 
-                <div className="mb-5 p-3 sm:p-3.5 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-transparent flex items-center justify-between shadow-xs">
+                <div className="mb-5 p-3 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-transparent flex items-center justify-between shadow-xs">
                   <div className="flex items-center gap-2 font-sans font-medium text-xs sm:text-[13px] text-amber-600 dark:text-amber-400">
                     <Flame className="w-4 h-4 fill-amber-500 text-amber-500 animate-pulse" />
                     <span className="tracking-tight font-semibold">Special Offer Ends In:</span>
                   </div>
                   <div className="flex items-center gap-1.5 font-mono text-xs sm:text-sm font-bold">
-                    <span className="px-2 py-1 rounded-lg bg-background/90 text-foreground border border-amber-500/20 shadow-xs">
+                    <span className="px-2 py-0.5 rounded-lg bg-background/90 text-foreground border border-amber-500/20 shadow-xs">
                       {formatDigit(timer.hours)}h
                     </span>
                     <span className="text-amber-500">:</span>
-                    <span className="px-2 py-1 rounded-lg bg-background/90 text-foreground border border-amber-500/20 shadow-xs">
+                    <span className="px-2 py-0.5 rounded-lg bg-background/90 text-foreground border border-amber-500/20 shadow-xs">
                       {formatDigit(timer.minutes)}m
                     </span>
                     <span className="text-amber-500">:</span>
-                    <span className="px-2 py-1 rounded-lg bg-background/90 text-rose-600 dark:text-rose-400 border border-rose-500/20 shadow-xs">
+                    <span className="px-2 py-0.5 rounded-lg bg-background/90 text-rose-600 dark:text-rose-400 border border-rose-500/20 shadow-xs">
                       {formatDigit(timer.seconds)}s
                     </span>
                   </div>
@@ -1675,8 +1695,8 @@ function CourseDetail() {
           </div>
 
           {/* ================= ১. স্টিকি ট্যাব বার কন্ট্রোলার ================= */}
-          <div className="sticky top-20 z-30 mb-8 py-2.5 backdrop-blur-md">
-            <div className="max-w-4xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar">
+          <div className="sticky top-16 z-30 mb-8 py-2.5 backdrop-blur-md">
+            <div className="max-w-4xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center justify-start sm:justify-center gap-1.5 overflow-x-auto no-scrollbar">
               {tabList.map((tab) => {
                 const isActive = activeTab === tab.id;
                 const Icon = tab.icon;
@@ -1746,25 +1766,26 @@ function CourseDetail() {
             </div>
           </div>
 
-          {/* ================= ৪. কোর্স পেজের জন্য স্লিম ও মিনিমাল ফুটার ================= */}
-          <footer className="pt-6 pb-4 border-t border-border/40 text-center font-sans">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-              <p>© 2026 growVelo Studio. All rights reserved.</p>
-              <div className="flex items-center gap-4 text-[11px] tracking-wide">
-                <Link to="/legal" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-                <span>•</span>
-                <Link to="/legal" className="hover:text-foreground transition-colors">Terms of Service</Link>
-                <span>•</span>
-                <a href={`https://wa.me/8801410341220`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                  WhatsApp Support
-                </a>
-              </div>
-            </div>
-          </footer>
-
         </div>
-      </section>
-    </SiteShell>
+      </main>
+
+      {/* ================= ৪. কোর্স পেজের জন্য একক ও পরিচ্ছন্ন স্লিম ফুটার (বড় ফুটার সম্পূর্ণ মুছে দেওয়া হয়েছে) ================= */}
+      <footer className="w-full py-6 border-t border-border/40 text-center font-sans bg-background">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+          <p>© 2026 growVelo Studio. All rights reserved.</p>
+          <div className="flex items-center gap-4 text-[11px] tracking-wide">
+            <Link to="/legal" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+            <span>•</span>
+            <Link to="/legal" className="hover:text-foreground transition-colors">Terms of Service</Link>
+            <span>•</span>
+            <a href={`https://wa.me/8801410341220`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+              WhatsApp Support
+            </a>
+          </div>
+        </div>
+      </footer>
+
+    </div>
   );
 }
 
@@ -1789,24 +1810,20 @@ export const Route = createFileRoute("/courses/$slug")({
     };
   },
   notFoundComponent: () => (
-    <SiteShell>
-      <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-        <h1 className="font-display text-2xl font-semibold">Course not found</h1>
-        <Link to="/courses" className="gloss-btn mt-6 inline-flex">
-          Back to courses
-        </Link>
-      </div>
-    </SiteShell>
+    <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
+      <h1 className="font-display text-2xl font-semibold">Course not found</h1>
+      <Link to="/courses" className="gloss-btn mt-6 inline-flex">
+        Back to courses
+      </Link>
+    </div>
   ),
   errorComponent: () => (
-    <SiteShell>
-      <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-        <h1 className="font-display text-2xl font-semibold">Something went wrong</h1>
-        <Link to="/courses" className="gloss-btn mt-6 inline-flex">
-          Back to courses
-        </Link>
-      </div>
-    </SiteShell>
+    <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
+      <h1 className="font-display text-2xl font-semibold">Something went wrong</h1>
+      <Link to="/courses" className="gloss-btn mt-6 inline-flex">
+        Back to courses
+      </Link>
+    </div>
   ),
   component: CourseDetail,
 });
