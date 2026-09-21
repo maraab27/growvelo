@@ -43,7 +43,6 @@ import {
   Trash2,
   AlertCircle,
   Smartphone,
-  ShieldAlert,
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
@@ -90,64 +89,83 @@ function useEvergreenTimer(hoursDuration = 24) {
   return timeLeft;
 }
 
-// নিশ্চিত অ্যাডমিন মোড কন্ট্রোলার
-function useAdminEditMode() {
-  const [isEditMode, setIsEditMode] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("growvelo_cms_edit_mode") === "true";
-    }
-    return false;
-  });
-
-  const toggleEditMode = () => {
-    setIsEditMode((prev) => {
-      const next = !prev;
-      localStorage.setItem("growvelo_cms_edit_mode", String(next));
-      return next;
-    });
-  };
-
-  return { isEditMode, toggleEditMode };
-}
-
-// ডাইনামিক লিস্ট হুক (লোকাল স্টোরেজ + সুপাবেজ ডাটাবেজ সিঙ্ক)
-function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
-  const [items, setItems] = useState<T[]>(() => {
-    if (typeof window !== "undefined") {
-      const local = localStorage.getItem(storageKey);
-      if (local) {
-        try {
-          const parsed = JSON.parse(local);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-        } catch (e) {}
-      }
-    }
-    return defaultItems;
-  });
+// কড়াকড়ি অ্যাডমিন সিকিউরিটি হুক (শুধুমাত্র অথেন্টিকেটেড অ্যাডমিন ইমেইল বা রোলের জন্য)
+function useSecureAdmin() {
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const loadCloud = async () => {
+    let isMounted = true;
+
+    const verifyAdmin = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) {
+          if (isMounted) setIsAdmin(false);
+          return;
+        }
+
+        // ব্যবহারকারীর প্রোফাইল রোল চেক
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", session.user.id)
+          .maybeSingle();
+
+        // শুধুমাত্র ডাটাবেজে admin রোল থাকলে ট্রু হবে
+        if (profile?.role === "admin") {
+          if (isMounted) setIsAdmin(true);
+        } else {
+          if (isMounted) setIsAdmin(false);
+        }
+      } catch (err) {
+        if (isMounted) setIsAdmin(false);
+      }
+    };
+
+    verifyAdmin();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+      verifyAdmin();
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  return isAdmin;
+}
+
+// নিরাপদ ডাইনামিক ডাটাবেজ লিস্ট হুক
+function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
+  const [items, setItems] = useState<T[]>(defaultItems);
+  const isAdmin = useSecureAdmin();
+
+  // ডাটাবেজ থেকে কন্টেন্ট লোড
+  useEffect(() => {
+    const fetchContent = async () => {
       try {
         const { data } = await supabase
           .from("site_content")
           .select("content")
           .eq("key", storageKey)
           .maybeSingle();
-        if (data && data.content) {
+        if (data?.content) {
           const parsed = JSON.parse(data.content);
           if (Array.isArray(parsed) && parsed.length > 0) {
             setItems(parsed);
-            localStorage.setItem(storageKey, JSON.stringify(parsed));
           }
         }
       } catch (e) {}
     };
-    loadCloud();
+    fetchContent();
   }, [storageKey]);
 
+  // শুধুমাত্র আসল অ্যাডমিন লগইন থাকলে ডাটাবেজে সেভ হবে
   const save = async (newItems: T[]) => {
+    if (!isAdmin) return;
     setItems(newItems);
-    localStorage.setItem(storageKey, JSON.stringify(newItems));
     try {
       await supabase.from("site_content").upsert({
         key: storageKey,
@@ -155,19 +173,27 @@ function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
         updated_at: new Date().toISOString(),
       });
     } catch (e) {
-      console.warn("Storage sync note:", e);
+      console.error("Database save failed:", e);
     }
   };
 
-  const addItem = (item: T) => save([...items, item]);
-  const removeItem = (index: number) => save(items.filter((_, i) => i !== index));
-  const updateItem = (index: number, updated: T) => {
-    const next = [...items];
-    next[index] = updated;
-    save(next);
+  const addItem = (item: T) => {
+    if (isAdmin) save([...items, item]);
   };
 
-  return { items, addItem, removeItem, updateItem };
+  const removeItem = (index: number) => {
+    if (isAdmin) save(items.filter((_, i) => i !== index));
+  };
+
+  const updateItem = (index: number, updated: T) => {
+    if (isAdmin) {
+      const next = [...items];
+      next[index] = updated;
+      save(next);
+    }
+  };
+
+  return { items, addItem, removeItem, updateItem, isAdmin };
 }
 
 // ================= এনরোলমেন্ট মডাল =================
@@ -443,7 +469,7 @@ TrxID: ${formData.trxId}`;
 }
 
 // ================= ট্যাব ১: ওভারভিউ =================
-function TabOverview({ courseSlug, isEditMode }: { courseSlug: string; isEditMode: boolean }) {
+function TabOverview({ courseSlug }: { courseSlug: string }) {
   const defaultOverviewCards = [
     {
       id: "card_1",
@@ -477,17 +503,17 @@ function TabOverview({ courseSlug, isEditMode }: { courseSlug: string; isEditMod
     "আন্তর্জাতিক মানের প্রফেশনাল পোর্টফোলিও ও সরাসরি ক্লায়েন্ট ডিল ক্লোজিং দক্ষতা",
   ];
 
-  const { items: cards, addItem: addCard, removeItem: removeCard } = useDynamicList(
+  const { items: cards, addItem: addCard, removeItem: removeCard, isAdmin } = useDynamicCmsList(
     `course.${courseSlug}.overview.cards`,
     defaultOverviewCards
   );
 
-  const { items: badPoints, addItem: addBadPoint, removeItem: removeBadPoint } = useDynamicList(
+  const { items: badPoints, addItem: addBadPoint, removeItem: removeBadPoint } = useDynamicCmsList(
     `course.${courseSlug}.overview.badPoints`,
     defaultBadPoints
   );
 
-  const { items: goodPoints, addItem: addGoodPoint, removeItem: removeGoodPoint } = useDynamicList(
+  const { items: goodPoints, addItem: addGoodPoint, removeItem: removeGoodPoint } = useDynamicCmsList(
     `course.${courseSlug}.overview.goodPoints`,
     defaultGoodPoints
   );
@@ -497,7 +523,7 @@ function TabOverview({ courseSlug, isEditMode }: { courseSlug: string; isEditMod
     addCard({
       id: newId,
       title: "নতুন সুযোগ বা সমস্যা বিশ্লেষণ",
-      desc: "এখানে নতুন কার্ডের বিস্তারিত বিবরণ লিখুন। ব্রাউজারে সরাসরি ক্লিক করলেই লেখা পরিবর্তন হবে।",
+      desc: "এখানে নতুন কার্ডের বিস্তারিত বিবরণ বাংলায় লিখুন।",
       action: "বিস্তারিত জানুন",
     });
   };
@@ -535,8 +561,8 @@ function TabOverview({ courseSlug, isEditMode }: { courseSlug: string; isEditMod
             key={card.id || idx}
             className="glass p-5 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative"
           >
-            {/* ডিলিট বাটন কেবল এডিট মোড অন থাকলে দেখাবে */}
-            {isEditMode && (
+            {/* শুধুমাত্র ভেরিফাইড অ্যাডমিন হলে ডিলিট বাটন দৃশ্যমান হবে */}
+            {isAdmin && (
               <button
                 type="button"
                 onClick={() => removeCard(idx)}
@@ -574,8 +600,8 @@ function TabOverview({ courseSlug, isEditMode }: { courseSlug: string; isEditMod
         ))}
       </div>
 
-      {/* নতুন কার্ড যোগ বাটন: এডিট মোড অন থাকলেই দৃশ্যমান */}
-      {isEditMode && (
+      {/* নতুন কার্ড যোগ করার বাটন: শুধুমাত্র অ্যাডমিন লগইন থাকলে দেখাবে */}
+      {isAdmin && (
         <div className="text-center pt-2">
           <button
             type="button"
@@ -604,7 +630,6 @@ function TabOverview({ courseSlug, isEditMode }: { courseSlug: string; isEditMod
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 divide-y md:divide-y-0 md:divide-x divide-border/60">
-          
           {/* সাধারণ এডিটর */}
           <div className="space-y-3.5 pt-3 md:pt-0">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-destructive/10 text-destructive text-xs font-semibold">
@@ -621,7 +646,7 @@ function TabOverview({ courseSlug, isEditMode }: { courseSlug: string; isEditMod
                       </EditableText>
                     </span>
                   </div>
-                  {isEditMode && (
+                  {isAdmin && (
                     <button
                       type="button"
                       onClick={() => removeBadPoint(idx)}
@@ -634,7 +659,7 @@ function TabOverview({ courseSlug, isEditMode }: { courseSlug: string; isEditMod
                 </li>
               ))}
             </ul>
-            {isEditMode && (
+            {isAdmin && (
               <button
                 type="button"
                 onClick={() => addBadPoint("নতুন বিষয় বাংলায় লিখুন (ক্লিক করে এডিট করুন)")}
@@ -663,7 +688,7 @@ function TabOverview({ courseSlug, isEditMode }: { courseSlug: string; isEditMod
                       </EditableText>
                     </span>
                   </div>
-                  {isEditMode && (
+                  {isAdmin && (
                     <button
                       type="button"
                       onClick={() => removeGoodPoint(idx)}
@@ -676,7 +701,7 @@ function TabOverview({ courseSlug, isEditMode }: { courseSlug: string; isEditMod
                 </li>
               ))}
             </ul>
-            {isEditMode && (
+            {isAdmin && (
               <button
                 type="button"
                 onClick={() => addGoodPoint("নতুন সফল পয়েন্ট বাংলায় লিখুন (ক্লিক করে এডিট করুন)")}
@@ -687,7 +712,6 @@ function TabOverview({ courseSlug, isEditMode }: { courseSlug: string; isEditMod
               </button>
             )}
           </div>
-
         </div>
       </div>
     </div>
@@ -695,7 +719,7 @@ function TabOverview({ courseSlug, isEditMode }: { courseSlug: string; isEditMod
 }
 
 // ================= ট্যাব ২: কারিকুলাম =================
-function TabCurriculum({ courseSlug, isEditMode }: { courseSlug: string; isEditMode: boolean }) {
+function TabCurriculum({ courseSlug }: { courseSlug: string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const defaultModules = [
@@ -761,7 +785,7 @@ function TabCurriculum({ courseSlug, isEditMode }: { courseSlug: string; isEditM
     },
   ];
 
-  const { items: modules, addItem: addModule, removeItem: removeModule, updateItem: updateModule } = useDynamicList(
+  const { items: modules, addItem: addModule, removeItem: removeModule, updateItem: updateModule, isAdmin } = useDynamicCmsList(
     `course.${courseSlug}.curriculum.modules`,
     defaultModules
   );
@@ -844,7 +868,7 @@ function TabCurriculum({ courseSlug, isEditMode }: { courseSlug: string; isEditM
                 </div>
 
                 <div className="flex items-center gap-2">
-                  {isEditMode && (
+                  {isAdmin && (
                     <button
                       type="button"
                       onClick={() => removeModule(idx)}
@@ -880,7 +904,7 @@ function TabCurriculum({ courseSlug, isEditMode }: { courseSlug: string; isEditM
                             <EditableText id={`course.${courseSlug}.module.${idx + 1}.lesson.${lIdx + 1}`}>{lesson}</EditableText>
                           </span>
                         </div>
-                        {isEditMode && (
+                        {isAdmin && (
                           <button
                             type="button"
                             onClick={() => handleRemoveLesson(idx, lIdx)}
@@ -894,7 +918,7 @@ function TabCurriculum({ courseSlug, isEditMode }: { courseSlug: string; isEditM
                     ))}
                   </div>
 
-                  {isEditMode && (
+                  {isAdmin && (
                     <button
                       type="button"
                       onClick={() => handleAddLesson(idx)}
@@ -911,7 +935,7 @@ function TabCurriculum({ courseSlug, isEditMode }: { courseSlug: string; isEditM
         })}
       </div>
 
-      {isEditMode && (
+      {isAdmin && (
         <div className="text-center pt-2">
           <button
             type="button"
@@ -962,7 +986,7 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
     },
   ];
 
-  const { items: features, addItem: addFeature, removeItem: removeFeature } = useDynamicList(
+  const { items: features } = useDynamicCmsList(
     `course.${courseSlug}.included.features`,
     defaultFeatures
   );
@@ -1044,7 +1068,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
     },
   ];
 
-  const { items: steps } = useDynamicList(
+  const { items: steps } = useDynamicCmsList(
     `course.${courseSlug}.howitworks.steps`,
     defaultSteps
   );
@@ -1117,7 +1141,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
 }
 
 // ================= ট্যাব ৫: সাধারণ প্রশ্ন (FAQ) =================
-function TabFaq({ courseSlug, isEditMode }: { courseSlug: string; isEditMode: boolean }) {
+function TabFaq({ courseSlug }: { courseSlug: string }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const defaultFaqs = [
@@ -1148,7 +1172,7 @@ function TabFaq({ courseSlug, isEditMode }: { courseSlug: string; isEditMode: bo
     },
   ];
 
-  const { items: faqs, addItem: addFaq, removeItem: removeFaq } = useDynamicList(
+  const { items: faqs, addItem: addFaq, removeItem: removeFaq, isAdmin } = useDynamicCmsList(
     `course.${courseSlug}.faq.items`,
     defaultFaqs
   );
@@ -1206,7 +1230,7 @@ function TabFaq({ courseSlug, isEditMode }: { courseSlug: string; isEditMode: bo
                 </div>
 
                 <div className="flex items-center gap-2">
-                  {isEditMode && (
+                  {isAdmin && (
                     <button
                       type="button"
                       onClick={() => removeFaq(i)}
@@ -1239,7 +1263,7 @@ function TabFaq({ courseSlug, isEditMode }: { courseSlug: string; isEditMode: bo
         })}
       </div>
 
-      {isEditMode && (
+      {isAdmin && (
         <div className="text-center pt-2">
           <button
             type="button"
@@ -1264,9 +1288,6 @@ function CourseDetail() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   const [activeTab, setActiveTab] = useState<"overview" | "curriculum" | "included" | "how" | "faq">("overview");
-
-  // নিশ্চিত এডিট মোড সুইচ
-  const { isEditMode, toggleEditMode } = useAdminEditMode();
 
   const timer = useEvergreenTimer(24);
 
@@ -1301,7 +1322,8 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
-    // বড় ফুটার ক্লাস বন্ধ রাখা হয়েছে কিন্তু আসল হেডার সুরক্ষিত
+    // SiteShell দিয়ে মোড়ানো যাতে আপনার অরিজিনাল হেডার ও লোগো পুরোপুরি সুরক্ষিত থাকে
+    // সিএসএস দিয়ে পেজের নিচের ডিফল্ট বড় ফুটার বন্ধ রাখা হয়েছে
     <div className="[&>div>footer]:!hidden [&>footer]:!hidden">
       <SiteShell>
         {showModal && (
@@ -1311,22 +1333,6 @@ function CourseDetail() {
             onSuccess={() => setShowModal(false)}
           />
         )}
-
-        {/* ফ্লোটিং অ্যাডমিন CMS কন্ট্রোলার বার */}
-        <div className="fixed bottom-5 right-5 z-50">
-          <button
-            type="button"
-            onClick={toggleEditMode}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-full shadow-2xl border text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-              isEditMode
-                ? "bg-amber-500 text-black border-amber-300 ring-4 ring-amber-500/20 scale-105"
-                : "glass bg-background/90 text-foreground/80 hover:text-foreground border-border/80"
-            }`}
-          >
-            <ShieldAlert className="w-4 h-4" />
-            <span>Admin Edit: {isEditMode ? "ON" : "OFF"}</span>
-          </button>
-        </div>
 
         {showLockedModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm font-bangla">
@@ -1453,7 +1459,7 @@ function CourseDetail() {
                       </EditableText>
                     </h1>
 
-                    {/* বড় ও স্পষ্ট ফন্ট সাইজ এবং ৩ নম্বর প্যারাগ্রাফ নরমাল রেগুলার ফন্ট */}
+                    {/* ৩ নম্বর প্যারাগ্রাফটি সাধারণ রেগুলার ফন্ট */}
                     <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-4">
                       <p>
                         <EditableText id={`course.${course.slug}.hero.desc.1`}>
@@ -1691,6 +1697,11 @@ function CourseDetail() {
                           <EditableText id={`course.${course.slug}.label.5`}>Access</EditableText>
                         </span>
                       </div>
+                      <span className="font-bold text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 text-right">
+                        <EditableText id={`course.${course.slug}.info.5`}>
+                          Lifetime Cloud Backup
+                        </EditableText>
+                      </span>
                     </div>
                   </div>
 
@@ -1749,11 +1760,11 @@ function CourseDetail() {
 
             {/* ================= ২. ইউনিফাইড কন্টেন্ট মাস্টার কার্ড ================= */}
             <div className="max-w-5xl mx-auto glass-strong rounded-3xl border border-border/80 p-6 sm:p-10 lg:p-12 shadow-xl mb-16 relative overflow-hidden backdrop-blur-md w-full">
-              {activeTab === "overview" && <TabOverview courseSlug={course.slug} isEditMode={isEditMode} />}
-              {activeTab === "curriculum" && <TabCurriculum courseSlug={course.slug} isEditMode={isEditMode} />}
+              {activeTab === "overview" && <TabOverview courseSlug={course.slug} />}
+              {activeTab === "curriculum" && <TabCurriculum courseSlug={course.slug} />}
               {activeTab === "included" && <TabWhatsIncluded courseSlug={course.slug} />}
               {activeTab === "how" && <TabHowItWorks courseSlug={course.slug} />}
-              {activeTab === "faq" && <TabFaq courseSlug={course.slug} isEditMode={isEditMode} />}
+              {activeTab === "faq" && <TabFaq courseSlug={course.slug} />}
             </div>
 
             {/* ================= ৩. ফাইনাল ক্লোজিং হাই-কনভার্টিং CTA ব্যানার ================= */}
