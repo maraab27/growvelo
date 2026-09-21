@@ -149,7 +149,7 @@ TrxID: ${formData.trxId}`;
           <>
             <div className="mb-6">
               <h3 className="font-bangla text-xl sm:text-2xl font-bold text-foreground">
-                <EditableText id={`course.${courseSlug}.modal.title`}>ব্যাচ ৩-এ আপনার আসন নিশ্চিত করুন</EditableText>
+                <EditableText id={`course.${courseSlug}.modal.title`}>ব্যাচ ৩ এ আপনার আসন নিশ্চিত করুন</EditableText>
               </h3>
               <p className="font-bangla text-sm text-muted-foreground mt-1">
                 <EditableText id={`course.${courseSlug}.modal.subtitle`}>
@@ -308,7 +308,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
 
         <p className="font-bangla text-muted-foreground text-sm sm:text-base leading-relaxed mt-3 max-w-2xl">
           <EditableText id={`course.${courseSlug}.painpoint.subheading`}>
-            বর্তমানে শুধু টুলসের কাট-পেস্ট জানা কোনো স্কিল নয়; সফল ক্যারিয়ার গড়তে প্রয়োজন স্টোরিটেলিং, সাউন্ড সাইকোলজি ও হাই-কনভার্টিং এডিটিং সেন্স।
+            বর্তমানে শুধু টুলসের সাধারণ কাজ জানা যথেষ্ট নয়। সফল ক্যারিয়ার গড়তে প্রয়োজন স্টোরিটেলিং, সাউন্ড সাইকোলজি ও হাই কনভার্টিং এডিটিং দক্ষতা।
           </EditableText>
         </p>
       </div>
@@ -326,7 +326,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             </h3>
             <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed mt-2.5">
               <EditableText id={`course.${courseSlug}.card.1.desc`}>
-                ফেসবুক রিলস, ইউটিউব থেকে শুরু করে যেকোনো ব্র্যান্ড—সবারই ভিডিও প্রয়োজন। কিন্তু প্রথম ৩ সেকেন্ডে অডিয়েন্সকে ধরে রাখার মতো 'হুক' ও রিটেনশন সাইকোলজি জানা এডিটরের সংখ্যা খুবই নগণ্য।
+                ফেসবুক রিলস, ইউটিউব থেকে শুরু করে প্রতিটি ব্র্যান্ডের নিয়মিত ভিডিও প্রয়োজন। তবে প্রথম ৩ সেকেন্ডে দর্শক ধরে রাখার মতো হুক ও রিটেনশন সাইকোলজি জানা এডিটর খুবই কম।
               </EditableText>
             </p>
           </div>
@@ -343,12 +343,12 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             </div>
             <h3 className="font-bangla font-bold text-base text-foreground leading-snug">
               <EditableText id={`course.${courseSlug}.card.2.title`}>
-                সফটওয়্যারের বোতাম চেনা নয়, দরকার সিনেমাটিক ভিশন
+                সফটওয়্যার জানা যথেষ্ট নয়, দরকার সিনেমাটিক ভিশন
               </EditableText>
             </h3>
             <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed mt-2.5">
               <EditableText id={`course.${courseSlug}.card.2.desc`}>
-                ইউটিউবের ফ্রি টিউটোরিয়াল দেখে সফটওয়্যার চালানো শেখা যায়, কিন্তু অডিয়েন্সের ইমোশন নিয়ন্ত্রণ করা, রাইট পেসিং এবং পাওয়ারফুল সাউন্ড ডিজাইন করার জন্য দরকার প্র্যাকটিক্যাল মেন্টরশিপ।
+                ইউটিউবের ফ্রি টিউটোরিয়াল দেখে সফটওয়্যার চালানো শেখা যায়, কিন্তু দর্শকের অনুভূতি নিয়ন্ত্রণ করা, নিখুঁত পেসিং এবং শক্তিশালী সাউন্ড ডিজাইনের জন্য দরকার বাস্তব মেন্টরশিপ।
               </EditableText>
             </p>
           </div>
@@ -365,17 +365,17 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             </div>
             <h3 className="font-bangla font-bold text-base text-foreground leading-snug">
               <EditableText id={`course.${courseSlug}.card.3.title`}>
-                সস্তা ফ্রিল্যান্সিং নয়, প্রিমিয়াম ক্লায়েন্ট ডিল
+                কম বাজেটের কাজ নয়, সরাসরি প্রিমিয়াম ক্লায়েন্ট ডিল
               </EditableText>
             </h3>
             <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed mt-2.5">
               <EditableText id={`course.${courseSlug}.card.3.desc`}>
-                লোকাল ব্র্যান্ড, এজেন্সি এবং আন্তর্জাতিক কনটেন্ট ক্রিয়েটররা এখন হাই-এন্ড ভিডিওর জন্য প্রিমিয়াম পে করতে প্রস্তুত। আপনার দরকার শুধু একটি স্ট্রং পোর্টফোলিও ও সঠিক কমিউনিকেশন সিস্টেম।
+                দেশি এজেন্সি ও আন্তর্জাতিক কনটেন্ট ক্রিয়েটররা এখন কোয়ালিটি ভিডিওর জন্য প্রিমিয়াম পে করতে প্রস্তুত। আপনার শুধু একটি মানসম্মত পোর্টফোলিও ও সঠিক যোগাযোগ প্রয়োজন।
               </EditableText>
             </p>
           </div>
           <div className="pt-4 mt-5 border-t border-border/40 flex items-center gap-1.5 text-xs font-medium text-muted-foreground group-hover:text-primary transition-colors">
-            <span><EditableText id={`course.${courseSlug}.card.3.action`}>হাই-টিকেটিং ফ্রেমওয়ার্ক</EditableText></span>
+            <span><EditableText id={`course.${courseSlug}.card.3.action`}>হাই টিকেটিং ফ্রেমওয়ার্ক</EditableText></span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
@@ -386,12 +386,12 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         <div className="text-center mb-6">
           <h3 className="font-bangla text-base sm:text-lg font-bold text-foreground">
             <EditableText id={`course.${courseSlug}.compare.heading`}>
-              আপনার এডিটিং জার্নির মোড় ঘুরিয়ে দেবে ব্যাচ ৩
+              আপনার এডিটিং জার্নির মোড় ঘুরিয়ে দেবে ব্যাচ ৩
             </EditableText>
           </h3>
           <p className="font-bangla text-xs text-muted-foreground mt-1">
             <EditableText id={`course.${courseSlug}.compare.subheading`}>
-              একটি সাধারণ কাট-পেস্ট এডিটর আর হাই-ভ্যালু ভিডিও রিটেলারের পার্থক্য দেখে নিন
+              একজন সাধারণ এডিটর ও প্রফেশনাল ভিডিও রিটেলারের মূল পার্থক্য
             </EditableText>
           </p>
         </div>
@@ -404,15 +404,15 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             <ul className="space-y-2.5 font-bangla text-xs sm:text-[13px] text-foreground/75">
               <li className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
-                <span><EditableText id={`course.${courseSlug}.compare.bad.1`}>ঘণ্টার পর ঘণ্টা এলোমেলো ইউটিউব টিউটোরিয়ালে কনফিউজড ও দিকহারা।</EditableText></span>
+                <span><EditableText id={`course.${courseSlug}.compare.bad.1`}>ঘণ্টার পর ঘণ্টা এলোমেলো ইউটিউব টিউটোরিয়ালে বিভ্রান্ত ও দিকহারা থাকা</EditableText></span>
               </li>
               <li className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
-                <span><EditableText id={`course.${courseSlug}.compare.bad.2`}>সাউন্ড ডিজাইন ও কালার সাইকোলজি ছাড়া একদম ফ্ল্যাট, প্রাণহীন এডিট।</EditableText></span>
+                <span><EditableText id={`course.${courseSlug}.compare.bad.2`}>সাউন্ড ডিজাইন ও কালার সাইকোলজি ছাড়া সাধারণ কাট পেস্ট এডিট</EditableText></span>
               </li>
               <li className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
-                <span><EditableText id={`course.${courseSlug}.compare.bad.3`}>মার্কেটপ্লেসে সস্তায় ৫০০-১০০০ টাকার কাজের জন্য বিড করে রিজেক্ট হওয়া।</EditableText></span>
+                <span><EditableText id={`course.${courseSlug}.compare.bad.3`}>মার্কেটপ্লেসে অল্প টাকায় কাজের জন্য বিড করে বারবার রিজেক্ট হওয়া</EditableText></span>
               </li>
             </ul>
           </div>
@@ -425,15 +425,15 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             <ul className="space-y-2.5 font-bangla text-xs sm:text-[13px] text-foreground/90 font-medium">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span><EditableText id={`course.${courseSlug}.compare.good.1`}>সরাসরি রিয়েল লাইফ প্রজেক্ট ও সিনেমাটিক স্টোরিটেলিং ফ্রেমওয়ার্ক মাস্টার করা।</EditableText></span>
+                <span><EditableText id={`course.${courseSlug}.compare.good.1`}>সরাসরি প্র্যাকটিক্যাল প্রজেক্ট ও সিনেমাটিক স্টোরিটেলিং পদ্ধতি আয়ত্ত করা</EditableText></span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span><EditableText id={`course.${courseSlug}.compare.good.2`}>প্রো-লেভেল সাউন্ড ডিজাইন, কালার গ্রেডিং ও হাই-রিটেনশন মোশন অ্যানিমেশন।</EditableText></span>
+                <span><EditableText id={`course.${courseSlug}.compare.good.2`}>উন্নত সাউন্ড ডিজাইন, নিখুঁত কালার গ্রেডিং ও হাই রিটেনশন মোশন অ্যানিমেশন</EditableText></span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span><EditableText id={`course.${courseSlug}.compare.good.3`}>আন্তর্জাতিক মানের প্রফেশনাল পোর্টফোলিও ও সরাসরি ক্লায়েন্ট ডিল ক্লোজিং স্কিল।</EditableText></span>
+                <span><EditableText id={`course.${courseSlug}.compare.good.3`}>আন্তর্জাতিক মানের প্রফেশনাল পোর্টফোলিও ও সরাসরি ক্লায়েন্ট ডিল ক্লোজিং দক্ষতা</EditableText></span>
               </li>
             </ul>
           </div>
@@ -451,9 +451,9 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
     {
       moduleNo: "Module 01",
       title: "Premiere Pro Fundamentals & Fast Workflow",
-      desc: "ইন্টারফেস কাস্টমাইজেশন, টাইমলাইন সিক্রেট, প্রো-লেভেল শর্টকাট ও অর্গানাইজড ফাইল ম্যানেজমেন্ট।",
+      desc: "ইন্টারফেস কাস্টমাইজেশন, টাইমলাইন সিক্রেট, প্রো লেভেল শর্টকাট ও অর্গানাইজড ফাইল ম্যানেজমেন্ট।",
       lessons: [
-        "লেসন ১: প্রোডাকশন-রেডি টাইমলাইন ও প্রোজেক্ট সেটআপ",
+        "লেসন ১: প্রোডাকশন রেডি টাইমলাইন ও প্রোজেক্ট সেটআপ",
         "লেসন ২: রাফ কাট ও প্রিসিশন ট্রিম টেকনিক",
         "লেসন ৩: ইনজেস্ট সেটিংস ও ক্যাশ অপটিমাইজেশন",
       ],
@@ -461,37 +461,37 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
     {
       moduleNo: "Module 02",
       title: "The Art of Storytelling & Pacing",
-      desc: "দর্শকদের স্ক্রিনে আটকে রাখার সাইকোলজি, রিলস/শর্টস হুক এবং রিটেনশন টেকনিক।",
+      desc: "দর্শকদের স্ক্রিনে আটকে রাখার সাইকোলজি, রিলস ও শর্টস হুক এবং রিটেনশন টেকনিক।",
       lessons: [
-        "লেসন ১: ৩-সেকেন্ড হুক ও জাম্প কাটের ব্যবহার",
+        "লেসন ১: ৩ সেকেন্ড হুক ও জাম্প কাটের সঠিক ব্যবহার",
         "লেসন ২: ম্যাচ কাট, ইনভিজিবল কাট ও রিদম ব্যালেন্স",
-        "লেসন ৩: ডকুমেন্টারি বনাম সোশ্যাল মিডিয়া স্টোরিটেলিং",
+        "লেসন ৩: ডকুমেন্টারি বনাম সোশ্যাল মিডিয়া স্টোরিটেলিং",
       ],
     },
     {
       moduleNo: "Module 03",
-      title: "Advanced Sound Design & Foley (The Game Changer)",
-      desc: "ভিডিওর প্রাণ সাউন্ডে। অডিও ব্যালেন্সিং, সাউন্ড ইফেক্ট লেয়ারিং ও অডিও এনহ্যান্সমেন্ট।",
+      title: "Advanced Sound Design & Foley",
+      desc: "ভিডিওর প্রাণ হলো সাউন্ড। অডিও ব্যালেন্সিং, সাউন্ড ইফেক্ট লেয়ারিং ও অডিও এনহ্যান্সমেন্ট।",
       lessons: [
         "লেসন ১: সাউন্ড ইফেক্টস (SFX) ও রাইজার সিঙ্কিং",
-        "লেসন ২: ভয়েস-ওভার মাস্টারিং ও ব্যাকগ্রাউন্ড নয়েজ রিমুভাল",
-        "লেসন ৩: মুড অনুযায়ী ব্যাকগ্রাউন্ড মিউজিক লেয়ারিং",
+        "লেসন ২: ভয়েস ওভার মাস্টারিং ও ব্যাকগ্রাউন্ড নয়েজ রিমুভাল",
+        "লেসন ৩: ভিডিওর মুড অনুযায়ী ব্যাকগ্রাউন্ড মিউজিক লেয়ারিং",
       ],
     },
     {
       moduleNo: "Module 04",
       title: "Cinematic Color Grading",
-      desc: "কালার স্পেস, স্কিন টোন কারেকশন ও সিনেমাটিক লুক তৈরির ইন-ডেপথ গাইড।",
+      desc: "কালার স্পেস, স্কিন টোন কারেকশন ও সিনেমাটিক লুক তৈরির ইন ডেপথ গাইডলাইন।",
       lessons: [
         "লেসন ১: Lumetri Color স্কোপস ও প্রাইমারি কারেকশন",
         "লেসন ২: প্রফেশনাল স্কিন টোন প্রোটেকশন",
-        "লেসন ৩: কাস্টম সিনেমাটিক LUTs ও মুড ক্রিয়েশন",
+        "লেসন ৩: কাস্টম সিনেমাটিক LUTs ও মুড ক্রিয়েশন",
       ],
     },
     {
       moduleNo: "Module 05",
       title: "Motion Graphics in After Effects",
-      desc: "আকর্ষণীয় টেক্সট অ্যানিমেশন, লোয়ার থার্ড, মোশন ট্র্যাকিং ও ডায়নামিক ট্রানজিশন।",
+      desc: "আকর্ষণীয় টেক্সট অ্যানিমেশন, লোয়ার থার্ড, মোশন ট্র্যাকিং ও ডায়নামিক ট্রানজিশন।",
       lessons: [
         "লেসন ১: কাইনেটিক টাইপোগ্রাফি ও হুক টাইটেলস",
         "লেসন ২: ট্র্যাকিং, মাস্কিং ও মোশন ব্লার টেকনিক",
@@ -501,11 +501,11 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
     {
       moduleNo: "Module 06",
       title: "Client Acquisition & Portfolio Building",
-      desc: "স্কিল শেখার পর আসল ক্লায়েন্ট পাওয়া এবং ডিল ক্লোজ করার স্ট্র্যাটেজি।",
+      desc: "স্কিল শেখার পর আসল ক্লায়েন্ট পাওয়া এবং ডিল ক্লোজ করার কার্যকর স্ট্র্যাটেজি।",
       lessons: [
-        "লেসন ১: হাই-কনভার্টিং ভিডিও এডিটিং পোর্টফোলিও তৈরি",
-        "লেসন ২: আন্তর্জাতিক ও লোকাল ক্লায়েন্টদের আউটরিচ করার ফ্রেমওয়ার্ক",
-        "লেসন ৩: ডিসকর্ড সাপোর্ট সিস্টেম ও লং-টার্ম ক্যারিয়ার রোডম্যাপ",
+        "লেসন ১: হাই কনভার্টিং ভিডিও এডিটিং পোর্টফোলিও তৈরি",
+        "লেসন ২: আন্তর্জাতিক ও লোকাল ক্লায়েন্টদের আউটরিচ করার ফ্রেমওয়ার্ক",
+        "লেসন ৩: ডিসকর্ড সাপোর্ট সিস্টেম ও লং টার্ম ক্যারিয়ার রোডম্যাপ",
       ],
     },
   ];
@@ -522,13 +522,13 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
 
         <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.65rem,2.8vw+0.5rem,2.4rem)] leading-[1.25]">
           <EditableText id={`course.${courseSlug}.curriculum.heading`}>
-            স্টেপ-বাই-স্টেপ মাস্টারক্লাস রোডম্যাপ
+            স্টেপ বাই স্টেপ মাস্টারক্লাস রোডম্যাপ
           </EditableText>
         </h2>
 
         <p className="font-bangla text-muted-foreground text-sm leading-relaxed mt-2 max-w-xl">
           <EditableText id={`course.${courseSlug}.curriculum.subheading`}>
-            স্ক্র্যাচ থেকে অ্যাডভান্সড সিনেমাটিক এডিটিং ও মোশন গ্রাফিক্স—প্রতিটি মডিউল বাস্তব প্রজেক্টের সাথে সাজানো।
+            বেসিক থেকে অ্যাডভান্সড সিনেমাটিক এডিটিং ও মোশন গ্রাফিক্স। প্রতিটি মডিউল বাস্তব প্রজেক্ট দিয়ে সাজানো।
           </EditableText>
         </p>
       </div>
@@ -605,42 +605,42 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
       gradient: "from-blue-500/20 to-cyan-500/20",
       iconColor: "text-blue-500",
       titleKey: "লাইভ ইন্টারেক্টিভ ক্লাস",
-      descKey: "সরাসরি স্ক্রিন শেয়ারে প্র্যাকটিক্যাল লার্নিং ও লাইভ ডাউট সলভিং সেশন।",
+      descKey: "সরাসরি স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা ও লাইভ প্রশ্নোত্তর পর্ব।",
     },
     {
       icon: CloudDownload,
       gradient: "from-emerald-500/20 to-teal-500/20",
       iconColor: "text-emerald-500",
       titleKey: "লাইফটাইম ক্লাউড রেকর্ডিং ব্যাকআপ",
-      descKey: "ক্লাস শেষ হলেই ওয়েবসাইট ড্যাশবোর্ডে ইউটিউব আনলিস্টেড ফুল এইচডি রেকর্ডিং আপডেট।",
+      descKey: "ক্লাস শেষ হতেই ওয়েবসাইট ড্যাশবোর্ডে ফুল এইচডি ক্লাউড রেকর্ডিং যুক্ত হবে।",
     },
     {
       icon: Users,
       gradient: "from-violet-500/20 to-purple-500/20",
       iconColor: "text-violet-500",
       titleKey: "ডেডিকেটেড ডিসকর্ড প্রাইভেট কমিউনিটি",
-      descKey: "২৪/৭ ব্যাচভিত্তিক প্রাইভেট চ্যানেল (#batch-03), অ্যাসাইনমেন্ট সাবমিশন ও সহপাঠীদের সাথে নেটওয়ার্কিং।",
+      descKey: "২৪/৭ প্রাইভেট চ্যানেল, অ্যাসাইনমেন্ট ফিডব্যাক ও সহপাঠীদের সাথে সরাসরি নেটওয়ার্কিং।",
     },
     {
       icon: FolderArchive,
       gradient: "from-amber-500/20 to-orange-500/20",
       iconColor: "text-amber-500",
-      titleKey: "১০০+ প্রিমিয়াম সাউন্ড ও সিনেমাটিক অ্যাসেটস",
-      descKey: "প্র্যাকটিসের জন্য মেটেরিয়ালস, সাউন্ড প্যাক, সিনেমাটিক LUTs ও মোশন প্রিসেট সম্পূর্ণ ফ্রি।",
+      titleKey: "১০০+ প্রিমিয়াম সাউন্ড ও সিনেমাটিক অ্যাসেটস",
+      descKey: "প্র্যাকটিসের জন্য প্রজেক্ট ফাইল, সাউন্ড প্যাক, সিনেমাটিক LUTs ও মোশন প্রিসেট।",
     },
     {
       icon: FileCheck,
       gradient: "from-rose-500/20 to-red-500/20",
       iconColor: "text-rose-500",
-      titleKey: "উইকলি পার্সোনালাইজড ফিডব্যাক",
-      descKey: "আপনার প্রতিটি এডিটের ভুল-ত্রুটি ধরিয়ে দিয়ে মেন্টর সরাসরি স্ক্রিনে পার্সোনাল ফিডব্যাক দেবেন।",
+      titleKey: "সাপ্তাহিক পার্সোনালাইজড ফিডব্যাক",
+      descKey: "আপনার প্রতিটি এডিটের ভুলত্রুটি ধরিয়ে দিয়ে মেন্টর সরাসরি স্ক্রিনে পার্সোনাল ফিডব্যাক দেবেন।",
     },
     {
       icon: Award,
       gradient: "from-primary/25 to-indigo-500/20",
       iconColor: "text-primary",
-      titleKey: "কমপ্লিশন ভেরিফাইড সার্টিফিকেট",
-      descKey: "ব্যাচের সব প্রজেক্ট সফলভাবে শেষ করার পর ভেরিফায়েড ডিজিটাল সার্টিফিকেট।",
+      titleKey: "কমপ্লিশন ভেরিফায়েড সার্টিফিকেট",
+      descKey: "ব্যাচের সব প্রজেক্ট সফলভাবে জমা দেওয়ার পর দেওয়া হবে ভেরিফায়েড ডিজিটাল সার্টিফিকেট।",
     },
   ];
 
@@ -656,13 +656,13 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
 
         <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.65rem,2.8vw+0.5rem,2.4rem)] leading-[1.25]">
           <EditableText id={`course.${courseSlug}.included.heading`}>
-            ব্যাচ ৩-এ আপনি যা যা পাচ্ছেন
+            ব্যাচ ৩ এ আপনি যা যা পাচ্ছেন
           </EditableText>
         </h2>
 
         <p className="font-bangla text-muted-foreground text-sm leading-relaxed mt-2 max-w-xl">
           <EditableText id={`course.${courseSlug}.included.subheading`}>
-            শুধুমাত্র ক্লাস নয়—আপনার প্রফেশনাল এডিটর হওয়ার সম্পূর্ণ ইকোসিস্টেম প্রস্তুত করা হয়েছে।
+            শুধুমাত্র ক্লাস নয়, আপনার প্রফেশনাল এডিটর হওয়ার সম্পূর্ণ ইকোসিস্টেম প্রস্তুত করা হয়েছে।
           </EditableText>
         </p>
       </div>
@@ -708,7 +708,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
       iconColor: "text-primary",
       badgeTitle: "এনরোলমেন্ট রিকোয়েস্ট পাঠান",
       title: "তথ্য দিয়ে ফর্ম পূরণ করুন",
-      desc: "ওয়েবসাইটের 'Enroll in Batch 03' বাটনে ক্লিক করে আপনার নাম, সচল হোয়াটসঅ্যাপ নম্বর এবং পেমেন্ট ট্রানজেকশন আইডি (TrxID) দিয়ে সাবমিট করুন।",
+      desc: "ওয়েবসাইটের বাটনে ক্লিক করে আপনার নাম, সচল হোয়াটসঅ্যাপ নম্বর এবং পেমেন্ট ট্রানজেকশন আইডি দিয়ে ফর্মটি সাবমিট করুন।",
     },
     {
       step: "02",
@@ -717,7 +717,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
       iconColor: "text-emerald-500",
       badgeTitle: "হোয়াটসঅ্যাপে কনফার্মেশন ও ভেরিফিকেশন",
       title: "টিমের সাথে ভেরিফিকেশন",
-      desc: "ফর্ম সাবমিট করতেই হোয়াটসঅ্যাপে অটো-মেসেজ চলে আসবে। আমাদের সাপোর্ট টিম তৎক্ষণাৎ ট্রানজেকশন ভেরিফাই করে আপনার আসন নিশ্চিত করবে।",
+      desc: "ফর্ম সাবমিট করতেই হোয়াটসঅ্যাপে মেসেজ তৈরি হবে। আমাদের টিম পেমেন্ট ভেরিফাই করে দ্রুত আপনার সিট নিশ্চিত করবে।",
     },
     {
       step: "03",
@@ -726,7 +726,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
       iconColor: "text-purple-500",
       badgeTitle: "প্রাইভেট ডিসকর্ড ও ড্যাশবোর্ড অ্যাক্সেস",
       title: "ডিসকর্ড কমিউনিটিতে প্রবেশ",
-      desc: "কনফার্মেশনের সাথে সাথেই পাবেন ব্যাচ ৩-এর প্রাইভেট ডিসকর্ড সার্ভারের ইনভাইট লিংক। সেখানে লাইভ ক্লাসে অংশ নিন এবং ওয়েবসাইট ড্যাশবোর্ড থেকে রেকর্ডিং ও ফাইল ডাউনলোড করুন।",
+      desc: "কনফার্মেশনের সাথে সাথেই পাবেন ব্যাচ ৩ এর প্রাইভেট ডিসকর্ড ইনভাইট লিংক। সেখানে নিয়মিত লাইভ ক্লাসে অংশ নিতে পারবেন।",
     },
   ];
 
@@ -742,13 +742,13 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
 
         <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.65rem,2.8vw+0.5rem,2.4rem)] leading-[1.25]">
           <EditableText id={`course.${courseSlug}.howitworks.heading`}>
-            কীভাবে ব্যাচ ৩-এ যুক্ত হবেন ও ক্লাস শুরু করবেন?
+            কীভাবে ব্যাচ ৩ এ যুক্ত হবেন ও ক্লাস শুরু করবেন?
           </EditableText>
         </h2>
 
         <p className="font-bangla text-muted-foreground text-sm leading-relaxed mt-2 max-w-xl">
           <EditableText id={`course.${courseSlug}.howitworks.subheading`}>
-            ঝামেলাহীন ও দ্রুত এনরোলমেন্ট প্রসেস—আপনার রেজিস্ট্রেশন সম্পন্ন হওয়া মাত্রই শুরু হবে জার্নি।
+            সহজ ও দ্রুত রেজিস্ট্রেশন প্রক্রিয়া। তথ্য পাঠানো মাত্রই শুরু হয়ে যাবে আপনার শেখার যাত্রা।
           </EditableText>
         </p>
       </div>
@@ -804,23 +804,23 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
   const faqs = [
     {
       q: "আমি একদম নতুন, আগে কখনো এডিটিং করিনি। আমি কি এই ব্যাচটি করতে পারব?",
-      a: "হ্যাঁ, মাস্টারক্লাসটি একদম বেসিক প্রিমিয়ার প্রো ইন্টারফেস থেকে শুরু করে অ্যাডভান্সড সিনেমাটিক স্টোরিটেলিং পর্যন্ত ধাপে ধাপে সাজানো হয়েছে। আপনার শুধু শেখার আগ্রহ প্রয়োজন।",
+      a: "হ্যাঁ, মাস্টারক্লাসটি একদম বেসিক প্রিমিয়ার প্রো থেকে শুরু করে অ্যাডভান্সড সিনেমাটিক স্টোরিটেলিং পর্যন্ত ধাপে ধাপে শেখানো হবে। আপনার শুধু শেখার আগ্রহ প্রয়োজন।",
     },
     {
-      q: "ক্লাসগুলো কীভাবে হবে এবং সময়সূচি কী?",
-      a: "ক্লাসগুলো হবে সরাসরি আমাদের ডেডিকেটেড ডিসকর্ড প্রাইভেট চ্যানেলে স্ক্রিন শেয়ারের মাধ্যমে। প্রতি সপ্তাহে নির্ধারিত লাইভ সেশন এবং রিয়েল-টাইম প্রশ্নোত্তর পর্ব থাকবে।",
+      q: "ক্লাসগুলো কীভাবে হবে এবং সময়সূচি কী?",
+      a: "ক্লাসগুলো সরাসরি ডিসকর্ড প্রাইভেট চ্যানেলে স্ক্রিন শেয়ারের মাধ্যমে অনুষ্ঠিত হবে। প্রতি সপ্তাহে নির্ধারিত লাইভ সেশন এবং লাইভ প্রশ্নোত্তরের সুযোগ থাকবে।",
     },
     {
-      q: "কোনো কারণে লাইভ ক্লাস মিস করলে কি রেকর্ডিং পাওয়া যাবে?",
-      a: "অবশ্যই! প্রতিটি লাইভ ক্লাসের পরপরই ওয়েবসাইট ড্যাশবোর্ডে ফুল এইচডি ইউটিউব আনলিস্টেড ক্লাউড রেকর্ডিং ব্যাকআপ আপডেট করে দেওয়া হবে, যা আপনি যেকোনো সময় আজীবন দেখতে পারবেন।",
+      q: "কোনো কারণে লাইভ ক্লাস মিস করলে কি রেকর্ডিং পাওয়া যাবে?",
+      a: "অবশ্যই! প্রতিটি লাইভ ক্লাসের পরপরই ওয়েবসাইট ড্যাশবোর্ডে ফুল এইচডি ক্লাউড রেকর্ডিং ব্যাকআপ দিয়ে দেওয়া হবে, যা আপনি আজীবন দেখতে পারবেন।",
     },
     {
       q: "এডিটিং শেখার জন্য আমার পিসি বা ল্যাপটপের কনফিগারেশন কেমন হতে হবে?",
-      a: "মিনিমাম Core i5/Ryzen 5 প্রসেসর, 8GB RAM (16GB রিকমেন্ডেড) এবং একটি বেসিক ডেডিকেটেড গ্রাফিক্স কার্ড হলেই স্মুথলি প্র্যাকটিস করতে পারবেন।",
+      a: "মিনিমাম Core i5 বা Ryzen 5 প্রসেসর, 8GB RAM (16GB হলে ভালো হয়) এবং একটি বেসিক ডেডিকেটেড গ্রাফিক্স কার্ড থাকলে ভালোমতো প্র্যাকটিস করতে পারবেন।",
     },
     {
-      q: "প্র্যাকটিসের সময় কোনো সমস্যায় পড়লে সাপোর্ট পাব কীভাবে?",
-      a: "ডিসকর্ড সার্ভারে আমাদের ২৪/৭ ডেডিকেটেড সাপোর্ট চ্যানেল (#batch-03, #ask-mentor) থাকবে। আপনি সেখানে স্ক্রিনশট দিতে পারবেন কিংবা সরাসরি স্ক্রিন শেয়ার করে মেন্টরের কাছ থেকে সমাধান নিতে পারবেন।",
+      q: "প্র্যাকটিসের সময় কোনো সমস্যায় পড়লে সাপোর্ট কীভাবে পাব?",
+      a: "ডিসকর্ড সার্ভারে আমাদের ২৪/৭ সাপোর্ট চ্যানেল থাকবে। সেখানে আপনি সমস্যা লিখে জানাতে পারবেন অথবা সরাসরি স্ক্রিন শেয়ার করে মেন্টরের কাছ থেকে সমাধান নিতে পারবেন।",
     },
   ];
 
@@ -842,7 +842,7 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
 
         <p className="font-bangla text-muted-foreground text-sm leading-relaxed mt-2 max-w-xl">
           <EditableText id={`course.${courseSlug}.faq.subheading`}>
-            কোর্সে যুক্ত হওয়ার আগে সাধারণ কিছু দ্বিধার সুস্পষ্ট উত্তর।
+            কোর্সে যুক্ত হওয়ার আগে প্রয়োজনীয় বিষয়গুলোর সুস্পষ্ট উত্তর।
           </EditableText>
         </p>
       </div>
@@ -953,7 +953,7 @@ function CourseDetail() {
             </div>
             <h2 className="mt-4 font-bangla text-xl font-bold">এই লেসনটি লক করা আছে</h2>
             <p className="mt-2 text-sm text-foreground/70 leading-relaxed">
-              পুরো কোর্সের এক্সেস পেতে এবং এই লেসনটি দেখতে আপনাকে ব্যাচ ৩-এ এনরোল করতে হবে।
+              পুরো কোর্সের এক্সেস পেতে এবং এই লেসনটি দেখতে আপনাকে ব্যাচ ৩ এ এনরোল করতে হবে।
             </p>
             <div className="mt-8 space-y-3">
               <button
@@ -1010,7 +1010,7 @@ function CourseDetail() {
           {/* ================= টপ ফোল্ড (Hero & Sticky Card) ================= */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-20">
             
-            {/* বামপাশ: ভ্যালু প্রোপজিশন (শতভাগ font-bangla ফন্টে সুসংগত) */}
+            {/* বামপাশ: ভ্যালু প্রোপজিশন */}
             <div className="lg:col-span-7 flex flex-col space-y-6 font-bangla">
               
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-border/80 bg-foreground/[0.04] w-fit shadow-2xs">
@@ -1043,7 +1043,7 @@ function CourseDetail() {
                   <div className="space-y-1">
                     <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
                       <EditableText id={`course.${course.slug}.benefit.1.title`}>
-                        হাতে-কলমে লাইভ সেশন
+                        হাতে কলমে লাইভ সেশন
                       </EditableText>
                     </h3>
                     <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
@@ -1081,7 +1081,7 @@ function CourseDetail() {
                       </EditableText>
                     </h3>
                     <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                      স্ট্রং পোর্টফোলিও তৈরি এবং সরাসরি হাই-টিকেটিং ক্লায়েন্ট হান্টিং গাইড।
+                      স্ট্রং পোর্টফোলিও তৈরি এবং সরাসরি হাই টিকেটিং ক্লায়েন্ট হান্টিং গাইড।
                     </p>
                   </div>
                 </div>
@@ -1330,7 +1330,7 @@ function CourseDetail() {
 
               <p className="font-bangla text-sm sm:text-base text-foreground/85 leading-relaxed mt-4 max-w-2xl mx-auto">
                 <EditableText id={`course.${course.slug}.final.cta.subtitle`}>
-                  ব্যাচ ৩-এ সীমিত আসনে বিশেষ ছাড় চলছে—রেগুলার ফি ৳৫,০০০-এর বদলে মাত্র ৳৩,০০০।
+                  ব্যাচ ৩ এ সীমিত আসনে বিশেষ ছাড় চলছে। রেগুলার ফি ৫,০০০ টাকার বদলে এখন মাত্র ৩,০০০ টাকা।
                 </EditableText>
               </p>
 
@@ -1345,7 +1345,7 @@ function CourseDetail() {
 
                 <p className="text-xs text-muted-foreground font-bangla flex items-center gap-1.5 mt-1">
                   <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                  <span><EditableText id={`course.${course.slug}.final.cta.trust`}>১০০% মানি-ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট | সুরক্ষিত পেমেন্ট ভেরিফিকেশন</EditableText></span>
+                  <span><EditableText id={`course.${course.slug}.final.cta.trust`}>১০০% মানি ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট | সুরক্ষিত পেমেন্ট ভেরিফিকেশন</EditableText></span>
                 </p>
               </div>
             </div>
