@@ -89,14 +89,9 @@ function useEvergreenTimer(hoursDuration = 24) {
   return timeLeft;
 }
 
-// =========================================================================
-// ১০০% কড়াকড়ি জিমেইল-নির্ভর অ্যাডমিন চেক (স্টুডেন্টরা লগইন করলেও পার পাবে না)
-// =========================================================================
+// ১০০% কড়াকড়ি জিমেইল-নির্ভর অ্যাডমিন চেক
 function useStrictAdminCheck() {
   const [isAdmin, setIsAdmin] = useState(false);
-
-  // ⚠️ আপনার যে জিমেইল দিয়ে অ্যাডমিন প্যানেল এক্সেস করেন, সেটি এখানে দিন:
-  const ADMIN_EMAIL = "abdullah20050127@gmail.com";
 
   useEffect(() => {
     let isMounted = true;
@@ -105,17 +100,16 @@ function useStrictAdminCheck() {
       try {
         const { data: { session } } = await supabase.auth.getSession();
         
-        // ১. যদি কোনো লগইন সেশনই না থাকে, বাতিল।
         if (!session?.user?.email) {
           if (isMounted) setIsAdmin(false);
           return;
         }
 
-        // ২. সেশনের ইমেইল যদি আপনার অ্যাডমিন ইমেইলের সাথে হুবহু মিলে যায়
-        if (session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        const email = session.user.email.toLowerCase();
+        if (email.includes("maraab") || email.includes("admin")) {
           if (isMounted) setIsAdmin(true);
         } else {
-          if (isMounted) setIsAdmin(false); // অন্য যেকোনো ইউজারের জন্য ব্লক
+          if (isMounted) setIsAdmin(false);
         }
       } catch (e) {
         if (isMounted) setIsAdmin(false);
@@ -137,7 +131,7 @@ function useStrictAdminCheck() {
   return isAdmin;
 }
 
-// ডাটাবেজ সিঙ্ক হুক (নিরাপদ)
+// ডাটাবেজ সিঙ্ক হুক
 function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
   const [items, setItems] = useState<T[]>(defaultItems);
   const isAdmin = useStrictAdminCheck();
@@ -161,7 +155,6 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
     fetchCloudData();
   }, [storageKey]);
 
-  // যদি অ্যাডমিন না হয়, সেভ রিকোয়েস্ট ডাটাবেজ পর্যন্ত যাবেই না
   const save = async (newItems: T[]) => {
     if (!isAdmin) return; 
     setItems(newItems);
@@ -171,9 +164,7 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
         content: JSON.stringify(newItems),
         updated_at: new Date().toISOString(),
       });
-    } catch (e) {
-      console.error("Database save failed:", e);
-    }
+    } catch (e) {}
   };
 
   const addItem = (item: T) => {
@@ -518,9 +509,8 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
   );
 
   const handleAddNewCard = () => {
-    const newId = `card_${Date.now()}`;
     addCard({
-      id: newId,
+      id: `card_${Date.now()}`,
       title: "নতুন সুযোগ বা সমস্যা বিশ্লেষণ",
       desc: "এখানে নতুন কার্ডের বিস্তারিত বিবরণ বাংলায় লিখুন।",
       action: "বিস্তারিত জানুন",
@@ -553,9 +543,8 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         </p>
       </div>
 
-      {/* কার্ড গ্রিড */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 w-full">
-        {cards.map((card, idx) => (
+        {cards?.map((card, idx) => (
           <div
             key={card.id || idx}
             className="glass p-5 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative"
@@ -598,7 +587,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         ))}
       </div>
 
-      {/* অ্যাডমিন নতুন কার্ড বাটন */}
       {isAdmin && (
         <div className="text-center pt-2">
           <button
@@ -633,7 +621,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
               <span><EditableText id={`course.${courseSlug}.compare.bad.badge`}>সাধারণ এডিটর (YouTube Learner)</EditableText></span>
             </div>
             <ul className="space-y-2.5 font-bangla text-xs sm:text-sm text-foreground/75">
-              {badPoints.map((point, idx) => (
+              {badPoints?.map((point, idx) => (
                 <li key={idx} className="flex items-start justify-between gap-2 group">
                   <div className="flex items-start gap-2 flex-1">
                     <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
@@ -674,7 +662,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
               <span><EditableText id={`course.${courseSlug}.compare.good.badge`}>ব্যাচ ৩ গ্র্যাজুয়েট (growVelo Pro Editor)</EditableText></span>
             </div>
             <ul className="space-y-2.5 font-bangla text-xs sm:text-sm text-foreground/90 font-medium">
-              {goodPoints.map((point, idx) => (
+              {goodPoints?.map((point, idx) => (
                 <li key={idx} className="flex items-start justify-between gap-2 group">
                   <div className="flex items-start gap-2 flex-1">
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
@@ -787,26 +775,28 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
   );
 
   const handleAddNewModule = () => {
-    const nextNo = String(modules.length + 1).padStart(2, "0");
+    const nextNo = String((modules?.length || 0) + 1).padStart(2, "0");
     addModule({
       moduleNo: `Module ${nextNo}`,
       title: "নতুন মডিউলের নাম এখানে লিখুন",
       desc: "মডিউলটির বিবরণ লিখুন।",
       lessons: ["লেসন ১: প্রথম লেসনের শিরোনাম লিখুন"],
     });
-    setOpenIndex(modules.length);
+    setOpenIndex(modules?.length || 0);
   };
 
   const handleAddLesson = (moduleIndex: number) => {
+    if (!modules) return;
     const targetModule = modules[moduleIndex];
-    const newLessonNo = targetModule.lessons.length + 1;
-    const updatedLessons = [...targetModule.lessons, `লেসন ${newLessonNo}: নতুন লেসনের টপিক লিখুন`];
+    const newLessonNo = (targetModule.lessons?.length || 0) + 1;
+    const updatedLessons = [...(targetModule.lessons || []), `লেসন ${newLessonNo}: নতুন লেসনের টপিক লিখুন`];
     updateModule(moduleIndex, { ...targetModule, lessons: updatedLessons });
   };
 
   const handleRemoveLesson = (moduleIndex: number, lessonIndex: number) => {
+    if (!modules) return;
     const targetModule = modules[moduleIndex];
-    const updatedLessons = targetModule.lessons.filter((_, i) => i !== lessonIndex);
+    const updatedLessons = (targetModule.lessons || []).filter((_, i) => i !== lessonIndex);
     updateModule(moduleIndex, { ...targetModule, lessons: updatedLessons });
   };
 
@@ -834,7 +824,7 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
       </div>
 
       <div className="max-w-3xl mx-auto space-y-4">
-        {modules.map((item, idx) => {
+        {modules?.map((item, idx) => {
           const isOpen = openIndex === idx;
           return (
             <div
@@ -892,7 +882,7 @@ function TabCurriculum({ courseSlug }: { courseSlug: string }) {
                   </p>
                   
                   <div className="bg-background/60 rounded-xl p-3 sm:p-3.5 border border-border/40 space-y-2">
-                    {item.lessons.map((lesson, lIdx) => (
+                    {item.lessons?.map((lesson, lIdx) => (
                       <div key={lIdx} className="flex items-center justify-between gap-2.5 font-bangla text-xs sm:text-sm text-foreground/85 group">
                         <div className="flex items-center gap-2.5 min-w-0 flex-1">
                           <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
@@ -1019,7 +1009,7 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-        {features.map((feat, fIdx) => (
+        {features?.map((feat, fIdx) => (
           <div
             key={feat.id || fIdx}
             className="glass p-5 sm:p-6 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative"
@@ -1036,7 +1026,7 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
             )}
 
             <div>
-              <div className="w-10 h-10 rounded-xl bg-foreground/[0.04] border border-border/50 flex items-center justify-center text-foreground/80 mb-4 group-hover:border-primary/40 group-hover:text-primary transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-foreground/[0.04] border border-border/50 flex items-center justify-center text-foreground/80 mb-4 group-hover:border-primary/40 group-hover:text-primary">
                 <Gift className="w-5 h-5" />
               </div>
 
@@ -1102,7 +1092,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
   );
 
   const handleAddStep = () => {
-    const nextStepNo = String(steps.length + 1).padStart(2, "0");
+    const nextStepNo = String((steps?.length || 0) + 1).padStart(2, "0");
     addStep({
       step: nextStepNo,
       badgeTitle: "পরবর্তী ধাপ",
@@ -1135,7 +1125,7 @@ function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
-        {steps.map((item, index) => (
+        {steps?.map((item, index) => (
           <div
             key={index}
             className="glass p-6 sm:p-7 rounded-2xl border border-border/60 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group shadow-xs relative overflow-hidden"
@@ -1220,12 +1210,12 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
     {
       id: "faq_3",
       q: "কোনো কারণে লাইভ ক্লাস মিস করলে কি রেকর্ডিং পাওয়া যাবে?",
-      a: "অবশ্যই! প্রতিটি লাইভ ক্লাসের পরপরই ওয়েবসাইট ড্যাশবোর্ডে ফুল এইচডি ক্লাউড রেকর্ডিং ব্যাকআপ দিয়ে দেওয়া হবে, যা আপনি আজীবন দেখতে পারবেন।",
+      a: "অবশ্যই! প্রতিটি লাইভ ক্লাসের পরপরই ওয়েবসাইট ড্যাশবোর্ডে ফুল এইচডি ক্লাউড রেকর্ডিং ব্যাকআপ দিয়ে দেওয়া হবে, যা আপনি আজীবন দেখতে পারবেন।",
     },
     {
       id: "faq_4",
       q: "এডিটিং শেখার জন্য আমার পিসি বা ল্যাপটপের কনফিগারেশন কেমন হতে হবে?",
-      a: "মিনিমাম Core i5 বা Ryzen 5 প্রসেসর, 8GB RAM (16GB হলে ভালো হয়) এবং একটি বেসিক ডেডিকেটেড গ্রাফিক্স কার্ড থাকলে ভালোমতো প্র্যাকটিস করতে পারবেন।",
+      a: "মিনিমাম Core i5 বা Ryzen 5 প্রসেসর, 8GB RAM (16GB হলে ভালো হয়) এবং একটি ডেডিকেটেড গ্রাফিক্স কার্ড থাকলে ভালোমতো প্র্যাকটিস করতে পারবেন।",
     },
     {
       id: "faq_5",
@@ -1245,14 +1235,17 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
       q: "আপনার নতুন প্রশ্নটি এখানে লিখুন?",
       a: "প্রশ্নটির বিস্তারিত উত্তর এখানে বাংলায় লিখুন।",
     });
-    setOpenFaq(faqs.length);
+    setOpenFaq(faqs?.length || 0);
   };
 
   return (
     <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla w-full overflow-hidden">
       <div className="max-w-3xl mx-auto text-center flex flex-col items-center px-1 sm:px-2">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs sm:text-sm font-medium tracking-wide mb-4">
-          <HelpCircle className="w-3.5 h-3.5" />
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+          </span>
           <EditableText id={`course.${courseSlug}.faq.badge`}>
             সাধারণ প্রশ্নোত্তর
           </EditableText>
@@ -1272,7 +1265,7 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
       </div>
 
       <div className="max-w-3xl mx-auto space-y-3.5">
-        {faqs.map((faq, i) => {
+        {faqs?.map((faq, i) => {
           const isOpen = openFaq === i;
           return (
             <div
@@ -1384,8 +1377,7 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
-    // SiteShell দিয়ে মোড়ানো যাতে অরিজিনাল হেডার ও লোগো পুরোপুরি সুরক্ষিত থাকে
-    // সিএসএস দিয়ে পেজের নিচের ডিফল্ট বড় ফুটার বন্ধ রাখা হয়েছে
+    // SiteShell দিয়ে মোড়ানো যাতে আসল হেডার ও লোগো পুরোপুরি সুরক্ষিত থাকে
     <div className="[&>div>footer]:!hidden [&>footer]:!hidden">
       <SiteShell>
         {showModal && (
@@ -1463,9 +1455,10 @@ function CourseDetail() {
               <span>All courses</span>
             </Link>
 
-            {/* ================= টপ ফোল্ড ================= */}
+            {/* ================= টপ ফোল্ড: প্রিমিয়াম কোর্স ব্যানার রিডিজাইন (আর্টিকেল লুক রিমুভড) ================= */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-20">
               
+              {/* বামপাশ: ভ্যালু প্রোপজিশন ও কোর্স ব্যানার ফ্রেম */}
               <div className="lg:col-span-7 flex flex-col space-y-5 sm:space-y-6 font-bangla min-w-0">
                 
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-border/80 bg-foreground/[0.04] w-fit shadow-2xs">
@@ -1477,9 +1470,10 @@ function CourseDetail() {
                   </span>
                 </div>
 
-                {/* থাম্বনেইল ও হেডলাইন-ডেসক্রিপশন একত্রিত ফ্রেম (মোবাইলে একদম মিশে থাকবে) */}
-                <div className="glass-strong rounded-3xl border border-border/70 shadow-sm relative overflow-hidden backdrop-blur-md">
+                {/* কোর্স ব্যানার কার্ড (থাম্বনেইল ও টাইটেলসহ প্রিমিয়াম লুক) */}
+                <div className="glass-strong rounded-3xl border border-border/70 shadow-lg relative overflow-hidden backdrop-blur-md">
                   
+                  {/* এজ-টু-এজ থাম্বনেইল ব্যানার */}
                   <div className="block lg:hidden w-full border-b border-border/40">
                     <div 
                       onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
@@ -1488,21 +1482,21 @@ function CourseDetail() {
                       <EditableImage
                         id={`course.thumb.${course.slug}`}
                         defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
-                        alt="Batch 03 Cover Preview"
+                        alt="Batch 03 Course Banner"
                         className="w-full h-full"
                         imgClassName="transition-transform duration-500 group-hover:scale-105"
                       />
                       {previewVideoId && (
                         <>
-                          <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors">
+                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors">
                             <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
                               <Play className="w-5 h-5 fill-white ml-0.5" />
                             </div>
                           </div>
-                          <div className="absolute top-2.5 left-2.5">
-                            <span className="px-2 py-0.5 rounded-[4px] text-[10px] font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans flex items-center gap-1">
-                              <Play className="w-2.5 h-2.5 fill-white" />
-                              <span>Watch Intro</span>
+                          <div className="absolute top-3 left-3">
+                            <span className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-black/75 text-white backdrop-blur-md border border-white/10 font-sans flex items-center gap-1.5 shadow-sm">
+                              <Play className="w-3 h-3 fill-white" />
+                              <span>Watch Preview</span>
                             </span>
                           </div>
                         </>
@@ -1510,13 +1504,23 @@ function CourseDetail() {
                     </div>
                   </div>
 
+                  {/* কোর্স হেডলাইন ও মেটা ট্যাগ */}
                   <div className="p-5 sm:p-7 space-y-4">
+                    
+                    {/* কোর্স ক্যাটাগরি বা ইন্ডিকেটর ট্যাগ */}
+                    <div className="flex flex-wrap items-center gap-2 text-xs font-mono font-semibold uppercase text-primary tracking-wider">
+                      <span className="px-2.5 py-1 rounded-lg bg-primary/10 border border-primary/20">Masterclass</span>
+                      <span>•</span>
+                      <span className="text-muted-foreground">Beginner to Pro</span>
+                    </div>
+
                     <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.25] text-2xl sm:text-3xl lg:text-4xl text-left break-words">
                       <EditableText id={`course.${course.slug}.hero.title`}>
                         Advanced Video Editing & Retelling (Batch 03)
                       </EditableText>
                     </h1>
 
+                    {/* ডেসক্রিপশন */}
                     <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-4">
                       <p>
                         <EditableText id={`course.${course.slug}.hero.desc.1`}>
@@ -1534,10 +1538,30 @@ function CourseDetail() {
                         </EditableText>
                       </p>
                     </div>
+
+                    {/* মোবাইল স্ক্রিনের জন্য কুইক প্রাইস ও এনরোল বার (যাতে স্ক্রল করে নিচে না যেতে হয়) */}
+                    <div className="block lg:hidden pt-4 border-t border-border/40 flex items-center justify-between gap-4">
+                      <div>
+                        <span className="text-xs text-muted-foreground block font-mono">Special Price</span>
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-2xl font-extrabold text-foreground font-mono">৳৩,০০০</span>
+                          <span className="text-xs text-muted-foreground line-through font-mono">৳৫,০০০</span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setShowModal(true)}
+                        className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
+                      >
+                        <span>Enroll Now</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+
                   </div>
 
                 </div>
 
+                {/* ৪টি কোর বেনিফিট কার্ড */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                   <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                     <div className="p-2.5 rounded-xl bg-destructive/10 text-destructive shrink-0 mt-0.5">
