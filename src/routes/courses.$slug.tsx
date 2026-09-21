@@ -20,6 +20,10 @@ import {
   ArrowRight,
   Flame,
   ShieldCheck,
+  Film,
+  Globe,
+  XCircle,
+  Sparkles,
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
@@ -66,6 +70,7 @@ function useEvergreenTimer(hoursDuration = 24) {
   return timeLeft;
 }
 
+// এনরোলমেন্ট মডাল
 function EnrollmentModal({
   courseSlug,
   onClose,
@@ -85,6 +90,7 @@ function EnrollmentModal({
     trxId: "",
   });
 
+  // মারাব ভাইয়ের নিজস্ব পেমেন্ট ও হোয়াটসঅ্যাপ নম্বর
   const paymentNumber = "01790055690";
   const supportWhatsapp = "8801410341220";
 
@@ -262,6 +268,173 @@ TrxID: ${formData.trxId}`;
   );
 }
 
+// সেকশন ২: মার্কেট ডিমান্ড ও অপরচুনিটি সেকশন
+function MarketOpportunitySection({ courseSlug }: { courseSlug: string }) {
+  return (
+    <div className="mt-16 sm:mt-24 border-t border-border/40 pt-16 sm:pt-20">
+      
+      {/* সেকশন হেডার */}
+      <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-bangla tracking-wide shadow-2xs mb-5">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+          </span>
+          <EditableText id={`course.${courseSlug}.painpoint.badge`}>
+            মার্কেট ডিমান্ড ও বাস্তবতা
+          </EditableText>
+        </div>
+
+        <h2 className="font-bangla font-extrabold tracking-tight text-foreground text-[clamp(1.75rem,3.2vw+0.5rem,2.75rem)] leading-[1.25]">
+          <EditableText id={`course.${courseSlug}.painpoint.heading`}>
+            ভিডিও এখন সব জায়গায়, কিন্তু ইন্ডাস্ট্রি স্ট্যান্ডার্ড এডিটরের অভাব কেন?
+          </EditableText>
+        </h2>
+
+        <p className="font-bangla text-muted-foreground text-sm sm:text-base leading-relaxed mt-4 max-w-2xl">
+          <EditableText id={`course.${courseSlug}.painpoint.subheading`}>
+            বর্তমানে শুধু টুলসের কাট-পেস্ট জানা কোনো স্কিল নয়; সফল ক্যারিয়ার গড়তে প্রয়োজন স্টোরিটেলিং, সাউন্ড সাইকোলজি ও হাই-কনভার্টিং এডিটিং সেন্স।
+          </EditableText>
+        </p>
+      </div>
+
+      {/* ৩টি কোর ভ্যালু কার্ডস */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 sm:mt-16">
+        
+        {/* কার্ড ১ */}
+        <div className="glass-strong p-6 sm:p-7 rounded-3xl border border-border/60 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group shadow-xs hover:shadow-md">
+          <div>
+            <div className="icon-tile !bg-gradient-to-br !from-amber-500/20 !to-rose-500/20 text-rose-500 mb-5 group-hover:scale-105 transition-transform">
+              <Flame className="w-5 h-5" />
+            </div>
+            <h3 className="font-bangla font-bold text-base sm:text-lg text-foreground leading-snug">
+              <EditableText id={`course.${courseSlug}.card.1.title`}>
+                সবাই কনটেন্ট বানাচ্ছে, কিন্তু রিটেনশন পাচ্ছে কয়জন?
+              </EditableText>
+            </h3>
+            <p className="font-bangla text-xs sm:text-sm text-foreground/75 leading-relaxed mt-3">
+              <EditableText id={`course.${courseSlug}.card.1.desc`}>
+                ফেসবুক রিলস, ইউটিউব থেকে শুরু করে যেকোনো ব্র্যান্ড—সবারই ভিডিও প্রয়োজন। কিন্তু প্রথম ৩ সেকেন্ডে অডিয়েন্সকে ধরে রাখার মতো 'হুক' ও রিটেনশন সাইকোলজি জানা এডিটরের সংখ্যা খুবই নগণ্য।
+              </EditableText>
+            </p>
+          </div>
+          <div className="pt-6 mt-6 border-t border-border/40 flex items-center gap-2 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
+            <span>অডিয়েন্স সাইকোলজি শিখুন</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+
+        {/* কার্ড ২ */}
+        <div className="glass-strong p-6 sm:p-7 rounded-3xl border border-border/60 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group shadow-xs hover:shadow-md">
+          <div>
+            <div className="icon-tile !bg-gradient-to-br !from-primary/25 !to-violet-500/20 text-primary mb-5 group-hover:scale-105 transition-transform">
+              <Film className="w-5 h-5" />
+            </div>
+            <h3 className="font-bangla font-bold text-base sm:text-lg text-foreground leading-snug">
+              <EditableText id={`course.${courseSlug}.card.2.title`}>
+                সফটওয়্যারের বোতাম চেনা নয়, দরকার সিনেমাটিক ভিশন
+              </EditableText>
+            </h3>
+            <p className="font-bangla text-xs sm:text-sm text-foreground/75 leading-relaxed mt-3">
+              <EditableText id={`course.${courseSlug}.card.2.desc`}>
+                ইউটিউবের ফ্রি টিউটোরিয়াল দেখে সফটওয়্যার চালানো শেখা যায়, কিন্তু অডিয়েন্সের ইমোশন নিয়ন্ত্রণ করা, রাইট পেসিং এবং পাওয়ারফুল সাউন্ড ডিজাইন করার জন্য দরকার প্র্যাকটিক্যাল মেন্টরশিপ।
+              </EditableText>
+            </p>
+          </div>
+          <div className="pt-6 mt-6 border-t border-border/40 flex items-center gap-2 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
+            <span>রিয়েল এডিটিং মেথডোলজি</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+
+        {/* কার্ড ৩ */}
+        <div className="glass-strong p-6 sm:p-7 rounded-3xl border border-border/60 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group shadow-xs hover:shadow-md">
+          <div>
+            <div className="icon-tile !bg-gradient-to-br !from-emerald-500/20 !to-teal-500/20 text-emerald-500 mb-5 group-hover:scale-105 transition-transform">
+              <Globe className="w-5 h-5" />
+            </div>
+            <h3 className="font-bangla font-bold text-base sm:text-lg text-foreground leading-snug">
+              <EditableText id={`course.${courseSlug}.card.3.title`}>
+                সস্তা ফ্রিল্যান্সিং নয়, প্রিমিয়াম ক্লায়েন্ট ডিল
+              </EditableText>
+            </h3>
+            <p className="font-bangla text-xs sm:text-sm text-foreground/75 leading-relaxed mt-3">
+              <EditableText id={`course.${courseSlug}.card.3.desc`}>
+                লোকাল ব্র্যান্ড, এজেন্সি এবং আন্তর্জাতিক কনটেন্ট ক্রিয়েটররা এখন হাই-এন্ড ভিডিওর জন্য প্রিমিয়াম পে করতে প্রস্তুত। আপনার দরকার শুধু একটি স্ট্রং পোর্টফোলিও ও সঠিক কমিউনিকেশন সিস্টেম।
+              </EditableText>
+            </p>
+          </div>
+          <div className="pt-6 mt-6 border-t border-border/40 flex items-center gap-2 text-xs font-bangla font-medium text-muted-foreground group-hover:text-primary transition-colors">
+            <span>হাই-টিকেটিং ফ্রেমওয়ার্ক</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+
+      </div>
+
+      {/* বিফোর বনাম আফটার কম্প্যারিজন ব্যানার */}
+      <div className="mt-12 sm:mt-16 glass-strong rounded-3xl border border-border/70 p-6 sm:p-10 shadow-lg relative overflow-hidden backdrop-blur-md">
+        <div className="text-center mb-8">
+          <h3 className="font-bangla text-lg sm:text-xl font-bold text-foreground">
+            <EditableText id={`course.${courseSlug}.compare.heading`}>
+              আপনার এডিটিং জার্নির মোড় ঘুরিয়ে দেবে ব্যাচ ৩
+            </EditableText>
+          </h3>
+          <p className="font-bangla text-xs sm:text-sm text-muted-foreground mt-1">
+            একটি সাধারণ কাট-পেস্ট এডিটর আর হাই-ভ্যালু ভিডিও রিটেলারের পার্থক্য দেখে নিন
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 divide-y md:divide-y-0 md:divide-x divide-border/60">
+          {/* সাধারণ এডিটর */}
+          <div className="space-y-4 pt-4 md:pt-0">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-destructive/10 text-destructive text-xs font-bangla font-semibold">
+              <span>সাধারণ এডিটর (YouTube Learner)</span>
+            </div>
+            <ul className="space-y-3 font-bangla text-xs sm:text-sm text-foreground/75">
+              <li className="flex items-start gap-2.5">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span>ঘণ্টার পর ঘণ্টা এলোমেলো ইউটিউব টিউটোরিয়ালে কনফিউজড ও দিকহারা।</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span>সাউন্ড ডিজাইন ও কালার সাইকোলজি ছাড়া একদম ফ্ল্যাট, প্রাণহীন এডিট।</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+                <span>মার্কেটপ্লেসে সস্তায় ৫০০-১০০০ টাকার কাজের জন্য বিড করে রিজেক্ট হওয়া।</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* ব্যাচ ৩ মাস্টারক্লাস গ্র্যাজুয়েট */}
+          <div className="space-y-4 pt-6 md:pt-0 md:pl-8 lg:pl-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-bangla font-semibold">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>ব্যাচ ৩ গ্র্যাজুয়েট (growVelo Pro Editor)</span>
+            </div>
+            <ul className="space-y-3 font-bangla text-xs sm:text-sm text-foreground/90 font-medium">
+              <li className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                <span>সরাসরি রিয়েল লাইফ প্রজেক্ট ও সিনেমাটিক স্টোরিটেলিং ফ্রেমওয়ার্ক মাস্টার করা।</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                <span>প্রো-লেভেল সাউন্ড ডিজাইন, কালার গ্রেডিং ও হাই-রিটেনশন মোশন অ্যানিমেশন।</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                <span>আন্তর্জাতিক মানের প্রফেশনাল পোর্টফোলিও ও সরাসরি ক্লায়েন্ট ডিল ক্লোজিং স্কিল।</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  );
+}
+
 function CourseDetail() {
   const { slug } = Route.useParams();
   const course = COURSES.find((c) => c.slug === slug)!;
@@ -367,7 +540,7 @@ function CourseDetail() {
       <section className="bg-background min-h-screen pt-24 sm:pt-32 pb-16 sm:pb-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
-          {/* All courses লিঙ্ক: ৩০-৪০% ছোট এবং স্লিক মিনিমাল অ্যাডজাস্টমেন্ট */}
+          {/* All courses লিঙ্ক: ৩০-৪০% ছোট ও স্লিক */}
           <Link
             to="/courses"
             className="mb-6 inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono tracking-wider uppercase transition-opacity hover:opacity-60 text-foreground/60"
@@ -440,9 +613,7 @@ function CourseDetail() {
                       </EditableText>
                     </h3>
                     <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                      <EditableText id={`course.${course.slug}.benefit.2.desc`}>
-                        স্টুডেন্ট কমিউনিটি, যেকোনো টেকনিক্যাল সাপোর্ট ও উইকলি মেন্টর ফিডব্যাক।
-                      </EditableText>
+                      স্টুডেন্ট কমিউনিটি, যেকোনো টেকনিক্যাল সাপোর্ট ও উইকলি মেন্টর ফিডব্যাক।
                     </p>
                   </div>
                 </div>
@@ -459,9 +630,7 @@ function CourseDetail() {
                       </EditableText>
                     </h3>
                     <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                      <EditableText id={`course.${course.slug}.benefit.3.desc`}>
-                        স্ট্রং পোর্টফোলিও তৈরি এবং সরাসরি হাই-টিকেটিং ক্লায়েন্ট হান্টিং গাইড।
-                      </EditableText>
+                      স্ট্রং পোর্টফোলিও তৈরি এবং সরাসরি হাই-টিকেটিং ক্লায়েন্ট হান্টিং গাইড।
                     </p>
                   </div>
                 </div>
@@ -478,9 +647,7 @@ function CourseDetail() {
                       </EditableText>
                     </h3>
                     <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                      <EditableText id={`course.${course.slug}.benefit.4.desc`}>
-                        প্রিমিয়াম সাউন্ড এফেক্টস (SFX), কালার LUTs এবং রেডি মোশন প্রিসেট ফাইল।
-                      </EditableText>
+                      প্রিমিয়াম সাউন্ড এফেক্টস (SFX), কালার LUTs এবং রেডি মোশন প্রিসেট ফাইল।
                     </p>
                   </div>
                 </div>
@@ -519,12 +686,9 @@ function CourseDetail() {
                 {/* প্রাইসিং ও স্পষ্ট ৫০০০ টাকার স্ট্রাইকথ্রু ক্রস লাইন */}
                 <div className="flex items-baseline justify-between mb-4">
                   <div className="flex items-baseline gap-3">
-                    {/* ৩,০০০ টাকা ছাড়ের অফার প্রাইস */}
                     <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-mono">
                       <EditableText id={`course.${course.slug}.price`}>{course.price || "৳৩,০০০"}</EditableText>
                     </span>
-
-                    {/* ৫,০০০ টাকা ক্রস (স্পষ্ট ভিজিবল স্ট্রাইকথ্রু) */}
                     <span className="text-base sm:text-lg text-muted-foreground/60 line-through decoration-rose-500/80 decoration-[1.5px] font-mono font-medium">
                       <EditableText id={`course.${course.slug}.oldPrice`}>৳৫,০০০</EditableText>
                     </span>
@@ -537,7 +701,7 @@ function CourseDetail() {
                   </span>
                 </div>
 
-                {/* হাইলাইটেড কাউন্টডাউন টাইমার */}
+                {/* কাউন্টডাউন টাইমার */}
                 <div className="mb-5 p-3 sm:p-3.5 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-transparent flex items-center justify-between shadow-xs">
                   <div className="flex items-center gap-2 font-sans font-medium text-xs sm:text-[13px] text-amber-600 dark:text-amber-400">
                     <Flame className="w-4 h-4 fill-amber-500 text-amber-500 animate-pulse" />
@@ -558,7 +722,7 @@ function CourseDetail() {
                   </div>
                 </div>
 
-                {/* মেটা ইনফরমেশন তালিকা: থিম কালার টিউন করা আইকনবক্স */}
+                {/* মেটা ইনফরমেশন তালিকা */}
                 <div className="space-y-3.5 mb-6 border-y border-border/40 py-4 font-sans text-sm">
                   
                   {/* আইটেম ১: ব্যাচ শুরু ১৫ অক্টোবর */}
@@ -676,6 +840,9 @@ function CourseDetail() {
             </div>
 
           </div>
+
+          {/* ================= সেকশন ২: মার্কেট অপরচুনিটি ও পেইন পয়েন্ট ================= */}
+          <MarketOpportunitySection courseSlug={course.slug} />
 
           {/* ================= কারিকুলাম সেকশন ================= */}
           <div className="mt-16 sm:mt-24">
