@@ -44,7 +44,7 @@ import {
   AlertCircle,
   Smartphone,
 } from "lucide-react";
-import { SiteShell, COURSES } from "../components/site/sections";
+import { COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { EditableText } from "@/components/cms/EditableText";
 
@@ -147,7 +147,7 @@ function useDynamicList<T>(storageKey: string, defaultItems: T[]) {
   return { items, addItem, removeItem, updateItem };
 }
 
-// ================= পরিমার্জিত ও নির্ভুল ইনস্ট্রাকশনযুক্ত এনরোলমেন্ট মডাল =================
+// ================= এনরোলমেন্ট মডাল =================
 function EnrollmentModal({
   courseSlug,
   onClose,
@@ -210,7 +210,6 @@ TrxID: ${formData.trxId}`;
 
         {!isSubmitted ? (
           <>
-            {/* টপ হেডার ও অ্যামাউন্ট */}
             <div className="text-center mb-5">
               <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground">Total Fee</span>
               <div className="text-3xl sm:text-4xl font-extrabold text-foreground font-mono mt-0.5">৳৩,০০০</div>
@@ -219,7 +218,6 @@ TrxID: ${formData.trxId}`;
               </h3>
             </div>
 
-            {/* মেথড সিলেকশন বাটন */}
             <div className="grid grid-cols-2 gap-2 p-1.5 rounded-2xl glass border border-border/70 mb-4 bg-foreground/[0.03]">
               <button
                 type="button"
@@ -245,7 +243,6 @@ TrxID: ${formData.trxId}`;
               </button>
             </div>
 
-            {/* নম্বর কপি কার্ড */}
             <div className="glass rounded-2xl p-4 border border-primary/30 bg-primary/5 mb-4 space-y-2.5">
               <div className="flex items-center justify-between text-xs sm:text-sm">
                 <span className="text-foreground/90 font-medium">
@@ -271,7 +268,6 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            {/* স্পষ্ট সতর্কবার্তা */}
             <div className="p-3 rounded-xl bg-destructive/10 border border-destructive/25 text-destructive text-xs sm:text-[13px] font-semibold leading-relaxed flex items-start gap-2 mb-4">
               <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-destructive" />
               <span>
@@ -279,14 +275,12 @@ TrxID: ${formData.trxId}`;
               </span>
             </div>
 
-            {/* পরিচ্ছন্ন ও সুন্দর ১, ২, ৩, ৪ স্টেপ লিস্ট (কোনো ওভারল্যাপিং ছাড়া) */}
             <div className="glass rounded-2xl p-4 sm:p-4.5 border border-border/70 mb-5 space-y-3 bg-foreground/[0.02]">
               <div className="text-xs font-bold text-foreground uppercase tracking-wide flex items-center gap-1.5 mb-1">
                 <Smartphone className="w-3.5 h-3.5 text-primary" />
                 <span>পেমেন্ট করার নিয়মাবলী:</span>
               </div>
 
-              {/* স্টেপ ১ */}
               <div className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-primary/15 text-primary font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5 font-mono">
                   ১
@@ -296,7 +290,6 @@ TrxID: ${formData.trxId}`;
                 </p>
               </div>
 
-              {/* স্টেপ ২ */}
               <div className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-primary/15 text-primary font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5 font-mono">
                   ২
@@ -306,7 +299,6 @@ TrxID: ${formData.trxId}`;
                 </p>
               </div>
 
-              {/* স্টেপ ৩ */}
               <div className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-primary/15 text-primary font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5 font-mono">
                   ৩
@@ -316,7 +308,6 @@ TrxID: ${formData.trxId}`;
                 </p>
               </div>
 
-              {/* স্টেপ ৪ */}
               <div className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-primary/15 text-primary font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5 font-mono">
                   ৪
@@ -327,7 +318,6 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            {/* ভেরিফিকেশন ফর্ম */}
             <form onSubmit={handleSubmit} className="space-y-3 text-xs sm:text-sm">
               <div>
                 <label className="block text-foreground font-medium mb-1 uppercase tracking-wider text-[11px]">
@@ -585,8 +575,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 divide-y md:divide-y-0 md:divide-x divide-border/60">
-          
-          {/* সাধারণ এডিটর */}
           <div className="space-y-3.5 pt-3 md:pt-0">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-destructive/10 text-destructive text-xs font-semibold">
               <span><EditableText id={`course.${courseSlug}.compare.bad.badge`}>সাধারণ এডিটর (YouTube Learner)</EditableText></span>
@@ -623,7 +611,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
             </button>
           </div>
 
-          {/* ব্যাচ ৩ মাস্টারক্লাস গ্র্যাজুয়েট */}
           <div className="space-y-3.5 pt-5 md:pt-0 md:pl-8">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-semibold">
               <Sparkles className="w-3.5 h-3.5" />
@@ -660,7 +647,6 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
               <span>+ নতুন লাইন যোগ করুন (Add Point)</span>
             </button>
           </div>
-
         </div>
       </div>
     </div>
@@ -1317,7 +1303,24 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
-    <SiteShell>
+    // বড় ডিফল্ট ফুটার বন্ধ রাখার জন্য কাস্টম ফ্রেম ব্যবহার করা হলো
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
+      
+      {/* স্লিক টপ নেভিগেশন বার */}
+      <header className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md border-b border-border/40 bg-background/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold text-foreground hover:opacity-80 transition-opacity">
+            <span className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-black text-sm">gV</span>
+            <span>GrowVelo</span>
+          </Link>
+          <div className="flex items-center gap-3">
+            <Link to="/dashboard" className="gloss-btn !py-2 !px-4 text-xs sm:text-sm font-semibold">
+              Dashboard <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </header>
+
       {showModal && (
         <EnrollmentModal
           courseSlug={slug}
@@ -1382,7 +1385,7 @@ function CourseDetail() {
         </div>
       )}
 
-      <div className="pt-24 sm:pt-32 pb-12 sm:pb-16 overflow-x-hidden">
+      <main className="flex-1 pt-24 sm:pt-28 pb-12 sm:pb-16 overflow-x-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
           {/* All courses লিঙ্ক */}
@@ -1409,48 +1412,48 @@ function CourseDetail() {
                 </span>
               </div>
 
-              {/* মোবাইল প্রিভিউ কভার ও ভিডিও বাটন */}
-              <div className="block lg:hidden w-full my-1">
-                <div 
-                  onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
-                  className={`relative aspect-video w-full rounded-2xl overflow-hidden border border-border/50 group shadow-md ${
-                    previewVideoId ? "cursor-pointer" : ""
-                  }`}
-                >
-                  <EditableImage
-                    id={`course.thumb.${course.slug}`}
-                    defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
-                    alt="Batch 03 Cover Preview"
-                    className="w-full h-full"
-                    imgClassName="transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {previewVideoId ? (
-                    <>
-                      <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors">
-                        <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
-                          <Play className="w-5 h-5 fill-white ml-0.5" />
+              {/* ================= থাম্বনেইল ও হেডলাইন-ডেসক্রিপশন একত্রিত কার্ড ================= */}
+              <div className="glass-strong rounded-3xl p-4 sm:p-7 border border-border/70 shadow-sm relative overflow-hidden backdrop-blur-md space-y-4 sm:space-y-5">
+                
+                {/* কার্ডের শীর্ষে প্রিভিউ কভার ও ভিডিও বাটন (শুধু মোবাইলে দেখাবে) */}
+                <div className="block lg:hidden w-full overflow-hidden rounded-2xl border border-border/50 shadow-xs mb-2">
+                  <div 
+                    onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
+                    className={`relative aspect-video w-full group ${previewVideoId ? "cursor-pointer" : ""}`}
+                  >
+                    <EditableImage
+                      id={`course.thumb.${course.slug}`}
+                      defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
+                      alt="Batch 03 Cover Preview"
+                      className="w-full h-full"
+                      imgClassName="transition-transform duration-500 group-hover:scale-105"
+                    />
+                    {previewVideoId ? (
+                      <>
+                        <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors">
+                          <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
+                            <Play className="w-5 h-5 fill-white ml-0.5" />
+                          </div>
                         </div>
-                      </div>
-                      <div className="absolute top-2.5 left-2.5">
-                        <span className="px-2 py-0.5 rounded-[4px] text-[10px] font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans flex items-center gap-1">
-                          <Play className="w-2.5 h-2.5 fill-white" />
-                          <span>Watch Intro</span>
-                        </span>
-                      </div>
-                    </>
-                  ) : null}
+                        <div className="absolute top-2.5 left-2.5">
+                          <span className="px-2 py-0.5 rounded-[4px] text-[10px] font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans flex items-center gap-1">
+                            <Play className="w-2.5 h-2.5 fill-white" />
+                            <span>Watch Intro</span>
+                          </span>
+                        </div>
+                      </>
+                    ) : null}
+                  </div>
                 </div>
-              </div>
 
-              {/* টাইটেল ও ডেসক্রিপশন লাক্সারি গ্লাস কার্ড */}
-              <div className="glass-strong rounded-3xl p-5 sm:p-7 border border-border/70 shadow-sm relative overflow-hidden backdrop-blur-md space-y-4">
-                <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.24] text-2xl sm:text-3xl lg:text-4xl text-left break-words">
+                <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.25] text-2xl sm:text-3xl lg:text-4xl text-left break-words">
                   <EditableText id={`course.${course.slug}.hero.title`}>
                     Advanced Video Editing & Retelling (Batch 03)
                   </EditableText>
                 </h1>
 
-                <div className="space-y-3 text-xs sm:text-sm text-foreground/80 leading-relaxed font-bangla border-t border-border/40 pt-4">
+                {/* বড় ও স্পষ্ট ফন্ট সাইজ এবং আরামদায়ক লাইন স্পেসিং */}
+                <div className="space-y-3.5 text-[13px] sm:text-base text-foreground/85 leading-[1.7] font-bangla border-t border-border/40 pt-4">
                   <p>
                     <EditableText id={`course.${course.slug}.hero.desc.1`}>
                       ইউটিউবে শত শত টিউটোরিয়াল দেখেও আসল এডিটিং ফ্লো মিলছে না? শুধু সফটওয়্যারের বাটন চেনা কোনো স্থায়ী স্কিল নয়।
@@ -1461,7 +1464,7 @@ function CourseDetail() {
                       এই মাস্টারক্লাসে আপনি শিখবেন আন্তর্জাতিক মানের সিনেমাটিক স্টোরিটেলিং, ৩ সেকেন্ড রিটেনশন হুক এবং সাউন্ড ডিজাইনের আসল সিক্রেট।
                     </EditableText>
                   </p>
-                  <p className="text-foreground/90 font-medium">
+                  <p className="text-foreground font-semibold">
                     <EditableText id={`course.${course.slug}.hero.desc.3`}>
                       একদম স্ক্র্যাচ থেকে শুরু করে রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে নিজের হাই পেয়িং পোর্টফোলিও তৈরি করুন আমাদের সাথে।
                     </EditableText>
@@ -1541,8 +1544,8 @@ function CourseDetail() {
             </div>
 
             {/* ডানপাশ: স্টিকি কার্ড */}
-            <div className="lg:col-span-5 lg:sticky lg:top-28">
-              <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
+            <div className="lg:col-span-5 lg:sticky lg:top-24 w-full">
+              <div className="glass-strong rounded-3xl p-5 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
                 
                 <div 
                   onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
@@ -1793,25 +1796,26 @@ function CourseDetail() {
             </div>
           </div>
 
-          {/* ================= ৪. কোর্স পেজের জন্য স্লিম ফুটার ================= */}
-          <footer className="w-full py-6 border-t border-border/40 text-center font-sans">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-              <p>© 2026 growVelo Studio. All rights reserved.</p>
-              <div className="flex items-center gap-4 text-[11px] tracking-wide">
-                <Link to="/legal" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-                <span>•</span>
-                <Link to="/legal" className="hover:text-foreground transition-colors">Terms of Service</Link>
-                <span>•</span>
-                <a href={`https://wa.me/8801410341220`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                  WhatsApp Support
-                </a>
-              </div>
-            </div>
-          </footer>
-
         </div>
-      </div>
-    </SiteShell>
+      </main>
+
+      {/* ================= ৪. কোর্স পেজের জন্য একক স্লিম ফুটার (বড় ফুটার চিরতরে বন্ধ) ================= */}
+      <footer className="w-full py-6 border-t border-border/40 text-center font-sans bg-background">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+          <p>© 2026 growVelo Studio. All rights reserved.</p>
+          <div className="flex items-center gap-4 text-[11px] tracking-wide">
+            <Link to="/legal" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+            <span>•</span>
+            <Link to="/legal" className="hover:text-foreground transition-colors">Terms of Service</Link>
+            <span>•</span>
+            <a href={`https://wa.me/8801410341220`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+              WhatsApp Support
+            </a>
+          </div>
+        </div>
+      </footer>
+
+    </div>
   );
 }
 
@@ -1836,24 +1840,20 @@ export const Route = createFileRoute("/courses/$slug")({
     };
   },
   notFoundComponent: () => (
-    <SiteShell>
-      <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-        <h1 className="font-display text-2xl font-semibold">Course not found</h1>
-        <Link to="/courses" className="gloss-btn mt-6 inline-flex">
-          Back to courses
-        </Link>
-      </div>
-    </SiteShell>
+    <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
+      <h1 className="font-display text-2xl font-semibold">Course not found</h1>
+      <Link to="/courses" className="gloss-btn mt-6 inline-flex">
+        Back to courses
+      </Link>
+    </div>
   ),
   errorComponent: () => (
-    <SiteShell>
-      <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
-        <h1 className="font-display text-2xl font-semibold">Something went wrong</h1>
-        <Link to="/courses" className="gloss-btn mt-6 inline-flex">
-          Back to courses
-        </Link>
-      </div>
-    </SiteShell>
+    <div className="mx-auto max-w-[900px] px-5 py-24 text-center">
+      <h1 className="font-display text-2xl font-semibold">Something went wrong</h1>
+      <Link to="/courses" className="gloss-btn mt-6 inline-flex">
+        Back to courses
+      </Link>
+    </div>
   ),
   component: CourseDetail,
 });
