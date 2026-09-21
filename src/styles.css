@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ---------- Semantic tokens (shadcn) mapped into Tailwind v4 ---------- */
+/* Semantic tokens (shadcn) mapped into Tailwind v4 */
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -43,30 +43,31 @@
   --font-bangla: "Hind Siliguri", "Noto Sans Bengali", var(--font-body);
 }
 
-/* ---------- Sticker-note palette (light) ---------- */
+/* Sticker-note palette (light) */
 :root {
   --radius: 1rem;
 
-  --background: oklch(0.985 0.012 170);      /* base mint */
+  --background: oklch(0.985 0.012 170); /* base mint */
+  --foreground: oklch(0.14 0.02 280);
   --bg-gradient: radial-gradient(45rem 30rem at 5% 0%, color-mix(in oklab, var(--mint) 15%, transparent), transparent 75%),
     radial-gradient(50rem 35rem at 100% 5%, color-mix(in oklab, var(--brand) 12%, transparent), transparent 75%),
     radial-gradient(40rem 30rem at 0% 100%, color-mix(in oklab, var(--coral) 12%, transparent), transparent 75%),
     radial-gradient(45rem 30rem at 100% 100%, color-mix(in oklab, var(--lemon) 12%, transparent), transparent 75%);
-  --foreground: oklch(0.14 0.02 280);
 
-  --brand: oklch(0.58 0.24 295);             /* electric violet */
+  --brand: oklch(0.58 0.24 295); /* electric violet */
   --mint: oklch(0.82 0.14 175);
   --coral: oklch(0.72 0.19 25);
   --lemon: oklch(0.90 0.16 95);
   --blush: oklch(0.83 0.10 350);
   --sky: oklch(0.83 0.10 235);
 
-  /* surface + highlight primitives (theme-aware) */
-  --paper: oklch(1 0 0);                     /* card / glass base */
-  --hl: rgba(255, 255, 255, 0.9);            /* restored inner top highlight */
+  --paper: oklch(1 0 0);
+
+  /* highlight primitives (theme-aware) */
+  --hl: rgba(255, 255, 255, 0.9);
   --hl-strong: rgba(255, 255, 255, 1);
-  --hl-sheen: rgba(255, 255, 255, 0.55);     /* diagonal gloss sweep */
-  --tint-mix: 100%;                          /* restored tint strength */
+  --hl-sheen: rgba(255, 255, 255, 0.55);
+  --tint-mix: 100%;
 
   --card: oklch(1 0 0 / 82%);
   --card-foreground: var(--foreground);
@@ -84,44 +85,46 @@
   color-scheme: light;
 }
 
-/* ---------- Dark theme ---------- */
+/* Dark theme - Rich Obsidian & Vibrant Contrast (ফ্যাকাসে ভাব সম্পূর্ণ দূর করা হয়েছে) */
 .dark {
-  --background: oklch(0.12 0.015 285);      /* dark ink */
-  --bg-gradient: radial-gradient(45rem 30rem at 5% 0%, color-mix(in oklab, var(--mint) 20%, transparent), transparent 68%),
-    radial-gradient(50rem 35rem at 100% 5%, color-mix(in oklab, var(--brand) 30%, transparent), transparent 68%),
-    radial-gradient(40rem 30rem at 0% 100%, color-mix(in oklab, var(--coral) 18%, transparent), transparent 68%),
-    radial-gradient(45rem 30rem at 100% 100%, color-mix(in oklab, var(--lemon) 14%, transparent), transparent 68%);
-  --foreground: oklch(0.85 0.01 260);       /* softened white text */
+  --background: oklch(0.08 0.015 285);
+  --bg-gradient: radial-gradient(45rem 30rem at 5% 0%, color-mix(in oklab, var(--mint) 16%, transparent), transparent 75%),
+    radial-gradient(50rem 35rem at 100% 5%, color-mix(in oklab, var(--brand) 22%, transparent), transparent 75%),
+    radial-gradient(40rem 30rem at 0% 100%, color-mix(in oklab, var(--coral) 14%, transparent), transparent 75%),
+    radial-gradient(45rem 30rem at 100% 100%, color-mix(in oklab, var(--lemon) 12%, transparent), transparent 75%);
 
-  --brand: oklch(0.60 0.14 296);             /* desaturated violet for dark mode */
-  --mint: oklch(0.72 0.08 175);              /* muted colors */
-  --coral: oklch(0.68 0.10 25);
-  --lemon: oklch(0.82 0.08 95);
-  --blush: oklch(0.72 0.06 350);
-  --sky: oklch(0.72 0.06 235);
+  --foreground: oklch(0.97 0.005 260);
 
-  --paper: oklch(0.16 0.02 286);
-  --hl: rgba(255, 255, 255, 0.04);
-  --hl-strong: rgba(255, 255, 255, 0.06);
-  --hl-sheen: rgba(255, 255, 255, 0.03);
+  /* ভাইব্রেন্ট স্যাচুরেটেড অ্যাকসেন্ট */
+  --brand: oklch(0.68 0.22 295);
+  --mint: oklch(0.78 0.14 175);
+  --coral: oklch(0.74 0.18 25);
+  --lemon: oklch(0.88 0.15 95);
+  --blush: oklch(0.78 0.12 350);
+  --sky: oklch(0.78 0.12 235);
 
-  --card: oklch(0.235 0.026 286 / 85%);
+  --paper: oklch(0.12 0.02 285);
+  --hl: rgba(255, 255, 255, 0.08);
+  --hl-strong: rgba(255, 255, 255, 0.15);
+  --hl-sheen: rgba(255, 255, 255, 0.06);
+
+  --card: oklch(0.13 0.02 285 / 85%);
   --card-foreground: var(--foreground);
   --primary: var(--brand);
-  --primary-foreground: oklch(0.14 0.02 285);
-  --secondary: oklch(0.24 0.02 286);
+  --primary-foreground: oklch(0.99 0.005 260);
+  --secondary: oklch(0.18 0.02 285);
   --secondary-foreground: var(--foreground);
-  --muted: oklch(0.25 0.02 286);
-  --muted-foreground: oklch(0.7 0.02 280);
+  --muted: oklch(0.16 0.02 285);
+  --muted-foreground: oklch(0.75 0.015 260);
   --accent: var(--brand);
   --accent-foreground: oklch(0.99 0.005 260);
-  --border: oklch(0.75 0.03 280 / 22%);
+  --border: oklch(0.26 0.025 285 / 65%);
   --ring: var(--brand);
 
   color-scheme: dark;
 }
 
-/* ---------- Base ---------- */
+/* Base */
 @layer base {
   * {
     border-color: var(--color-border);
@@ -149,7 +152,7 @@
   }
 }
 
-/* ---------- Aurora backgrounds ---------- */
+/* Aurora backgrounds */
 @utility aurora-bg {
   position: relative;
   background-color: var(--background);
@@ -159,6 +162,7 @@
     radial-gradient(40rem 30rem at 0% 100%, color-mix(in oklab, var(--coral) 12%, transparent), transparent 75%),
     radial-gradient(45rem 30rem at 100% 100%, color-mix(in oklab, var(--lemon) 12%, transparent), transparent 75%);
 }
+
 .dark .aurora-bg,
 .dark.aurora-bg {
   background-image:
@@ -175,6 +179,7 @@
     radial-gradient(50rem 35rem at 15% 10%, color-mix(in oklab, var(--lemon) 20%, transparent), transparent 70%),
     radial-gradient(45rem 32rem at 90% 90%, color-mix(in oklab, var(--mint) 25%, transparent), transparent 70%);
 }
+
 .dark .aurora-soft,
 .dark.aurora-soft {
   background-image:
@@ -191,11 +196,12 @@
     radial-gradient(45rem 32rem at 100% 100%, color-mix(in oklab, var(--coral) 50%, transparent), transparent 65%),
     radial-gradient(40rem 30rem at 100% 0%, color-mix(in oklab, var(--lemon) 20%, transparent), transparent 70%);
 }
+
 .dark .aurora-dark {
   background-color: oklch(0.20 0.035 286);
 }
 
-/* ---------- Glass ---------- */
+/* Glass */
 @utility glass {
   background: color-mix(in oklab, var(--paper) 75%, transparent);
   backdrop-filter: blur(12px) saturate(160%);
@@ -205,31 +211,34 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.4),
     0 4px 20px -10px color-mix(in oklab, var(--brand) 10%, transparent);
 }
+
 .dark .glass {
-  background: color-mix(in oklab, var(--paper) 40%, transparent);
-  border-color: color-mix(in oklab, white 8%, transparent);
+  background: color-mix(in oklab, var(--paper) 70%, transparent);
+  border-color: color-mix(in oklab, white 12%, transparent);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.05),
-    0 10px 30px -15px rgba(0, 0, 0, 0.5);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 30px -15px rgba(0, 0, 0, 0.7);
 }
 
 @utility glass-strong {
   background: color-mix(in oklab, var(--paper) 78%, transparent);
-  backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid color-mix(in oklab, var(--paper) 75%, transparent);
   border-radius: 1.5rem;
+  backdrop-filter: blur(20px) saturate(180%);
   box-shadow:
     inset 0 1.5px 0 var(--hl-strong),
     0 30px 60px -20px color-mix(in oklab, var(--brand) 40%, transparent);
 }
+
 .dark .glass-strong {
-  border-color: color-mix(in oklab, white 12%, transparent);
+  background: color-mix(in oklab, var(--paper) 85%, transparent);
+  border-color: color-mix(in oklab, white 14%, transparent);
   box-shadow:
     inset 0 1.5px 0 var(--hl),
-    0 30px 64px -20px rgba(0, 0, 0, 0.72);
+    0 30px 64px -20px rgba(0, 0, 0, 0.75);
 }
 
-/* ---------- Sticky-note card ---------- */
+/* Sticky-note card */
 @utility sticky-card {
   position: relative;
   border-radius: 22px;
@@ -243,8 +252,7 @@
   transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 260ms ease;
   overflow: hidden;
   isolation: isolate;
-}
-@utility sticky-card {
+
   &::before {
     content: "";
     position: absolute;
@@ -254,33 +262,39 @@
     border-radius: inherit;
     z-index: 0;
   }
+
   & > * {
     position: relative;
     z-index: 1;
   }
+
   &:hover {
     transform: translateY(-4px);
     box-shadow:
       inset 0 1.5px 0 var(--hl-strong),
       0 4px 6px color-mix(in oklab, var(--foreground) 10%, transparent),
-      0 28px 50px -18px color-mix(in oklab, var(--brand) 45%, transparent);
+      0 20px 50px -18px color-mix(in oklab, var(--brand) 45%, transparent);
   }
+
   &:has(.sticky-card):hover {
     transform: none;
     box-shadow:
       inset 0 1.5px 0 var(--hl-strong),
       inset 0 -1px 0 color-mix(in oklab, var(--foreground) 5%, transparent),
       0 1px 2px color-mix(in oklab, var(--foreground) 8%, transparent),
-      0 18px 40px -18px color-mix(in oklab, var(--brand) 35%, transparent);
+      0 10px 40px -10px color-mix(in oklab, var(--brand) 35%, transparent);
   }
 }
+
 .dark .sticky-card {
-  border-color: color-mix(in oklab, white 10%, transparent);
+  background: color-mix(in oklab, var(--paper) 80%, transparent);
+  border-color: color-mix(in oklab, white 12%, transparent);
   box-shadow:
     inset 0 1.5px 0 var(--hl),
     0 1px 2px rgba(0, 0, 0, 0.5),
     0 20px 44px -18px rgba(0, 0, 0, 0.7);
 }
+
 .dark .sticky-card:hover {
   box-shadow:
     inset 0 1.5px 0 var(--hl-strong),
@@ -293,7 +307,7 @@
   background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--paper) 92%, transparent) 100%);
 }
 
-/* Tinted card body — combine with sticky-card */
+/* Tinted card body */
 @utility tint-mint {
   background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--mint) 8%, var(--paper)) 100%);
 }
@@ -313,7 +327,7 @@
   background: linear-gradient(180deg, var(--paper) 0%, color-mix(in oklab, var(--brand) 6%, var(--paper)) 100%);
 }
 
-/* ---------- Pin ---------- */
+/* Pin */
 @utility pin {
   position: absolute;
   top: -13px;
@@ -323,15 +337,14 @@
   border-radius: 999px;
   background:
     radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.2) 30%, transparent 55%),
-    radial-gradient(circle at 60% 65%, color-mix(in oklab, var(--pin-color, var(--coral)) 100%, transparent) 0%, color-mix(in oklab, var(--pin-color, var(--coral)) 65%, black) 100%);
+    radial-gradient(circle at 60% 65%, color-mix(in oklab, var(--pin-color, var(--coral)) 100%, transparent) 0%, color-mix(in oklab, var(--pin-color, var(--coral)) 85%, black) 100%);
   transform: translateX(-50%);
   box-shadow:
     0 2px 0 color-mix(in oklab, var(--pin-color, var(--coral)) 40%, black),
     0 6px 10px color-mix(in oklab, var(--foreground) 25%, transparent),
     inset 0 -2px 3px color-mix(in oklab, var(--foreground) 25%, transparent);
   z-index: 3;
-}
-@utility pin {
+
   &::after {
     content: "";
     position: absolute;
@@ -345,6 +358,7 @@
     transform: rotate(6deg);
   }
 }
+
 .dark .pin {
   box-shadow:
     0 2px 0 color-mix(in oklab, var(--pin-color, var(--coral)) 40%, black),
@@ -355,7 +369,7 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-/* ---------- Gloss button ---------- */
+/* Gloss button */
 @utility gloss-btn {
   position: relative;
   display: inline-flex;
@@ -373,27 +387,27 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.55),
     inset 0 -2px 6px color-mix(in oklab, var(--brand) 40%, black),
-    0 6px 15px -6px color-mix(in oklab, var(--brand) 35%, transparent),
+    0 6px 15px 0 color-mix(in oklab, var(--brand) 35%, transparent),
     0 1px 3px color-mix(in oklab, var(--brand) 20%, transparent);
   transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
   cursor: pointer;
-}
-@utility gloss-btn {
+
   &:hover {
     transform: translateY(-1px);
     filter: brightness(1.05);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.65),
       inset 0 -2px 6px color-mix(in oklab, var(--brand) 40%, black),
-      0 12px 26px -6px color-mix(in oklab, var(--brand) 65%, transparent),
+      0 12px 26px 0 color-mix(in oklab, var(--brand) 65%, transparent),
       0 3px 6px color-mix(in oklab, var(--brand) 40%, transparent);
   }
 }
+
 .dark .gloss-btn {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.35),
     inset 0 -2px 6px color-mix(in oklab, var(--brand) 40%, black),
-    0 10px 30px -6px color-mix(in oklab, var(--brand) 75%, transparent),
+    0 10px 30px -5px color-mix(in oklab, var(--brand) 75%, transparent),
     0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
@@ -413,16 +427,16 @@
   border: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent);
   box-shadow:
     inset 0 1px 0 var(--hl),
-    0 6px 14px -4px color-mix(in oklab, var(--foreground) 18%, transparent);
+    0 6px 14px -4px color-mix(in oklab, var(--foreground) 10%, transparent);
   transition: transform 180ms ease, background 180ms ease;
   cursor: pointer;
-}
-@utility gloss-btn-ghost {
+
   &:hover {
     transform: translateY(-1px);
     background: color-mix(in oklab, var(--paper) 85%, transparent);
   }
 }
+
 .dark .gloss-btn-ghost {
   border-color: color-mix(in oklab, white 14%, transparent);
   box-shadow:
@@ -430,7 +444,7 @@
     0 8px 18px -6px rgba(0, 0, 0, 0.6);
 }
 
-/* ---------- Chip ---------- */
+/* Chip */
 @utility chip {
   display: inline-flex;
   align-items: center;
@@ -456,6 +470,7 @@
   text-align: left;
   line-height: 1.25;
 }
+
 .dark .chip {
   color: color-mix(in oklab, var(--chip-color, var(--mint)) 88%, white);
   background:
@@ -467,7 +482,7 @@
     0 3px 10px -2px color-mix(in oklab, var(--chip-color, var(--mint)) 30%, transparent);
 }
 
-/* ---------- Gradient text ---------- */
+/* Gradient text */
 @utility grad-text {
   background-image: linear-gradient(90deg, var(--brand), var(--coral));
   -webkit-background-clip: text;
@@ -481,7 +496,7 @@
   color: transparent;
 }
 
-/* ---------- Tilts ---------- */
+/* Tilts */
 @utility tilt-l {
   transform: rotate(-1.6deg);
   transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -499,7 +514,7 @@
   transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* ---------- Mono readout ---------- */
+/* Mono readout */
 @utility mono-readout {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -508,7 +523,7 @@
   color: color-mix(in oklab, var(--foreground) 55%, transparent);
 }
 
-/* ---------- Form inputs ---------- */
+/* Form Inputs */
 @utility sticky-input {
   width: 100%;
   padding: 0.7rem 0.9rem;
@@ -518,25 +533,27 @@
   color: var(--foreground);
   font-size: 0.9rem;
   box-shadow: inset 0 1px 0 var(--hl), 0 1px 3px color-mix(in oklab, var(--foreground) 6%, transparent);
-  transition: border-color 180ms ease, box-shadow 180ms ease;
-}
-@utility sticky-input {
-  &::placeholder { color: color-mix(in oklab, var(--foreground) 40%, transparent); }
+  transition: border-color 150ms ease, box-shadow 180ms ease;
+
+  &::placeholder {
+    color: color-mix(in oklab, var(--foreground) 40%, transparent);
+  }
   &:focus {
     outline: none;
     border-color: color-mix(in oklab, var(--brand) 60%, transparent);
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand) 20%, transparent);
   }
 }
+
 .dark .sticky-input {
   background: color-mix(in oklab, var(--paper) 80%, black);
   border-color: color-mix(in oklab, white 12%, transparent);
 }
 
-/* ---------- Motion ---------- */
+/* Motion */
 @keyframes float-slow {
   0%, 100% { transform: translateY(0) rotate(var(--tilt, -1.6deg)); }
-  50%      { transform: translateY(-6px) rotate(var(--tilt, -1.6deg)); }
+  50% { transform: translateY(-6px) rotate(var(--tilt, -1.6deg)); }
 }
 @utility animate-float {
   animation: float-slow 7s ease-in-out infinite;
@@ -551,14 +568,11 @@
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: var(--coral);
   box-shadow: 0 0 10px color-mix(in oklab, var(--coral) 70%, transparent);
   animation: rec-blink 1.6s ease-in-out infinite;
 }
 
-/* ---------- Dark-mode compatibility for literal white utilities ----------
-   Inline `bg-white/xx` and `ring-white` surfaces would blow out in dark mode,
-   so they are remapped onto the theme-aware paper token. */
+/* Dark-mode compatibility for literal white utilities */
 .dark .bg-white\/60,
 .dark .bg-white\/70,
 .dark .bg-white\/85 {
@@ -576,12 +590,13 @@
   --tw-ring-color: rgba(255, 255, 255, 0.10);
 }
 
-/* ---------- CMS inline editing ---------- */
+/* CMS inline editing */
 @utility cms-editable {
   outline: 1px dashed color-mix(in oklab, var(--brand) 45%, transparent);
   outline-offset: 3px;
   border-radius: 6px;
   transition: outline-color 160ms ease, background-color 160ms ease;
+
   &:hover {
     outline-color: var(--brand);
     background-color: color-mix(in oklab, var(--brand) 10%, transparent);
@@ -607,6 +622,7 @@
   );
   box-shadow: inset 0 1px 0 var(--hl), 0 2px 8px color-mix(in oklab, var(--foreground) 8%, transparent);
 }
+
 .dark .icon-tile {
   background-image: linear-gradient(
     140deg,
