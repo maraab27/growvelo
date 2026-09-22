@@ -106,6 +106,7 @@ function useStrictAdminCheck() {
         }
 
         const email = session.user.email.toLowerCase();
+        // আপনার সংরক্ষিত জিমেইল চেক
         if (email.includes("abdullah20050127") || email.includes("admin")) {
           if (isMounted) setIsAdmin(true);
         } else {
@@ -190,11 +191,9 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
 function EnrollmentModal({
   courseSlug,
   onClose,
-  onSuccess,
 }: {
   courseSlug: string;
   onClose: () => void;
-  onSuccess?: () => void;
 }) {
   const [copied, setCopied] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -460,7 +459,7 @@ TrxID: ${formData.trxId}`;
 
 // ================= ট্যাব ১: ওভারভিউ =================
 function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolean }) {
-  // ব্যাচ ১ এর জন্য পোস্টারের সমস্যা ও সমাধানের ডিফল্ট ডাটা
+  // ব্যাচ ১ এর জন্য পোস্টারের সমস্যা ও সমাধান
   const batch1Cards = [
     {
       id: "b1_card_1",
@@ -575,7 +574,7 @@ function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: b
         <p className="font-bangla text-muted-foreground text-sm sm:text-base leading-relaxed mt-3 max-w-2xl">
           <EditableText id={`course.${courseSlug}.painpoint.subheading`}>
             {isBatch1
-              ? "সঠিক গাইডলাইন ও রিয়েল প্র্যাকটিস না থাকার কারণে অনেকেই মাঝপথে ছেড়ে দেয়। কোনো Paid Course কেনার আগেই এই Free Course থেকেই আপনি ভিত্তি শক্ত করতে পারেন।"
+              ? "সঠিক গাইডলাইন না থাকার কারণে অনেকেই মাঝপথে ছেড়ে দেয়। কোনো Paid Course কেনার আগে এই Free Course থেকেই শুরু করতে পারেন।"
               : "বর্তমানে শুধু টুলসের সাধারণ কাজ জানা যথেষ্ট নয়। সফল ক্যারিয়ার গড়তে প্রয়োজন স্টোরিটেলিং, সাউন্ড সাইকোলজি ও হাই কনভার্টিং এডিটিং দক্ষতা।"}
           </EditableText>
         </p>
@@ -643,12 +642,12 @@ function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: b
         <div className="text-center mb-6">
           <h3 className="font-bangla text-base sm:text-lg font-bold text-foreground">
             <EditableText id={`course.${courseSlug}.compare.heading`}>
-              {isBatch1 ? "কোর্স শুরুর আগে বনাম ১৫ দিন শেষের অর্জন" : "আপনার এডিটিং জার্নির মোড় ঘুরিয়ে দেবে ব্যাচ ৩"}
+              {isBatch1 ? "Course Confusions বনাম ১৫ দিনের বুটক্যাম্প অর্জন" : "আপনার এডিটিং জার্নির মোড় ঘুরিয়ে দেবে ব্যাচ ৩"}
             </EditableText>
           </h3>
           <p className="font-bangla text-xs sm:text-sm text-muted-foreground mt-1">
             <EditableText id={`course.${courseSlug}.compare.subheading`}>
-              {isBatch1 ? "অনলাইন বুটক্যাম্প কীভাবে আপনার কনফিউশন দূর করবে" : "একজন সাধারণ এডিটর ও প্রফেশনাল ভিডিও রিটেলারের মূল পার্থক্য"}
+              {isBatch1 ? "অনলাইন বুটক্যাম্প কীভাবে আপনার সমস্যার সমাধান করবে" : "একজন সাধারণ এডিটর ও প্রফেশনাল ভিডিও রিটেলারের মূল পার্থক্য"}
             </EditableText>
           </p>
         </div>
@@ -685,7 +684,7 @@ function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: b
             {isAdmin && (
               <button
                 type="button"
-                onClick={() => addBadPoint("নতুন কনফিউশন পয়েন্ট বাংলায় লিখুন")}
+                onClick={() => addBadPoint("নতুন বিষয় বাংলায় লিখুন")}
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-destructive hover:underline pt-2 transition-colors cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
@@ -744,12 +743,12 @@ function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: b
 function TabCurriculum({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolean }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  // ব্যাচ ১ এর পোস্টার অনুযায়ী রোডম্যাপ
+  // ব্যাচ ১ এর পোস্টার অনুযায়ী ১৫ দিনের রোডম্যাপ
   const batch1Modules = [
     {
       moduleNo: "DAY 1",
       title: "Editing Basics & Interface Setup",
-      desc: "Premiere Pro ইন্টারফেস কাস্টমাইজেশন, টাইমলাইন সিক্রেট ও ফাইল ম্যানেজমেন্ট।",
+      desc: "Premiere Pro ইন্টারফেস পরিচিতি, টাইমলাইন সিক্রেট ও ফাইল ম্যানেজমেন্ট।",
       lessons: [
         "লেসন ১: Premiere Pro প্রোজেক্ট সেটআপ ও টুলস পরিচিতি",
         "লেসন ২: রাফ কাট ও টাইমলাইনে ফুটেজ সাজানো",
@@ -1043,7 +1042,7 @@ function TabWhatsIncluded({ courseSlug, isBatch1 }: { courseSlug: string; isBatc
     { id: "feat_3", titleKey: "ডেডিকেটেড ডিসকর্ড প্রাইভেট কমিউনিটি", descKey: "২৪/৭ প্রাইভেট চ্যানেল, অ্যাসাইনমেন্ট ফিডব্যাক ও সহপাঠীদের সাথে সরাসরি নেটওয়ার্কিং।" },
     { id: "feat_4", titleKey: "১০০+ প্রিমিয়াম সাউন্ড ও সিনেমাটিক অ্যাসেটস", descKey: "প্র্যাকটিসের জন্য প্রজেক্ট ফাইল, সাউন্ড প্যাক, সিনেমাটিক LUTs ও মোশন প্রিসেট।" },
     { id: "feat_5", titleKey: "সাপ্তাহিক পার্সোনালাইজড ফিডব্যাক", descKey: "আপনার প্রতিটি এডিটের ভুলত্রুটি ধরিয়ে দিয়ে মেন্টর সরাসরি স্ক্রিনে পার্সোনাল ফিডব্যাক দেবেন।" },
-    { id: "feat_6", titleKey: "কমপ্লিশন ভেরিফায়েড সার্টিফিকেট", descKey: "ব্যাচের সব প্রজেক্ট সফলভাবে জমা দেওয়ার পর দেওয়া হবে ভেরিফায়েড ডিজিটাল সার্টিফিকেট।" },
+    { id: "feat_6", titleKey: "কমপ্লিশন ভেরিফায়েড সার্টিফিকেট", descKey: "ব্যাচের সব প্রজেক্ট সফলভাবে জমা দেওয়ার পর দেওয়া হবে ভেরিফায়েড ডিজিটাল সার্টিফিকেট।", },
   ];
 
   const { items: features, addItem: addFeature, removeItem: removeFeature, isAdmin } = useDynamicCmsList(
@@ -1393,8 +1392,8 @@ function CourseDetail() {
 
   const [activeTab, setActiveTab] = useState<"overview" | "curriculum" | "included" | "how" | "faq">("overview");
 
-  // যাচাই এটি ব্যাচ ১ কিনা
-  const isBatch1 = slug.includes("batch-1") || slug.includes("batch-01") || slug.includes("rising-editors") || slug.includes("15-days");
+  // ব্যাচ ১ সঠিকভাবে চিহ্নিতকরণ
+  const isBatch1 = slug === "batch-01" || slug === "rising-editors" || slug.includes("batch-1") || slug.includes("15-days");
 
   const timer = useEvergreenTimer(24);
 
@@ -1429,15 +1428,14 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
-    // SiteShell দিয়ে মোড়ানো যাতে আসল হেডার ও লোগো পুরোপুরি সুরক্ষিত থাকে
-    // সিএসএস দিয়ে পেজের নিচের ডিফল্ট বড় ফুটার বন্ধ রাখা হয়েছে
-    <div className="[&>div>footer]:!hidden [&>footer]:!hidden">
+    // SiteShell দিয়ে মোড়ানো যাতে আসল হেডার ও লোগো পুরোপুরি অক্ষুণ্ণ থাকে
+    // এবং গ্লোবাল লেভেলে সব ছবির ড্র্যাগ অ্যান্ড ড্রপ নিষিদ্ধ
+    <div className="[&>div>footer]:!hidden [&>footer]:!hidden [&_img]:select-none [&_img]:pointer-events-auto [&_img]:[user-drag:none] [&_img]:[-webkit-user-drag:none]">
       <SiteShell>
         {showModal && (
           <EnrollmentModal
             courseSlug={slug}
             onClose={() => setShowModal(false)}
-            onSuccess={() => setShowModal(false)}
           />
         )}
 
@@ -1508,7 +1506,7 @@ function CourseDetail() {
               <span>All courses</span>
             </Link>
 
-            {/* ================= টপ ফোল্ড (কোর্স ব্যানার ও টাইটেল) ================= */}
+            {/* ================= টপ ফোল্ড ================= */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-20">
               
               {/* বামপাশ: ভ্যালু প্রোপজিশন ও কোর্স ব্যানার ফ্রেম */}
@@ -1707,7 +1705,7 @@ function CourseDetail() {
 
               </div>
 
-              {/* ডানপাশ: স্টিকি কার্ড */}
+              {/* ডানপাশ: স্টিকি কার্ড (ইমেজ ড্র্যাগ প্রটেকশনসহ) */}
               <div className="lg:col-span-5 lg:sticky lg:top-28">
                 <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md select-none">
                   
@@ -1881,7 +1879,7 @@ function CourseDetail() {
               {activeTab === "faq" && <TabFaq courseSlug={course.slug} isBatch1={isBatch1} />}
             </div>
 
-            {/* ================= ৩. ফাইনাল ক্লোজিং হাই-কনভার্টিং CTA ব্যানার (ব্যাচ ৩ এর অফার) ================= */}
+            {/* ================= ৩. ফাইনাল ক্লোজিং হাই-কনভার্টিং CTA ব্যানার (সব কোর্সেই থাকবে) ================= */}
             <div className="relative max-w-5xl mx-auto font-bangla mb-16">
               <div className="glass-strong rounded-3xl border border-primary/30 p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden backdrop-blur-md">
                 <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
