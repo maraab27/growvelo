@@ -483,7 +483,7 @@ function BatchClosedModal({ onClose }: { onClose: () => void }) {
         <Link
           to="/courses/$slug"
           // 👇 আপনার ব্যাচ ৩ এর লিংকের শেষের অংশটি (slug) ঠিক এখানে বসাবেন 👇
-          params={{ slug: "আপনার-ব্যাচ-৩-এর-আসল-স্লাগ-এখানে-দিন" }} 
+          params={{ slug: "video-editing-batch-3?enroll=false" }} 
           onClick={onClose}
           className="w-full py-4 px-6 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-95 transition-all cursor-pointer"
         >
