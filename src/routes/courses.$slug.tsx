@@ -1435,8 +1435,8 @@ function CourseDetail() {
   const search = Route.useSearch();
   const course = COURSES.find((c) => c.slug === slug)!;
   const [enrolled, setEnrolled] = useState(false);
-  
-  // URL-এ ?enroll=true থাকলে অটো মডাল ওপেন হবে
+
+  // URL-এ enroll=true থাকলে অটো মডাল ওপেন হবে
   const [showModal, setShowModal] = useState<boolean>(!!search?.enroll);
   const [showClosedModal, setShowClosedModal] = useState(false);
   const [showLockedModal, setShowLockedModal] = useState(false);
@@ -1444,7 +1444,7 @@ function CourseDetail() {
 
   const [activeTab, setActiveTab] = useState<"overview" | "curriculum" | "included" | "how" | "faq">("overview");
 
-  // ব্যাচ ১ এর স্লাগ নিখুঁতভাবে চেক (যেকোনো ফরমেট হ্যান্ডেল করবে)
+  // ব্যাচ ১ এর স্লাগ নিখুঁতভাবে চেক 
   const cleanSlug = slug.toLowerCase();
   const isBatch1 = cleanSlug.includes("batch-01") || cleanSlug.includes("batch-1") || cleanSlug.includes("rising-editors") || cleanSlug.includes("15-days");
 
@@ -1469,7 +1469,6 @@ function CourseDetail() {
   }, [slug]);
 
   const formatDigit = (num: number) => String(num).padStart(2, "0");
-
   const tabList = [
     { id: "overview", label: "Overview", icon: LayoutDashboard },
     { id: "curriculum", label: "Curriculum", icon: BookOpen },
@@ -1481,7 +1480,6 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
-    // Global image drag protection & footer hidden
     <div className="[&>div>footer]:!hidden [&>footer]:!hidden [&_img]:select-none [&_img]:pointer-events-auto [&_img]:[user-drag:none] [&_img]:[-webkit-user-drag:none]">
       <SiteShell>
         {showModal && (
@@ -1553,35 +1551,31 @@ function CourseDetail() {
 
         <div className="pt-24 sm:pt-32 pb-12 sm:pb-16 overflow-x-hidden">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            
             <Link
               to="/courses"
-              className="mb-6 inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono tracking-wider uppercase transition-opacity hover:opacity-60 text-foreground/60"
+              className="mb-6 inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono tracking-wider uppercase transition-opacity hover:opacity-60 text-muted-foreground"
             >
               <ArrowLeft className="h-3 w-3" />
               <span>All courses</span>
             </Link>
 
-            {/* ================= Hero fold ================= */}
+            {/* Hero fold */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-20">
-              
               <div className="lg:col-span-7 flex flex-col space-y-5 sm:space-y-6 font-bangla min-w-0">
-                
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-border/80 bg-foreground/[0.04] w-fit shadow-2xs">
                   <span className="h-1.5 w-1.5 rounded-[1px] bg-primary shrink-0"></span>
                   <span className="text-xs sm:text-[13px] font-medium tracking-normal text-foreground/90 font-sans truncate">
                     <EditableText id={`course.${course.slug}.hero.badge`}>
-                      {isBatch1 ? "ONLINE RISING EDITORS BATCH - 1 • 15 Days Free Bootcamp" : "Batch 03 • Live Masterclass + Private Discord Community"}
+                      {isBatch1 ? "ONLINE RISING EDITORS BATCH 1 • 15 Days Free Bootcamp" : "Batch 03 • Live Masterclass + Private Discord Community"}
                     </EditableText>
                   </span>
                 </div>
 
-                {/* Course Banner Card with Drag & Right-Click Protection */}
+                {/* Course Banner Card */}
                 <div className="glass-strong rounded-3xl border border-border/70 shadow-lg relative overflow-hidden backdrop-blur-md select-none">
-                  
                   {/* Mobile Edge-to-Edge Banner */}
                   <div className="block lg:hidden w-full border-b border-border/40 select-none">
-                    <div 
+                    <div
                       onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
                       onContextMenu={(e) => e.preventDefault()}
                       className={`relative aspect-video w-full group select-none ${previewVideoId ? "cursor-pointer" : ""}`}
@@ -1601,8 +1595,8 @@ function CourseDetail() {
                             </div>
                           </div>
                           <div className="absolute top-3 left-3 pointer-events-auto">
-                            <span className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-black/75 text-white backdrop-blur-md border border-white/10 font-sans flex items-center gap-1.5 shadow-sm">
-                              <Play className="w-3 h-3 fill-white" />
+                            <span className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-black/75 text-white backdrop-blur-md border border-white/10 font-sans">
+                              <Play className="w-3 h-3 fill-white inline mr-1" />
                               <span>Watch Preview</span>
                             </span>
                           </div>
@@ -1613,7 +1607,6 @@ function CourseDetail() {
 
                   {/* Headline & Meta tags */}
                   <div className="p-5 sm:p-7 space-y-4">
-                    
                     <div className="flex flex-wrap items-center gap-2 text-xs font-mono font-semibold uppercase text-primary tracking-wider">
                       <span className="px-2.5 py-1 rounded-lg bg-primary/10 border border-primary/20">
                         {isBatch1 ? "15 Days Free Course" : "Masterclass"}
@@ -1621,7 +1614,6 @@ function CourseDetail() {
                       <span>•</span>
                       <span className="text-muted-foreground">Beginner to Pro</span>
                     </div>
-
                     <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.25] text-2xl sm:text-3xl lg:text-4xl text-left break-words">
                       <EditableText id={`course.${course.slug}.hero.title`}>
                         {isBatch1 ? "ভিডিও এডিটিং শিখতে চান, কিন্তু কোথা থেকে শুরু করবেন বুঝতে পারছেন না?" : course.title}
@@ -1656,7 +1648,7 @@ function CourseDetail() {
                           </p>
                           <p className="font-normal text-foreground/80">
                             <EditableText id={`course.${course.slug}.hero.desc.3`}>
-                              একদম স্ক্র্যাচ থেকে শুরু করে রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে নিজের হাই পেয়িং পোর্টফোলিও তৈরি করুন আমাদের সাথে।
+                              একদম স্ক্র্যাচ থেকে শুরু করে রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে নিজের হাই পেয়িং পোর্টফোলিও তৈরি করুন আমাদের সাথে।
                             </EditableText>
                           </p>
                         </>
@@ -1675,27 +1667,32 @@ function CourseDetail() {
                         </div>
                       </div>
                       {isBatch1 ? (
-  <button
-    onClick={() => setShowClosedModal(true)}
-    className="px-5 py-2.5 rounded-xl bg-destructive/10 text-destructive font-semibold text-xs flex items-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer"
-  >
-    <span>Batch Closed</span>
-    <AlertCircle className="w-3.5 h-3.5" />
-  </button>
-) : (
-  <button
-    onClick={() => setShowModal(true)}
-    className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
-  >
-    <span>Enroll Now</span>
-    <ArrowRight className="w-3.5 h-3.5" />
-  </button>
-)}
-</div>
+                        <button
+                          onClick={() => setShowClosedModal(true)}
+                          className="px-5 py-2.5 rounded-xl bg-destructive/10 text-destructive font-semibold text-xs flex items-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer"
+                        >
+                          <span>Batch Closed</span>
+                          <AlertCircle className="w-3.5 h-3.5" />
+                        </button>
+                      ) : enrolled ? (
+                        <Link
+                          to={`/courses/${slug}/lessons/intro`}
+                          className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
+                        >
+                          <span>Start Learning</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+                      ) : (
+                        <button
+                          onClick={() => setShowModal(true)}
+                          className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
+                        >
+                          <span>Enroll Now</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+                      )}
                     </div>
-
                   </div>
-
                 </div>
 
                 {/* 4 Core Benefit Cards */}
@@ -1713,7 +1710,6 @@ function CourseDetail() {
                       </p>
                     </div>
                   </div>
-
                   <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                     <div className="p-2.5 rounded-xl bg-primary/10 text-primary shrink-0 mt-0.5">
                       <MessageSquare className="w-4 h-4" />
@@ -1727,7 +1723,6 @@ function CourseDetail() {
                       </p>
                     </div>
                   </div>
-
                   <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                     <div className="p-2.5 rounded-xl bg-accent/20 text-foreground shrink-0 mt-0.5">
                       <Briefcase className="w-4 h-4" />
@@ -1737,11 +1732,10 @@ function CourseDetail() {
                         {isBatch1 ? "বিগিনার ফ্রেন্ডলি" : "মার্কেটপ্লেস ও ডিরেক্ট ক্লায়েন্ট"}
                       </h3>
                       <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                        {isBatch1 ? "পূর্বে কোনো অভিজ্ঞতা না থাকলেও সহজে শুরু করতে পারবেন।" : "স্ট্রং পোর্টফোলিও তৈরি এবং সরাসরি হাই টিকেটিং ক্লায়েন্ট হান্টিং গাইড।"}
+                        {isBatch1 ? "পূর্বে কোনো অভিজ্ঞতা না থাকলেও সহজে শুরু করতে পারবেন।" : "পোর্টফোলিও তৈরি এবং সরাসরি হাই টিকেটিং ক্লায়েন্ট হান্টিং গাইড।"}
                       </p>
                     </div>
                   </div>
-
                   <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                     <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 shrink-0 mt-0.5">
                       <Gift className="w-4 h-4" />
@@ -1751,24 +1745,20 @@ function CourseDetail() {
                         {isBatch1 ? "১০০% ফ্রি এক্সেস" : "এডিটিং রিসোর্স প্যাক"}
                       </h3>
                       <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                        {isBatch1 ? "সম্পূর্ণ বিনামূল্যে প্র্যাকটিস ফাইল ও গাইডলাইন অ্যাক্সেস।" : "প্রিমিয়াম সাউন্ড এফেক্টস (SFX), কালার LUTs এবং রেডি মোশন প্রিসেট ফাইল।"}
+                        {isBatch1 ? "সম্পূর্ণ বিনামূল্যে প্র্যাকটিস ফাইল ও গাইডলাইন অ্যাক্সেস।" : "প্রিমিয়াম সাউন্ড এফেক্টস (SFX), কালার LUTs এবং রেডি মোশন প্রিসেট ফাইল।"}
                       </p>
                     </div>
                   </div>
                 </div>
-
               </div>
 
-              {/* Right: Sticky Card with Drag & Right-Click Protection */}
+              {/* Right: Sticky Card */}
               <div className="lg:col-span-5 lg:sticky lg:top-28">
                 <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md select-none">
-                  
-                  <div 
+                  <div
                     onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
                     onContextMenu={(e) => e.preventDefault()}
-                    className={`relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5 select-none ${
-                      previewVideoId ? "cursor-pointer" : ""
-                    }`}
+                    className={`relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5 select-none ${previewVideoId ? "cursor-pointer" : ""}`}
                   >
                     <EditableImage
                       id={`course.thumb.${course.slug}`}
@@ -1778,19 +1768,21 @@ function CourseDetail() {
                       imgClassName="transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none [user-drag:none] [-webkit-user-drag:none]"
                     />
                     {previewVideoId && (
-                      <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors pointer-events-auto">
-                        <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
-                          <Play className="w-5 h-5 fill-white ml-0.5" />
+                      <>
+                        <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors pointer-events-auto">
+                          <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
+                            <Play className="w-5 h-5 fill-white ml-0.5" />
+                          </div>
                         </div>
-                      </div>
+                        <div className="absolute top-3 left-3 pointer-events-auto">
+                          <span className="px-2.5 py-1 rounded-[4px] text-xs font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans">
+                            <EditableText id={`course.${course.slug}.preview.badge`}>
+                              Curriculum Preview
+                            </EditableText>
+                          </span>
+                        </div>
+                      </>
                     )}
-                    <div className="absolute top-3 left-3 pointer-events-auto">
-                      <span className="px-2.5 py-1 rounded-[4px] text-xs font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans">
-                        <EditableText id={`course.${course.slug}.preview.badge`}>
-                          Curriculum Preview
-                        </EditableText>
-                      </span>
-                    </div>
                   </div>
 
                   {/* Price & Offer Badge */}
@@ -1805,8 +1797,7 @@ function CourseDetail() {
                         </span>
                       )}
                     </div>
-
-                    <span className="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-sans tracking-wide shrink-0">
+                    <span className="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                       {isBatch1 ? "100% FREE BOOTCAMP" : "40% OFF (Limited Time)"}
                     </span>
                   </div>
@@ -1823,7 +1814,6 @@ function CourseDetail() {
                         {isBatch1 ? "1 July 2026" : "October 15, 2026"}
                       </span>
                     </div>
-
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
                         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
@@ -1835,7 +1825,6 @@ function CourseDetail() {
                         {isBatch1 ? "15 Days Bootcamp" : "30 Days Intensive"}
                       </span>
                     </div>
-
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2.5 text-foreground/70 font-medium select-none">
                         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
@@ -1847,7 +1836,6 @@ function CourseDetail() {
                         {course.instructor || "Muhammad Ataullah"}
                       </span>
                     </div>
-
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
                         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
@@ -1857,50 +1845,70 @@ function CourseDetail() {
                       </div>
                       <span className="font-normal text-foreground/90 text-right">
                         Live Sessions (Discord & Meet)
-                      </div>
-        {isBatch1 ? (
-          <button
-            onClick={() => setShowClosedModal(true)}
-            className="w-full py-3.5 px-6 rounded-2xl bg-destructive/10 text-destructive font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
-          >
-            <span>Enrollment Closed</span>
-            <AlertCircle className="w-4 h-4" />
-          </button>
-        ) : enrolled ? (
-          <Link
-            to="/courses/$slug/lessons/$lessonId"
-            params={{ slug, lessonId: "intro" }}
-            className="gloss-btn w-full justify-center !py-3.5 text-base font-bold cursor-pointer"
-          >
-            Access Unlocked • Start Learning
-          </Link>
-        ) : (
-          <button
-            onClick={() => setShowModal(true)}
-            className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
-          >
-            <EditableText id={`course.${course.slug}.cta.button`}>
-              Enroll in Batch 03 Now
-            </EditableText>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        )}
-        <p className="mt-3 text-center text-xs text-muted-foreground font-sans">
-          {isBatch1 ? "বিস্তারিত জানতে হোয়াটসঅ্যাপ করুন: 01890352188" : "Instant WhatsApp seat confirmation flow"}
-        </p>
-      </div>
-    </div>
-  </div>
+                      </span>
+                    </div>
+                  </div>
 
-  {/* Sticky Tab Bar */}
+                  {isBatch1 ? (
+                    <button
+                      onClick={() => setShowClosedModal(true)}
+                      className="w-full py-3.5 px-6 rounded-2xl bg-destructive/10 text-destructive font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+                    >
+                      <span>Enrollment Closed</span>
+                      <AlertCircle className="w-4 h-4" />
+                    </button>
+                  ) : enrolled ? (
+                    <Link
+                      to={`/courses/${slug}/lessons/intro`}
+                      className="gloss-btn w-full justify-center !py-3.5 text-base font-bold cursor-pointer"
+                    >
+                      Access Unlocked • Start Learning
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => setShowModal(true)}
+                      className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
+                    >
+                      <EditableText id={`course.${course.slug}.cta.button`}>
+                        Enroll in Batch 03 Now
+                      </EditableText>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  )}
+
+                  <p className="mt-3 text-center text-xs text-muted-foreground font-sans">
+                    {isBatch1 ? "বিস্তারিত জানতে হোয়াটসঅ্যাপ করুন: 01890352188" : "Instant WhatsApp seat confirmation flow"}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Sticky Tab Bar */}
+            <div className="sticky top-20 z-30 mb-8 py-2.5 backdrop-blur-md">
+              <div className="max-w-4xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar">
+                {tabList.map((tab) => {
+                  const isActive = activeTab === tab.id;
+                  const Icon = tab.icon;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer ${
+                        isActive
+                          ? "bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-[1.02]"
+                          : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
+                      }`}
+                    >
+                      <Icon className="w-4 h-4 shrink-0" />
+                      <span>{tab.label}</span>
                     </button>
                   );
                 })}
               </div>
             </div>
 
-            {/* ================= Unified Content Master Card ================= */}
-            <div className="max-w-5xl mx-auto glass-strong rounded-3xl border border-border/80 p-6 sm:p-10 lg:p-12 shadow-xl mb-16 relative overflow-hidden backdrop-blur-md w-full">
+            {/* Unified Content Master Card */}
+            <div className="max-w-5xl mx-auto glass-strong rounded-3xl border border-border/80 p-6 sm:p-10 lg:p-12 shadow-xl mb-16 relative overflow-hidden backdrop-blur-md">
               {activeTab === "overview" && <TabOverview courseSlug={course.slug} isBatch1={isBatch1} />}
               {activeTab === "curriculum" && <TabCurriculum courseSlug={course.slug} isBatch1={isBatch1} />}
               {activeTab === "included" && <TabWhatsIncluded courseSlug={course.slug} isBatch1={isBatch1} />}
@@ -1908,38 +1916,51 @@ function CourseDetail() {
               {activeTab === "faq" && <TabFaq courseSlug={course.slug} isBatch1={isBatch1} />}
             </div>
 
-            {/* ================= Final Closing CTA Banner (Batch 03 Offer) ================= */}
+            {/* Final Closing CTA Banner (Batch 03 Offer) */}
             <div className="relative max-w-5xl mx-auto font-bangla mb-16">
               <div className="glass-strong rounded-3xl border border-primary/30 p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden backdrop-blur-md">
                 <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/30 bg-primary/10 text-primary text-xs font-semibold tracking-wide shadow-2xs mb-5">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/30 bg-primary/10 text-primary text-xs font-semibold mb-6">
                   <Flame className="w-3.5 h-3.5 fill-primary text-primary animate-pulse" />
-                  <span>সীমিত সময়ের অফার • ব্যাচ ৩ এনরোলমেন্ট</span>
+                  <span>সীমিত সময়ের অফার • ব্যাচ ৩ এনরোলমেন্ট</span>
                 </div>
-
-                <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl lg:text-4xl text-foreground leading-[1.28] tracking-tight">
-                  {isBatch1 
+                <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl lg:text-4xl text-foreground leading-[1.20] tracking-tight">
+                  {isBatch1
                     ? "পরবর্তী লেভেলে যাওয়ার প্রস্তুতি নিন: Advanced Video Editing Masterclass"
                     : "দেরি না করে আজই আপনার সিনেমাটিক এডিটিং জার্নি শুরু করুন"}
                 </h3>
-
                 <p className="font-bangla text-sm sm:text-base text-foreground/85 leading-relaxed mt-4 max-w-2xl mx-auto">
                   ব্যাচ ৩ এ সীমিত আসনে বিশেষ ছাড় চলছে। রেগুলার ফি ৫,০০০ টাকার বদলে এখন মাত্র ৩,০০০ টাকা। সরাসরি প্র্যাকটিক্যাল সিনেমাটিক স্টোরিটেলিং ও ক্লায়েন্ট ডিল ক্লোজ করার সম্পূর্ণ গাইডলাইন।
                 </p>
-
                 <div className="mt-8 flex flex-col items-center justify-center gap-3">
-                  <button
-                    onClick={() => (isBatch1 ? setShowClosedModal(true) : setShowModal(true))}
-                    className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base sm:text-lg flex items-center justify-center gap-3 shadow-xl shadow-primary/30 hover:brightness-110 active:scale-[0.99] transition-all font-sans cursor-pointer"
-                  >
-                    <span>Enroll in Batch 03 Now (৳৩,০০০)</span>
-                    <ArrowRight className="w-5 h-5" />
-                  </button>
-
+                  {isBatch1 ? (
+                    <button
+                      onClick={() => setShowClosedModal(true)}
+                      className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-destructive/10 text-destructive font-semibold text-base sm:text-lg flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+                    >
+                      <span>Enrollment Closed</span>
+                      <AlertCircle className="w-5 h-5" />
+                    </button>
+                  ) : enrolled ? (
+                    <Link
+                      to={`/courses/${slug}/lessons/intro`}
+                      className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base sm:text-lg flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
+                    >
+                      <span>Start Learning</span>
+                      <ArrowRight className="w-5 h-5" />
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => setShowModal(true)}
+                      className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base sm:text-lg flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
+                    >
+                      <span>Enroll in Batch 03 Now (৳৩,০০০)</span>
+                      <ArrowRight className="w-5 h-5" />
+                    </button>
+                  )}
                   <p className="text-xs text-muted-foreground font-bangla flex items-center gap-1.5 mt-1">
                     <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                    <span>১০০% মানি ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট | সুরক্ষিত পেমেন্ট ভেরিফিকেশন</span>
+                    <span>১০০% মানি ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট। সুরক্ষিত পেমেন্ট ভেরিফিকেশন</span>
                   </p>
                 </div>
               </div>
@@ -1953,13 +1974,12 @@ function CourseDetail() {
                   <Link to="/legal" className="hover:text-foreground transition-colors">Privacy Policy</Link>
                   <span>•</span>
                   <Link to="/legal" className="hover:text-foreground transition-colors">Terms of Service</Link>
-                  <a href={`https://wa.me/8801410341220`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+                  <a href="https://wa.me/8801410341220" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                     WhatsApp Support
                   </a>
                 </div>
               </div>
             </footer>
-
           </div>
         </div>
       </SiteShell>
