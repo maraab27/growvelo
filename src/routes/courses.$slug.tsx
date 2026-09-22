@@ -1675,24 +1675,22 @@ function CourseDetail() {
                         </div>
                       </div>
                       {isBatch1 ? (
-                        <a
-                          href="https://forms.gle/gSvxvW5VukEjjZgd7"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
-                        >
-                          <span>Register Free</span>
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </a>
-                      ) : (
-                        <button
-                          onClick={() => (isBatch1 ? setShowClosedModal(true) : setShowModal(true))}
-                          className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
-                        >
-                          <span>Enroll Now</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
-                      )}
+  <button
+    onClick={() => setShowClosedModal(true)}
+    className="px-5 py-2.5 rounded-xl bg-destructive/10 text-destructive font-semibold text-xs flex items-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer"
+  >
+    <span>Batch Closed</span>
+    <AlertCircle className="w-3.5 h-3.5" />
+  </button>
+) : (
+  <button
+    onClick={() => setShowModal(true)}
+    className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
+  >
+    <span>Enroll Now</span>
+    <ArrowRight className="w-3.5 h-3.5" />
+  </button>
+)}
                     </div>
 
                   </div>
@@ -1882,33 +1880,33 @@ function CourseDetail() {
                     </Link>
                   ) : (
                     <button
-                      onClick={() => (isBatch1 ? setShowClosedModal(true) : setShowModal(true))}
-                      className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.99] transition-all duration-150 font-sans cursor-pointer"
-                    >
-                      <EditableText id={`course.${course.slug}.cta.button`}>
-                        Enroll in Batch 03 Now
-                      </EditableText>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  )}
-
-                  <p className="mt-3 text-center text-xs text-muted-foreground font-sans">
-                    {isBatch1 ? "বিস্তারিত জানতে হোয়াটসঅ্যাপ করুন: 01890352188" : "Instant WhatsApp seat confirmation flow"}
-                  </p>
-
-                </div>
-              </div>
-
-            </div>
-
-            {/* ================= Sticky Tab Bar ================= */}
-            <div className="sticky top-20 z-30 mb-8 py-2.5 backdrop-blur-md">
-              <div className="max-w-4xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar">
-                {tabList.map((tab) => {
-                  const isActive = activeTab === tab.id;
-                  const Icon = tab.icon;
-                  return (
-                    <button
+                      onClick={() => {isBatch1 ? (
+  <button
+    onClick={() => setShowClosedModal(true)}
+    className="w-full py-3.5 px-6 rounded-2xl bg-destructive/10 text-destructive font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+  >
+    <span>Enrollment Closed</span>
+    <AlertCircle className="w-4 h-4" />
+  </button>
+) : enrolled ? (
+  <Link
+    to="/courses/$slug/lessons/$lessonId"
+    params={{ slug, lessonId: "intro" }}
+    className="gloss-btn w-full justify-center !py-3.5 text-base font-bold cursor-pointer"
+  >
+    Access Unlocked - Start Learning
+  </Link>
+) : (
+  <button
+    onClick={() => setShowModal(true)}
+    className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
+  >
+    <EditableText id={`course.${course.slug}.cta.button`}>
+      Enroll in Batch 03 Now
+    </EditableText>
+    <ArrowRight className="w-4 h-4" />
+  </button>
+)}
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
                       className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer select-none ${
