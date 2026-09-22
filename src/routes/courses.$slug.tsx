@@ -1857,47 +1857,42 @@ function CourseDetail() {
                       </div>
                       <span className="font-normal text-foreground/90 text-right">
                         Live Sessions (Discord & Meet)
-                      </span>
-                    </div>
-                  </div>
+                      </div>
+        {isBatch1 ? (
+          <button
+            onClick={() => setShowClosedModal(true)}
+            className="w-full py-3.5 px-6 rounded-2xl bg-destructive/10 text-destructive font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+          >
+            <span>Enrollment Closed</span>
+            <AlertCircle className="w-4 h-4" />
+          </button>
+        ) : enrolled ? (
+          <Link
+            to="/courses/$slug/lessons/$lessonId"
+            params={{ slug, lessonId: "intro" }}
+            className="gloss-btn w-full justify-center !py-3.5 text-base font-bold cursor-pointer"
+          >
+            Access Unlocked • Start Learning
+          </Link>
+        ) : (
+          <button
+            onClick={() => setShowModal(true)}
+            className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
+          >
+            <EditableText id={`course.${course.slug}.cta.button`}>
+              Enroll in Batch 03 Now
+            </EditableText>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        )}
+        <p className="mt-3 text-center text-xs text-muted-foreground font-sans">
+          {isBatch1 ? "বিস্তারিত জানতে হোয়াটসঅ্যাপ করুন: 01890352188" : "Instant WhatsApp seat confirmation flow"}
+        </p>
+      </div>
+    </div>
+  </div>
 
-                  {isBatch1 ? (
-  <button
-    onClick={() => setShowClosedModal(true)}
-    className="w-full py-3.5 px-6 rounded-2xl bg-destructive/10 text-destructive font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
-  >
-    <span>Enrollment Closed</span>
-    <AlertCircle className="w-4 h-4" />
-  </button>
-) : enrolled ? (
-  <Link
-    to="/courses/$slug/lessons/$lessonId"
-    params={{ slug, lessonId: "intro" }}
-    className="gloss-btn w-full justify-center !py-3.5 text-base font-bold cursor-pointer"
-  >
-    Access Unlocked - Start Learning
-  </Link>
-) : (
-  <button
-    onClick={() => setShowModal(true)}
-    className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
-  >
-    <EditableText id={`course.${course.slug}.cta.button`}>
-      Enroll in Batch 03 Now
-    </EditableText>
-    <ArrowRight className="w-4 h-4" />
-  </button>
-)}
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer select-none ${
-                        isActive
-                          ? "bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-[1.02]"
-                          : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
-                      }`}
-                    >
-                      <Icon className="w-4 h-4 shrink-0" />
-                      <span>{tab.label}</span>
+  {/* Sticky Tab Bar */}
                     </button>
                   );
                 })}
