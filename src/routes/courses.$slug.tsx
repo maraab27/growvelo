@@ -1694,7 +1694,13 @@ function CourseDetail() {
                         </a>
                       ) : (
                         <button
-                          onClick={() => setShowModal(true)}
+                          onClick={() => {
+  if (isBatch1) {
+    setShowClosedModal(true);
+  } else {
+    setShowModal(true);
+  }
+}}
                           className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
                         >
                           <span>Enroll Now</span>
@@ -1890,7 +1896,13 @@ function CourseDetail() {
                     </Link>
                   ) : (
                     <button
-                      onClick={() => setShowModal(true)}
+                      onClick={() => {
+  if (isBatch1) {
+    setShowClosedModal(true);
+  } else {
+    setShowModal(true);
+  }
+}}
                       className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.99] transition-all duration-150 font-sans cursor-pointer"
                     >
                       <EditableText id={`course.${course.slug}.cta.button`}>
@@ -1964,7 +1976,13 @@ function CourseDetail() {
 
                 <div className="mt-8 flex flex-col items-center justify-center gap-3">
                   <button
-                    onClick={() => setShowModal(true)}
+                    onClick={() => {
+  if (isBatch1) {
+    setShowClosedModal(true);
+  } else {
+    setShowModal(true);
+  }
+}}
                     className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base sm:text-lg flex items-center justify-center gap-3 shadow-xl shadow-primary/30 hover:brightness-110 active:scale-[0.99] transition-all font-sans cursor-pointer"
                   >
                     <span>Enroll in Batch 03 Now (৳৩,০০০)</span>
