@@ -469,28 +469,25 @@ function BatchClosedModal({ onClose }: { onClose: () => void }) {
         >
           <X className="w-5 h-5" />
         </button>
-
         <div className="w-16 h-16 bg-amber-500/10 text-amber-500 rounded-full flex items-center justify-center mb-5 border border-amber-500/20">
           <AlertCircle className="w-8 h-8" />
         </div>
-
         <h2 className="font-bangla text-2xl font-extrabold text-foreground mb-3">
-          এই ব্যাচটির এনরোলমেন্ট সম্পন্ন হয়ে গেছে
+          এই ব্যাচটির এনরোলমেন্ট সম্পন্ন হয়ে গেছে
         </h2>
-
         <p className="font-bangla text-sm text-foreground/80 leading-relaxed mb-8">
           আমাদের ব্যাচ ০১ এর ক্লাস এবং এনরোলমেন্ট ইতিমধ্যে শেষ হয়ে গেছে।
           <br /><br />
           বর্তমানে আমাদের অ্যাডভান্সড মাস্টারক্লাস <strong>(ব্যাচ ০৩)</strong> এর এনরোলমেন্ট চলছে। আপনি চাইলে সেখানে যুক্ত হতে পারেন।
         </p>
-
         <Link
           to="/courses/$slug"
-          params={{ slug: "batch-03" }}
+          // 👇 আপনার ব্যাচ ৩ এর লিংকের শেষের অংশটি (slug) ঠিক এখানে বসাবেন 👇
+          params={{ slug: "আপনার-ব্যাচ-৩-এর-আসল-স্লাগ-এখানে-দিন" }} 
           onClick={onClose}
-          className="w-full py-4 px-6 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
+          className="w-full py-4 px-6 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-95 transition-all cursor-pointer"
         >
-          <span>ব্যাচ ৩ এ জয়েন করুন</span>
+          <span>ব্যাচ ৩ এ জয়েন করুন</span>
           <ArrowRight className="w-5 h-5" />
         </Link>
       </div>
