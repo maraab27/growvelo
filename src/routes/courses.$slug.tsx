@@ -480,14 +480,19 @@ function BatchClosedModal({ onClose }: { onClose: () => void }) {
           <br /><br />
           বর্তমানে আমাদের অ্যাডভান্সড মাস্টারক্লাস <strong>(ব্যাচ ০৩)</strong> এর এনরোলমেন্ট চলছে। আপনি চাইলে সেখানে যুক্ত হতে পারেন।
         </p>
-        <Link
-          to="/courses/batch-03"
-          onClick={onClose}
-          className="w-full py-4 px-6 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
+        <button
+          type="button"
+          onClick={() => {
+            onClose();
+            const b3Course = COURSES.find((c) => c.slug.includes("batch-3") || c.slug.includes("batch-03"));
+            const targetSlug = b3Course ? b3Course.slug : "batch-03";
+            window.location.href = `/courses/${targetSlug}`;
+          }}
+          className="w-full py-4 px-6 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer font-sans"
         >
           <span>ব্যাচ ৩ এ জয়েন করুন</span>
           <ArrowRight className="w-5 h-5" />
-        </Link>
+        </button>
       </div>
     </div>
   );
