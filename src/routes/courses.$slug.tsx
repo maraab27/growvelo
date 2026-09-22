@@ -49,7 +49,7 @@ import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { EditableText } from "@/components/cms/EditableText";
 
-// 24 hours evergreen rolling countdown timer
+// ২৪ ঘণ্টার রোলিং কাউন্টডাউন হুক
 function useEvergreenTimer(hoursDuration = 24) {
   const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number }>({
     hours: 23,
@@ -90,7 +90,7 @@ function useEvergreenTimer(hoursDuration = 24) {
   return timeLeft;
 }
 
-// Strict email-based admin verification
+// ১০০% কড়াকড়ি জিমেইল-নির্ভর অ্যাডমিন চেক (আপনার সংরক্ষিত জিমেইল)
 function useStrictAdminCheck() {
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -131,7 +131,7 @@ function useStrictAdminCheck() {
   return isAdmin;
 }
 
-// Dynamic database sync hook
+// ডাটাবেজ সিঙ্ক হুক
 function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
   const [items, setItems] = useState<T[]>(defaultItems);
   const isAdmin = useStrictAdminCheck();
@@ -186,7 +186,7 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
   return { items, addItem, removeItem, updateItem, isAdmin };
 }
 
-// Enrollment Modal
+// ================= এনরোলমেন্ট মডাল =================
 function EnrollmentModal({
   courseSlug,
   onClose,
@@ -456,7 +456,7 @@ TrxID: ${formData.trxId}`;
   );
 }
 
-// ================= Tab 1: Overview =================
+// ================= ট্যাব ১: ওভারভিউ =================
 function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolean }) {
   const batch1Cards = [
     {
@@ -479,7 +479,7 @@ function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: b
     },
   ];
 
-  const batch3Cards = [
+  const batchRegularCards = [
     {
       id: "card_1",
       title: "সবাই কনটেন্ট বানাচ্ছে, কিন্তু রিটেনশন পাচ্ছে কয়জন?",
@@ -512,31 +512,33 @@ function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: b
     "Color Correction Basics, Social Media Reels & Client Ready Process",
   ];
 
-  const batch3BadPoints = [
+  const batchRegularBadPoints = [
     "ঘণ্টার পর ঘণ্টা এলোমেলো ইউটিউব টিউটোরিয়ালে বিভ্রান্ত ও দিকহারা থাকা",
     "সাউন্ড ডিজাইন ও কালার সাইকোলজি ছাড়া সাধারণ কাট পেস্ট এডিট",
     "মার্কেটপ্লেসে অল্প টাকায় কাজের জন্য বিড করে বারবার রিজেক্ট হওয়া",
   ];
 
-  const batch3GoodPoints = [
+  const batchRegularGoodPoints = [
     "সরাসরি প্র্যাকটিক্যাল প্রজেক্ট ও সিনেমাটিক স্টোরিটেলিং পদ্ধতি আয়ত্ত করা",
     "উন্নত সাউন্ড ডিজাইন, নিখুঁত কালার গ্রেডিং ও হাই রিটেনশন মোশন অ্যানিমেশন",
     "আন্তর্জাতিক মানের প্রফেশনাল পোর্টফোলিও ও সরাসরি ক্লায়েন্ট ডিল ক্লোজিং দক্ষতা",
   ];
 
+  const storageSuffix = isBatch1 ? "b1_v2" : "regular";
+
   const { items: cards, addItem: addCard, removeItem: removeCard, isAdmin } = useDynamicCmsList(
-    `course.${courseSlug}.overview.cards`,
-    isBatch1 ? batch1Cards : batch3Cards
+    `course.${courseSlug}.overview.cards.${storageSuffix}`,
+    isBatch1 ? batch1Cards : batchRegularCards
   );
 
   const { items: badPoints, addItem: addBadPoint, removeItem: removeBadPoint } = useDynamicCmsList(
-    `course.${courseSlug}.overview.badPoints`,
-    isBatch1 ? batch1BadPoints : batch3BadPoints
+    `course.${courseSlug}.overview.badPoints.${storageSuffix}`,
+    isBatch1 ? batch1BadPoints : batchRegularBadPoints
   );
 
   const { items: goodPoints, addItem: addGoodPoint, removeItem: removeGoodPoint } = useDynamicCmsList(
-    `course.${courseSlug}.overview.goodPoints`,
-    isBatch1 ? batch1GoodPoints : batch3GoodPoints
+    `course.${courseSlug}.overview.goodPoints.${storageSuffix}`,
+    isBatch1 ? batch1GoodPoints : batchRegularGoodPoints
   );
 
   const handleAddNewCard = () => {
@@ -635,7 +637,7 @@ function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: b
         </div>
       )}
 
-      {/* Before vs After comparison */}
+      {/* বিফোর বনাম আফটার কম্প্যারিজন ব্যানার */}
       <div className="glass rounded-2xl border border-border/70 p-5 sm:p-8 relative overflow-hidden backdrop-blur-md w-full">
         <div className="text-center mb-6">
           <h3 className="font-bangla text-base sm:text-lg font-bold text-foreground">
@@ -737,7 +739,7 @@ function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: b
   );
 }
 
-// ================= Tab 2: Curriculum =================
+// ================= ট্যাব ২: কারিকুলাম =================
 function TabCurriculum({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolean }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -789,7 +791,7 @@ function TabCurriculum({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1:
     },
   ];
 
-  const batch3Modules = [
+  const batchRegularModules = [
     {
       moduleNo: "Module 01",
       title: "Premiere Pro Fundamentals & Fast Workflow",
@@ -852,9 +854,11 @@ function TabCurriculum({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1:
     },
   ];
 
+  const storageSuffix = isBatch1 ? "b1_v2" : "regular";
+
   const { items: modules, addItem: addModule, removeItem: removeModule, updateItem: updateModule, isAdmin } = useDynamicCmsList(
-    `course.${courseSlug}.curriculum.modules`,
-    isBatch1 ? batch1Modules : batch3Modules
+    `course.${courseSlug}.curriculum.modules.${storageSuffix}`,
+    isBatch1 ? batch1Modules : batchRegularModules
   );
 
   const handleAddNewModule = () => {
@@ -1022,7 +1026,7 @@ function TabCurriculum({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1:
   );
 }
 
-// ================= Tab 3: What's Included =================
+// ================= ট্যাব ৩: কী কী পাচ্ছেন =================
 function TabWhatsIncluded({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolean }) {
   const batch1Features = [
     { id: "b1_f1", titleKey: "লাইভ ইন্টারঅ্যাক্টিভ ক্লাস", descKey: "সরাসরি স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা ও লাইভ প্রশ্নোত্তর।" },
@@ -1033,7 +1037,7 @@ function TabWhatsIncluded({ courseSlug, isBatch1 }: { courseSlug: string; isBatc
     { id: "b1_f6", titleKey: "সরাসরি হোয়াটসঅ্যাপ গাইডেন্স", descKey: "যেকোনো প্রশ্নের জন্য ০১৮৯০৩৫২১৮৮ নম্বরে সাপোর্ট সুবিধা।" },
   ];
 
-  const batch3Features = [
+  const batchRegularFeatures = [
     { id: "feat_1", titleKey: "লাইভ ইন্টারেক্টিভ ক্লাস", descKey: "সরাসরি স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা ও লাইভ প্রশ্নোত্তর পর্ব।" },
     { id: "feat_2", titleKey: "লাইফটাইম ক্লাউড রেকর্ডিং ব্যাকআপ", descKey: "ক্লাস শেষ হতেই ওয়েবসাইট ড্যাশবোর্ডে ফুল এইচডি ক্লাউড রেকর্ডিং যুক্ত হবে।" },
     { id: "feat_3", titleKey: "ডেডিকেটেড ডিসকর্ড প্রাইভেট কমিউনিটি", descKey: "২৪/৭ প্রাইভেট চ্যানেল, অ্যাসাইনমেন্ট ফিডব্যাক ও সহপাঠীদের সাথে সরাসরি নেটওয়ার্কিং।" },
@@ -1042,9 +1046,11 @@ function TabWhatsIncluded({ courseSlug, isBatch1 }: { courseSlug: string; isBatc
     { id: "feat_6", titleKey: "কমপ্লিশন ভেরিফায়েড সার্টিফিকেট", descKey: "ব্যাচের সব প্রজেক্ট সফলভাবে জমা দেওয়ার পর দেওয়া হবে ভেরিফায়েড ডিজিটাল সার্টিফিকেট।" },
   ];
 
+  const storageSuffix = isBatch1 ? "b1_v2" : "regular";
+
   const { items: features, addItem: addFeature, removeItem: removeFeature, isAdmin } = useDynamicCmsList(
-    `course.${courseSlug}.included.features`,
-    isBatch1 ? batch1Features : batch3Features
+    `course.${courseSlug}.included.features.${storageSuffix}`,
+    isBatch1 ? batch1Features : batchRegularFeatures
   );
 
   return (
@@ -1112,7 +1118,7 @@ function TabWhatsIncluded({ courseSlug, isBatch1 }: { courseSlug: string; isBatc
   );
 }
 
-// ================= Tab 4: How It Works =================
+// ================= ট্যাব ৪: যেভাবে শুরু করবেন =================
 function TabHowItWorks({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolean }) {
   const batch1Steps = [
     {
@@ -1135,7 +1141,7 @@ function TabHowItWorks({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1:
     },
   ];
 
-  const batch3Steps = [
+  const batchRegularSteps = [
     {
       step: "01",
       badgeTitle: "এনরোলমেন্ট রিকোয়েস্ট পাঠান",
@@ -1156,9 +1162,11 @@ function TabHowItWorks({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1:
     },
   ];
 
+  const storageSuffix = isBatch1 ? "b1_v2" : "regular";
+
   const { items: steps, addItem: addStep, removeItem: removeStep, isAdmin } = useDynamicCmsList(
-    `course.${courseSlug}.howitworks.steps`,
-    isBatch1 ? batch1Steps : batch3Steps
+    `course.${courseSlug}.howitworks.steps.${storageSuffix}`,
+    isBatch1 ? batch1Steps : batchRegularSteps
   );
 
   return (
@@ -1239,7 +1247,7 @@ function TabHowItWorks({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1:
   );
 }
 
-// ================= Tab 5: FAQ =================
+// ================= ট্যাব ৫: সাধারণ প্রশ্ন (FAQ) =================
 function TabFaq({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolean }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -1266,7 +1274,7 @@ function TabFaq({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolea
     },
   ];
 
-  const batch3Faqs = [
+  const batchRegularFaqs = [
     {
       id: "faq_1",
       q: "আমি একদম নতুন, আগে কখনো এডিটিং করিনি। আমি কি এই ব্যাচটি করতে পারব?",
@@ -1294,9 +1302,11 @@ function TabFaq({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolea
     },
   ];
 
+  const storageSuffix = isBatch1 ? "b1_v2" : "regular";
+
   const { items: faqs, addItem: addFaq, removeItem: removeFaq, isAdmin } = useDynamicCmsList(
-    `course.${courseSlug}.faq.items`,
-    isBatch1 ? batch1Faqs : batch3Faqs
+    `course.${courseSlug}.faq.items.${storageSuffix}`,
+    isBatch1 ? batch1Faqs : batchRegularFaqs
   );
 
   return (
@@ -1385,15 +1395,16 @@ function CourseDetail() {
   const course = COURSES.find((c) => c.slug === slug)!;
   const [enrolled, setEnrolled] = useState(false);
   
-  // URL-e ?enroll=true thakle auto modal open hobe
+  // URL-এ ?enroll=true থাকলে অটো মডাল ওপেন হবে
   const [showModal, setShowModal] = useState<boolean>(!!search?.enroll);
   const [showLockedModal, setShowLockedModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   const [activeTab, setActiveTab] = useState<"overview" | "curriculum" | "included" | "how" | "faq">("overview");
 
-  // Batch 01 check
-  const isBatch1 = slug === "batch-01" || slug === "rising-editors" || slug.includes("batch-1") || slug.includes("15-days");
+  // ব্যাচ ১ এর স্লাগ নিখুঁতভাবে চেক (যেকোনো ফরমেট হ্যান্ডেল করবে)
+  const cleanSlug = slug.toLowerCase();
+  const isBatch1 = cleanSlug.includes("batch-01") || cleanSlug.includes("batch-1") || cleanSlug.includes("rising-editors") || cleanSlug.includes("15-days");
 
   const timer = useEvergreenTimer(24);
 
