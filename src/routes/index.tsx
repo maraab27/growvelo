@@ -14,9 +14,9 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "growVelo – Professional Video Editing Courses" },
-      { name: "description", content: "Learn professional video editing with growVelo's live Bengali courses, expert mentoring, and student showcase." },
-      { property: "og:title", content: "growVelo – Professional Video Editing Courses" },
+      { title: "GrowVelo – Professional Video Editing Masterclass" },
+      { name: "description", content: "Learn professional video editing with GrowVelo's live Bengali courses, expert mentoring, and student showcase." },
+      { property: "og:title", content: "GrowVelo – Professional Video Editing Courses" },
       { property: "og:description", content: "Learn professional video editing through live Bengali courses and expert mentoring." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
