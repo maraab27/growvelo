@@ -106,7 +106,7 @@ function useStrictAdminCheck() {
         }
 
         const email = session.user.email.toLowerCase();
-        if (email.includes("abdullah20050127") || email.includes("admin")) {
+        if (email.includes("maraab") || email.includes("admin") || email.includes("growvelo")) {
           if (isMounted) setIsAdmin(true);
         } else {
           if (isMounted) setIsAdmin(false);
@@ -509,8 +509,9 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
   );
 
   const handleAddNewCard = () => {
+    const newId = `card_${Date.now()}`;
     addCard({
-      id: `card_${Date.now()}`,
+      id: newId,
       title: "নতুন সুযোগ বা সমস্যা বিশ্লেষণ",
       desc: "এখানে নতুন কার্ডের বিস্তারিত বিবরণ বাংলায় লিখুন।",
       action: "বিস্তারিত জানুন",
@@ -543,6 +544,7 @@ function TabOverview({ courseSlug }: { courseSlug: string }) {
         </p>
       </div>
 
+      {/* কার্ড গ্রিড */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 w-full">
         {cards?.map((card, idx) => (
           <div
@@ -1026,7 +1028,7 @@ function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
             )}
 
             <div>
-              <div className="w-10 h-10 rounded-xl bg-foreground/[0.04] border border-border/50 flex items-center justify-center text-foreground/80 mb-4 group-hover:border-primary/40 group-hover:text-primary">
+              <div className="w-10 h-10 rounded-xl bg-foreground/[0.04] border border-border/50 flex items-center justify-center text-foreground/80 mb-4 group-hover:border-primary/40 group-hover:text-primary transition-colors">
                 <Gift className="w-5 h-5" />
               </div>
 
@@ -1205,12 +1207,12 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
     {
       id: "faq_2",
       q: "ক্লাসগুলো কীভাবে হবে এবং সময়সূচি কী?",
-      a: "ক্লাসগুলো সরাসরি ডিসকর্ড প্রাইভেট চ্যানেলে স্ক্রিন শেয়ারের মাধ্যমে অনুষ্ঠিত হবে। প্রতি সপ্তাহে নির্ধারিত লাইভ সেশন এবং লাইভ প্রশ্নোত্তরের সুযোগ থাকবে।",
+      a: "ক্লাসগুলো সরাসরি ডিসকর্ড প্রাইভেট চ্যানেলের পাশাপাশি গুগল মিট (Google Meet) ও জুম (Zoom)-এ স্ক্রিন শেয়ারের মাধ্যমে অনুষ্ঠিত হবে। প্রতি সপ্তাহে নির্ধারিত লাইভ সেশন এবং লাইভ প্রশ্নোত্তরের সুযোগ থাকবে।",
     },
     {
       id: "faq_3",
       q: "কোনো কারণে লাইভ ক্লাস মিস করলে কি রেকর্ডিং পাওয়া যাবে?",
-      a: "অবশ্যই! প্রতিটি লাইভ ক্লাসের পরপরই ওয়েবসাইট ড্যাশবোর্ডে ফুল এইচডি ক্লাউড রেকর্ডিং ব্যাকআপ দিয়ে দেওয়া হবে, যা আপনি আজীবন দেখতে পারবেন।",
+      a: "অবশ্যই! প্রতিটি লাইভ ক্লাসের পরপরই ওয়েবসাইট ড্যাশবোর্ডে ফুল এইচডি ক্লাউড রেকর্ডিং ব্যাকআপ দিয়ে দেওয়া হবে, যা আপনি আজীবন দেখতে পারবেন।",
     },
     {
       id: "faq_4",
@@ -1242,10 +1244,7 @@ function TabFaq({ courseSlug }: { courseSlug: string }) {
     <div className="space-y-8 sm:space-y-10 animate-in fade-in duration-300 font-bangla w-full overflow-hidden">
       <div className="max-w-3xl mx-auto text-center flex flex-col items-center px-1 sm:px-2">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/20 bg-primary/5 text-primary text-xs sm:text-sm font-medium tracking-wide mb-4">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-          </span>
+          <HelpCircle className="w-3.5 h-3.5" />
           <EditableText id={`course.${courseSlug}.faq.badge`}>
             সাধারণ প্রশ্নোত্তর
           </EditableText>
@@ -1378,6 +1377,7 @@ function CourseDetail() {
 
   return (
     // SiteShell দিয়ে মোড়ানো যাতে আসল হেডার ও লোগো পুরোপুরি সুরক্ষিত থাকে
+    // সিএসএস দিয়ে পেজের নিচের ডিফল্ট বড় ফুটার বন্ধ রাখা হয়েছে
     <div className="[&>div>footer]:!hidden [&>footer]:!hidden">
       <SiteShell>
         {showModal && (
@@ -1507,7 +1507,6 @@ function CourseDetail() {
                   {/* কোর্স হেডলাইন ও মেটা ট্যাগ */}
                   <div className="p-5 sm:p-7 space-y-4">
                     
-                    {/* কোর্স ক্যাটাগরি বা ইন্ডিকেটর ট্যাগ */}
                     <div className="flex flex-wrap items-center gap-2 text-xs font-mono font-semibold uppercase text-primary tracking-wider">
                       <span className="px-2.5 py-1 rounded-lg bg-primary/10 border border-primary/20">Masterclass</span>
                       <span>•</span>
@@ -1522,12 +1521,12 @@ function CourseDetail() {
 
                     {/* ডেসক্রিপশন */}
                     <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-4">
-                      <p>
+                      <p className="font-normal text-foreground/80">
                         <EditableText id={`course.${course.slug}.hero.desc.1`}>
                           ইউটিউবে শত শত টিউটোরিয়াল দেখেও আসল এডিটিং ফ্লো মিলছে না? শুধু সফটওয়্যারের বাটন চেনা কোনো স্থায়ী স্কিল নয়।
                         </EditableText>
                       </p>
-                      <p>
+                      <p className="font-normal text-foreground/80">
                         <EditableText id={`course.${course.slug}.hero.desc.2`}>
                           এই মাস্টারক্লাসে আপনি শিখবেন আন্তর্জাতিক মানের সিনেমাটিক স্টোরিটেলিং, ৩ সেকেন্ড রিটেনশন হুক এবং সাউন্ড ডিজাইনের আসল সিক্রেট।
                         </EditableText>
@@ -1539,7 +1538,7 @@ function CourseDetail() {
                       </p>
                     </div>
 
-                    {/* মোবাইল স্ক্রিনের জন্য কুইক প্রাইস ও এনরোল বার (যাতে স্ক্রল করে নিচে না যেতে হয়) */}
+                    {/* মোবাইল স্ক্রিনের জন্য কুইক প্রাইস ও এনরোল বার */}
                     <div className="block lg:hidden pt-4 border-t border-border/40 flex items-center justify-between gap-4">
                       <div>
                         <span className="text-xs text-muted-foreground block font-mono">Special Price</span>
