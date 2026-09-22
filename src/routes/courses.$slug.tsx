@@ -1490,19 +1490,11 @@ function CourseDetail() {
             onClose={() => setShowModal(false)}
           />
         )}
-{showModal && (
-          <EnrollmentModal
-            courseSlug={slug}
-            onClose={() => setShowModal(false)}
-          />
-        )}
 
-        {/* ঠিক এইখানে কোডটি বসান (Line 1493) */}
         {showClosedModal && (
           <BatchClosedModal onClose={() => setShowClosedModal(false)} />
         )}
 
-        {showLockedModal && (
         {showLockedModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm font-bangla">
             <div className="sticky-card tint-brand relative w-full max-w-md overflow-hidden p-6 sm:p-8">
