@@ -1666,14 +1666,14 @@ function CourseDetail() {
                         </div>
                       </div>
                       {isBatch1 ? (
-                        <button
-                          onClick={() => setShowClosedModal(true)}
-                          className="px-5 py-2.5 rounded-xl bg-destructive/10 text-destructive font-semibold text-xs flex items-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer"
-                        >
-                          <span>Batch Closed</span>
-                          <AlertCircle className="w-3.5 h-3.5" />
-                        </button>
-                      ) : enrolled ? (
+  <button
+    onClick={() => setShowClosedModal(true)}
+    className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
+  >
+    <span>Enroll Now</span>
+    <ArrowRight className="w-3.5 h-3.5" />
+  </button>
+) : enrolled ? (
                         <Link
                           to={`/courses/${slug}/lessons/intro`}
                           className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
@@ -1849,14 +1849,14 @@ function CourseDetail() {
                   </div>
 
                   {isBatch1 ? (
-                    <button
-                      onClick={() => setShowClosedModal(true)}
-                      className="w-full py-3.5 px-6 rounded-2xl bg-destructive/10 text-destructive font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
-                    >
-                      <span>Enrollment Closed</span>
-                      <AlertCircle className="w-4 h-4" />
-                    </button>
-                  ) : enrolled ? (
+  <button
+    onClick={() => setShowClosedModal(true)}
+    className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
+  >
+    <span>Enroll Now</span>
+    <ArrowRight className="w-4 h-4" />
+  </button>
+) : enrolled ? (
                     <Link
                       to={`/courses/${slug}/lessons/intro`}
                       className="gloss-btn w-full justify-center !py-3.5 text-base font-bold cursor-pointer"
@@ -1933,14 +1933,14 @@ function CourseDetail() {
                 </p>
                 <div className="mt-8 flex flex-col items-center justify-center gap-3">
                   {isBatch1 ? (
-                    <button
-                      onClick={() => setShowClosedModal(true)}
-                      className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-destructive/10 text-destructive font-semibold text-base sm:text-lg flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
-                    >
-                      <span>Enrollment Closed</span>
-                      <AlertCircle className="w-5 h-5" />
-                    </button>
-                  ) : enrolled ? (
+  <button
+    onClick={() => setShowClosedModal(true)}
+    className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
+  >
+    <span>Enroll Now</span>
+    <ArrowRight className="w-4 h-4" />
+  </button>
+) : enrolled ? (
                     <Link
                       to={`/courses/${slug}/lessons/intro`}
                       className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base sm:text-lg flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
