@@ -1862,26 +1862,6 @@ function CourseDetail() {
                   </div>
 
                   {isBatch1 ? (
-                    <a
-                      href="https://forms.gle/gSvxvW5VukEjjZgd7"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.99] transition-all duration-150 font-sans cursor-pointer"
-                    >
-                      <span>গুগল ফর্মে ফ্রি রেজিস্ট্রেশন করুন</span>
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  ) : enrolled ? (
-                    <Link
-                      to="/courses/$slug/lessons/$lessonId"
-                      params={{ slug, lessonId: "intro" }}
-                      className="gloss-btn w-full justify-center !py-3.5 text-base font-bold cursor-pointer"
-                    >
-                      Access Unlocked • Start Learning
-                    </Link>
-                  ) : (
-                    <button
-                      onClick={() => {isBatch1 ? (
   <button
     onClick={() => setShowClosedModal(true)}
     className="w-full py-3.5 px-6 rounded-2xl bg-destructive/10 text-destructive font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
