@@ -634,3 +634,13 @@
 @media print {
   .no-print { display: none !important; }
 }
+/* গ্লোবাল ইমেজ প্রটেকশন: পুরো ওয়েবসাইটের সব ছবির ড্র্যাগ ও টানাটানি বন্ধ */
+img {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-user-drag: none !important;
+  -moz-user-drag: none !important;
+  -ms-user-drag: none !important;
+  user-drag: none !important;
+  pointer-events: auto;
+}
