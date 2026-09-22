@@ -481,13 +481,11 @@ function BatchClosedModal({ onClose }: { onClose: () => void }) {
           বর্তমানে আমাদের অ্যাডভান্সড মাস্টারক্লাস <strong>(ব্যাচ ০৩)</strong> এর এনরোলমেন্ট চলছে। আপনি চাইলে সেখানে যুক্ত হতে পারেন।
         </p>
         <Link
-          to="/courses/$slug"
-          // 👇 আপনার ব্যাচ ৩ এর লিংকের শেষের অংশটি (slug) ঠিক এখানে বসাবেন 👇
-          params={{ slug: "video-editing-batch-3?enroll=false" }} 
+          to="/courses/batch-03"
           onClick={onClose}
-          className="w-full py-4 px-6 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-95 transition-all cursor-pointer"
+          className="w-full py-4 px-6 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
         >
-          <span>ব্যাচ ৩ এ জয়েন করুন</span>
+          <span>ব্যাচ ৩ এ জয়েন করুন</span>
           <ArrowRight className="w-5 h-5" />
         </Link>
       </div>
