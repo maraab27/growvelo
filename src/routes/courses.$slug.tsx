@@ -456,6 +456,47 @@ TrxID: ${formData.trxId}`;
   );
 }
 
+function BatchClosedModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
+      <div
+        className="glass-strong rounded-3xl max-w-md w-full p-8 border border-border/80 shadow-2xl relative text-center flex flex-col items-center font-bangla"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-2 rounded-full glass text-muted-foreground hover:text-foreground transition-colors cursor-pointer z-10"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        <div className="w-16 h-16 bg-amber-500/10 text-amber-500 rounded-full flex items-center justify-center mb-5 border border-amber-500/20">
+          <AlertCircle className="w-8 h-8" />
+        </div>
+
+        <h2 className="font-bangla text-2xl font-extrabold text-foreground mb-3">
+          এই ব্যাচটির এনরোলমেন্ট সম্পন্ন হয়ে গেছে
+        </h2>
+
+        <p className="font-bangla text-sm text-foreground/80 leading-relaxed mb-8">
+          আমাদের ব্যাচ ০১ এর ক্লাস এবং এনরোলমেন্ট ইতিমধ্যে শেষ হয়ে গেছে।
+          <br /><br />
+          বর্তমানে আমাদের অ্যাডভান্সড মাস্টারক্লাস <strong>(ব্যাচ ০৩)</strong> এর এনরোলমেন্ট চলছে। আপনি চাইলে সেখানে যুক্ত হতে পারেন।
+        </p>
+
+        <Link
+          to="/courses/$slug"
+          params={{ slug: "batch-03" }}
+          onClick={onClose}
+          className="w-full py-4 px-6 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
+        >
+          <span>ব্যাচ ৩ এ জয়েন করুন</span>
+          <ArrowRight className="w-5 h-5" />
+        </Link>
+      </div>
+    </div>
+  );
+}
 // ================= ট্যাব ১: ওভারভিউ =================
 function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolean }) {
   const batch1Cards = [
@@ -524,7 +565,7 @@ function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: b
     "আন্তর্জাতিক মানের প্রফেশনাল পোর্টফোলিও ও সরাসরি ক্লায়েন্ট ডিল ক্লোজিং দক্ষতা",
   ];
 
-  const storageSuffix = isBatch1 ? "b1_v2" : "regular";
+  const storageSuffix = courseSlug.replace(/-/g, '_');
 
   const { items: cards, addItem: addCard, removeItem: removeCard, isAdmin } = useDynamicCmsList(
     `course.${courseSlug}.overview.cards.${storageSuffix}`,
@@ -1397,6 +1438,7 @@ function CourseDetail() {
   
   // URL-এ ?enroll=true থাকলে অটো মডাল ওপেন হবে
   const [showModal, setShowModal] = useState<boolean>(!!search?.enroll);
+  const [showClosedModal, setShowClosedModal] = useState(false);
   const [showLockedModal, setShowLockedModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
@@ -1448,7 +1490,19 @@ function CourseDetail() {
             onClose={() => setShowModal(false)}
           />
         )}
+{showModal && (
+          <EnrollmentModal
+            courseSlug={slug}
+            onClose={() => setShowModal(false)}
+          />
+        )}
 
+        {/* ঠিক এইখানে কোডটি বসান (Line 1493) */}
+        {showClosedModal && (
+          <BatchClosedModal onClose={() => setShowClosedModal(false)} />
+        )}
+
+        {showLockedModal && (
         {showLockedModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm font-bangla">
             <div className="sticky-card tint-brand relative w-full max-w-md overflow-hidden p-6 sm:p-8">
