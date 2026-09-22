@@ -49,7 +49,7 @@ import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { EditableText } from "@/components/cms/EditableText";
 
-// ২৪ ঘণ্টার রোলিং কাউন্টডাউন হুক
+// 24 hours evergreen rolling countdown timer
 function useEvergreenTimer(hoursDuration = 24) {
   const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number }>({
     hours: 23,
@@ -90,7 +90,7 @@ function useEvergreenTimer(hoursDuration = 24) {
   return timeLeft;
 }
 
-// ১০০% কড়াকড়ি জিমেইল-নির্ভর অ্যাডমিন চেক (আপনার আসল জিমেইল সংরক্ষিত)
+// Strict email-based admin verification
 function useStrictAdminCheck() {
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -106,7 +106,6 @@ function useStrictAdminCheck() {
         }
 
         const email = session.user.email.toLowerCase();
-        // আপনার সংরক্ষিত জিমেইল চেক
         if (email.includes("abdullah20050127") || email.includes("admin")) {
           if (isMounted) setIsAdmin(true);
         } else {
@@ -132,7 +131,7 @@ function useStrictAdminCheck() {
   return isAdmin;
 }
 
-// ডাটাবেজ সিঙ্ক হুক
+// Dynamic database sync hook
 function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
   const [items, setItems] = useState<T[]>(defaultItems);
   const isAdmin = useStrictAdminCheck();
@@ -187,7 +186,7 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
   return { items, addItem, removeItem, updateItem, isAdmin };
 }
 
-// ================= এনরোলমেন্ট মডাল =================
+// Enrollment Modal
 function EnrollmentModal({
   courseSlug,
   onClose,
@@ -457,9 +456,8 @@ TrxID: ${formData.trxId}`;
   );
 }
 
-// ================= ট্যাব ১: ওভারভিউ =================
+// ================= Tab 1: Overview =================
 function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolean }) {
-  // ব্যাচ ১ এর জন্য পোস্টারের সমস্যা ও সমাধান
   const batch1Cards = [
     {
       id: "b1_card_1",
@@ -637,7 +635,7 @@ function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: b
         </div>
       )}
 
-      {/* বিফোর বনাম আফটার কম্প্যারিজন ব্যানার */}
+      {/* Before vs After comparison */}
       <div className="glass rounded-2xl border border-border/70 p-5 sm:p-8 relative overflow-hidden backdrop-blur-md w-full">
         <div className="text-center mb-6">
           <h3 className="font-bangla text-base sm:text-lg font-bold text-foreground">
@@ -739,11 +737,10 @@ function TabOverview({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: b
   );
 }
 
-// ================= ট্যাব ২: কারিকুলাম =================
+// ================= Tab 2: Curriculum =================
 function TabCurriculum({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolean }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  // ব্যাচ ১ এর পোস্টার অনুযায়ী ১৫ দিনের রোডম্যাপ
   const batch1Modules = [
     {
       moduleNo: "DAY 1",
@@ -1025,7 +1022,7 @@ function TabCurriculum({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1:
   );
 }
 
-// ================= ট্যাব ৩: কী কী পাচ্ছেন =================
+// ================= Tab 3: What's Included =================
 function TabWhatsIncluded({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolean }) {
   const batch1Features = [
     { id: "b1_f1", titleKey: "লাইভ ইন্টারঅ্যাক্টিভ ক্লাস", descKey: "সরাসরি স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা ও লাইভ প্রশ্নোত্তর।" },
@@ -1042,7 +1039,7 @@ function TabWhatsIncluded({ courseSlug, isBatch1 }: { courseSlug: string; isBatc
     { id: "feat_3", titleKey: "ডেডিকেটেড ডিসকর্ড প্রাইভেট কমিউনিটি", descKey: "২৪/৭ প্রাইভেট চ্যানেল, অ্যাসাইনমেন্ট ফিডব্যাক ও সহপাঠীদের সাথে সরাসরি নেটওয়ার্কিং।" },
     { id: "feat_4", titleKey: "১০০+ প্রিমিয়াম সাউন্ড ও সিনেমাটিক অ্যাসেটস", descKey: "প্র্যাকটিসের জন্য প্রজেক্ট ফাইল, সাউন্ড প্যাক, সিনেমাটিক LUTs ও মোশন প্রিসেট।" },
     { id: "feat_5", titleKey: "সাপ্তাহিক পার্সোনালাইজড ফিডব্যাক", descKey: "আপনার প্রতিটি এডিটের ভুলত্রুটি ধরিয়ে দিয়ে মেন্টর সরাসরি স্ক্রিনে পার্সোনাল ফিডব্যাক দেবেন।" },
-    { id: "feat_6", titleKey: "কমপ্লিশন ভেরিফায়েড সার্টিফিকেট", descKey: "ব্যাচের সব প্রজেক্ট সফলভাবে জমা দেওয়ার পর দেওয়া হবে ভেরিফায়েড ডিজিটাল সার্টিফিকেট।", },
+    { id: "feat_6", titleKey: "কমপ্লিশন ভেরিফায়েড সার্টিফিকেট", descKey: "ব্যাচের সব প্রজেক্ট সফলভাবে জমা দেওয়ার পর দেওয়া হবে ভেরিফায়েড ডিজিটাল সার্টিফিকেট।" },
   ];
 
   const { items: features, addItem: addFeature, removeItem: removeFeature, isAdmin } = useDynamicCmsList(
@@ -1115,7 +1112,7 @@ function TabWhatsIncluded({ courseSlug, isBatch1 }: { courseSlug: string; isBatc
   );
 }
 
-// ================= ট্যাব ৪: যেভাবে শুরু করবেন =================
+// ================= Tab 4: How It Works =================
 function TabHowItWorks({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolean }) {
   const batch1Steps = [
     {
@@ -1242,7 +1239,7 @@ function TabHowItWorks({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1:
   );
 }
 
-// ================= ট্যাব ৫: সাধারণ প্রশ্ন (FAQ) =================
+// ================= Tab 5: FAQ =================
 function TabFaq({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolean }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -1384,15 +1381,18 @@ function TabFaq({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1: boolea
 
 function CourseDetail() {
   const { slug } = Route.useParams();
+  const search = Route.useSearch();
   const course = COURSES.find((c) => c.slug === slug)!;
   const [enrolled, setEnrolled] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  
+  // URL-e ?enroll=true thakle auto modal open hobe
+  const [showModal, setShowModal] = useState<boolean>(!!search?.enroll);
   const [showLockedModal, setShowLockedModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   const [activeTab, setActiveTab] = useState<"overview" | "curriculum" | "included" | "how" | "faq">("overview");
 
-  // ব্যাচ ১ সঠিকভাবে চিহ্নিতকরণ
+  // Batch 01 check
   const isBatch1 = slug === "batch-01" || slug === "rising-editors" || slug.includes("batch-1") || slug.includes("15-days");
 
   const timer = useEvergreenTimer(24);
@@ -1428,8 +1428,7 @@ function CourseDetail() {
   const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
 
   return (
-    // SiteShell দিয়ে মোড়ানো যাতে আসল হেডার ও লোগো পুরোপুরি অক্ষুণ্ণ থাকে
-    // এবং গ্লোবাল লেভেলে সব ছবির ড্র্যাগ অ্যান্ড ড্রপ নিষিদ্ধ
+    // Global image drag protection & footer hidden
     <div className="[&>div>footer]:!hidden [&>footer]:!hidden [&_img]:select-none [&_img]:pointer-events-auto [&_img]:[user-drag:none] [&_img]:[-webkit-user-drag:none]">
       <SiteShell>
         {showModal && (
@@ -1506,10 +1505,9 @@ function CourseDetail() {
               <span>All courses</span>
             </Link>
 
-            {/* ================= টপ ফোল্ড ================= */}
+            {/* ================= Hero fold ================= */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-20">
               
-              {/* বামপাশ: ভ্যালু প্রোপজিশন ও কোর্স ব্যানার ফ্রেম */}
               <div className="lg:col-span-7 flex flex-col space-y-5 sm:space-y-6 font-bangla min-w-0">
                 
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-border/80 bg-foreground/[0.04] w-fit shadow-2xs">
@@ -1521,10 +1519,10 @@ function CourseDetail() {
                   </span>
                 </div>
 
-                {/* কোর্স ব্যানার কার্ড (ড্র্যাগ অ্যান্ড ড্রপ প্রটেকশনসহ) */}
+                {/* Course Banner Card with Drag & Right-Click Protection */}
                 <div className="glass-strong rounded-3xl border border-border/70 shadow-lg relative overflow-hidden backdrop-blur-md select-none">
                   
-                  {/* এজ-টু-এজ থাম্বনেইল ব্যানার (ড্র্যাগ লক ও সেভ ব্লক) */}
+                  {/* Mobile Edge-to-Edge Banner */}
                   <div className="block lg:hidden w-full border-b border-border/40 select-none">
                     <div 
                       onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
@@ -1556,7 +1554,7 @@ function CourseDetail() {
                     </div>
                   </div>
 
-                  {/* কোর্স হেডলাইন ও মেটা ট্যাগ */}
+                  {/* Headline & Meta tags */}
                   <div className="p-5 sm:p-7 space-y-4">
                     
                     <div className="flex flex-wrap items-center gap-2 text-xs font-mono font-semibold uppercase text-primary tracking-wider">
@@ -1573,7 +1571,7 @@ function CourseDetail() {
                       </EditableText>
                     </h1>
 
-                    {/* ডেসক্রিপশন */}
+                    {/* Description */}
                     <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-4">
                       {isBatch1 ? (
                         <>
@@ -1608,7 +1606,7 @@ function CourseDetail() {
                       )}
                     </div>
 
-                    {/* মোবাইল স্ক্রিনের জন্য কুইক অ্যাকশন বার */}
+                    {/* Mobile Quick Action Bar */}
                     <div className="block lg:hidden pt-4 border-t border-border/40 flex items-center justify-between gap-4">
                       <div>
                         <span className="text-xs text-muted-foreground block font-mono">Course Fee</span>
@@ -1644,7 +1642,7 @@ function CourseDetail() {
 
                 </div>
 
-                {/* ৪টি কোর বেনিফিট কার্ড */}
+                {/* 4 Core Benefit Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                   <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                     <div className="p-2.5 rounded-xl bg-destructive/10 text-destructive shrink-0 mt-0.5">
@@ -1705,7 +1703,7 @@ function CourseDetail() {
 
               </div>
 
-              {/* ডানপাশ: স্টিকি কার্ড (ইমেজ ড্র্যাগ প্রটেকশনসহ) */}
+              {/* Right: Sticky Card with Drag & Right-Click Protection */}
               <div className="lg:col-span-5 lg:sticky lg:top-28">
                 <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md select-none">
                   
@@ -1739,7 +1737,7 @@ function CourseDetail() {
                     </div>
                   </div>
 
-                  {/* প্রাইসিং ও অফার ব্যাজ */}
+                  {/* Price & Offer Badge */}
                   <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pb-1">
                     <div className="flex items-baseline gap-2.5">
                       <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-mono">
@@ -1846,7 +1844,7 @@ function CourseDetail() {
 
             </div>
 
-            {/* ================= ১. স্টিকি ট্যাব বার কন্ট্রোলার ================= */}
+            {/* ================= Sticky Tab Bar ================= */}
             <div className="sticky top-20 z-30 mb-8 py-2.5 backdrop-blur-md">
               <div className="max-w-4xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar">
                 {tabList.map((tab) => {
@@ -1870,7 +1868,7 @@ function CourseDetail() {
               </div>
             </div>
 
-            {/* ================= ২. ইউনিফাইড কন্টেন্ট মাস্টার কার্ড ================= */}
+            {/* ================= Unified Content Master Card ================= */}
             <div className="max-w-5xl mx-auto glass-strong rounded-3xl border border-border/80 p-6 sm:p-10 lg:p-12 shadow-xl mb-16 relative overflow-hidden backdrop-blur-md w-full">
               {activeTab === "overview" && <TabOverview courseSlug={course.slug} isBatch1={isBatch1} />}
               {activeTab === "curriculum" && <TabCurriculum courseSlug={course.slug} isBatch1={isBatch1} />}
@@ -1879,7 +1877,7 @@ function CourseDetail() {
               {activeTab === "faq" && <TabFaq courseSlug={course.slug} isBatch1={isBatch1} />}
             </div>
 
-            {/* ================= ৩. ফাইনাল ক্লোজিং হাই-কনভার্টিং CTA ব্যানার (সব কোর্সেই থাকবে) ================= */}
+            {/* ================= Final Closing CTA Banner (Batch 03 Offer) ================= */}
             <div className="relative max-w-5xl mx-auto font-bangla mb-16">
               <div className="glass-strong rounded-3xl border border-primary/30 p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden backdrop-blur-md">
                 <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
@@ -1916,7 +1914,7 @@ function CourseDetail() {
               </div>
             </div>
 
-            {/* ================= ৪. কোর্স পেজের জন্য স্লিম ফুটার ================= */}
+            {/* Slim Footer */}
             <footer className="w-full py-6 border-t border-border/40 text-center font-sans">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
                 <p>© 2026 growVelo Studio. All rights reserved.</p>
@@ -1924,7 +1922,6 @@ function CourseDetail() {
                   <Link to="/legal" className="hover:text-foreground transition-colors">Privacy Policy</Link>
                   <span>•</span>
                   <Link to="/legal" className="hover:text-foreground transition-colors">Terms of Service</Link>
-                  <span>•</span>
                   <a href={`https://wa.me/8801410341220`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                     WhatsApp Support
                   </a>
@@ -1940,6 +1937,11 @@ function CourseDetail() {
 }
 
 export const Route = createFileRoute("/courses/$slug")({
+  validateSearch: (search: Record<string, unknown>): { enroll?: boolean } => {
+    return {
+      enroll: search.enroll === true || search.enroll === "true",
+    };
+  },
   beforeLoad: ({ params }) => {
     const exists = COURSES.some((c) => c.slug === params.slug);
     if (!exists) throw notFound();
