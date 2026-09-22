@@ -26,15 +26,6 @@ import {
   Sparkles,
   ChevronDown,
   BookOpen,
-  Video,
-  CloudDownload,
-  Users,
-  FolderArchive,
-  FileCheck,
-  Award,
-  FileText,
-  MessageCircle,
-  HelpCircle,
   LayoutDashboard,
   Workflow,
   HelpCircle as MessageCircleQuestion,
@@ -44,13 +35,15 @@ import {
   AlertCircle,
   Smartphone,
   ExternalLink,
-  Info
+  Info,
+  HelpCircle,
+  FileText
 } from "lucide-react";
 import { SiteShell, COURSES } from "../components/site/sections";
 import { supabase } from "@/integrations/supabase/client";
 import { EditableText } from "@/components/cms/EditableText";
 
-// ================= হুকস এবং ডাটাবেজ ফাংশন (ব্যাচ ২ ও ৩ এর জন্য) =================
+// ================= হুকস এবং ডাটাবেজ ফাংশন =================
 
 function useEvergreenTimer(hoursDuration = 24) {
   const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number }>({
@@ -98,7 +91,7 @@ function useStrictAdminCheck() {
         }
         const email = session.user.email.toLowerCase();
         // আপনার সংরক্ষিত জিমেইল
-        if (email.includes("abdullah20050127") || email.includes("admin")) {
+        if (email.includes("abdullah20050127") || email.includes("admin") || email.includes("growvelo")) {
           if (isMounted) setIsAdmin(true);
         } else {
           if (isMounted) setIsAdmin(false);
@@ -148,8 +141,7 @@ function useDynamicCmsList<T>(storageKey: string, defaultItems: T[]) {
   };
 }
 
-
-// ================= ব্যাচ ১ এর জন্য ডেডিকেটেড পপআপ মডাল (Batch Completed) =================
+// ================= ব্যাচ ১ এর জন্য ডেডিকেটেড পপআপ মডাল (Batch Closed) =================
 function Batch1ClosedModal({ onClose }: { onClose: () => void }) {
   const navigate = useNavigate();
 
@@ -172,7 +164,7 @@ function Batch1ClosedModal({ onClose }: { onClose: () => void }) {
         <p className="font-bangla text-sm text-foreground/80 leading-relaxed mb-8">
           আমাদের ১৫ দিনের ফ্রি ভিডিও এডিটিং বুটক্যাম্প (ব্যাচ ০১) এর ক্লাস শেষ হয়ে গেছে। 
           <br/><br/>
-          বর্তমানে আমাদের অ্যাডভান্সড মাস্টারক্লাস <strong>(ব্যাচ ০৩)</strong> এর এনরোলমেন্ট চলছে। আপনি চাইলে সেখানে যুক্ত হতে পারেন।
+          বর্তমানে আমাদের অ্যাডভান্সড মাস্টারক্লাস <strong>(ব্যাচ ০৩)</strong> এর রেজিস্ট্রেশন চলছে। আপনি চাইলে সেখানে যুক্ত হতে পারেন।
         </p>
 
         <button
@@ -180,7 +172,7 @@ function Batch1ClosedModal({ onClose }: { onClose: () => void }) {
             onClose();
             navigate({ to: "/courses/$slug", params: { slug: "batch-03" } });
           }}
-          className="w-full py-4 px-6 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
+          className="w-full py-4 px-6 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer font-sans"
         >
           <span>ব্যাচ ০৩ এ এনরোল করুন</span>
           <ArrowRight className="w-5 h-5" />
@@ -191,8 +183,7 @@ function Batch1ClosedModal({ onClose }: { onClose: () => void }) {
   );
 }
 
-
-// ================= ব্যাচ ৩ ও অন্যান্য কোর্সের পেমেন্ট মডাল =================
+// ================= ব্যাচ ২ ও ৩ এর জন্য পেমেন্ট মডাল =================
 function EnrollmentModal({ courseSlug, onClose }: { courseSlug: string; onClose: () => void; }) {
   const [copied, setCopied] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -211,13 +202,13 @@ function EnrollmentModal({ courseSlug, onClose }: { courseSlug: string; onClose:
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.fullName || !formData.phone || !formData.trxId) return alert("অনুগ্রহ করে আপনার নাম, হোয়াটসঅ্যাপ নম্বর এবং ট্রানজেকশন আইডি দিন।");
-    const message = `Hello growVelo, I have sent an enrollment request for Batch 03.\nName: ${formData.fullName}\nPhone: ${formData.phone}\nEmail: ${formData.email || "N/A"}\nMethod: ${selectedMethod} Personal\nTrxID: ${formData.trxId}`;
+    const message = `Hello growVelo, I have sent an enrollment request for ${courseSlug}.\nName: ${formData.fullName}\nPhone: ${formData.phone}\nEmail: ${formData.email || "N/A"}\nMethod: ${selectedMethod} Personal\nTrxID: ${formData.trxId}`;
     window.open(`https://wa.me/${supportWhatsapp}?text=${encodeURIComponent(message)}`, "_blank");
     setIsSubmitted(true);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="glass-strong rounded-3xl max-w-lg w-full p-5 sm:p-7 border border-border/80 shadow-2xl relative max-h-[92vh] overflow-y-auto font-bangla text-foreground" onClick={(e) => e.stopPropagation()}>
         <button onClick={onClose} className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 text-muted-foreground hover:text-foreground cursor-pointer z-10"><X className="w-5 h-5" /></button>
 
@@ -226,7 +217,7 @@ function EnrollmentModal({ courseSlug, onClose }: { courseSlug: string; onClose:
             <div className="text-center mb-5">
               <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground">Total Fee</span>
               <div className="text-3xl sm:text-4xl font-extrabold text-foreground font-mono mt-0.5">৳৩,০০০</div>
-              <h3 className="font-bangla text-base font-bold text-foreground mt-1.5"><EditableText id={`course.${courseSlug}.modal.title`}>ব্যাচ ৩ এ সিট কনফার্মেশন ও পেমেন্ট</EditableText></h3>
+              <h3 className="font-bangla text-base font-bold text-foreground mt-1.5"><EditableText id={`course.${courseSlug}.modal.title`}>মাস্টারক্লাস সিট কনফার্মেশন ও পেমেন্ট</EditableText></h3>
             </div>
 
             <div className="grid grid-cols-2 gap-2 p-1.5 rounded-2xl glass border border-border/70 mb-4 bg-foreground/[0.03]">
@@ -286,10 +277,11 @@ function EnrollmentModal({ courseSlug, onClose }: { courseSlug: string; onClose:
 // =========================================================================
 // ১. সম্পূর্ণ আলাদা ল্যান্ডিং পেজ: BATCH 01 (15 Days Free Bootcamp)
 // =========================================================================
-
 function Batch1Landing({ course }: { course: any }) {
   const [showClosedModal, setShowClosedModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
+  const previewVideoId = course?.introVideoId || null;
 
   return (
     <div className="pt-24 sm:pt-32 pb-12 sm:pb-16 overflow-x-hidden">
@@ -309,64 +301,66 @@ function Batch1Landing({ course }: { course: any }) {
           <ArrowLeft className="h-3 w-3" /> All courses
         </Link>
 
-        {/* Hero Section */}
+        {/* Hero Section - Batch 1 */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16">
           <div className="lg:col-span-7 flex flex-col space-y-5 font-bangla">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-border/80 bg-foreground/[0.04] w-fit">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-border/80 bg-foreground/[0.04] w-fit shadow-sm">
               <span className="h-1.5 w-1.5 rounded-[1px] bg-primary shrink-0"></span>
-              <span className="text-xs sm:text-[13px] font-medium tracking-normal text-foreground/90 font-sans">
+              <span className="text-xs sm:text-[13px] font-bold tracking-wide text-foreground/90 font-sans">
                 ONLINE RISING EDITORS BATCH - 1
               </span>
             </div>
 
             <div className="glass-strong rounded-3xl border border-border/70 shadow-lg relative overflow-hidden backdrop-blur-md">
-              <div className="p-5 sm:p-7 space-y-4">
+              <div className="p-5 sm:p-8 space-y-5">
                 <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-primary tracking-wider">
                   <span className="px-2.5 py-1 rounded-lg bg-primary/10 border border-primary/20">15 Days Free Course</span>
                 </div>
                 
-                <h1 className="font-bangla font-extrabold tracking-tight text-foreground leading-[1.25] text-2xl sm:text-3xl lg:text-4xl text-left">
+                <h1 className="font-bangla font-black tracking-tight text-foreground leading-[1.3] text-2xl sm:text-3xl lg:text-4xl">
                   ভিডিও এডিটিং শিখতে চান, কিন্তু কোথা থেকে শুরু করবেন বুঝতে পারছেন না?
                 </h1>
 
-                <div className="space-y-3.5 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-4">
+                <div className="space-y-4 text-sm sm:text-base text-foreground/80 leading-[1.7] font-bangla border-t border-border/40 pt-5">
                   <p>বর্তমানে Content Creator, Business Owner এবং Freelancer—সবারই Video Editor প্রয়োজন। কিন্তু বেশিরভাগ মানুষ Video Editing শিখতে পারে না কারণ তারা সঠিক Roadmap পায় না।</p>
                   <p>এই সমস্যার সমাধান হিসেবে আমরা আয়োজন করছি <strong>১৫ দিনের Free Video Editing Course</strong> যেখানে প্রতিদিন Step-by-Step শেখানো হবে।</p>
-                  <p className="font-medium text-foreground/90">কোনো Paid Course কেনার আগে এই Free Course থেকেই শুরু করতে পারেন।</p>
+                  <p className="font-semibold text-foreground/90 bg-foreground/5 p-3 rounded-lg border border-border/50">কোনো Paid Course কেনার আগে এই Free Course থেকেই শুরু করতে পারেন।</p>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-5 lg:sticky lg:top-28">
-            <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
-              <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5">
-                <EditableImage
-                  id="course.thumb.batch-01"
-                  defaultSrc={course.thumb || ""}
-                  alt="Batch 1 Poster"
-                  className="w-full h-full object-cover"
-                />
+            <div className="glass-strong rounded-3xl p-6 sm:p-8 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md select-none">
+              
+              <div onClick={() => previewVideoId && setActiveVideo(previewVideoId)} onContextMenu={(e) => e.preventDefault()} className={`relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-6 select-none ${previewVideoId ? "cursor-pointer" : ""}`}>
+                <img src={course.thumb || ""} alt="Batch 1 Poster" className="w-full h-full object-cover pointer-events-none select-none [user-drag:none] [-webkit-user-drag:none]" />
+                {previewVideoId && (
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors pointer-events-auto">
+                    <div className="w-14 h-14 rounded-full glass flex items-center justify-center text-white"><Play className="w-6 h-6 fill-white ml-1" /></div>
+                  </div>
+                )}
               </div>
 
-              <div className="flex items-baseline gap-2.5 mb-6">
-                <span className="text-3xl font-extrabold text-foreground font-mono">FREE</span>
-                <span className="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 font-sans tracking-wide">
+              <div className="flex flex-wrap items-center justify-between gap-2.5 mb-6">
+                <span className="text-4xl font-black text-foreground font-mono">FREE</span>
+                <span className="px-4 py-1.5 text-xs font-bold rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 font-sans tracking-widest">
                   COMPLETELY FREE
                 </span>
               </div>
 
-              <div className="space-y-3.5 mb-6 border-y border-border/40 py-4 font-sans text-sm">
-                <div className="flex justify-between gap-2"><span className="text-foreground/70">Start Date</span><span className="font-semibold">1 July 2026</span></div>
-                <div className="flex justify-between gap-2"><span className="text-foreground/70">Format</span><span className="font-medium">Live Course</span></div>
+              <div className="space-y-4 mb-8 border-y border-border/40 py-5 font-sans text-sm">
+                <div className="flex justify-between items-center"><div className="flex items-center gap-2.5 text-foreground/70"><CalendarDays className="w-4 h-4 text-primary"/><span>Start Date</span></div><span className="font-bold">1 July 2026</span></div>
+                <div className="flex justify-between items-center"><div className="flex items-center gap-2.5 text-foreground/70"><Clock className="w-4 h-4 text-primary"/><span>Format</span></div><span className="font-semibold">Live Course</span></div>
               </div>
 
               <button
                 onClick={() => setShowClosedModal(true)}
-                className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-[0.99] transition-all cursor-pointer font-sans text-base"
+                className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer font-sans text-base"
               >
                 Enroll Batch 01
               </button>
+              <p className="text-center text-xs text-muted-foreground mt-4">বিস্তারিত জানতে: 01890352188 (WhatsApp)</p>
             </div>
           </div>
         </div>
@@ -376,33 +370,35 @@ function Batch1Landing({ course }: { course: any }) {
           
           {/* Confusions vs Solutions */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-bangla">
-            <div className="glass p-6 rounded-3xl border border-destructive/20 bg-destructive/5 space-y-4">
-              <h3 className="font-bold text-lg text-foreground bg-destructive/10 text-destructive inline-block px-3 py-1 rounded-md mb-2">Course Confusions</h3>
-              <p className="text-sm font-medium text-foreground/80 mb-4">অনেকেই ভিডিও এডিটিং শিখতে চায়, কিন্তু—</p>
-              <ul className="space-y-3 text-sm text-foreground/85">
-                <li className="flex items-start gap-2"><XCircle className="w-5 h-5 text-destructive shrink-0" /><span>কী সফটওয়্যার ব্যবহার করবে জানে না</span></li>
-                <li className="flex items-start gap-2"><XCircle className="w-5 h-5 text-destructive shrink-0" /><span>ইউটিউবের হাজারো ভিডিও দেখে কনফিউজড হয়ে যায়</span></li>
-                <li className="flex items-start gap-2"><XCircle className="w-5 h-5 text-destructive shrink-0" /><span>শিখতে গিয়ে মাঝপথে ছেড়ে দেয়</span></li>
+            <div className="glass p-6 sm:p-8 rounded-3xl border border-destructive/20 bg-destructive/5 space-y-5">
+              <h3 className="font-bold text-sm sm:text-base text-destructive bg-destructive/10 inline-block px-3 py-1.5 rounded-lg mb-2 border border-destructive/20">Course Confusions</h3>
+              <p className="text-sm font-semibold text-foreground/80">অনেকেই ভিডিও এডিটিং শিখতে চায়, কিন্তু—</p>
+              <ul className="space-y-4 text-sm text-foreground/85">
+                <li className="flex items-start gap-3"><XCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" /><span className="leading-relaxed">কী সফটওয়্যার ব্যবহার করবে জানে না</span></li>
+                <li className="flex items-start gap-3"><XCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" /><span className="leading-relaxed">ইউটিউবের হাজারো ভিডিও দেখে কনফিউজড হয়ে যায়</span></li>
+                <li className="flex items-start gap-3"><XCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" /><span className="leading-relaxed">শিখতে গিয়ে মাঝপথে ছেড়ে দেয়</span></li>
               </ul>
-              <p className="text-sm font-bold text-foreground mt-4 pt-4 border-t border-destructive/10">তাই আমরা নিয়ে আসছি ১৫ দিনের সম্পূর্ণ ফ্রি Video Editing Bootcamp.</p>
+              <div className="mt-4 pt-5 border-t border-destructive/10">
+                <p className="text-sm font-bold text-foreground">তাই আমরা নিয়ে আসছি ১৫ দিনের সম্পূর্ণ ফ্রি Video Editing Bootcamp.</p>
+              </div>
             </div>
 
-            <div className="glass p-6 rounded-3xl border border-emerald-500/20 bg-emerald-500/5 space-y-4">
-              <h3 className="font-bold text-lg text-emerald-600 bg-emerald-500/10 inline-block px-3 py-1 rounded-md mb-2">এই ১৫ দিনে আপনি শিখবেন:</h3>
-              <ul className="space-y-3 text-sm font-medium text-foreground/90">
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" /><span>Professional Video Editing Workflow</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" /><span>Cuts, Transitions & Effects</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" /><span>Color Correction Basics</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" /><span>Audio Editing</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" /><span>Social Media Video Editing</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" /><span>Client Ready Editing Process</span></li>
+            <div className="glass p-6 sm:p-8 rounded-3xl border border-emerald-500/20 bg-emerald-500/5 space-y-5">
+              <h3 className="font-bold text-sm sm:text-base text-emerald-600 bg-emerald-500/10 inline-block px-3 py-1.5 rounded-lg mb-2 border border-emerald-500/20">এই ১৫ দিনে আপনি শিখবেন:</h3>
+              <ul className="space-y-4 text-sm font-medium text-foreground/90">
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" /><span className="leading-relaxed">Professional Video Editing Workflow</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" /><span className="leading-relaxed">Cuts, Transitions & Effects</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" /><span className="leading-relaxed">Color Correction Basics</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" /><span className="leading-relaxed">Audio Editing</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" /><span className="leading-relaxed">Social Media Video Editing</span></li>
+                <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" /><span className="leading-relaxed">Client Ready Editing Process</span></li>
               </ul>
             </div>
           </div>
 
           {/* 15 Days Syllabus */}
-          <div className="glass-strong rounded-3xl border border-border/80 p-6 sm:p-10 font-bangla">
-            <h2 className="text-2xl font-bold text-center mb-8">15 Days Video Editing Course Outline</h2>
+          <div className="glass-strong rounded-3xl border border-border/80 p-6 sm:p-10 font-bangla shadow-lg">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-center mb-10">15 Days Video Editing Course Outline</h2>
             <div className="space-y-4 max-w-2xl mx-auto">
               {[
                 { day: "DAY 1", title: "Editing Basics" },
@@ -410,22 +406,23 @@ function Batch1Landing({ course }: { course: any }) {
                 { day: "DAY 10", title: "Reels & Short Form Content" },
                 { day: "DAY 15", title: "Complete Project Editing" },
               ].map((m, i) => (
-                <div key={i} className="flex items-center gap-4 p-4 rounded-xl glass border border-border/60">
-                  <span className="px-3 py-1.5 rounded-lg bg-primary/10 text-primary font-bold font-mono text-sm">{m.day}</span>
-                  <span className="font-semibold text-foreground text-base">{m.title}</span>
+                <div key={i} className="flex items-center gap-5 p-5 rounded-2xl glass border border-border/60 shadow-sm hover:-translate-y-1 transition-transform">
+                  <span className="px-4 py-2 rounded-xl bg-primary/10 text-primary font-black font-mono text-sm border border-primary/20">{m.day}</span>
+                  <span className="font-bold text-foreground text-base sm:text-lg">{m.title}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Bottom Call to Action for Batch 1 -> Opens Closed Modal */}
-          <div className="text-center pb-10">
+          <div className="text-center pt-8 pb-10">
             <button
               onClick={() => setShowClosedModal(true)}
-              className="px-10 py-4 rounded-2xl bg-primary text-primary-foreground font-bold text-lg shadow-xl hover:brightness-110 active:scale-95 transition-all cursor-pointer font-sans"
+              className="px-12 py-5 rounded-2xl bg-primary text-primary-foreground font-black text-lg shadow-xl shadow-primary/25 hover:brightness-110 active:scale-95 transition-all cursor-pointer font-sans tracking-wide"
             >
               Enroll Batch 01
             </button>
+            <p className="mt-4 text-sm text-muted-foreground font-bangla">Beginner হলেও Join করতে পারবেন।</p>
           </div>
 
         </div>
@@ -436,16 +433,189 @@ function Batch1Landing({ course }: { course: any }) {
 
 
 // =========================================================================
-// ২. মাস্টারক্লাস ল্যান্ডিং পেজ: BATCH 2 & BATCH 3 (আগের মতো কাজ করবে)
+// ২. মাস্টারক্লাস ল্যান্ডিং পেজ: BATCH 2 & BATCH 3 (এখানে ডাটাবেজ কাজ করবে)
 // =========================================================================
 
-function BatchRegularLanding({ course, slug }: { course: any, slug: string }) {
-  const search = Route.useSearch();
-  const [showModal, setShowModal] = useState<boolean>(!!search?.enroll);
+// --- Tabs for Regular Landing ---
+function TabOverview({ courseSlug }: { courseSlug: string }) {
+  const defaultOverviewCards = [
+    { id: "c1", title: "সবাই কনটেন্ট বানাচ্ছে, কিন্তু রিটেনশন পাচ্ছে কয়জন?", desc: "ফেসবুক রিলস, ইউটিউব থেকে শুরু করে প্রতিটি ব্র্যান্ডের নিয়মিত ভিডিও প্রয়োজন। তবে প্রথম ৩ সেকেন্ডে দর্শক ধরে রাখার মতো হুক ও রিটেনশন সাইকোলজি জানা এডিটর খুবই কম।", action: "অডিয়েন্স সাইকোলজি শিখুন" },
+    { id: "c2", title: "সফটওয়্যার জানা যথেষ্ট নয়, দরকার সিনেমাটিক ভিশন", desc: "ইউটিউবের ফ্রি টিউটোরিয়াল দেখে সফটওয়্যার চালানো শেখা যায়, কিন্তু দর্শকের অনুভূতি নিয়ন্ত্রণ করা, নিখুঁত পেসিং এবং শক্তিশালী সাউন্ড ডিজাইনের জন্য দরকার বাস্তব মেন্টরশিপ।", action: "রিয়েল এডিটিং মেথডোলজি" },
+    { id: "c3", title: "কম বাজেটের কাজ নয়, সরাসরি প্রিমিয়াম ক্লায়েন্ট ডিল", desc: "দেশি এজেন্সি ও আন্তর্জাতিক কনটেন্ট ক্রিয়েটররা এখন কোয়ালিটি ভিডিওর জন্য প্রিমিয়াম পে করতে প্রস্তুত। আপনার শুধু একটি মানসম্মত পোর্টফোলিও ও সঠিক যোগাযোগ প্রয়োজন।", action: "হাই টিকেটিং ফ্রেমওয়ার্ক" },
+  ];
+  const defaultBadPoints = ["ঘণ্টার পর ঘণ্টা এলোমেলো ইউটিউব টিউটোরিয়ালে বিভ্রান্ত ও দিকহারা থাকা", "সাউন্ড ডিজাইন ও কালার সাইকোলজি ছাড়া সাধারণ কাট পেস্ট এডিট", "মার্কেটপ্লেসে অল্প টাকায় কাজের জন্য বিড করে বারবার রিজেক্ট হওয়া"];
+  const defaultGoodPoints = ["সরাসরি প্র্যাকটিক্যাল প্রজেক্ট ও সিনেমাটিক স্টোরিটেলিং পদ্ধতি আয়ত্ত করা", "উন্নত সাউন্ড ডিজাইন, নিখুঁত কালার গ্রেডিং ও হাই রিটেনশন মোশন অ্যানিমেশন", "আন্তর্জাতিক মানের প্রফেশনাল পোর্টফোলিও ও সরাসরি ক্লায়েন্ট ডিল ক্লোজিং দক্ষতা"];
+
+  const { items: cards, addItem: addCard, removeItem: removeCard, isAdmin } = useDynamicCmsList(`course.${courseSlug}.overview.cards`, defaultOverviewCards);
+  const { items: badPoints, addItem: addBadPoint, removeItem: removeBadPoint } = useDynamicCmsList(`course.${courseSlug}.overview.badPoints`, defaultBadPoints);
+  const { items: goodPoints, addItem: addGoodPoint, removeItem: removeGoodPoint } = useDynamicCmsList(`course.${courseSlug}.overview.goodPoints`, defaultGoodPoints);
+
+  return (
+    <div className="space-y-10 sm:space-y-12 animate-in fade-in font-bangla">
+      <div className="text-center">
+        <h2 className="text-2xl sm:text-3xl font-bold"><EditableText id={`course.${courseSlug}.painpoint.heading`}>ভিডিও এখন সব জায়গায়, কিন্তু ইন্ডাস্ট্রি স্ট্যান্ডার্ড এডিটরের অভাব কেন?</EditableText></h2>
+      </div>
+      <div className="grid md:grid-cols-3 gap-6">
+        {cards?.map((card, idx) => (
+          <div key={idx} className="glass p-6 rounded-2xl relative">
+            {isAdmin && <button onClick={() => removeCard(idx)} className="absolute top-3 right-3 p-1.5 text-destructive"><Trash2 className="w-4 h-4"/></button>}
+            <h3 className="font-bold text-lg">{card.title}</h3>
+            <p className="text-sm mt-2 text-foreground/75">{card.desc}</p>
+          </div>
+        ))}
+      </div>
+      {isAdmin && <button onClick={() => addCard({ id: Date.now().toString(), title: "নতুন কার্ড", desc: "বিবরণ", action: "জানুন" })} className="text-primary text-sm font-bold flex items-center gap-2"><Plus className="w-4 h-4"/> নতুন কার্ড যোগ করুন</button>}
+      
+      <div className="glass p-6 sm:p-8 rounded-3xl border border-border/70">
+        <h3 className="text-xl font-bold text-center mb-6"><EditableText id={`course.${courseSlug}.compare.heading`}>আপনার এডিটিং জার্নির মোড় ঘুরিয়ে দেবে ব্যাচ ৩</EditableText></h3>
+        <div className="grid md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-border/60">
+          <div className="space-y-4">
+            <span className="bg-destructive/10 text-destructive px-3 py-1 rounded-md text-xs font-bold">সাধারণ এডিটর</span>
+            <ul className="space-y-3 text-sm">
+              {badPoints?.map((p, i) => (
+                <li key={i} className="flex gap-2"><XCircle className="w-4 h-4 text-destructive shrink-0"/>{p}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="space-y-4 md:pl-8">
+            <span className="bg-emerald-500/10 text-emerald-500 px-3 py-1 rounded-md text-xs font-bold">growVelo Pro Editor</span>
+            <ul className="space-y-3 text-sm">
+              {goodPoints?.map((p, i) => (
+                <li key={i} className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0"/>{p}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TabCurriculum({ courseSlug }: { courseSlug: string }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const defaultModules = [
+    { moduleNo: "Module 01", title: "Premiere Pro Fundamentals", desc: "বেসিক থেকে শুরু", lessons: ["লেসন ১: প্রোজেক্ট সেটআপ", "লেসন ২: ট্রিম টেকনিক"] },
+    { moduleNo: "Module 02", title: "Storytelling & Pacing", desc: "অ্যাডভান্সড টেকনিক", lessons: ["লেসন ১: হুক তৈরি", "লেসন ২: ম্যাচ কাট"] },
+  ];
+  const { items: modules, isAdmin } = useDynamicCmsList(`course.${courseSlug}.curriculum.modules`, defaultModules);
+
+  return (
+    <div className="space-y-8 font-bangla animate-in fade-in">
+      <h2 className="text-2xl font-bold text-center">স্টেপ বাই স্টেপ মাস্টারক্লাস রোডম্যাপ</h2>
+      <div className="space-y-4 max-w-3xl mx-auto">
+        {modules?.map((m, i) => {
+          const isOpen = openIndex === i;
+          return (
+            <div key={i} className="glass rounded-2xl border border-border/60 overflow-hidden">
+              <div onClick={() => setOpenIndex(isOpen ? null : i)} className="p-5 flex justify-between items-center cursor-pointer">
+                <div><span className="text-primary text-xs font-bold">{m.moduleNo}</span><h3 className="font-bold text-lg mt-1">{m.title}</h3></div>
+                <ChevronDown className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+              </div>
+              {isOpen && (
+                <div className="p-5 pt-0 border-t border-border/30 mt-2">
+                  <p className="text-sm text-muted-foreground mb-4">{m.desc}</p>
+                  <div className="space-y-2 bg-background/50 p-4 rounded-xl">
+                    {m.lessons?.map((l, ldx) => (
+                      <div key={ldx} className="flex gap-2 text-sm"><div className="w-1.5 h-1.5 bg-primary rounded-full mt-1.5" />{l}</div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
+  const defaultFeatures = [
+    { titleKey: "লাইভ ইন্টারেক্টিভ ক্লাস", descKey: "সরাসরি স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা ও লাইভ প্রশ্নোত্তর।" },
+    { titleKey: "লাইফটাইম ক্লাউড রেকর্ডিং", descKey: "ফুল এইচডি ক্লাউড রেকর্ডিং।" },
+    { titleKey: "ডিসকর্ড প্রাইভেট কমিউনিটি", descKey: "২৪/৭ প্রাইভেট চ্যানেল ও সাপোর্ট।" },
+  ];
+  const { items: features, isAdmin } = useDynamicCmsList(`course.${courseSlug}.included.features`, defaultFeatures);
+
+  return (
+    <div className="space-y-8 font-bangla animate-in fade-in">
+      <h2 className="text-2xl font-bold text-center">ব্যাচ ৩ এ আপনি যা যা পাচ্ছেন</h2>
+      <div className="grid md:grid-cols-3 gap-6">
+        {features?.map((f, i) => (
+          <div key={i} className="glass p-6 rounded-2xl">
+            <Gift className="w-8 h-8 text-primary mb-4" />
+            <h3 className="font-bold text-lg">{f.titleKey}</h3>
+            <p className="text-sm text-foreground/75 mt-2">{f.descKey}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// এই TabHowItWorks আগের কোডে বাদ পড়েছিল দেখেই ক্র্যাশ করেছিল!
+function TabHowItWorks({ courseSlug }: { courseSlug: string }) {
+  const defaultSteps = [
+    { step: "01", badgeTitle: "এনরোলমেন্ট রিকোয়েস্ট পাঠান", title: "তথ্য দিয়ে ফর্ম পূরণ করুন", desc: "ওয়েবসাইটের বাটনে ক্লিক করে আপনার নাম, হোয়াটসঅ্যাপ নম্বর এবং ট্রানজেকশন আইডি দিন।" },
+    { step: "02", badgeTitle: "হোয়াটসঅ্যাপে ভেরিফিকেশন", title: "টিমের সাথে ভেরিফিকেশন", desc: "ফর্ম সাবমিট করতেই হোয়াটসঅ্যাপে মেসেজ তৈরি হবে।" },
+    { step: "03", badgeTitle: "প্রাইভেট ডিসকর্ড অ্যাক্সেস", title: "কমিউনিটিতে প্রবেশ", desc: "কনফার্মেশনের সাথে সাথেই পাবেন ডিসকর্ড ইনভাইট লিংক।" },
+  ];
+  const { items: steps, isAdmin } = useDynamicCmsList(`course.${courseSlug}.howitworks.steps`, defaultSteps);
+
+  return (
+    <div className="space-y-8 font-bangla animate-in fade-in">
+      <h2 className="text-2xl font-bold text-center">কীভাবে ব্যাচ ৩ এ যুক্ত হবেন?</h2>
+      <div className="grid md:grid-cols-3 gap-6">
+        {steps?.map((s, i) => (
+          <div key={i} className="glass p-6 rounded-2xl relative overflow-hidden">
+            <span className="absolute -top-4 right-2 text-6xl font-black text-foreground/[0.03]">{s.step}</span>
+            <span className="text-primary text-xs font-bold">{s.badgeTitle}</span>
+            <h3 className="font-bold text-lg mt-2">{s.title}</h3>
+            <p className="text-sm text-foreground/75 mt-2">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TabFaq({ courseSlug }: { courseSlug: string }) {
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const defaultFaqs = [
+    { q: "ক্লাসগুলো কীভাবে হবে এবং সময়সূচি কী?", a: "ক্লাসগুলো সরাসরি ডিসকর্ড প্রাইভেট চ্যানেলের পাশাপাশি গুগল মিট ও জুম-এ স্ক্রিন শেয়ারের মাধ্যমে অনুষ্ঠিত হবে।" },
+    { q: "আমি একদম নতুন, আমি কি এই ব্যাচটি করতে পারব?", a: "হ্যাঁ, বেসিক থেকে শুরু করে অ্যাডভান্সড পর্যন্ত ধাপে ধাপে শেখানো হবে।" },
+    { q: "প্র্যাকটিসের সময় কোনো সমস্যায় পড়লে সাপোর্ট কীভাবে পাব?", a: "ডিসকর্ড সার্ভারে ২৪/৭ সাপোর্ট চ্যানেল থাকবে।" },
+  ];
+  const { items: faqs, isAdmin } = useDynamicCmsList(`course.${courseSlug}.faq.items`, defaultFaqs);
+
+  return (
+    <div className="space-y-8 font-bangla animate-in fade-in max-w-3xl mx-auto">
+      <h2 className="text-2xl font-bold text-center">সাধারণ প্রশ্নোত্তর</h2>
+      <div className="space-y-3">
+        {faqs?.map((f, i) => {
+          const isOpen = openFaq === i;
+          return (
+            <div key={i} className="glass rounded-2xl overflow-hidden border border-border/60">
+              <div onClick={() => setOpenFaq(isOpen ? null : i)} className="p-5 flex justify-between cursor-pointer">
+                <span className="font-bold">{f.q}</span>
+                <ChevronDown className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+              </div>
+              {isOpen && <div className="p-5 pt-0 border-t border-border/30 mt-2 text-sm text-foreground/80">{f.a}</div>}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ব্যাচ ২ ও ৩ এর জন্য মূল লেআউট
+function BatchRegularLanding({ course, slug, enrollParam }: { course: any, slug: string, enrollParam: boolean }) {
+  const [showModal, setShowModal] = useState<boolean>(enrollParam);
   const [activeTab, setActiveTab] = useState<string>("overview");
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const timer = useEvergreenTimer(24);
-  const previewVideoId = course.introVideoId || course.modules?.[0]?.lessons?.[0]?.videoId || null;
+  const previewVideoId = course?.introVideoId || null;
 
   return (
     <div className="pt-24 sm:pt-32 pb-12 sm:pb-16 overflow-x-hidden">
@@ -454,7 +624,7 @@ function BatchRegularLanding({ course, slug }: { course: any, slug: string }) {
       {activeVideo && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
           <div className="relative aspect-video w-full max-w-4xl">
-            <button onClick={() => setActiveVideo(null)} className="absolute -top-10 right-0 text-white hover:text-white/70 cursor-pointer"><X className="w-6 h-6" /></button>
+            <button onClick={() => setActiveVideo(null)} className="absolute -top-10 right-0 text-white cursor-pointer"><X className="w-6 h-6" /></button>
             <iframe className="h-full w-full rounded-xl" src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1`} allow="autoplay; encrypted-media" allowFullScreen />
           </div>
         </div>
@@ -467,21 +637,20 @@ function BatchRegularLanding({ course, slug }: { course: any, slug: string }) {
 
         {/* Hero Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16 sm:mb-20">
-          <div className="lg:col-span-7 flex flex-col space-y-5 font-bangla min-w-0">
+          <div className="lg:col-span-7 flex flex-col space-y-5 font-bangla">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[4px] border border-border/80 bg-foreground/[0.04] w-fit">
               <span className="h-1.5 w-1.5 rounded-[1px] bg-primary shrink-0"></span>
               <span className="text-xs sm:text-[13px] font-medium text-foreground/90 font-sans">
-                <EditableText id={`course.${slug}.hero.badge`}>Batch 03 • Live Masterclass + Private Discord Community</EditableText>
+                <EditableText id={`course.${slug}.hero.badge`}>Batch 03 • Live Masterclass + Private Discord</EditableText>
               </span>
             </div>
 
             <div className="glass-strong rounded-3xl border border-border/70 shadow-lg relative overflow-hidden backdrop-blur-md select-none">
-              {/* Mobile Image */}
               <div className="block lg:hidden w-full border-b border-border/40 select-none">
                 <div onClick={() => previewVideoId && setActiveVideo(previewVideoId)} onContextMenu={(e) => e.preventDefault()} className={`relative aspect-video w-full group select-none ${previewVideoId ? "cursor-pointer" : ""}`}>
-                  <EditableImage id={`course.thumb.${slug}`} defaultSrc={course.thumb || ""} alt={course.title} className="w-full h-full pointer-events-none select-none" imgClassName="transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none" />
+                  <img src={course.thumb || ""} alt={course.title} className="w-full h-full pointer-events-none select-none [user-drag:none] [-webkit-user-drag:none]" />
                   {previewVideoId && (
-                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors pointer-events-auto">
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 pointer-events-auto">
                       <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white"><Play className="w-5 h-5 fill-white ml-0.5" /></div>
                     </div>
                   )}
@@ -525,7 +694,7 @@ function BatchRegularLanding({ course, slug }: { course: any, slug: string }) {
           <div className="lg:col-span-5 lg:sticky lg:top-28">
             <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md select-none">
               <div onClick={() => previewVideoId && setActiveVideo(previewVideoId)} onContextMenu={(e) => e.preventDefault()} className={`relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5 select-none ${previewVideoId ? "cursor-pointer" : ""}`}>
-                <EditableImage id={`course.thumb.${slug}`} defaultSrc={course.thumb || ""} alt={course.title} className="w-full h-full pointer-events-none select-none" imgClassName="transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none" />
+                <img src={course.thumb || ""} alt={course.title} className="w-full h-full pointer-events-none select-none [user-drag:none] [-webkit-user-drag:none] object-cover" />
                 {previewVideoId && (
                   <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors pointer-events-auto">
                     <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white"><Play className="w-5 h-5 fill-white ml-0.5" /></div>
@@ -563,13 +732,14 @@ function BatchRegularLanding({ course, slug }: { course: any, slug: string }) {
           </div>
         </div>
 
-        {/* Course Tabs (Overview, Curriculum, etc.) using CMS */}
+        {/* Course Tabs Navigation */}
         <div className="sticky top-20 z-30 mb-8 py-2.5 backdrop-blur-md">
           <div className="max-w-4xl mx-auto glass-strong p-1.5 rounded-2xl flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar">
             {[
               { id: "overview", label: "Overview", icon: LayoutDashboard },
               { id: "curriculum", label: "Curriculum", icon: BookOpen },
               { id: "included", label: "What's Included", icon: Gift },
+              { id: "how", label: "How It Works", icon: Workflow },
               { id: "faq", label: "FAQ", icon: MessageCircleQuestion },
             ].map((tab) => {
               const Icon = tab.icon;
@@ -586,76 +756,51 @@ function BatchRegularLanding({ course, slug }: { course: any, slug: string }) {
           {activeTab === "overview" && <TabOverview courseSlug={slug} />}
           {activeTab === "curriculum" && <TabCurriculum courseSlug={slug} />}
           {activeTab === "included" && <TabWhatsIncluded courseSlug={slug} />}
+          {activeTab === "how" && <TabHowItWorks courseSlug={slug} />}
           {activeTab === "faq" && <TabFaq courseSlug={slug} />}
         </div>
+        
+        {/* Final CTA Banner (Batch 03 Offer) */}
+        <div className="relative max-w-5xl mx-auto font-bangla mb-16">
+          <div className="glass-strong rounded-3xl border border-primary/30 p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden backdrop-blur-md">
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/30 bg-primary/10 text-primary text-xs font-semibold tracking-wide shadow-2xs mb-5">
+              <Flame className="w-3.5 h-3.5 fill-primary text-primary animate-pulse" />
+              <span>সীমিত সময়ের অফার • ব্যাচ ৩ এনরোলমেন্ট</span>
+            </div>
+            <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl lg:text-4xl text-foreground leading-[1.28] tracking-tight">
+              দেরি না করে আজই আপনার সিনেমাটিক এডিটিং জার্নি শুরু করুন
+            </h3>
+            <p className="font-bangla text-sm sm:text-base text-foreground/85 leading-relaxed mt-4 max-w-2xl mx-auto">
+              ব্যাচ ৩ এ সীমিত আসনে বিশেষ ছাড় চলছে। রেগুলার ফি ৫,০০০ টাকার বদলে এখন মাত্র ৩,০০০ টাকা। সরাসরি প্র্যাকটিক্যাল সিনেমাটিক স্টোরিটেলিং ও ক্লায়েন্ট ডিল ক্লোজ করার সম্পূর্ণ গাইডলাইন।
+            </p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-3">
+              <button onClick={() => setShowModal(true)} className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base sm:text-lg flex items-center justify-center gap-3 shadow-xl shadow-primary/30 hover:brightness-110 active:scale-[0.99] transition-all font-sans cursor-pointer">
+                <span>Enroll in Batch 03 Now (৳৩,০০০)</span><ArrowRight className="w-5 h-5" />
+              </button>
+              <p className="text-xs text-muted-foreground font-bangla flex items-center gap-1.5 mt-1"><ShieldCheck className="w-4 h-4 text-emerald-500" /><span>১০০% মানি ব্যাক ও স্যাটিসফ্যাকশন ট্রাস্ট | সুরক্ষিত পেমেন্ট ভেরিফিকেশন</span></p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );
 }
 
-// ---------------------- Regular Course Tabs ----------------------
-function TabOverview({ courseSlug }: { courseSlug: string }) {
-  const cards = [
-    { title: "সফটওয়্যার জানা যথেষ্ট নয়, দরকার সিনেমাটিক ভিশন", desc: "দর্শকের অনুভূতি নিয়ন্ত্রণ করা, নিখুঁত পেসিং এবং সাউন্ড ডিজাইনের জন্য দরকার বাস্তব মেন্টরশিপ।" },
-    { title: "কম বাজেটের কাজ নয়, সরাসরি প্রিমিয়াম ক্লায়েন্ট ডিল", desc: "ইন্টারন্যাশনাল ক্লায়েন্টরা কোয়ালিটির জন্য পে করে। আপনার শুধু পোর্টফোলিও ও সঠিক কমিউনিকেশন প্রয়োজন।" }
-  ];
-  return (
-    <div className="space-y-10 font-bangla animate-in fade-in">
-      <div className="text-center"><h2 className="text-2xl font-bold">আপনার এডিটিং জার্নির মোড় ঘুরিয়ে দেবে ব্যাচ ৩</h2></div>
-      <div className="grid md:grid-cols-2 gap-6">
-        {cards.map((c, i) => (
-          <div key={i} className="glass p-6 rounded-2xl"><h3 className="font-bold text-lg">{c.title}</h3><p className="text-sm mt-2 text-foreground/75">{c.desc}</p></div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function TabCurriculum({ courseSlug }: { courseSlug: string }) {
-  const modules = [
-    { m: "Module 01", t: "Premiere Pro Fundamentals & Fast Workflow" },
-    { m: "Module 02", t: "The Art of Storytelling & Pacing" },
-    { m: "Module 03", t: "Advanced Sound Design & Foley" },
-    { m: "Module 04", t: "Cinematic Color Grading" },
-    { m: "Module 05", t: "Client Acquisition & Portfolio Building" }
-  ];
-  return (
-    <div className="space-y-6 font-bangla animate-in fade-in">
-      <h2 className="text-2xl font-bold text-center">স্টেপ বাই স্টেপ মাস্টারক্লাস রোডম্যাপ</h2>
-      <div className="space-y-4 max-w-2xl mx-auto">
-        {modules.map((m, i) => (
-          <div key={i} className="p-4 glass rounded-xl border border-border/50"><span className="text-primary text-xs font-bold">{m.m}</span><h3 className="font-bold text-base mt-1">{m.t}</h3></div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function TabWhatsIncluded({ courseSlug }: { courseSlug: string }) {
-  return (
-    <div className="text-center font-bangla animate-in fade-in py-10">
-      <h2 className="text-2xl font-bold mb-4">সবকিছু এক প্ল্যাটফর্মে</h2>
-      <p className="text-foreground/80">লাইভ ক্লাস, ক্লাউড রেকর্ডিং, ডিসকর্ড সাপোর্ট, এসেট প্যাক এবং সার্টিফিকেট।</p>
-    </div>
-  );
-}
-
-function TabFaq({ courseSlug }: { courseSlug: string }) {
-  return (
-    <div className="font-bangla animate-in fade-in max-w-2xl mx-auto space-y-4">
-      <h2 className="text-2xl font-bold text-center mb-8">সাধারণ প্রশ্নোত্তর</h2>
-      <div className="glass p-5 rounded-2xl"><h3 className="font-bold">ক্লাসগুলো কীভাবে হবে?</h3><p className="text-sm mt-2 text-foreground/80">ডিসকর্ড প্রাইভেট চ্যানেলের পাশাপাশি গুগল মিট ও জুম-এ স্ক্রিন শেয়ারের মাধ্যমে অনুষ্ঠিত হবে।</p></div>
-    </div>
-  );
-}
 
 // =========================================================================
-// ৩. মেইন রাউটার লজিক (স্লাগ যাচাই করে সঠিক পেজ রেন্ডার করা)
+// ৩. মেইন রাউটার (স্লাগ যাচাই করে লেআউট সুইচ করা)
 // =========================================================================
 
 function CourseDetailMaster() {
   const { slug } = Route.useParams();
-  const course = COURSES.find((c) => c.slug === slug)!;
+  const search = Route.useSearch();
+  const course = COURSES.find((c) => c.slug === slug);
+
+  if (!course) {
+    return <div className="p-20 text-center font-bold text-2xl text-destructive">Course not found or invalid slug.</div>;
+  }
 
   // স্লাগ চেক: যদি ব্যাচ ১ হয়, তবে শুধুমাত্র Batch1Landing রেন্ডার হবে।
   const cleanSlug = slug.toLowerCase();
@@ -665,10 +810,11 @@ function CourseDetailMaster() {
     // Global image drag protection & footer hidden
     <div className="[&>div>footer]:!hidden [&>footer]:!hidden [&_img]:select-none [&_img]:pointer-events-auto [&_img]:[user-drag:none] [&_img]:[-webkit-user-drag:none]">
       <SiteShell>
+        
         {isBatch1 ? (
           <Batch1Landing course={course} />
         ) : (
-          <BatchRegularLanding course={course} slug={slug} />
+          <BatchRegularLanding course={course} slug={slug} enrollParam={!!search?.enroll} />
         )}
 
         {/* Global Single Footer for Courses */}
@@ -680,11 +826,12 @@ function CourseDetailMaster() {
                 <Link to="/legal" className="hover:text-foreground transition-colors">Privacy Policy</Link>
                 <span>•</span>
                 <Link to="/legal" className="hover:text-foreground transition-colors">Terms of Service</Link>
-                <a href={`https://wa.me/8801410341220`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">WhatsApp Support</a>
+                <a href={`https://wa.me/8801890352188`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">WhatsApp Support</a>
               </div>
             </div>
           </footer>
         </div>
+
       </SiteShell>
     </div>
   );
