@@ -10,6 +10,20 @@ export default defineConfig({
   // Expose standard NEXT_PUBLIC_* vars to the browser bundle (Vercel-style env naming)
   vite: {
     envPrefix: ["VITE_", "NEXT_PUBLIC_"],
+    build: {
+      target: 'esnext',
+      minify: 'esbuild',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-react': ['react', 'react-dom'],
+            'vendor-router': ['@tanstack/react-router'],
+            'vendor-supabase': ['@supabase/supabase-js'],
+            'vendor-icons': ['lucide-react'],
+          },
+        },
+      },
+    },
   },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
