@@ -1494,6 +1494,7 @@ export function SiteShell({
 
   return (
       <div className="relative min-h-screen overflow-x-hidden">
+        <Header />
         <main>
           {children}
         </main>
