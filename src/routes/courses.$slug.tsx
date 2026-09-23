@@ -1715,55 +1715,72 @@ function CourseDetail() {
                     </div>
                     <div className="space-y-1 min-w-0">
                       <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
-                        হাতে কলমে লাইভ সেশন
+                        <EditableText id={`course.${course.slug}.benefit.1.title`}>
+                          হাতে কলমে লাইভ সেশন
+                        </EditableText>
                       </h3>
                       <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                        {isBatch1 ? "১ জুলাই ২০২৬ থেকে শুরু হতে যাওয়া লাইভ বুটক্যাম্প।" : "স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা এবং আজীবন ক্লাউড রেকর্ডিং অ্যাক্সেস।"}
+                        <EditableText id={`course.${course.slug}.benefit.1.desc`}>
+                          {isBatch1 ? "১ জুলাই ২০২৬ থেকে শুরু হতে যাওয়া লাইভ বুটক্যাম্প।" : "স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা এবং আজীবন ক্লাউড রেকর্ডিং অ্যাক্সেস।"}
+                        </EditableText>
                       </p>
                     </div>
                   </div>
+
                   <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                     <div className="p-2.5 rounded-xl bg-primary/10 text-primary shrink-0 mt-0.5">
                       <MessageSquare className="w-4 h-4" />
                     </div>
                     <div className="space-y-1 min-w-0">
                       <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
-                        {isBatch1 ? "হোয়াটসঅ্যাপ সাপোর্ট" : "২৪/৭ ডিসকর্ড হেল্পডেস্ক"}
+                        <EditableText id={`course.${course.slug}.benefit.2.title`}>
+                          {isBatch1 ? "হোয়াটসঅ্যাপ সাপোর্ট" : "২৪/৭ ডিসকর্ড হেল্পডেস্ক"}
+                        </EditableText>
                       </h3>
                       <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                        {isBatch1 ? "যেকোনো তথ্যের জন্য হোয়াটসঅ্যাপে যোগাযোগ: 01890352188" : "স্টুডেন্ট কমিউনিটি, যেকোনো টেকনিক্যাল সাপোর্ট ও উইকলি মেন্টর ফিডব্যাক।"}
+                        <EditableText id={`course.${course.slug}.benefit.2.desc`}>
+                          {isBatch1 ? "যেকোনো তথ্যের জন্য হোয়াটসঅ্যাপে যোগাযোগ: 01890352188" : "স্টুডেন্ট কমিউনিটি, যেকোনো টেকনিক্যাল সাপোর্ট ও উইকলি মেন্টর ফিডব্যাক।"}
+                        </EditableText>
                       </p>
                     </div>
                   </div>
+
                   <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                     <div className="p-2.5 rounded-xl bg-accent/20 text-foreground shrink-0 mt-0.5">
                       <Briefcase className="w-4 h-4" />
                     </div>
                     <div className="space-y-1 min-w-0">
                       <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
-                        {isBatch1 ? "বিগিনার ফ্রেন্ডলি" : "মার্কেটপ্লেস ও ডিরেক্ট ক্লায়েন্ট"}
+                        <EditableText id={`course.${course.slug}.benefit.3.title`}>
+                          {isBatch1 ? "বিগিনার ফ্রেন্ডলি" : "মার্কেটপ্লেস ও ডিরেক্ট ক্লায়েন্ট"}
+                        </EditableText>
                       </h3>
                       <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                        {isBatch1 ? "পূর্বে কোনো অভিজ্ঞতা না থাকলেও সহজে শুরু করতে পারবেন।" : "পোর্টফোলিও তৈরি এবং সরাসরি হাই টিকেটিং ক্লায়েন্ট হান্টিং গাইড।"}
+                        <EditableText id={`course.${course.slug}.benefit.3.desc`}>
+                          {isBatch1 ? "পূর্বে কোনো অভিজ্ঞতা না থাকলেও সহজে শুরু করতে পারবেন।" : "স্ট্রং পোর্টফোলিও তৈরি এবং সরাসরি হাই টিকেটিং ক্লায়েন্ট হান্টিং গাইড।"}
+                        </EditableText>
                       </p>
                     </div>
                   </div>
+
                   <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
                     <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 shrink-0 mt-0.5">
                       <Gift className="w-4 h-4" />
                     </div>
                     <div className="space-y-1 min-w-0">
                       <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
-                        {isBatch1 ? "১০০% ফ্রি এক্সেস" : "এডিটিং রিসোর্স প্যাক"}
+                        <EditableText id={`course.${course.slug}.benefit.4.title`}>
+                          {isBatch1 ? "১০০% ফ্রি এক্সেস" : "এডিটিং রিসোর্স প্যাক"}
+                        </EditableText>
                       </h3>
                       <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-                        {isBatch1 ? "সম্পূর্ণ বিনামূল্যে প্র্যাকটিস ফাইল ও গাইডলাইন অ্যাক্সেস।" : "প্রিমিয়াম সাউন্ড এফেক্টস (SFX), কালার LUTs এবং রেডি মোশন প্রিসেট ফাইল।"}
+                        <EditableText id={`course.${course.slug}.benefit.4.desc`}>
+                          {isBatch1 ? "সম্পূর্ণ বিনামূল্যে প্র্যাকটিস ফাইল ও গাইডলাইন অ্যাক্সেস।" : "প্রিমিয়াম সাউন্ড এফেক্টস (SFX), কালার LUTs এবং রেডি মোশন প্রিসেট ফাইল।"}
+                        </EditableText>
                       </p>
                     </div>
                   </div>
                 </div>
-              </div>
-
               {/* Right: Sticky Card */}
               <div className="lg:col-span-5 lg:sticky lg:top-28">
                 <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md select-none">
