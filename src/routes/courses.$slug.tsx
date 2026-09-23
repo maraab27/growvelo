@@ -1909,14 +1909,17 @@ function CourseDetail() {
                   </span>
                 </div>
 
-                <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl text-foreground tracking-tight leading-snug">
-                  এই ব্যাচটির কার্যক্রম সফলভাবে সম্পন্ন হয়েছে!
+                <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl text-foreground tracking-tight leading-snug relative z-20 cursor-text">
+                  <EditableText id={`course.${course.slug}.closed.heading`}>
+                    এই ব্যাচটির কার্যক্রম সফলভাবে সম্পন্ন হয়েছে!
+                  </EditableText>
                 </h3>
 
-                <p className="font-bangla text-sm sm:text-base text-foreground/80 leading-relaxed mt-4 max-w-2xl mx-auto">
-                  আমাদের 'রাইজিং এডিটরস (ব্যাচ ১)' এর সকল লাইভ ক্লাস এবং প্রজেক্ট সাবমিশন ইতোমধ্যে শেষ হয়েছে। অসংখ্য শিক্ষার্থীর সফল অংশগ্রহণের পর এই ব্যাচের এনরোলমেন্ট স্থায়ীভাবে বন্ধ করা হয়েছে। আপনি যদি বেসিক থেকে শুরু করে অ্যাডভান্সড সিনেমাটিক ভিডিও এডিটিং শিখতে চান, তবে আমাদের চলমান 'ব্যাচ ০৩' মাস্টারক্লাসে যুক্ত হতে পারেন।
-                </p>
-
+                <div className="font-bangla text-sm sm:text-base text-foreground/80 leading-relaxed mt-4 max-w-xl mx-auto relative z-20 cursor-text">
+                  <EditableText id={`course.${course.slug}.closed.desc`}>
+                    আমাদের 'রাইজিং এডিটরস (ব্যাচ ১)' এর সকল লাইভ ক্লাস এবং প্রজেক্ট সাবমিশন ইতোমধ্যে শেষ হয়েছে। অসংখ্য শিক্ষার্থীর সফল অংশগ্রহণের পর এই ব্যাচের এনরোলমেন্ট স্থায়ীভাবে বন্ধ করা হয়েছে। আপনি যদি বেসিক থেকে শুরু করে অ্যাডভান্সড সিনেমাটিক ভিডিও এডিটিং শিখতে চান, তবে আমাদের চলমান 'ব্যাচ ০৩' মাস্টারক্লাসে যুক্ত হতে পারেন।
+                  </EditableText>
+                </div>
                 <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
                   <button
                     type="button"
