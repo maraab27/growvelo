@@ -1471,6 +1471,47 @@ export function Footer() {
 
 /* ---------- shell ---------- */
 
+/* ================= SEPARATED HEADER COMPONENT ================= */
+export function SiteHeader() {
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/40 font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2.5 select-none">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden flex items-center justify-center">
+            <EditableImage
+              id="global.site.logo"
+              defaultSrc="/favicon.ico"
+              alt="growVelo Logo"
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <span className="font-display font-bold text-lg sm:text-xl tracking-tight text-foreground">
+            grow<span className="text-primary">Velo</span>
+          </span>
+        </Link>
+
+        <nav className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium">
+          <Link
+            to="/courses"
+            className="text-foreground/80 hover:text-foreground transition-colors"
+          >
+            Courses
+          </Link>
+          <a
+            href="https://wa.me/8801410341220"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 rounded-xl bg-primary text-primary-foreground font-semibold text-xs sm:text-sm shadow-md hover:brightness-110 active:scale-95 transition-all"
+          >
+            WhatsApp Support
+          </a>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+/* ================= SHELL: COMPLETELY SEPARATED ================= */
 export function SiteShell({
   children,
   hideFooter = false,
@@ -1493,10 +1534,16 @@ export function SiteShell({
   }, []);
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
-      <main>
+    <div className="relative min-h-screen overflow-x-hidden flex flex-col justify-between">
+      {/* হেডার সবসময় থাকবে, ফুটারের সাথে কোনো সম্পর্ক নেই */}
+      <SiteHeader />
+
+      {/* মূল কন্টেন্ট */}
+      <main className="flex-1 w-full pt-16 sm:pt-20">
         {children}
       </main>
+
+      {/* ফুটার পুরোপুরি স্বাধীন: hideFooter ট্রু হলে শুধু এটি বন্ধ হবে */}
       {!hideFooter && <Footer />}
     </div>
   );
