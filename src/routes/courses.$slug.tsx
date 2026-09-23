@@ -1660,12 +1660,16 @@ function CourseDetail() {
                           </p>
                           <p className="font-normal text-foreground/80">
                             <EditableText id={`course.${course.slug}.hero.desc.3`}>
-                              একদম স্ক্র্যাচ থেকে শুরু করে রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে নিজের হাই পেয়িং পোর্টফোলিও তৈরি করুন আমাদের সাথে।
+                              একদম স্ক্র্যাচ থেকে শুরু করে রিয়েল লাইফ ক্লায়েন্ট প্রজেক্টের মাধ্যমে নিজের হাই পেয়িং পোর্টফোলিও তৈরি করুন আমাদের সাথে।
                             </EditableText>
                           </p>
                         </>
                       )}
                     </div>
+                  </div>
+                </div>
+
+                {/* 4 Core Benefit Cards */}
 
                     {/* Mobile Quick Action Bar */}
                     <div className="block lg:hidden pt-4 border-t border-border/40 flex items-center justify-between gap-4">
