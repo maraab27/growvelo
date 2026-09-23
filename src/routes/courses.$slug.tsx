@@ -1766,55 +1766,86 @@ function CourseDetail() {
 
               {/* Right: Sticky Card */}
               <div className="lg:col-span-5 lg:sticky lg:top-28">
-                <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md select-none">
+                <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
                   <div
-                    onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
                     onContextMenu={(e) => e.preventDefault()}
-                    className={`relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5 select-none ${previewVideoId ? "cursor-pointer" : ""}`}
+                    className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5"
                   >
                     <EditableImage
                       id={`course.thumb.${course.slug}`}
                       defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
                       alt={course.title}
-                      className="w-full h-full pointer-events-none select-none"
-                      imgClassName="transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none [user-drag:none] [-webkit-user-drag:none]"
+                      className="w-full h-full"
+                      imgClassName="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     {previewVideoId && (
-                      <>
-                        <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors pointer-events-auto">
-                          <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
-                            <Play className="w-5 h-5 fill-white ml-0.5" />
-                          </div>
+                      <div 
+                        onClick={() => setActiveVideo(previewVideoId)}
+                        className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors cursor-pointer pointer-events-auto z-10"
+                      >
+                        <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
+                          <Play className="w-5 h-5 fill-white ml-0.5" />
                         </div>
-                        <div className="absolute top-3 left-3 pointer-events-auto">
-                          <span className="px-2.5 py-1 rounded-[4px] text-xs font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans">
-                            <EditableText id={`course.${course.slug}.preview.badge`}>
-                              Curriculum Preview
-                            </EditableText>
-                          </span>
-                        </div>
-                      </>
+                      </div>
                     )}
+                    <div className="absolute top-3 left-3 pointer-events-auto z-20">
+                      <span className="px-2.5 py-1 rounded-[4px] text-xs font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans">
+                        <EditableText id={`course.${course.slug}.preview.badge`}>
+                          Curriculum Preview
+                        </EditableText>
+                      </span>
+                    </div>
                   </div>
 
                   {/* Price & Offer Badge */}
-                  <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pb-1">
+                  <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pb-1 relative z-20">
                     <div className="flex items-baseline gap-2.5">
-                      <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-mono">
-                        {isBatch1 ? "FREE" : (course.price || "৳৩,০০০")}
+                      <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-mono cursor-text">
+                        <EditableText id={`course.${course.slug}.sidebar.price`}>
+                          {isBatch1 ? "FREE" : (course.price || "৳৩,০০০")}
+                        </EditableText>
                       </span>
                       {!isBatch1 && (
-                        <span className="text-base sm:text-lg text-muted-foreground/60 line-through decoration-rose-500/80 decoration-[1.5px] font-mono font-medium">
-                          ৳৫,০০০
+                        <span className="text-base sm:text-lg text-muted-foreground/60 line-through decoration-rose-500/80 decoration-[1.5px] font-mono font-medium cursor-text">
+                          <EditableText id={`course.${course.slug}.sidebar.original_price`}>
+                            ৳৫,০০০
+                          </EditableText>
                         </span>
                       )}
                     </div>
-                    <span className="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                      {isBatch1 ? "100% FREE BOOTCAMP" : "40% OFF (Limited Time)"}
+                    <span className="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-sans tracking-wide cursor-text">
+                      <EditableText id={`course.${course.slug}.sidebar.offer_badge`}>
+                        {isBatch1 ? "100% FREE BOOTCAMP" : "40% OFF (Limited Time)"}
+                      </EditableText>
                     </span>
                   </div>
 
-                  <div className="space-y-3.5 mb-6 border-y border-border/40 py-4 font-sans text-sm">
+                  {/* 24-hr Countdown */}
+                  {!isBatch1 && (
+                    <div className="mb-5 p-3 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-transparent flex items-center justify-between relative z-20">
+                      <div className="flex items-center gap-2 font-sans font-medium text-xs text-amber-600 dark:text-amber-400 cursor-text">
+                        <Flame className="w-4 h-4 fill-amber-500 text-amber-500 animate-pulse" />
+                        <EditableText id={`course.${course.slug}.sidebar.countdown_label`}>
+                          অফার শেষ হতে বাকি:
+                        </EditableText>
+                      </div>
+                      <div className="flex items-center gap-1.5 font-mono text-xs font-bold">
+                        <span className="px-2 py-0.5 rounded-lg bg-background/90 text-foreground border border-amber-500/20">
+                          {formatDigit(timer.hours)}h
+                        </span>
+                        <span className="text-amber-500">:</span>
+                        <span className="px-2 py-0.5 rounded-lg bg-background/90 text-foreground border border-amber-500/20">
+                          {formatDigit(timer.minutes)}m
+                        </span>
+                        <span className="text-amber-500">:</span>
+                        <span className="px-2 py-0.5 rounded-lg bg-background/90 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+                          {formatDigit(timer.seconds)}s
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="space-y-3.5 mb-6 border-y border-border/40 py-4 font-sans text-sm relative z-20">
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
                         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
@@ -1822,10 +1853,13 @@ function CourseDetail() {
                         </div>
                         <span>Batch Starts</span>
                       </div>
-                      <span className="font-semibold text-foreground/95 text-right">
-                        {isBatch1 ? "1 July 2026" : "October 15, 2026"}
+                      <span className="font-semibold text-foreground/95 text-right cursor-text">
+                        <EditableText id={`course.${course.slug}.sidebar.starts`}>
+                          {isBatch1 ? "1 July 2026" : "October 15, 2026"}
+                        </EditableText>
                       </span>
                     </div>
+
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
                         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
@@ -1833,21 +1867,27 @@ function CourseDetail() {
                         </div>
                         <span>Duration</span>
                       </div>
-                      <span className="font-normal text-foreground/90 text-right">
-                        {isBatch1 ? "15 Days Bootcamp" : "30 Days Intensive"}
+                      <span className="font-normal text-foreground/90 text-right cursor-text">
+                        <EditableText id={`course.${course.slug}.sidebar.duration`}>
+                          {isBatch1 ? "15 Days Bootcamp" : "30 Days Intensive"}
+                        </EditableText>
                       </span>
                     </div>
+
                     <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2.5 text-foreground/70 font-medium select-none">
+                      <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
                         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
                           <User className="h-3.5 w-3.5" />
                         </div>
                         <span>Mentor</span>
                       </div>
-                      <span className="font-normal text-foreground/90 text-right select-none">
-                        {course.instructor || "Muhammad Ataullah"}
+                      <span className="font-normal text-foreground/90 text-right cursor-text">
+                        <EditableText id={`course.${course.slug}.sidebar.instructor`}>
+                          {course.instructor || "Muhammad Ataullah"}
+                        </EditableText>
                       </span>
                     </div>
+
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2.5 text-foreground/70 font-medium">
                         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
@@ -1855,12 +1895,13 @@ function CourseDetail() {
                         </div>
                         <span>Platform</span>
                       </div>
-                      <span className="font-normal text-foreground/90 text-right">
-                        Live Sessions (Discord & Meet)
+                      <span className="font-normal text-foreground/90 text-right cursor-text">
+                        <EditableText id={`course.${course.slug}.sidebar.platform`}>
+                          Live Sessions (Discord & Meet)
+                        </EditableText>
                       </span>
                     </div>
                   </div>
-
                   {isBatch1 ? (
   <button
     onClick={() => setShowClosedModal(true)}
