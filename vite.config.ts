@@ -1,4 +1,4 @@
-// @lovable.dev/vite-tanstack-config already includes the following — do NOT add them manually
+// @lovable.dev/vite-tanstack-config already includes the following - do NOT add them manually
 // or the app will break with duplicate plugins:
 //   - TanStack devtools (dev-only, first), tanstackStart, viteReact, tailwindcss, tsConfigPaths,
 //     nitro (build-only using cloudflare as a default target), VITE_* env injection, @ path alias,
@@ -10,28 +10,6 @@ export default defineConfig({
   // Expose standard NEXT_PUBLIC_* vars to the browser bundle (Vercel-style env naming)
   vite: {
     envPrefix: ["VITE_", "NEXT_PUBLIC_"],
-    build: {
-      target: 'esnext',
-      minify: 'esbuild',
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
-              return 'vendor-react';
-            }
-            if (id.includes('@tanstack/react-router')) {
-              return 'vendor-router';
-            }
-            if (id.includes('@supabase/supabase-js')) {
-              return 'vendor-supabase';
-            }
-            if (id.includes('lucide-react')) {
-              return 'vendor-icons';
-            }
-          },
-        },
-      },
-    },
   },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
