@@ -1436,8 +1436,12 @@ function CourseDetail() {
   const course = COURSES.find((c) => c.slug === slug)!;
   const [enrolled, setEnrolled] = useState(false);
 
-  // URL-এ enroll=true থাকলে অটো মডাল ওপেন হবে
-  const [showModal, setShowModal] = useState<boolean>(!!search?.enroll);
+  // URL-এ ?enroll=true থাকলে অটো মডাল ওপেন হবে
+  const [showModal, setShowModal] = useState<boolean>(
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search).get("enroll") === "true" || !!search?.enroll
+      : !!search?.enroll
+  );
   const [showClosedModal, setShowClosedModal] = useState(false);
   const [showLockedModal, setShowLockedModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
