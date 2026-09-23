@@ -1534,16 +1534,15 @@ export function SiteShell({
   }, []);
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden flex flex-col justify-between">
-      {/* হেডার সবসময় থাকবে, ফুটারের সাথে কোনো সম্পর্ক নেই */}
-      <SiteHeader />
-
-      {/* মূল কন্টেন্ট */}
-      <main className="flex-1 w-full pt-16 sm:pt-20">
+    <div className="relative min-h-screen overflow-x-hidden">
+      {/* আপনার আগের আসল নেভিগেশন/হেডার */}
+      <Navigation />
+      
+      <main>
         {children}
       </main>
 
-      {/* ফুটার পুরোপুরি স্বাধীন: hideFooter ট্রু হলে শুধু এটি বন্ধ হবে */}
+      {/* শুধুমাত্র ফুটার বন্ধের শর্ত */}
       {!hideFooter && <Footer />}
     </div>
   );
