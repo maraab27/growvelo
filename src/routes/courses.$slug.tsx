@@ -1686,7 +1686,7 @@ function CourseDetail() {
                           {!isBatch1 && <span className="text-xs text-muted-foreground line-through font-mono">৳৫,০০০</span>}
                         </div>
                       </div>
-                      {isBatch1 ? (
+                      {isClosedBatch ? (
   <button
     onClick={() => setShowClosedModal(true)}
     className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
