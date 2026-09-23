@@ -1458,10 +1458,11 @@ function CourseDetail() {
     cleanSlug.includes("15-days");
 
   const isBatch2 =
+    cleanSlug.includes("batch-2") ||
     cleanSlug.includes("batch-02") ||
-    cleanSlug.includes("batch-2");
+    cleanSlug.includes("editing-batch-2");
 
-  const isClosedBatch = isBatch1 || isBatch2;
+  const isClosedBatch = Boolean(isBatch1 || isBatch2);
   const timer = useEvergreenTimer(24);
 
   useEffect(() => {
