@@ -1686,15 +1686,16 @@ function CourseDetail() {
                           {!isBatch1 && <span className="text-xs text-muted-foreground line-through font-mono">৳৫,০০০</span>}
                         </div>
                       </div>
-                      {isBatch1 ? (
-  <button
-    onClick={() => setShowClosedModal(true)}
-    className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
-  >
-    <span>Enroll Now</span>
-    <ArrowRight className="w-3.5 h-3.5" />
-  </button>
-) : enrolled ? (
+                      {isClosedBatch ? (
+                        <button
+                          type="button"
+                          onClick={() => setShowClosedModal(true)}
+                          className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
+                        >
+                          <span>Enroll Now</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+                      ) : (
                         <Link
                           to={`/courses/${slug}/lessons/intro`}
                           className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
