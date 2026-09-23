@@ -1493,14 +1493,14 @@ export function SiteShell({
   }, []);
 
   return (
-      <div className="relative min-h-screen overflow-x-hidden">
-        <Navbar />
-        <main>
-          {children}
-        </main>
-        {!hideFooter && <Footer />}
-      </div>
-    );
+    <div className="relative min-h-screen overflow-x-hidden">
+      <main>
+        {children}
+      </main>
+      {!hideFooter && <Footer />}
+    </div>
+  );
+}
 
 /* legacy alias kept for existing imports */
 export { Chip as Eyebrow };
