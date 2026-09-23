@@ -1911,25 +1911,30 @@ function CourseDetail() {
                       </span>
                     </div>
                   </div>
-                  {isBatch1 ? (
-  <button
-    onClick={() => setShowClosedModal(true)}
-    className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
-  >
-    <span>Enroll Now</span>
-    <ArrowRight className="w-4 h-4" />
-  </button>
-) : enrolled ? (
+                  {isClosedBatch ? (
+                    <button
+                      type="button"
+                      onClick={() => setShowClosedModal(true)}
+                      className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.99] transition-all cursor-pointer font-sans"
+                    >
+                      <EditableText id={`course.${course.slug}.cta.button`}>
+                        {isBatch1 ? "Enroll in Batch 01" : "Enroll in Batch 02"}
+                      </EditableText>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  ) : enrolled ? (
                     <Link
-                      to={`/courses/${slug}/lessons/intro`}
+                      to="/courses/$slug/lessons/$lessonId"
+                      params={{ slug, lessonId: "intro" }}
                       className="gloss-btn w-full justify-center !py-3.5 text-base font-bold cursor-pointer"
                     >
                       Access Unlocked • Start Learning
                     </Link>
                   ) : (
                     <button
+                      type="button"
                       onClick={() => setShowModal(true)}
-                      className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
+                      className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.99] transition-all cursor-pointer font-sans"
                     >
                       <EditableText id={`course.${course.slug}.cta.button`}>
                         Enroll in Batch 03 Now
