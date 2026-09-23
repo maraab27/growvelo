@@ -1493,12 +1493,13 @@ export function SiteShell({
   }, []);
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden">
-        {children}
-      </main>
-      {!hideFooter && <Footer />}
-    </div>
-  );
+      <div className="relative min-h-screen overflow-x-hidden">
+        <main>
+          {children}
+        </main>
+        {!hideFooter && <Footer />}
+      </div>
+    );
 }
 
 /* legacy alias kept for existing imports */
