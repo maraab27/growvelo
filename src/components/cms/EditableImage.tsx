@@ -114,13 +114,13 @@ export const EditableImage = ({
     <div className={`relative group inline-block overflow-hidden ${className}`}>
       {displaySrc ? (
         <img
-          src={displaySrc}
-          alt={alt}
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-          className={`w-full h-full object-cover ${imgClassName}`}
-        />
+        src={currentSrc}
+        alt={alt || "growVelo"}
+        loading="lazy"
+        decoding="async"
+        className={imgClassName}
+        onError={() => setImgError(true)}
+      />
       ) : (
         <div className="w-full h-full bg-neutral-800" />
       )}
