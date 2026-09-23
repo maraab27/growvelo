@@ -1502,7 +1502,7 @@ function CourseDetail() {
 
   return (
     <div className="[&>div>footer]:!hidden [&>footer]:!hidden [&_img]:select-none [&_img]:pointer-events-auto [&_img]:[user-drag:none] [&_img]:[-webkit-user-drag:none]">
-      <SiteShell>
+      <SiteShell hideFooter>
         {showModal && (
           <EnrollmentModal
             courseSlug={slug}
