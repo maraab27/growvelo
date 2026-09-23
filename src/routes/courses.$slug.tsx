@@ -1448,12 +1448,20 @@ function CourseDetail() {
 
   const [activeTab, setActiveTab] = useState<"overview" | "curriculum" | "included" | "how" | "faq">("overview");
 
-  // ব্যাচ ১ এর স্লাগ নিখুঁতভাবে চেক 
+  // ব্যাচ ১ ও ব্যাচ ২ নিখুঁতভাবে ডিটেক্ট করা
   const cleanSlug = (slug || "").toLowerCase();
-  const cleanTitle = (course?.title || "").toLowerCase();
-  
-  // স্লাগ বা টাইটেলের কোথাও '1', 'one', 'free', বা 'rising' থাকলেই কোড ১০০% নিশ্চিত হবে যে এটাই ব্যাচ ১
-  const isBatch1 = cleanSlug.includes("1") || cleanSlug.includes("one") || cleanSlug.includes("free") || cleanSlug.includes("rising") || cleanTitle.includes("1") || cleanTitle.includes("free");
+  const isBatch1 =
+    cleanSlug.includes("batch-01") ||
+    cleanSlug.includes("batch-1") ||
+    cleanSlug.includes("rising") ||
+    cleanSlug.includes("bootcamp") ||
+    cleanSlug.includes("15-days");
+
+  const isBatch2 =
+    cleanSlug.includes("batch-02") ||
+    cleanSlug.includes("batch-2");
+
+  const isClosedBatch = isBatch1 || isBatch2;
   const timer = useEvergreenTimer(24);
 
   useEffect(() => {
