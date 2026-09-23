@@ -1973,9 +1973,13 @@ function CourseDetail() {
             <div className="relative max-w-5xl mx-auto font-bangla mb-16">
               <div className="glass-strong rounded-3xl border border-primary/30 p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden backdrop-blur-md">
                 <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-primary/30 bg-primary/10 text-primary text-xs font-semibold mb-6">
-                  <Flame className="w-3.5 h-3.5 fill-primary text-primary animate-pulse" />
-                  <span>সীমিত সময়ের অফার • ব্যাচ ৩ এনরোলমেন্ট</span>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/80 bg-foreground/[0.04] text-foreground/75 text-xs font-mono uppercase tracking-wider mb-5 select-none">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <span>
+                    <EditableText id={`course.${course.slug}.footer.offer.badge`}>
+                      Limited Time Offer • Batch 03
+                    </EditableText>
+                  </span>
                 </div>
                 <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl lg:text-4xl text-foreground leading-[1.20] tracking-tight">
                   {isBatch1
