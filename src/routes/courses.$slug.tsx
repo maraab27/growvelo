@@ -1900,12 +1900,13 @@ function CourseDetail() {
               <div className="max-w-4xl mx-auto glass-strong rounded-3xl border border-emerald-500/30 p-8 sm:p-12 text-center shadow-2xl mb-16 relative overflow-hidden backdrop-blur-md font-bangla">
                 <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
                 
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-emerald-500/10 text-emerald-500 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-emerald-500/20 shadow-inner">
-                  <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-500" />
-                </div>
-
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold tracking-wide mb-4">
-                  <span>ব্যাচ কার্যক্রম সমাপ্ত</span>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/80 bg-foreground/[0.04] text-foreground/75 text-xs font-mono uppercase tracking-wider mb-5 select-none">
+                  <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/60" />
+                  <span>
+                    <EditableText id={`course.${course.slug}.closed.badge`}>
+                      Batch Completed
+                    </EditableText>
+                  </span>
                 </div>
 
                 <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl text-foreground tracking-tight leading-snug">
