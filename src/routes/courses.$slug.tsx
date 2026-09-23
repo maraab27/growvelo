@@ -1889,38 +1889,78 @@ function CourseDetail() {
               </div>
             </div>
 
-            {/* Sticky Tab Bar */}
-            <div className="sticky top-20 z-30 mb-8 py-2.5 backdrop-blur-md">
-              <div className="max-w-4xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar">
-                {tabList.map((tab) => {
-                  const isActive = activeTab === tab.id;
-                  const Icon = tab.icon;
-                  return (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer ${
-                        isActive
-                          ? "bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-[1.02]"
-                          : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
-                      }`}
-                    >
-                      <Icon className="w-4 h-4 shrink-0" />
-                      <span>{tab.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+            {/* Conditional Content: Batch 1 Completed Card VS Regular Tabs */}
+            {isBatch1 ? (
+              <div className="max-w-4xl mx-auto glass-strong rounded-3xl border border-emerald-500/30 p-8 sm:p-12 text-center shadow-2xl mb-16 relative overflow-hidden backdrop-blur-md font-bangla">
+                <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+                
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-emerald-500/10 text-emerald-500 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-emerald-500/20 shadow-inner">
+                  <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-500" />
+                </div>
 
-            {/* Unified Content Master Card */}
-            <div className="max-w-5xl mx-auto glass-strong rounded-3xl border border-border/80 p-6 sm:p-10 lg:p-12 shadow-xl mb-16 relative overflow-hidden backdrop-blur-md">
-              {activeTab === "overview" && <TabOverview courseSlug={course.slug} isBatch1={isBatch1} />}
-              {activeTab === "curriculum" && <TabCurriculum courseSlug={course.slug} isBatch1={isBatch1} />}
-              {activeTab === "included" && <TabWhatsIncluded courseSlug={course.slug} isBatch1={isBatch1} />}
-              {activeTab === "how" && <TabHowItWorks courseSlug={course.slug} isBatch1={isBatch1} />}
-              {activeTab === "faq" && <TabFaq courseSlug={course.slug} isBatch1={isBatch1} />}
-            </div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold tracking-wide mb-4">
+                  <span>ব্যাচ কার্যক্রম সমাপ্ত</span>
+                </div>
+
+                <h3 className="font-bangla font-extrabold text-2xl sm:text-3xl text-foreground tracking-tight leading-snug">
+                  এই ব্যাচটির কার্যক্রম সফলভাবে সম্পন্ন হয়েছে!
+                </h3>
+
+                <p className="font-bangla text-sm sm:text-base text-foreground/80 leading-relaxed mt-4 max-w-2xl mx-auto">
+                  আমাদের 'রাইজিং এডিটরস (ব্যাচ ১)' এর সকল লাইভ ক্লাস এবং প্রজেক্ট সাবমিশন ইতোমধ্যে শেষ হয়েছে। অসংখ্য শিক্ষার্থীর সফল অংশগ্রহণের পর এই ব্যাচের এনরোলমেন্ট স্থায়ীভাবে বন্ধ করা হয়েছে। আপনি যদি বেসিক থেকে শুরু করে অ্যাডভান্সড সিনেমাটিক ভিডিও এডিটিং শিখতে চান, তবে আমাদের চলমান 'ব্যাচ ০৩' মাস্টারক্লাসে যুক্ত হতে পারেন।
+                </p>
+
+                <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const b3Course = COURSES.find((c) => c.slug.includes("batch-3") || c.slug.includes("batch-03"));
+                      const targetSlug = b3Course ? b3Course.slug : "video-editing-batch-3";
+                      window.location.href = `/courses/${targetSlug}`;
+                    }}
+                    className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-xl shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer font-sans"
+                  >
+                    <span>ব্যাচ ৩ এর বিস্তারিত দেখুন ও এনরোল করুন</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Sticky Tab Bar */}
+                <div className="sticky top-20 z-30 mb-8 py-2.5 backdrop-blur-md">
+                  <div className="max-w-4xl mx-auto glass-strong p-1.5 rounded-2xl border border-border/80 shadow-md flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar">
+                    {tabList.map((tab) => {
+                      const isActive = activeTab === tab.id;
+                      const Icon = tab.icon;
+                      return (
+                        <button
+                          key={tab.id}
+                          onClick={() => setActiveTab(tab.id)}
+                          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-sans text-xs sm:text-sm font-semibold transition-all whitespace-nowrap cursor-pointer select-none ${
+                            isActive
+                              ? "bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-[1.02]"
+                              : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
+                          }`}
+                        >
+                          <Icon className="w-4 h-4 shrink-0" />
+                          <span>{tab.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Unified Content Master Card */}
+                <div className="max-w-5xl mx-auto glass-strong rounded-3xl border border-border/80 p-6 sm:p-10 lg:p-12 shadow-xl mb-16 relative overflow-hidden backdrop-blur-md w-full">
+                  {activeTab === "overview" && <TabOverview courseSlug={course.slug} isBatch1={isBatch1} />}
+                  {activeTab === "curriculum" && <TabCurriculum courseSlug={course.slug} isBatch1={isBatch1} />}
+                  {activeTab === "included" && <TabWhatsIncluded courseSlug={course.slug} isBatch1={isBatch1} />}
+                  {activeTab === "how" && <TabHowItWorks courseSlug={course.slug} isBatch1={isBatch1} />}
+                  {activeTab === "faq" && <TabFaq courseSlug={course.slug} isBatch1={isBatch1} />}
+                </div>
+              </>
+            )}
 
             {/* Final Closing CTA Banner (Batch 03 Offer) */}
             <div className="relative max-w-5xl mx-auto font-bangla mb-16">
