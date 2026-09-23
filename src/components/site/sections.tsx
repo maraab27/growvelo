@@ -306,9 +306,15 @@ export function Hero() {
             </EditableText>
           </p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center">
-            <a href="#latest-course" className="gloss-btn">
+            <button
+              type="button"
+              onClick={() => {
+                window.location.href = "/courses/video-editing-batch-3?enroll=true";
+              }}
+              className="gloss-btn cursor-pointer"
+            >
               <EditableText id="hero.cta.primary">Join Batch 03</EditableText> <ArrowRight className="h-5 w-5" />
-            </a>
+            </button>
             <Link 
   to="/courses/$slug" 
   params={{ slug: "video-editing-batch-3" }} 
