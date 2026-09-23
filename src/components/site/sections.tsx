@@ -1471,7 +1471,13 @@ export function Footer() {
 
 /* ---------- shell ---------- */
 
-export function SiteShell({ children }: { children: ReactNode }) {
+export function SiteShell({
+  children,
+  hideFooter = false,
+}: {
+  children: React.ReactNode;
+  hideFooter?: boolean;
+}) {
   const [session, setSession] = useState<any>(null);
 
   useEffect(() => {
@@ -1490,10 +1496,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
     <main className="relative min-h-screen overflow-x-hidden">
       <Nav session={session} />
       {children}
-      <Footer />
-    </main>
-
-
+      {!hideFooter && <Footer />}
+    </div>
   );
 }
 
