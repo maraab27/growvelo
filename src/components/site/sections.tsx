@@ -1511,7 +1511,6 @@ export function SiteHeader() {
   );
 }
 
-/* ================= SHELL: COMPLETELY SEPARATED ================= */
 export function SiteShell({
   children,
   hideFooter = false,
@@ -1535,14 +1534,10 @@ export function SiteShell({
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
-      {/* আপনার আগের আসল নেভিগেশন/হেডার */}
-      <Navigation />
-      
+      <Nav />
       <main>
         {children}
       </main>
-
-      {/* শুধুমাত্র ফুটার বন্ধের শর্ত */}
       {!hideFooter && <Footer />}
     </div>
   );
