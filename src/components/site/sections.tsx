@@ -1494,8 +1494,8 @@ export function SiteShell({
 
   return (
     <main className="relative min-h-screen overflow-x-hidden">
-      <Nav session={session} />
-      {children}
+        {children}
+      </main>
       {!hideFooter && <Footer />}
     </div>
   );
