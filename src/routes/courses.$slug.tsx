@@ -1631,13 +1631,19 @@ function CourseDetail() {
                       {isBatch1 ? (
                         <>
                           <p className="font-normal text-foreground/80">
-                            বর্তমানে Content Creator, Business Owner এবং Freelancer—সবারই Video Editor প্রয়োজন। কিন্তু বেশিরভাগ মানুষ সঠিক Roadmap না পেয়ে শিখতে পারে না।
+                            <EditableText id={`course.${course.slug}.hero.b1.desc.1`}>
+                              বর্তমানে Content Creator, Business Owner এবং Freelancer—সবারই Video Editor প্রয়োজন। কিন্তু বেশিরভাগ মানুষ সঠিক Roadmap না পেয়ে শিখতে পারে না।
+                            </EditableText>
                           </p>
                           <p className="font-normal text-foreground/80">
-                            এই সমস্যার সমাধান হিসেবে আমরা আয়োজন করেছি ১৫ দিনের Free Video Editing Course, যেখানে প্রতিদিন Step-by-Step প্র্যাকটিক্যালভাবে শেখানো হবে।
+                            <EditableText id={`course.${course.slug}.hero.b1.desc.2`}>
+                              এই সমস্যার সমাধান হিসেবে আমরা আয়োজন করেছি ১৫ দিনের Free Video Editing Course, যেখানে প্রতিদিন Step-by-Step প্র্যাকটিক্যালভাবে শেখানো হবে।
+                            </EditableText>
                           </p>
                           <p className="font-normal text-foreground/90 font-medium">
-                            কোনো Paid Course কেনার আগে এই Free Course থেকেই আপনি আপনার এডিটিং জার্নি শুরু করতে পারেন।
+                            <EditableText id={`course.${course.slug}.hero.b1.desc.3`}>
+                              কোনো Paid Course কেনার আগে এই Free Course থেকেই আপনি আপনার এডিটিং জার্নি শুরু করতে পারেন।
+                            </EditableText>
                           </p>
                         </>
                       ) : (
