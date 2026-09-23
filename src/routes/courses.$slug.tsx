@@ -1511,9 +1511,8 @@ function CourseDetail() {
         )}
 
         {showClosedModal && (
-          <BatchClosedModal onClose={() => setShowClosedModal(false)} />
+          <BatchClosedModal courseSlug={slug} onClose={() => setShowClosedModal(false)} />
         )}
-
         {showLockedModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm font-bangla">
             <div className="sticky-card tint-brand relative w-full max-w-md overflow-hidden p-6 sm:p-8">
