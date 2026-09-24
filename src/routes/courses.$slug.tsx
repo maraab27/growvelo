@@ -1029,7 +1029,7 @@ function TabCurriculum({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1:
                     <EditableText id={`course.${courseSlug}.module.${idx + 1}.desc`}>{item.desc}</EditableText>
                   </p>
                   
-                  <div className="bg-background/60 rounded-xl p-3 sm:p-3.5 border border-border/40 space-y-2">
+                  <div className="bg-background opacity-60 rounded-xl p-3 sm:p-3.5 border border-border/40 space-y-2">
                     {item.lessons?.map((lesson, lIdx) => (
                       <div key={lIdx} className="flex items-center justify-between gap-2.5 font-bangla text-xs sm:text-sm text-foreground/85 group">
                         <div className="flex items-center gap-2.5 min-w-0 flex-1">
