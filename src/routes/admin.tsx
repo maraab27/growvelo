@@ -151,11 +151,27 @@ const handleApproveStudent = async () => {
             </div>
           </div>
           
-          <div className="bg-background/50 rounded-xl p-4 flex flex-col items-center justify-center min-h-[150px] text-center">
-            <p className="text-muted-foreground">লিস্ট লোড করার সিস্টেমটি যুক্ত করা হচ্ছে...</p>
-            <button className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-lg font-semibold text-sm">
-              View All Requests
-            </button>
+          <div className="bg-background/50 rounded-xl p-6 flex flex-col w-full">
+            <label className="text-sm font-semibold mb-2">স্টুডেন্টের ইমেইল অ্যাড্রেস</label>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <input 
+                type="email" 
+                placeholder="student@gmail.com"
+                value={studentEmail}
+                onChange={(e) => setStudentEmail(e.target.value)}
+                className="flex-1 p-3 rounded-lg bg-background border border-border outline-none focus:border-emerald-500"
+              />
+              <button 
+                onClick={handleApproveStudent}
+                disabled={approveLoading}
+                className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-bold transition-colors disabled:opacity-50 whitespace-nowrap"
+              >
+                {approveLoading ? 'অ্যাপ্রুভ হচ্ছে...' : 'Approve for Batch 03'}
+              </button>
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              নোট: স্টুডেন্টকে অবশ্যই আগে ওয়েবসাইটে অ্যাকাউন্ট খুলতে হবে। তার রেজিস্টার করা ইমেইলটি এখানে দিয়ে অ্যাপ্রুভ করলেই সে ড্যাশবোর্ডে কোর্সের অ্যাক্সেস পেয়ে যাবে।
+            </p>
           </div>
         </div>
 
