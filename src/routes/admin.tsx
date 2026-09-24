@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAdminSession } from '@/hooks/useAdminSession';
 import { LogOut, Image as ImageIcon, FileText, ExternalLink, Lock } from 'lucide-react';
 
-export const Route = createFileRoute('/admin')({
+export const Route = createFileRoute('/admin')({ 
   component: AdminDashboard,
 });
 
