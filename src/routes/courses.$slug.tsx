@@ -386,10 +386,11 @@ TrxID: ${formData.trxId}`;
                 </div>
                 <div>
                   <label className="block text-foreground font-medium mb-1 uppercase tracking-wider text-[11px]">
-                    ইমেইল এড্রেস (ঐচ্ছিক)
+                    ইমেইল এড্রেস *
                   </label>
                   <input
                     type="email"
+                    required
                     placeholder="name@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
