@@ -1475,12 +1475,24 @@ function CourseDetail() {
   const course = COURSES.find((c) => c.slug === slug)!;
   const [enrolled, setEnrolled] = useState(false);
 
-  // URL-এ ?enroll=true থাকলে অটো মডাল ওপেন হবে
-  const [showModal, setShowModal] = useState<boolean>(
-    typeof window !== "undefined"
-      ? new URLSearchParams(window.location.search).get("enroll") === "true" || !!search?.enroll
-      : !!search?.enroll
-  );
+  // URL-এ ?enroll=true থাকলে অটো মডাল ওপেন হবে (Auth Check Added)
+const [showModal, setShowModal] = useState<boolean>(false);
+
+useEffect(() => {
+  const isEnroll = typeof window !== "undefined"
+    ? new URLSearchParams(window.location.search).get("enroll") === "true" || !!search?.enroll
+    : !!search?.enroll;
+
+  if (isEnroll) {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        window.location.href = "/auth";
+      } else {
+        setShowModal(true);
+      }
+    });
+  }
+}, [search]);
   const [showClosedModal, setShowClosedModal] = useState(false);
   const [showLockedModal, setShowLockedModal] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
