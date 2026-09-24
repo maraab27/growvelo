@@ -28,7 +28,27 @@ const [studentEmail, setStudentEmail] = useState('');
       fetchStats();
     }
   }, [isAdmin]);
-
+const handleApproveStudent = async () => {
+    if (!studentEmail) {
+      alert("দয়া করে স্টুডেন্টের ইমেইল দিন!");
+      return;
+    }
+    setApproveLoading(true);
+    const { data, error } = await supabase.rpc('approve_student_by_email', {
+      student_email: studentEmail,
+      course_name: 'video-editing-batch-3'
+    });
+    
+    if (error) {
+      alert("Error: " + error.message);
+    } else if (data === 'Not Found') {
+      alert("এই ইমেইল দিয়ে ওয়েবসাইটে কোনো অ্যাকাউন্ট পাওয়া যায়নি! স্টুডেন্টকে আগে সাইন-আপ করতে বলুন।");
+    } else {
+      alert("সাকসেস! " + studentEmail + " কে Batch 03 এর অ্যাক্সেস দেওয়া হয়েছে।");
+      setStudentEmail('');
+    }
+    setApproveLoading(false);
+  };
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginLoading(true);
