@@ -997,7 +997,7 @@ export const COURSES: Course[] = [
   {
     slug: "video-editing-batch-2",
     title: "The Editing Masterclass: Zero to Pro (Batch 02)",
-    level: "",
+    level: "Beginner → Pro",
     length: "30 days · Running",
     price: "৳৬,০০০",
     oldPrice: "৳৮,০০০",
