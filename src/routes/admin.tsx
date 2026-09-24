@@ -118,6 +118,45 @@ function AdminDashboard() {
               <p className="text-[clamp(2rem,5vw,3rem)] font-bold leading-none">{stats.content}</p>
             </div>
           </div>
+          {/* --- নতুন যুক্ত করা স্টুডেন্ট অ্যাপ্রুভাল কার্ড --- */}
+        <div className="glass-strong p-6 rounded-2xl flex flex-col gap-4 col-span-1 md:col-span-2 mt-6 border border-emerald-500/20">
+          <div className="flex items-center gap-4 border-b border-border/50 pb-4">
+            <div className="icon-tile bg-emerald-500/10 p-3 rounded-xl text-emerald-500">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold">স্টুডেন্ট অ্যাপ্রুভাল (Enrollment Requests)</h3>
+              <p className="text-sm text-muted-foreground">যারা পেমেন্ট করেছে, তাদের এখান থেকে Approve করুন।</p>
+            </div>
+          </div>
+          
+          <div className="bg-background/50 rounded-xl p-4 flex flex-col items-center justify-center min-h-[150px] text-center">
+            <p className="text-muted-foreground">লিস্ট লোড করার সিস্টেমটি যুক্ত করা হচ্ছে...</p>
+            <button className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-lg font-semibold text-sm">
+              View All Requests
+            </button>
+          </div>
+        </div>
+
+        {/* --- নতুন যুক্ত করা লেসন ম্যানেজার কার্ড --- */}
+        <div className="glass-strong p-6 rounded-2xl flex flex-col gap-4 col-span-1 md:col-span-2 mt-4 border border-blue-500/20">
+           <div className="flex items-center gap-4 border-b border-border/50 pb-4">
+            <div className="icon-tile bg-blue-500/10 p-3 rounded-xl text-blue-500">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m10 13 4 2-4 2v-4z"/></svg>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold">লেসন ম্যানেজার (Class Links & Video)</h3>
+              <p className="text-sm text-muted-foreground">নতুন ক্লাসের জুম লিংক বা ইউটিউব ভিডিও অ্যাড করুন।</p>
+            </div>
+          </div>
+
+           <div className="bg-background/50 rounded-xl p-4 flex flex-col items-center justify-center min-h-[150px] text-center">
+            <p className="text-muted-foreground">ম্যানেজার ফর্মটি যুক্ত করা হচ্ছে...</p>
+            <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold text-sm">
+              Add New Lesson
+            </button>
+          </div>
+        </div>
         </div>
       </div>
     </div>
