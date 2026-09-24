@@ -1998,7 +1998,7 @@ function CourseDetail() {
                       onClick={async () => {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) {
-    alert("কোর্সে এনরোল করার আগে অনুগ্রহ করে লগইন বা রেজিস্ট্রেশন সম্পন্ন করুন।");
+    
     window.location.href = "/auth";
     return;
   }
@@ -2144,7 +2144,7 @@ function CourseDetail() {
                       onClick={async () => {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) {
-    alert("কোর্সে এনরোল করার আগে অনুগ্রহ করে লগইন বা রেজিস্ট্রেশন সম্পন্ন করুন।");
+    
     window.location.href = "/auth";
     return;
   }
