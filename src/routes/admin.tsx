@@ -14,7 +14,8 @@ function AdminDashboard() {
   const [password, setPassword] = useState('');
   const [stats, setStats] = useState({ gallery: 0, content: 0 });
   const [loginLoading, setLoginLoading] = useState(false);
-
+const [studentEmail, setStudentEmail] = useState('');
+  const [approveLoading, setApproveLoading] = useState(false);
   useEffect(() => {
     if (isAdmin) {
       const fetchStats = async () => {
