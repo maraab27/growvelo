@@ -1736,85 +1736,61 @@ function CourseDetail() {
                 </div>
 
                 {/* 4 Core Benefit Cards */}
-                {/* 4 Core Benefit Cards */}
-<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-  <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
-    <div className="p-2.5 rounded-xl bg-destructive/10 text-destructive shrink-0 mt-0.5">
-      <Radio className="w-5 h-5 animate-pulse" />
-    </div>
-    <div className="space-y-1 min-w-0">
-      <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
-        <EditableText id={`course.${course.slug}.benefit1.title`}>
-          {isBatch1 ? "হাতে কলমে লাইভ সেশন" : "Industry-Standard Workflow"}
-        </EditableText>
-      </h3>
-      <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-        <EditableText id={`course.${course.slug}.benefit1.desc`}>
-          {isBatch1 
-            ? "১ জুলাই ২০২৬ থেকে শুরু হতে যাওয়া লাইভ বুটক্যাম্প।" 
-            : "কোনো বোরিং থিওরি নয়। র-ফুটেজ ইমপোর্ট করা থেকে শুরু করে ফাইনাল রেন্ডার—পুরো প্রসেসটি শিখুন সরাসরি 'প্রজেক্ট-বেইজড' লাইভ সেশনের মাধ্যমে।"}
-        </EditableText>
-      </p>
-    </div>
-  </div>
-  <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
-    <div className="p-2.5 rounded-xl bg-primary/10 text-primary shrink-0 mt-0.5">
-      <MessageSquare className="w-4 h-4" />
-    </div>
-    <div className="space-y-1 min-w-0">
-      <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
-        <EditableText id={`course.${course.slug}.benefit2.title`}>
-          {isBatch1 ? "হোয়াটসঅ্যাপ সাপোর্ট" : "Exclusive Creator Community"}
-        </EditableText>
-      </h3>
-      <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-        <EditableText id={`course.${course.slug}.benefit2.desc`}>
-          {isBatch1 
-            ? "যেকোনো তথ্যের জন্য হোয়াটসঅ্যাপে যোগাযোগ: 01890352188" 
-            : "প্রাইভেট ডিসকর্ড সার্ভারে যুক্ত হয়ে মেন্টরের ডিরেক্ট ফিডব্যাক নিন, অন্যদের প্রজেক্ট দেখুন এবং বিল্ড করুন আপনার প্রফেশনাল নেটওয়ার্ক।"}
-        </EditableText>
-      </p>
-    </div>
-  </div>
-  <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
-    <div className="p-2.5 rounded-xl bg-accent/20 text-foreground shrink-0 mt-0.5">
-      <Briefcase className="w-4 h-4" />
-    </div>
-    <div className="space-y-1 min-w-0">
-      <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
-        <EditableText id={`course.${course.slug}.benefit3.title`}>
-          {isBatch1 ? "বিগিনার ফ্রেন্ডলি" : "Client Acquisition Blueprint"}
-        </EditableText>
-      </h3>
-      <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-        <EditableText id={`course.${course.slug}.benefit3.desc`}>
-          {isBatch1 
-            ? "পূর্বে কোনো অভিজ্ঞতা না থাকলেও সহজে শুরু করতে পারবেন।" 
-            : "ফাইবার বা আপওয়ার্কের সস্তা কাজের প্রতিযোগিতার বাইরে গিয়ে শিখুন কীভাবে হাই-টিকেটিং ক্লায়েন্ট ক্লোজ করতে হয়।"}
-        </EditableText>
-      </p>
-    </div>
-  </div>
-  <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
-    <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 shrink-0 mt-0.5">
-      <Gift className="w-4 h-4" />
-    </div>
-    <div className="space-y-1 min-w-0">
-      <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
-        <EditableText id={`course.${course.slug}.benefit4.title`}>
-          {isBatch1 ? "১০০% ফ্রি এক্সেস" : "Premium Asset Vault"}
-        </EditableText>
-      </h3>
-      <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
-        <EditableText id={`course.${course.slug}.benefit4.desc`}>
-          {isBatch1 
-            ? "সম্পূর্ণ বিনামূল্যে প্র্যাকটিস ফাইল ও গাইডলাইন এক্সেস।" 
-            : "এনরোলমেন্টের সাথেই পেয়ে যান প্রিমিয়াম সাউন্ড প্যাক (SFX), হাই-কোয়ালিটি কালার লাটস (LUTs) এবং প্রিসেট ফাইলের লাইফটাইম এক্সেস।"}
-        </EditableText>
-      </p>
-    </div>
-  </div>
-</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                  <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
+                    <div className="p-2.5 rounded-xl bg-destructive/10 text-destructive shrink-0 mt-0.5">
+                      <Radio className="w-5 h-5 animate-pulse" />
+                    </div>
+                    <div className="space-y-1 min-w-0">
+                      <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
+                        Industry-Standard Workflow
+                      </h3>
+                      <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
+                        {isBatch1 ? "১ জুলাই ২০২৬ থেকে শুরু হতে যাওয়া লাইভ বুটক্যাম্প।" : "স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা এবং আজীবন ক্লাউড রেকর্ডিং অ্যাক্সেস।"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
+                    <div className="p-2.5 rounded-xl bg-primary/10 text-primary shrink-0 mt-0.5">
+                      <MessageSquare className="w-4 h-4" />
+                    </div>
+                    <div className="space-y-1 min-w-0">
+                      <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
+                        {isBatch1 ? "হোয়াটসঅ্যাপ সাপোর্ট" : "২৪/৭ ডিসকর্ড হেল্পডেস্ক"}
+                      </h3>
+                      <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
+                        {isBatch1 ? "যেকোনো তথ্যের জন্য হোয়াটসঅ্যাপে যোগাযোগ: 01890352188" : "স্টুডেন্ট কমিউনিটি, যেকোনো টেকনিক্যাল সাপোর্ট ও উইকলি মেন্টর ফিডব্যাক।"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
+                    <div className="p-2.5 rounded-xl bg-accent/20 text-foreground shrink-0 mt-0.5">
+                      <Briefcase className="w-4 h-4" />
+                    </div>
+                    <div className="space-y-1 min-w-0">
+                      <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
+                        {isBatch1 ? "বিগিনার ফ্রেন্ডলি" : "মার্কেটপ্লেস ও ডিরেক্ট ক্লায়েন্ট"}
+                      </h3>
+                      <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
+                        {isBatch1 ? "পূর্বে কোনো অভিজ্ঞতা না থাকলেও সহজে শুরু করতে পারবেন।" : "পোর্টফোলিও তৈরি এবং সরাসরি হাই টিকেটিং ক্লায়েন্ট হান্টিং গাইড।"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="glass p-4 sm:p-4.5 rounded-2xl border border-border/60 flex items-start gap-3.5 hover:border-primary/30 transition duration-200">
+                    <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 shrink-0 mt-0.5">
+                      <Gift className="w-4 h-4" />
+                    </div>
+                    <div className="space-y-1 min-w-0">
+                      <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
+                        {isBatch1 ? "১০০% ফ্রি এক্সেস" : "এডিটিং রিসোর্স প্যাক"}
+                      </h3>
+                      <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
+                        {isBatch1 ? "সম্পূর্ণ বিনামূল্যে প্র্যাকটিস ফাইল ও গাইডলাইন অ্যাক্সেস।" : "প্রিমিয়াম সাউন্ড এফেক্টস (SFX), কালার LUTs এবং রেডি মোশন প্রিসেট ফাইল।"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               {/* Right: Sticky Card */}
               <div className="lg:col-span-5 lg:sticky lg:top-28">
