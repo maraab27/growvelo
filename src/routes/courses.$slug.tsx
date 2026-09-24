@@ -1085,13 +1085,27 @@ function TabWhatsIncluded({ courseSlug, isBatch1 }: { courseSlug: string; isBatc
   ];
 
   const batchRegularFeatures = [
-    { id: "feat_1", titleKey: "লাইভ ইন্টারেক্টিভ ক্লাস", descKey: "সরাসরি স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা ও লাইভ প্রশ্নোত্তর পর্ব।" },
-    { id: "feat_2", titleKey: "লাইফটাইম ক্লাউড রেকর্ডিং ব্যাকআপ", descKey: "ক্লাস শেষ হতেই ওয়েবসাইট ড্যাশবোর্ডে ফুল এইচডি ক্লাউড রেকর্ডিং যুক্ত হবে।" },
-    { id: "feat_3", titleKey: "ডেডিকেটেড ডিসকর্ড প্রাইভেট কমিউনিটি", descKey: "২৪/৭ প্রাইভেট চ্যানেল, অ্যাসাইনমেন্ট ফিডব্যাক ও সহপাঠীদের সাথে সরাসরি নেটওয়ার্কিং।" },
-    { id: "feat_4", titleKey: "১০০+ প্রিমিয়াম সাউন্ড ও সিনেমাটিক অ্যাসেটস", descKey: "প্র্যাকটিসের জন্য প্রজেক্ট ফাইল, সাউন্ড প্যাক, সিনেমাটিক LUTs ও মোশন প্রিসেট।" },
-    { id: "feat_5", titleKey: "সাপ্তাহিক পার্সোনালাইজড ফিডব্যাক", descKey: "আপনার প্রতিটি এডিটের ভুলত্রুটি ধরিয়ে দিয়ে মেন্টর সরাসরি স্ক্রিনে পার্সোনাল ফিডব্যাক দেবেন।" },
-    { id: "feat_6", titleKey: "কমপ্লিশন ভেরিফায়েড সার্টিফিকেট", descKey: "ব্যাচের সব প্রজেক্ট সফলভাবে জমা দেওয়ার পর দেওয়া হবে ভেরিফায়েড ডিজিটাল সার্টিফিকেট।" },
-  ];
+  { 
+    id: "feat_1", 
+    titleKey: <EditableText id={`course-${courseSlug}-feat-1-title`} defaultText="হাতে কলমে লাইভ সেশন" />, 
+    descKey: <EditableText id={`course-${courseSlug}-feat-1-desc`} defaultText="স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা এবং আজীবন ক্লাউড রেকর্ড এক্সেস।" /> 
+  },
+  { 
+    id: "feat_2", 
+    titleKey: <EditableText id={`course-${courseSlug}-feat-2-title`} defaultText="২৪/৭ ডিসকর্ড হেল্পডেস্ক" />, 
+    descKey: <EditableText id={`course-${courseSlug}-feat-2-desc`} defaultText="স্টুডেন্ট কমিউনিটি, যেকোনো টেকনিক্যাল সাপোর্ট ও উইকলি মেন্টর ফিডব্যাক।" /> 
+  },
+  { 
+    id: "feat_3", 
+    titleKey: <EditableText id={`course-${courseSlug}-feat-3-title`} defaultText="মার্কেটপ্লেস ও ডিরেক্ট ক্লায়েন্ট" />, 
+    descKey: <EditableText id={`course-${courseSlug}-feat-3-desc`} defaultText="পোর্টফোলিও তৈরি এবং সরাসরি হাই-টিকিট ক্লায়েন্ট হান্টিং গাইড।" /> 
+  },
+  { 
+    id: "feat_4", 
+    titleKey: <EditableText id={`course-${courseSlug}-feat-4-title`} defaultText="এডিটিং রিসোর্স প্যাক" />, 
+    descKey: <EditableText id={`course-${courseSlug}-feat-4-desc`} defaultText="প্রিমিয়াম সাউন্ড এফেক্টস (SFX), কালার LUTs এবং রেডি মোশন প্রিসেট ফাইল।" /> 
+  }
+];
 
   const storageSuffix = isBatch1 ? "b1_v2" : "regular";
 
