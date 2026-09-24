@@ -228,6 +228,29 @@ Method: ${selectedMethod} Personal
 TrxID: ${formData.trxId}`;
 
     const whatsappUrl = `https://wa.me/${supportWhatsapp}?text=${encodeURIComponent(message)}`;
+    // --- Auto Registration Logic Start ---
+    // চেক করা হচ্ছে ইউজার অলরেডি লগইন করা আছে কি না
+    const { data: { session } } = await supabase.auth.getSession();
+
+    // যদি লগইন করা না থাকে এবং ইমেইল দিয়ে থাকে, তবে অটো-অ্যাকাউন্ট তৈরি হবে
+    if (!session && formData.email && formData.phone) {
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.phone, // ডিফল্ট পাসওয়ার্ড হিসেবে হোয়াটসঅ্যাপ নম্বর দেওয়া হলো
+        options: {
+          data: {
+            full_name: formData.name, // প্রোফাইলে ইউজারের নাম সেভ হবে
+            phone: formData.phone,    // প্রোফাইলে হোয়াটসঅ্যাপ নম্বর সেভ হবে
+          },
+        },
+      });
+
+      if (signUpError) {
+        console.error("Auto-registration error:", signUpError.message);
+        // ইউজার আগে থেকেই রেজিস্টার্ড থাকলে কোনো সমস্যা নেই, সাধারণ ফ্লো-তেই হোয়াটসঅ্যাপে চলে যাবে
+      }
+    }
+    // --- Auto Registration Logic End ---
     window.open(whatsappUrl, "_blank");
     setIsSubmitted(true);
   };
