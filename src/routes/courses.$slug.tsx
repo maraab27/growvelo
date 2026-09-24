@@ -1729,7 +1729,7 @@ function CourseDetail() {
                     </div>
                     <div className="space-y-1 min-w-0">
                       <h3 className="font-bangla font-bold text-sm sm:text-base text-foreground">
-                        হাতে কলমে লাইভ সেশন
+                        Industry-Standard Workflow
                       </h3>
                       <p className="font-bangla text-xs sm:text-[13px] text-foreground/75 leading-relaxed">
                         {isBatch1 ? "১ জুলাই ২০২৬ থেকে শুরু হতে যাওয়া লাইভ বুটক্যাম্প।" : "স্ক্রিন শেয়ারে প্র্যাকটিক্যাল কাজ শেখা এবং আজীবন ক্লাউড রেকর্ডিং অ্যাক্সেস।"}
