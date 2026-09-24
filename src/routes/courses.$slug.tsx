@@ -203,7 +203,17 @@ function EnrollmentModal({
     email: "",
     trxId: "",
   });
+const [session, setSession] = useState<any>(null);
 
+useEffect(() => {
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    setSession(session);
+    // যদি ইউজার লগইন থাকে, তাহলে তার ইমেইল অটোমেটিক formData-তে সেট হয়ে যাবে
+    if (session?.user?.email) {
+      setFormData(prev => ({ ...prev, email: session.user.email }));
+    }
+  });
+}, []);
   const paymentNumber = "01790055690";
   const supportWhatsapp = "8801410341220";
 
