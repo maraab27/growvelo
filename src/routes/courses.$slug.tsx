@@ -1755,7 +1755,14 @@ useEffect(() => {
                         </Link>
                       ) : (
                         <button
-                          onClick={() => setShowModal(true)}
+                          onClick={async () => {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) {
+    window.location.href = "/auth";
+    return;
+  }
+  setShowModal(true);
+}}
                           className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
                         >
                           <span>Enroll Now</span>
