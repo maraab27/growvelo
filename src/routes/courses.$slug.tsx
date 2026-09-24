@@ -1995,7 +1995,15 @@ function CourseDetail() {
                   ) : (
                     <button
                       type="button"
-                      onClick={() => setShowModal(true)}
+                      onClick={async () => {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) {
+    alert("কোর্সে এনরোল করার আগে অনুগ্রহ করে লগইন বা রেজিস্ট্রেশন সম্পন্ন করুন।");
+    window.location.href = "/auth";
+    return;
+  }
+  setShowModal(true);
+}}
                       className="w-full py-3.5 px-6 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.99] transition-all cursor-pointer font-sans"
                     >
                       <EditableText id={`course.${course.slug}.cta.button`}>
@@ -2133,7 +2141,15 @@ function CourseDetail() {
                     </Link>
                   ) : (
                     <button
-                      onClick={() => setShowModal(true)}
+                      onClick={async () => {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) {
+    alert("কোর্সে এনরোল করার আগে অনুগ্রহ করে লগইন বা রেজিস্ট্রেশন সম্পন্ন করুন।");
+    window.location.href = "/auth";
+    return;
+  }
+  setShowModal(true);
+}}
                       className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-semibold text-base sm:text-lg flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
                     >
                       <span>Enroll in Batch 03 Now (৳৩,০০০)</span>
