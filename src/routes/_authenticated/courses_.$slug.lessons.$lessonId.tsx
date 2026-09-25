@@ -33,7 +33,7 @@ function LessonPage() {
     fetchLessons();
   }, [slug]);
 
-  // ইউটিউব আইডি বের করে ক্লিন লিংক তৈরি
+  // ইউটিউব লিংক থেকে ক্লিন সিকিউর প্যারামিটার যুক্ত করা
   const formatVideoUrl = (url: string) => {
     if (!url) return "";
     let videoId = "";
@@ -48,7 +48,6 @@ function LessonPage() {
 
     if (!videoId) return url;
 
-    // modestbranding=1, controls=1, rel=0
     return `https://www.youtube-nocookie.com/embed/${videoId}?controls=1&modestbranding=1&rel=0&iv_load_policy=3&disablekb=0&playsinline=1`;
   };
 
@@ -79,15 +78,15 @@ function LessonPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* মেইন কনটেন্ট এরিয়া */}
+              {/* মেইন কনটেন্ট এরিয়া */}
               <div className="lg:col-span-2 space-y-6">
                 {!isLive ? (
                   <div 
                     className="sticky-card relative overflow-hidden !p-0 aspect-video bg-black rounded-2xl ring-1 ring-black/5 shadow-2xl select-none"
                     onContextMenu={(e) => e.preventDefault()}
                   >
-                    {/* ক্রপিং কন্টেইনার: ওপরের টাইটেল ও বাটন স্ক্রিনের বাইরে ঠেলে কেটে ফেলা হচ্ছে */}
-                    <div className="relative w-full h-[120%] -top-[10%] overflow-hidden">
+                    {/* ৫০% বাড়তি ক্রপ ও অফসেট: ওপরের টাইটেল ও বাটন পুরোপুরি বাইরে চলে যাবে */}
+                    <div className="relative w-full h-[135%] -top-[18%] overflow-hidden">
                       <iframe
                         src={formatVideoUrl(currentLesson?.video_url)}
                         title={currentLesson?.title}
@@ -97,9 +96,16 @@ function LessonPage() {
                       ></iframe>
                     </div>
 
-                    {/* নিচের ডানপাশের লোগো ব্লকার লেয়ার */}
+                    {/* ওপরের অংশে অতিরিক্ত ক্লিক গার্ড */}
                     <div 
-                      className="absolute bottom-0 right-0 w-36 h-14 z-20 cursor-default"
+                      className="absolute top-0 left-0 right-0 h-16 z-20 cursor-default"
+                      onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
+                      onContextMenu={(e) => e.preventDefault()}
+                    />
+
+                    {/* নিচের ডানপাশের ইউটিউব লোগো ও সাজেস্টেড বাটন ব্লকার */}
+                    <div 
+                      className="absolute bottom-0 right-0 w-44 h-16 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
                       onContextMenu={(e) => e.preventDefault()}
                     />
