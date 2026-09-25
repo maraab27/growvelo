@@ -87,15 +87,11 @@ function DashboardPage() {
               className="sticky-card group overflow-hidden flex flex-col rounded-2xl border border-white/10 hover:border-[var(--brand)]/50 transition-all duration-300"
             >
               {/* কোর্স থাম্বনেইল ইমেজ ও ব্যাজ */}
-              <div className="relative aspect-video w-full overflow-hidden bg-gradient-to-br from-purple-900/40 via-background to-black border-b border-white/5">
+              <div className="relative aspect-video w-full overflow-hidden bg-black/40 border-b border-white/5">
                 <img 
-                  src="/courses/batch-3-cover.jpg" 
+                  src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_3_1790141496013.jpg" 
                   alt="Batch 03 Cover"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  onError={(e) => {
-                    // ইমেজ পাথ না পাওয়া পর্যন্ত স্টাইলিশ ফলব্যাক লুক রাখবে
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80";
-                  }}
                 />
                 
                 {/* ব্যাচ ট্যাগ */}
@@ -123,7 +119,6 @@ function DashboardPage() {
                   <div className="flex items-center gap-3 text-xs text-foreground/50 mt-2">
                     <span className="flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5 text-[var(--brand)]" /> 
-                      {/* কালকে লেসন ম্যানেজার যুক্ত হলে এখানে ডাটাবেসের একচুয়াল কাউন্ট চলে আসবে */}
                       Ongoing Lessons
                     </span>
                     <span>•</span>
