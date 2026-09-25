@@ -3,21 +3,27 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated")({
   beforeLoad: async ({ location }) => {
-  // getSession এর বদলে getUser ব্যবহার করলে রিফ্রেশ ইস্যু ফিক্স হয়ে যাবে
-  const { data: { user } } = await supabase.auth.getUser();
-  const { data: { session } } = await supabase.auth.getSession();
+  // প্রথমে সেশন চেক করবে
+  let { data: { session } } = await supabase.auth.getSession();
 
-  if (!user || !session) {
+  // রিফ্রেশ করার কারণে যদি সেশন null পায়, সাথে সাথে বের না করে দিয়ে আধা সেকেন্ড (500ms) অপেক্ষা করবে এবং আবার চেক করবে
+  if (!session) {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    const retry = await supabase.auth.getSession();
+    session = retry.data.session;
+  }
+
+  // এরপরও যদি সেশন না পায়, তার মানে ইউজার আসলেই লগআউট। তখন লগইন পেজে পাঠাবে
+  if (!session) {
     throw redirect({
       to: "/auth",
       search: {
-        // href এর বদলে pathname দিলে URL-টা দেখতে অনেক ক্লিন হবে
-        redirect: location.pathname, 
+        redirect: location.pathname,
       },
     });
   }
-  
-  return { session, user };
+
+  return { session, user: session.user };
 },
   component: () => <Outlet />,
 });
