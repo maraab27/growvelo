@@ -15,6 +15,13 @@ function AdminDashboard() {
   const [stats, setStats] = useState({ gallery: 0, content: 0 });
   const [loginLoading, setLoginLoading] = useState(false);
 const [studentEmail, setStudentEmail] = useState('');
+  // Lesson Manager States
+  const [lessonTitle, setLessonTitle] = useState('');
+  const [lessonOrder, setLessonOrder] = useState('1');
+  const [lessonType, setLessonType] = useState<'video' | 'zoom'>('video');
+  const [videoUrl, setVideoUrl] = useState('');
+  const [zoomUrl, setZoomUrl] = useState('');
+  const [lessonLoading, setLessonLoading] = useState(false);
   const [approveLoading, setApproveLoading] = useState(false);
   useEffect(() => {
     if (isAdmin) {
