@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Header } from "../../components/site/sections";
+import { SiteShell } from "../../components/site/sections";
 import { Link as LinkIcon, ArrowLeft, Video, PlayCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -53,13 +53,16 @@ function LessonPage() {
   const isLive = currentLesson?.type === "zoom" || currentLesson?.type === "meet";
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col justify-between">
-      {/* ওয়েবসাইটের আসল অরিজিনাল হেডার */}
-      <Header />
+    <SiteShell>
+      {/* গ্লোবাল সাইটশেলের বড় ফুটার হাইড রাখার জন্য স্টাইল */}
+      <style>{`
+        footer {
+          display: none !important;
+        }
+      `}</style>
 
-      {/* মূল কনটেন্ট */}
-      <main className="aurora-soft flex-1 pt-24 sm:pt-28 pb-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="aurora-soft min-h-screen pt-24 sm:pt-28 pb-12 flex flex-col justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1">
           <div className="mb-6">
             <Link
               to="/dashboard"
@@ -88,8 +91,8 @@ function LessonPage() {
                     className="sticky-card relative overflow-hidden !p-0 aspect-video bg-black rounded-2xl ring-1 ring-black/5 shadow-2xl select-none"
                     onContextMenu={(e) => e.preventDefault()}
                   >
-                    {/* মোবাইল ও ডেস্কটপ পারফেক্ট ক্রপিং: মোবাইলে h-[160%] এবং -top-[30%] করে ওপরের পুরো লেখা বাইরে ঠেলে দেওয়া হয়েছে */}
-                    <div className="relative w-full h-[160%] -top-[30%] sm:h-[126%] sm:-top-[13%] overflow-hidden">
+                    {/* মোবাইল ও ডেস্কটপ ক্রপিং: মোবাইলে h-[170%] ও -top-[35%] যাতে টাইটেল পুরোপুরি বাদ পড়ে */}
+                    <div className="relative w-full h-[170%] -top-[35%] sm:h-[126%] sm:-top-[13%] overflow-hidden">
                       <iframe
                         src={formatVideoUrl(currentLesson?.video_url)}
                         title={currentLesson?.title}
@@ -208,18 +211,18 @@ function LessonPage() {
             </div>
           )}
         </div>
-      </main>
 
-      {/* মিনিমাল ফুটার */}
-      <footer className="border-t border-border/40 py-6 bg-background/50 text-center text-xs text-foreground/50">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p>© {new Date().getFullYear()} GrowVelo. All rights reserved.</p>
-          <div className="flex gap-4">
-            <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
-            <Link to="/dashboard" className="hover:text-foreground transition-colors">Dashboard</Link>
+        {/* ছিমছাম মিনিমাল সিঙ্গেল-লাইন ফুটার */}
+        <div className="border-t border-border/40 py-6 text-center text-xs text-foreground/50 mt-12">
+          <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p>© {new Date().getFullYear()} GrowVelo. All rights reserved.</p>
+            <div className="flex gap-4">
+              <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
+              <Link to="/dashboard" className="hover:text-foreground transition-colors">Dashboard</Link>
+            </div>
           </div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </SiteShell>
   );
 }
