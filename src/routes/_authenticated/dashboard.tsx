@@ -87,23 +87,23 @@ function DashboardPage() {
               className="sticky-card group overflow-hidden flex flex-col rounded-2xl border border-white/10 hover:border-[var(--brand)]/50 transition-all duration-300"
             >
               {/* কোর্স থাম্বনেইল ইমেজ ও ব্যাজ */}
-              <div className="relative aspect-video w-full overflow-hidden bg-muted/20">
+              <div className="relative aspect-video w-full overflow-hidden bg-gradient-to-br from-purple-900/40 via-background to-black border-b border-white/5">
                 <img 
-                  src="/og-image.png" 
+                  src="/courses/batch-3-cover.jpg" 
                   alt="Batch 03 Cover"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   onError={(e) => {
-                    // ইমেজ না পেলে ফলব্যাক প্রিভিউ
-                    e.currentTarget.style.display = 'none';
+                    // ইমেজ পাথ না পাওয়া পর্যন্ত স্টাইলিশ ফলব্যাক লুক রাখবে
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80";
                   }}
                 />
                 
                 {/* ব্যাচ ট্যাগ */}
-                <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md text-xs font-bold bg-black/60 backdrop-blur-md text-white border border-white/10">
+                <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md text-xs font-bold bg-black/70 backdrop-blur-md text-white border border-white/10">
                   {enrollment.course_slug === 'video-editing-batch-3' ? 'Batch 03' : 'Masterclass'}
                 </span>
 
-                {/* স্ট্যাটাস ব্যাজ (approved বাগ ফিক্সড) */}
+                {/* স্ট্যাটাস ব্যাজ */}
                 <span className="absolute top-3 right-3 text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 backdrop-blur-md">
                   {enrollment.status === 'approved' || enrollment.status === 'active' ? 'Active' : 'Pending'}
                 </span>
@@ -120,12 +120,14 @@ function DashboardPage() {
                       : 'Course Access'}
                   </h3>
                   
-                  <div className="flex items-center gap-4 text-xs text-foreground/50 mt-2">
+                  <div className="flex items-center gap-3 text-xs text-foreground/50 mt-2">
                     <span className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-[var(--brand)]" /> 24 Lessons
+                      <Clock className="w-3.5 h-3.5 text-[var(--brand)]" /> 
+                      {/* কালকে লেসন ম্যানেজার যুক্ত হলে এখানে ডাটাবেসের একচুয়াল কাউন্ট চলে আসবে */}
+                      Ongoing Lessons
                     </span>
                     <span>•</span>
-                    <span>লাইভ ক্লাস ও মেন্টরশিপ</span>
+                    <span className="text-[var(--brand)]/80 font-medium">Live Classes & Mentorship</span>
                   </div>
                 </div>
 
