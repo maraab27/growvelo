@@ -54,7 +54,7 @@ function LessonPage() {
 
   return (
     <SiteShell>
-      {/* গ্লোবাল সাইটশেলের বড় ফুটার হাইড রাখার জন্য স্টাইল */}
+      {/* গ্লোবাল সাইটশেলের বড় ফুটার হাইড রাখার নিয়ম */}
       <style>{`
         footer {
           display: none !important;
@@ -91,7 +91,6 @@ function LessonPage() {
                     className="sticky-card relative overflow-hidden !p-0 aspect-video bg-black rounded-2xl ring-1 ring-black/5 shadow-2xl select-none"
                     onContextMenu={(e) => e.preventDefault()}
                   >
-                    {/* মোবাইল ও ডেস্কটপ ক্রপিং: মোবাইলে h-[170%] ও -top-[35%] যাতে টাইটেল পুরোপুরি বাদ পড়ে */}
                     <div className="relative w-full h-[170%] -top-[35%] sm:h-[126%] sm:-top-[13%] overflow-hidden">
                       <iframe
                         src={formatVideoUrl(currentLesson?.video_url)}
@@ -102,14 +101,12 @@ function LessonPage() {
                       ></iframe>
                     </div>
 
-                    {/* ওপরের টাইটেল ব্লকার */}
                     <div 
                       className="absolute top-0 left-0 right-0 h-16 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
                       onContextMenu={(e) => e.preventDefault()}
                     />
 
-                    {/* নিচের ডানপাশের লোগো ব্লকার লেয়ার */}
                     <div 
                       className="absolute bottom-0 right-0 w-36 h-12 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
@@ -160,7 +157,7 @@ function LessonPage() {
 
               {/* সাইডবার: লেসন প্লেলিস্ট ও ডিসকর্ড সাপোর্ট */}
               <div className="space-y-6">
-                <div className="sticky-card p-5 rounded-2xl border border-white/5">
+                <div className="sticky-card p-5 rounded-2xl border border-black/5 dark:border-white/5">
                   <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                     <PlayCircle className="w-5 h-5 text-[var(--brand)]" />
                     কোর্স কনটেন্ট ({lessons.length} টি ক্লাস)
@@ -170,15 +167,19 @@ function LessonPage() {
                       <button
                         key={item.id}
                         onClick={() => setCurrentLesson(item)}
-                        className={`w-full text-left p-3 rounded-xl flex items-center gap-3 transition-all ${
+                        className={`w-full text-left p-3 rounded-xl flex items-center gap-3 transition-all shadow-sm ${
                           currentLesson?.id === item.id
-                            ? "bg-primary/15 border border-primary/30 text-primary font-semibold"
-                            : "bg-white/5 hover:bg-white/10 text-foreground/80 border border-transparent"
+                            ? "bg-primary/15 border border-primary/40 text-primary font-bold shadow-primary/5"
+                            : "bg-black/[0.04] dark:bg-white/5 hover:bg-black/[0.07] dark:hover:bg-white/10 text-foreground/80 border border-black/5 dark:border-white/5"
                         }`}
                       >
-                        <span className="text-xs font-mono opacity-60">#{item.lesson_order}</span>
-                        <span className="text-sm line-clamp-1 flex-1">{item.title}</span>
-                        <span className="text-[10px] px-2 py-0.5 rounded bg-black/40 uppercase font-medium">
+                        <span className="text-xs font-mono font-bold opacity-60">#{item.lesson_order}</span>
+                        <span className="text-sm line-clamp-1 flex-1 font-medium">{item.title}</span>
+                        <span className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase ${
+                          currentLesson?.id === item.id
+                            ? "bg-primary/20 text-primary"
+                            : "bg-black/10 dark:bg-black/40 text-foreground/70"
+                        }`}>
                           {item.type === "meet" ? "Meet" : item.type === "zoom" ? "Zoom" : "Video"}
                         </span>
                       </button>
