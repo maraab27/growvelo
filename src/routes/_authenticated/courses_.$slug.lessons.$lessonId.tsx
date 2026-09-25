@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "../../components/site/sections";
-import { Link as LinkIcon, MessageSquare, ArrowLeft, Video, PlayCircle } from "lucide-react";
+import { Link as LinkIcon, ArrowLeft, Video, PlayCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -84,7 +84,6 @@ function LessonPage() {
                     className="sticky-card relative overflow-hidden !p-0 aspect-video bg-black rounded-2xl ring-1 ring-black/5 shadow-2xl select-none"
                     onContextMenu={(e) => e.preventDefault()}
                   >
-                    {/* পারফেক্ট ক্রপিং: ওপরের টাইটেল বাইরে থাকবে কিন্তু নিচের সিকবার একদম ক্লিয়ার দেখাবে */}
                     <div className="relative w-full h-[126%] -top-[13%] overflow-hidden">
                       <iframe
                         src={formatVideoUrl(currentLesson?.video_url)}
@@ -95,14 +94,12 @@ function LessonPage() {
                       ></iframe>
                     </div>
 
-                    {/* ওপরের টাইটেল ব্লকার */}
                     <div 
                       className="absolute top-0 left-0 right-0 h-14 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
                       onContextMenu={(e) => e.preventDefault()}
                     />
 
-                    {/* নিচের ডানপাশের লোগো ব্লকার লেয়ার */}
                     <div 
                       className="absolute bottom-0 right-0 w-36 h-12 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
@@ -151,7 +148,7 @@ function LessonPage() {
                 </div>
               </div>
 
-              {/* সাইডবার: লেসন প্লেলিস্ট ও সাপোর্ট */}
+              {/* সাইডবার: লেসন প্লেলিস্ট ও ডিসকর্ড সাপোর্ট */}
               <div className="space-y-6">
                 <div className="sticky-card p-5 rounded-2xl border border-white/5">
                   <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
@@ -179,22 +176,25 @@ function LessonPage() {
                   </div>
                 </div>
 
-                <div className="sticky-card p-6 rounded-2xl">
-                  <div className="pin" style={{ "--pin-color": "var(--mint)" } as any} />
-                  <h3 className="font-bold text-lg mb-3 flex items-center gap-2">
-                    <MessageSquare className="w-5 h-5 text-green-500" />
-                    Community Support
+                {/* ডিসকর্ড সাপোর্ট কার্ড */}
+                <div className="sticky-card p-6 rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/20 to-transparent">
+                  <div className="pin" style={{ "--pin-color": "#5865F2" } as any} />
+                  <h3 className="font-bold text-lg mb-3 flex items-center gap-2 text-foreground">
+                    <svg className="w-5 h-5 fill-[#5865F2]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                    </svg>
+                    Discord Community
                   </h3>
                   <p className="text-sm text-foreground/60 mb-4 leading-relaxed">
-                    ক্লাস সম্পর্কিত কোনো প্রশ্ন বা ফিডব্যাকের জন্য আমাদের প্রাইভেট কমিউনিটিতে পোস্ট করুন।
+                    ক্লাসের রিসোর্স, প্রজেক্ট ফাইল এবং সরাসরি ডিসকাশনের জন্য আমাদের অফিশিয়াল ডিসকর্ড সার্ভারে যুক্ত হন।
                   </p>
                   <a
-                    href="https://facebook.com"
+                    href="https://discord.com/invite/z4dSqsbm9"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="gloss-btn w-full justify-center text-sm py-2.5"
+                    className="gloss-btn w-full justify-center text-sm py-2.5 flex items-center gap-2 hover:border-[#5865F2]/50 hover:text-white"
                   >
-                    Community Group
+                    <span>Join Discord Server</span>
                   </a>
                 </div>
               </div>
