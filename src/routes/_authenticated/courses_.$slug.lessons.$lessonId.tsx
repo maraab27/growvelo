@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "../../components/site/sections";
-import { Link as LinkIcon, ArrowLeft, Video, PlayCircle } from "lucide-react";
+import { Link as LinkIcon, ArrowLeft, Video, PlayCircle, Play } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -13,6 +13,7 @@ function LessonPage() {
   const [lessons, setLessons] = useState<any[]>([]);
   const [currentLesson, setCurrentLesson] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false); // ভিডিও চালু হয়েছে কি না ট্র্যাক করার স্টেট
 
   useEffect(() => {
     const fetchLessons = async () => {
@@ -33,10 +34,16 @@ function LessonPage() {
     fetchLessons();
   }, [slug]);
 
-  const formatVideoUrl = (url: string) => {
+  // অন্য লেসনে ক্লিক করলে প্লেয়ার স্টেট রিসেট হবে
+  const handleSelectLesson = (lesson: any) => {
+    setCurrentLesson(lesson);
+    setIsPlaying(false);
+  };
+
+  // ইউটিউব আইডি বের করার হেল্পার
+  const getYouTubeId = (url: string) => {
     if (!url) return "";
     let videoId = "";
-    
     if (url.includes("watch?v=")) {
       videoId = url.split("watch?v=")[1]?.split("&")[0];
     } else if (url.includes("youtu.be/")) {
@@ -44,10 +51,15 @@ function LessonPage() {
     } else if (url.includes("embed/")) {
       videoId = url.split("embed/")[1]?.split("?")[0];
     }
+    return videoId;
+  };
 
-    if (!videoId) return url;
+  const videoId = getYouTubeId(currentLesson?.video_url);
 
-    return `https://www.youtube-nocookie.com/embed/${videoId}?controls=1&modestbranding=1&rel=0&iv_load_policy=3&disablekb=0&playsinline=1`;
+  // প্লে বাটনে চাপলে স্বয়ংক্রিয়ভাবে ভিডিও চলবে (autoplay=1)
+  const formatVideoUrl = (id: string, autoPlay: boolean) => {
+    if (!id) return "";
+    return `https://www.youtube-nocookie.com/embed/${id}?controls=1&modestbranding=1&rel=0&iv_load_policy=3&disablekb=0&playsinline=1${autoPlay ? "&autoplay=1" : ""}`;
   };
 
   const isLive = currentLesson?.type === "zoom" || currentLesson?.type === "meet";
@@ -91,22 +103,54 @@ function LessonPage() {
                     className="sticky-card relative overflow-hidden !p-0 aspect-video bg-black rounded-2xl ring-1 ring-black/5 shadow-2xl select-none"
                     onContextMenu={(e) => e.preventDefault()}
                   >
+                    {/* ক্রপ করা আইফ্রেম প্লেয়ার */}
                     <div className="relative w-full h-[170%] -top-[35%] sm:h-[126%] sm:-top-[13%] overflow-hidden">
-                      <iframe
-                        src={formatVideoUrl(currentLesson?.video_url)}
-                        title={currentLesson?.title}
-                        className="w-full h-full relative z-0 pointer-events-auto"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
+                      {isPlaying && (
+                        <iframe
+                          src={formatVideoUrl(videoId, true)}
+                          title={currentLesson?.title}
+                          className="w-full h-full relative z-0 pointer-events-auto"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      )}
                     </div>
 
+                    {/* অরিজিনাল সাইজ থাম্বনেইল কভার লেয়ার (প্লে করার আগে ১০০% অরিজিনাল রেশিওতে থাকবে) */}
+                    {!isPlaying && (
+                      <div 
+                        onClick={() => setIsPlaying(true)}
+                        className="absolute inset-0 z-30 cursor-pointer flex items-center justify-center group overflow-hidden bg-black"
+                      >
+                        {/* অরিজিনাল হাই-কোয়ালিটি থাম্বনেইল ইমেজ */}
+                        <img 
+                          src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+                          alt={currentLesson?.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          onError={(e: any) => {
+                            // যদি maxresdefault না পাওয়া যায় তবে hqdefault লোড হবে
+                            e.target.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                          }}
+                        />
+
+                        {/* ড্রপশ্যাডো ডার্ক ওভারলে */}
+                        <div className="absolute inset-0 bg-black/25 group-hover:bg-black/10 transition-colors" />
+
+                        {/* গ্লোসি প্রিমিয়াম প্লে বাটন */}
+                        <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-purple-600/90 text-white flex items-center justify-center shadow-2xl shadow-purple-600/50 group-hover:scale-110 group-hover:bg-purple-500 transition-all duration-300">
+                          <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-white translate-x-0.5" />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ওপরের টাইটেল ব্লকার গার্ড */}
                     <div 
                       className="absolute top-0 left-0 right-0 h-16 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
                       onContextMenu={(e) => e.preventDefault()}
                     />
 
+                    {/* নিচের ডানপাশের লোগো ব্লকার লেয়ার */}
                     <div 
                       className="absolute bottom-0 right-0 w-36 h-12 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
@@ -166,7 +210,7 @@ function LessonPage() {
                     {lessons.map((item) => (
                       <button
                         key={item.id}
-                        onClick={() => setCurrentLesson(item)}
+                        onClick={() => handleSelectLesson(item)}
                         className={`w-full text-left p-3 rounded-xl flex items-center gap-3 transition-all shadow-sm ${
                           currentLesson?.id === item.id
                             ? "bg-primary/15 border border-primary/40 text-primary font-bold shadow-primary/5"
