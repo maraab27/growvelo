@@ -20,7 +20,7 @@ function AdminPage() {
   // লেসন ম্যানেজার স্টেট
   const [lessonTitle, setLessonTitle] = useState("");
   const [lessonOrder, setLessonOrder] = useState("1");
-  const [lessonType, setLessonType] = useState<"video" | "zoom">("video");
+  const [lessonType, setLessonType] = useState<"video" | "zoom" | "meet">("video");
   const [videoUrl, setVideoUrl] = useState("");
   const [zoomUrl, setZoomUrl] = useState("");
   const [lessonLoading, setLessonLoading] = useState(false);
@@ -67,7 +67,7 @@ function AdminPage() {
         lesson_order: parseInt(lessonOrder) || 1,
         type: lessonType,
         video_url: lessonType === "video" ? videoUrl : null,
-        zoom_url: lessonType === "zoom" ? zoomUrl : null,
+        zoom_url: lessonType === "zoom" || lessonType === "meet" ? zoomUrl : null,
       },
     ]);
 
