@@ -95,9 +95,13 @@ function DashboardPage() {
                 />
                 
                 {/* ব্যাচ ট্যাগ */}
-                <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md text-xs font-bold bg-black/70 backdrop-blur-md text-white border border-white/10">
-                  {enrollment.course_slug === 'video-editing-batch-3' ? 'Batch 03' : 'Masterclass'}
-                </span>
+<span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md text-xs font-bold bg-black/70 backdrop-blur-md text-white border border-white/10">
+  {enrollment.course_slug === 'video-editing-batch-2' 
+    ? 'Batch 02' 
+    : enrollment.course_slug === 'video-editing-batch-3' 
+    ? 'Batch 03' 
+    : 'Masterclass'}
+</span>
 
                 {/* স্ট্যাটাস ব্যাজ */}
                 <span className="absolute top-3 right-3 text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 backdrop-blur-md">
