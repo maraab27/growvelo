@@ -81,39 +81,65 @@ function DashboardPage() {
                 </div>
               ) : enrollments && enrollments.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {enrollments.map((enrollment) => (
-                    <div key={enrollment.id} className="sticky-card group overflow-hidden">
-                      <div className="pin" style={{"--pin-color": "var(--brand)"} as any} />
-                      <div className="p-6">
-                        <div className="flex items-start justify-between mb-4">
-                          <div className="p-2 rounded-lg bg-[var(--brand)]/10">
-                            <PlayCircle className="w-6 h-6 text-[var(--brand)]" />
-                          </div>
-                          <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-green-500/10 text-green-600 ring-1 ring-green-500/20">
-                            {enrollment.status === 'active' ? 'Active' : 'Pending'}
-                          </span>
-                        </div>
-                        <h3 className="font-bold text-lg mb-2 group-hover:text-[var(--brand)] transition-colors">
-                          {enrollment.course_slug === 'video-editing-batch-3' ? 'Advanced Video Editing & Retelling' : 
-                           enrollment.course_slug === 'video-editing-masterclass' ? 'The Editing Masterclass: Zero to Pro' : 
-                           'Course Access'}
-                        </h3>
-                        <div className="flex items-center gap-4 text-xs text-foreground/50 mb-6">
-                          <span className="flex items-center gap-1">
-                            <Clock className="w-3 h-3" /> 24 Lessons
-                          </span>
-                        </div>
-                        <Link
-                          to="/courses/$slug/lessons/$lessonId"
-                          params={{ slug: enrollment.course_slug, lessonId: 'intro' }}
-                          className="gloss-btn w-full justify-center text-sm py-2"
-                        >
-                          Continue Learning
-                          <ArrowRight className="w-4 h-4 ml-2" />
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
+                  {enrollments.map((enrollment: any) => (
+            <div 
+              key={enrollment.id} 
+              className="sticky-card group overflow-hidden flex flex-col rounded-2xl border border-white/10 hover:border-[var(--brand)]/50 transition-all duration-300"
+            >
+              {/* কোর্স থাম্বনেইল ইমেজ ও ব্যাজ */}
+              <div className="relative aspect-video w-full overflow-hidden bg-muted/20">
+                <img 
+                  src="/og-image.png" 
+                  alt="Batch 03 Cover"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  onError={(e) => {
+                    // ইমেজ না পেলে ফলব্যাক প্রিভিউ
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+                
+                {/* ব্যাচ ট্যাগ */}
+                <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md text-xs font-bold bg-black/60 backdrop-blur-md text-white border border-white/10">
+                  {enrollment.course_slug === 'video-editing-batch-3' ? 'Batch 03' : 'Masterclass'}
+                </span>
+
+                {/* স্ট্যাটাস ব্যাজ (approved বাগ ফিক্সড) */}
+                <span className="absolute top-3 right-3 text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 backdrop-blur-md">
+                  {enrollment.status === 'approved' || enrollment.status === 'active' ? 'Active' : 'Pending'}
+                </span>
+              </div>
+
+              {/* কার্ড ইনফো ও বাটন */}
+              <div className="p-6 flex flex-col flex-1 justify-between gap-4">
+                <div>
+                  <h3 className="font-bold text-lg text-foreground group-hover:text-[var(--brand)] transition-colors leading-snug">
+                    {enrollment.course_slug === 'video-editing-batch-3' 
+                      ? 'Advanced Video Editing & Retelling (Batch 03)' 
+                      : enrollment.course_slug === 'video-editing-masterclass' 
+                      ? 'The Editing Masterclass: Zero to Pro' 
+                      : 'Course Access'}
+                  </h3>
+                  
+                  <div className="flex items-center gap-4 text-xs text-foreground/50 mt-2">
+                    <span className="flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-[var(--brand)]" /> 24 Lessons
+                    </span>
+                    <span>•</span>
+                    <span>লাইভ ক্লাস ও মেন্টরশিপ</span>
+                  </div>
+                </div>
+
+                <Link
+                  to="/courses/$slug/lessons/$lessonId"
+                  params={{ slug: enrollment.course_slug, lessonId: 'intro' }}
+                  className="gloss-btn w-full justify-center text-sm py-2.5 flex items-center gap-2 font-semibold"
+                >
+                  <span>Continue Learning</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          ))}
                 </div>
               ) : (
                 <div className="sticky-card p-12 text-center">
