@@ -36,6 +36,37 @@ const [studentEmail, setStudentEmail] = useState('');
     }
   }, [isAdmin]);
 const handleApproveStudent = async () => {
+  const handleAddLesson = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!lessonTitle) {
+      alert("দয়া করে লেসনের একটি টাইটেল দিন!");
+      return;
+    }
+
+    setLessonLoading(true);
+    const { error } = await supabase.from('lessons').insert([
+      {
+        course_slug: 'video-editing-batch-3',
+        title: lessonTitle,
+        lesson_order: parseInt(lessonOrder) || 1,
+        type: lessonType,
+        video_url: lessonType === 'video' ? videoUrl : null,
+        zoom_url: lessonType === 'zoom' ? zoomUrl : null,
+      }
+    ]);
+
+    setLessonLoading(false);
+
+    if (error) {
+      alert("লেসন যোগ করতে সমস্যা হয়েছে: " + error.message);
+    } else {
+      alert("সফলভাবে লেসন অ্যাড করা হয়েছে!");
+      setLessonTitle('');
+      setVideoUrl('');
+      setZoomUrl('');
+      setLessonOrder(String((parseInt(lessonOrder) || 1) + 1));
+    }
+  };
     if (!studentEmail) {
       alert("দয়া করে স্টুডেন্টের ইমেইল দিন!");
       return;
