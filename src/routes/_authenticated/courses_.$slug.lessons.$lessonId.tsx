@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteShell } from "../../components/site/sections";
 import { Link as LinkIcon, ArrowLeft, Video, PlayCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -53,8 +52,28 @@ function LessonPage() {
   const isLive = currentLesson?.type === "zoom" || currentLesson?.type === "meet";
 
   return (
-    <SiteShell>
-      <div className="aurora-soft min-h-screen pt-24 pb-12">
+    <div className="min-h-screen bg-background text-foreground flex flex-col justify-between">
+      {/* হেডার ও ন্যাভিগেশন বার */}
+      <header className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border/40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 font-bold text-lg">
+            <span className="w-8 h-8 rounded-full bg-[var(--brand)]/20 text-[var(--brand)] flex items-center justify-center text-sm font-black">
+              GV
+            </span>
+            <span>GrowVelo</span>
+          </Link>
+
+          <Link
+            to="/dashboard"
+            className="px-4 py-1.5 rounded-full bg-primary/10 hover:bg-primary/20 text-primary text-xs font-semibold flex items-center gap-1.5 transition-all"
+          >
+            Dashboard
+          </Link>
+        </div>
+      </header>
+
+      {/* মূল কনটেন্ট */}
+      <main className="aurora-soft flex-1 pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-6">
             <Link
@@ -84,7 +103,8 @@ function LessonPage() {
                     className="sticky-card relative overflow-hidden !p-0 aspect-video bg-black rounded-2xl ring-1 ring-black/5 shadow-2xl select-none"
                     onContextMenu={(e) => e.preventDefault()}
                   >
-                    <div className="relative w-full h-[126%] -top-[13%] overflow-hidden">
+                    {/* মোবাইল ও ডেস্কটপ রেসপনসিভ ক্রপিং: মোবাইলের জন্য h-[142%] ও -top-[20%] দেওয়া হয়েছে */}
+                    <div className="relative w-full h-[142%] -top-[20%] sm:h-[126%] sm:-top-[13%] overflow-hidden">
                       <iframe
                         src={formatVideoUrl(currentLesson?.video_url)}
                         title={currentLesson?.title}
@@ -94,12 +114,14 @@ function LessonPage() {
                       ></iframe>
                     </div>
 
+                    {/* ওপরের টাইটেল ব্লকার */}
                     <div 
                       className="absolute top-0 left-0 right-0 h-14 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
                       onContextMenu={(e) => e.preventDefault()}
                     />
 
+                    {/* নিচের ডানপাশের লোগো ব্লকার লেয়ার */}
                     <div 
                       className="absolute bottom-0 right-0 w-36 h-12 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
@@ -201,7 +223,18 @@ function LessonPage() {
             </div>
           )}
         </div>
-      </div>
-    </SiteShell>
+      </main>
+
+      {/* মিনিমাল ক্লিন ফুটার: ভারী ল্যান্ডিং ফুটার সরিয়ে শুধুমাত্র সাধারণ ফুটার */}
+      <footer className="border-t border-border/40 py-6 bg-background/50 text-center text-xs text-foreground/50">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p>© {new Date().getFullYear()} GrowVelo. All rights reserved.</p>
+          <div className="flex gap-4">
+            <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
+            <Link to="/dashboard" className="hover:text-foreground transition-colors">Dashboard</Link>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
