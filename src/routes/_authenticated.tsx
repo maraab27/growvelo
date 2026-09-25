@@ -3,27 +3,44 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated")({
   beforeLoad: async ({ location }) => {
-  // প্রথমে সেশন চেক করবে
-  let { data: { session } } = await supabase.auth.getSession();
+    // 1. Prothome Supabase theke session anar try korbe
+    let { data: { session } } = await supabase.auth.getSession();
 
-  // রিফ্রেশ করার কারণে যদি সেশন null পায়, সাথে সাথে বের না করে দিয়ে আধা সেকেন্ড (500ms) অপেক্ষা করবে এবং আবার চেক করবে
-  if (!session) {
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    const retry = await supabase.auth.getSession();
-    session = retry.data.session;
-  }
+    // 2. Browser er local storage e Supabase er kono login token achhe ki na seta check korbe
+    const hasLocalToken = typeof window !== 'undefined' 
+      ? Object.keys(localStorage).some(key => key.startsWith('sb-') && key.endsWith('-auth-token')) 
+      : false;
 
-  // এরপরও যদি সেশন না পায়, তার মানে ইউজার আসলেই লগআউট। তখন লগইন পেজে পাঠাবে
-  if (!session) {
-    throw redirect({
-      to: "/auth",
-      search: {
-        redirect: location.pathname,
-      },
-    });
-  }
+    // 3. Jodi session null hoy, kintu storage e token thake, tar mane Supabase slow. Tokhon wait korbe.
+    if (!session && hasLocalToken) {
+      session = await new Promise((resolve) => {
+        // onAuthStateChange er maddhome exact data asha porjonto wait korbe
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((event, currentSession) => {
+          if (currentSession) {
+            subscription.unsubscribe();
+            resolve(currentSession);
+          }
+        });
+        
+        // Safety timeout (highest 1.5 seconds wait korbe, jate page fese na thake)
+        setTimeout(() => {
+          subscription.unsubscribe();
+          resolve(null);
+        }, 1500);
+      });
+    }
 
-  return { session, user: session.user };
-},
+    // 4. Eto kichur por o jodi session na thake, tobe 100% sure je user logout obosthay achhe
+    if (!session) {
+      throw redirect({
+        to: "/auth",
+        search: {
+          redirect: location.pathname,
+        },
+      });
+    }
+
+    return { session, user: session.user };
+  },
   component: () => <Outlet />,
 });
