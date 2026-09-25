@@ -228,60 +228,73 @@ function AdminPage() {
               </div>
 
               <div>
-                <label className="text-sm font-semibold mb-1 block">ক্লাসের ধরন (Type)</label>
-                <div className="flex gap-4">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="lessonType"
-                      value="video"
-                      checked={lessonType === "video"}
-                      onChange={() => setLessonType("video")}
-                      className="accent-blue-500"
-                    />
-                    <span>রেকর্ডেড ভিডিও (YouTube/Vimeo)</span>
-                  </label>
+              <label className="text-sm font-semibold mb-1 block">ক্লাসের ধরন (Type)</label>
+              <div className="flex flex-wrap gap-4">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input 
+                    type="radio" 
+                    name="lessonType" 
+                    value="video" 
+                    checked={lessonType === 'video'}
+                    onChange={() => setLessonType('video')}
+                    className="accent-blue-500"
+                  />
+                  <span>রেকর্ডেড ভিডিও (YouTube)</span>
+                </label>
 
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="lessonType"
-                      value="zoom"
-                      checked={lessonType === "zoom"}
-                      onChange={() => setLessonType("zoom")}
-                      className="accent-blue-500"
-                    />
-                    <span>লাইভ ক্লাস (Zoom Link)</span>
-                  </label>
-                </div>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input 
+                    type="radio" 
+                    name="lessonType" 
+                    value="zoom" 
+                    checked={lessonType === 'zoom'}
+                    onChange={() => setLessonType('zoom')}
+                    className="accent-blue-500"
+                  />
+                  <span>Zoom লাইভ ক্লাস</span>
+                </label>
+
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input 
+                    type="radio" 
+                    name="lessonType" 
+                    value="meet" 
+                    checked={lessonType === 'meet'}
+                    onChange={() => setLessonType('meet')}
+                    className="accent-blue-500"
+                  />
+                  <span>Google Meet লাইভ ক্লাস</span>
+                </label>
               </div>
+            </div>
 
-              {lessonType === "video" ? (
-                <div>
-                  <label className="text-sm font-semibold mb-1 block">ভিডিও লিংক (YouTube Unlisted / Embed Link)</label>
-                  <input
-                    type="url"
-                    placeholder="https://www.youtube.com/watch?v=..."
-                    value={videoUrl}
-                    onChange={(e) => setVideoUrl(e.target.value)}
-                    className="w-full p-3 rounded-lg bg-background border border-border outline-none focus:border-blue-500"
-                    required
-                  />
-                </div>
-              ) : (
-                <div>
-                  <label className="text-sm font-semibold mb-1 block">জুম বা লাইভ ক্লাস লিংক</label>
-                  <input
-                    type="url"
-                    placeholder="https://zoom.us/j/..."
-                    value={zoomUrl}
-                    onChange={(e) => setZoomUrl(e.target.value)}
-                    className="w-full p-3 rounded-lg bg-background border border-border outline-none focus:border-blue-500"
-                    required
-                  />
-                </div>
-              )}
-
+            {lessonType === 'video' ? (
+              <div>
+                <label className="text-sm font-semibold mb-1 block">ভিডিও লিংক (YouTube Link)</label>
+                <input 
+                  type="url" 
+                  placeholder="https://www.youtube.com/watch?v=..."
+                  value={videoUrl}
+                  onChange={(e) => setVideoUrl(e.target.value)}
+                  className="w-full p-3 rounded-lg bg-background border border-border outline-none focus:border-blue-500"
+                  required
+                />
+              </div>
+            ) : (
+              <div>
+                <label className="text-sm font-semibold mb-1 block">
+                  {lessonType === 'meet' ? 'Google Meet লিংক' : 'Zoom লাইভ ক্লাস লিংক'}
+                </label>
+                <input 
+                  type="url" 
+                  placeholder={lessonType === 'meet' ? "https://meet.google.com/..." : "https://zoom.us/j/..."}
+                  value={zoomUrl}
+                  onChange={(e) => setZoomUrl(e.target.value)}
+                  className="w-full p-3 rounded-lg bg-background border border-border outline-none focus:border-blue-500"
+                  required
+                />
+              </div>
+            )}
               <button
                 type="submit"
                 disabled={lessonLoading}
