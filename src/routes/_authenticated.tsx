@@ -3,35 +3,31 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated")({
   beforeLoad: async ({ location }) => {
-    // 1. Prothome Supabase theke session anar try korbe
-    let { data: { session } } = await supabase.auth.getSession();
+    let currentUser = null;
 
-    // 2. Browser er local storage e Supabase er kono login token achhe ki na seta check korbe
-    const hasLocalToken = typeof window !== 'undefined' 
-      ? Object.keys(localStorage).some(key => key.startsWith('sb-') && key.endsWith('-auth-token')) 
-      : false;
-
-    // 3. Jodi session null hoy, kintu storage e token thake, tar mane Supabase slow. Tokhon wait korbe.
-    if (!session && hasLocalToken) {
-      session = await new Promise((resolve) => {
-        // onAuthStateChange er maddhome exact data asha porjonto wait korbe
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((event, currentSession) => {
-          if (currentSession) {
-            subscription.unsubscribe();
-            resolve(currentSession);
+    // ১. সুপাবেসের জন্য ওয়েট না করে সরাসরি ব্রাউজারের স্টোরেজ থেকে ডেটা নিচ্ছি
+    if (typeof window !== "undefined") {
+      const authKey = Object.keys(localStorage).find((key) => key.includes("-auth-token"));
+      if (authKey) {
+        try {
+          const authData = JSON.parse(localStorage.getItem(authKey) || "{}");
+          if (authData && authData.user) {
+            currentUser = authData.user;
           }
-        });
-        
-        // Safety timeout (highest 1.5 seconds wait korbe, jate page fese na thake)
-        setTimeout(() => {
-          subscription.unsubscribe();
-          resolve(null);
-        }, 1500);
-      });
+        } catch (error) {
+          console.error("Local storage auth parse error", error);
+        }
+      }
     }
 
-    // 4. Eto kichur por o jodi session na thake, tobe 100% sure je user logout obosthay achhe
-    if (!session) {
+    // ২. যদি লোকাল স্টোরেজে না থাকে, তবেই কেবল নরমাল সুপাবেস চেক করবে
+    if (!currentUser) {
+      const { data: { session } } = await supabase.auth.getSession();
+      currentUser = session?.user || null;
+    }
+
+    // ৩. এরপরও যদি ইউজার না থাকে, তার মানে সে আসলেই লগআউট করা!
+    if (!currentUser) {
       throw redirect({
         to: "/auth",
         search: {
@@ -40,7 +36,8 @@ export const Route = createFileRoute("/_authenticated")({
       });
     }
 
-    return { session, user: session.user };
+    // ড্যাশবোর্ডের জন্য ইউজার ডেটা পাস করা হলো
+    return { user: currentUser };
   },
   component: () => <Outlet />,
 });
