@@ -225,12 +225,95 @@ const handleApproveStudent = async () => {
             </div>
           </div>
 
-           <div className="bg-background/50 rounded-xl p-4 flex flex-col items-center justify-center min-h-[150px] text-center">
-            <p className="text-muted-foreground">ম্যানেজার ফর্মটি যুক্ত করা হচ্ছে...</p>
-            <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold text-sm">
-              Add New Lesson
+           <form onSubmit={handleAddLesson} className="bg-background/50 rounded-xl p-6 flex flex-col gap-4 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="md:col-span-2">
+                <label className="text-sm font-semibold mb-1 block">ক্লাস/লেসন টাইটেল</label>
+                <input 
+                  type="text" 
+                  placeholder="যেমন: Class 01: Introduction to Premiere Pro"
+                  value={lessonTitle}
+                  onChange={(e) => setLessonTitle(e.target.value)}
+                  className="w-full p-3 rounded-lg bg-background border border-border outline-none focus:border-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-semibold mb-1 block">লেসন ক্রমিক (Order)</label>
+                <input 
+                  type="number" 
+                  value={lessonOrder}
+                  onChange={(e) => setLessonOrder(e.target.value)}
+                  className="w-full p-3 rounded-lg bg-background border border-border outline-none focus:border-blue-500"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-sm font-semibold mb-1 block">ক্লাসের ধরন (Type)</label>
+              <div className="flex gap-4">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input 
+                    type="radio" 
+                    name="lessonType" 
+                    value="video" 
+                    checked={lessonType === 'video'}
+                    onChange={() => setLessonType('video')}
+                    className="accent-blue-500"
+                  />
+                  <span>রেকর্ডেড ভিডিও (YouTube/Vimeo)</span>
+                </label>
+
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input 
+                    type="radio" 
+                    name="lessonType" 
+                    value="zoom" 
+                    checked={lessonType === 'zoom'}
+                    onChange={() => setLessonType('zoom')}
+                    className="accent-blue-500"
+                  />
+                  <span>লাইভ ক্লাস (Zoom Link)</span>
+                </label>
+              </div>
+            </div>
+
+            {lessonType === 'video' ? (
+              <div>
+                <label className="text-sm font-semibold mb-1 block">ভিডিও লিংক (YouTube Unlisted / Embed Link)</label>
+                <input 
+                  type="url" 
+                  placeholder="https://www.youtube.com/watch?v=..."
+                  value={videoUrl}
+                  onChange={(e) => setVideoUrl(e.target.value)}
+                  className="w-full p-3 rounded-lg bg-background border border-border outline-none focus:border-blue-500"
+                  required
+                />
+              </div>
+            ) : (
+              <div>
+                <label className="text-sm font-semibold mb-1 block">জুম বা লাইভ ক্লাস লিংক</label>
+                <input 
+                  type="url" 
+                  placeholder="https://zoom.us/j/..."
+                  value={zoomUrl}
+                  onChange={(e) => setZoomUrl(e.target.value)}
+                  className="w-full p-3 rounded-lg bg-background border border-border outline-none focus:border-blue-500"
+                  required
+                />
+              </div>
+            )}
+
+            <button 
+              type="submit"
+              disabled={lessonLoading}
+              className="mt-2 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition-colors disabled:opacity-50"
+            >
+              {lessonLoading ? 'যোগ করা হচ্ছে...' : 'Add Lesson to Batch 03'}
             </button>
-          </div>
+          </form>
         </div>
         </div>
       </div>
