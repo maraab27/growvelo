@@ -25,7 +25,7 @@ function LessonPage() {
 
       if (!error && data && data.length > 0) {
         setLessons(data);
-        setCurrentLesson(data[0]); // প্রথম লেসনটি ডিফল্টভাবে সিলেক্ট হবে
+        setCurrentLesson(data[0]);
       }
       setLoading(false);
     };
@@ -33,7 +33,7 @@ function LessonPage() {
     fetchLessons();
   }, [slug]);
 
-  // ইউটিউবের টাইটেল, শেয়ার ও লোগো হাইড করার লিংক ফরম্যাটার
+  // ইউটিউব আইডি বের করে ক্লিন লিংক তৈরি
   const formatVideoUrl = (url: string) => {
     if (!url) return "";
     let videoId = "";
@@ -48,7 +48,7 @@ function LessonPage() {
 
     if (!videoId) return url;
 
-    // controls=1 (টাইমলাইন ও প্লে বাটন থাকবে), modestbranding=1, rel=0 (অন্য ভিডিও দেখাবে না), iv_load_policy=3
+    // modestbranding=1, controls=1, rel=0
     return `https://www.youtube-nocookie.com/embed/${videoId}?controls=1&modestbranding=1&rel=0&iv_load_policy=3&disablekb=0&playsinline=1`;
   };
 
@@ -84,30 +84,25 @@ function LessonPage() {
                 {!isLive ? (
                   <div 
                     className="sticky-card relative overflow-hidden !p-0 aspect-video bg-black rounded-2xl ring-1 ring-black/5 shadow-2xl select-none"
-                    onContextMenu={(e) => e.preventDefault()} // রাইট-ক্লিক ও ভিডিও URL কপি ব্লক
+                    onContextMenu={(e) => e.preventDefault()}
                   >
-                    {/* ১. টপ গার্ড: ওপরের টাইটেল, চ্যানেল আইকন ও শেয়ার বাটনে ক্লিক প্রতিরোধ করে */}
+                    {/* ক্রপিং কন্টেইনার: ওপরের টাইটেল ও বাটন স্ক্রিনের বাইরে ঠেলে কেটে ফেলা হচ্ছে */}
+                    <div className="relative w-full h-[120%] -top-[10%] overflow-hidden">
+                      <iframe
+                        src={formatVideoUrl(currentLesson?.video_url)}
+                        title={currentLesson?.title}
+                        className="w-full h-full relative z-0 pointer-events-auto"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+
+                    {/* নিচের ডানপাশের লোগো ব্লকার লেয়ার */}
                     <div 
-                      className="absolute top-0 left-0 right-0 h-20 z-20 cursor-default"
+                      className="absolute bottom-0 right-0 w-36 h-14 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
                       onContextMenu={(e) => e.preventDefault()}
                     />
-
-                    {/* ২. বটম-রাইট গার্ড: নিচের ইউটিউব লোগো ও More Videos বাটনে ক্লিক বন্ধ করে */}
-                    <div 
-                      className="absolute bottom-0 right-0 w-36 h-12 z-20 cursor-default"
-                      onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
-                      onContextMenu={(e) => e.preventDefault()}
-                    />
-
-                    {/* ৩. আইফ্রেম প্লেয়ার (শুধু প্লে/পজ ও লাল টাইমলাইন কাজ করবে) */}
-                    <iframe
-                      src={formatVideoUrl(currentLesson?.video_url)}
-                      title={currentLesson?.title}
-                      className="w-full h-full relative z-0 pointer-events-auto"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
                   </div>
                 ) : (
                   <div className="sticky-card p-8 rounded-2xl bg-gradient-to-br from-blue-900/20 to-background border border-blue-500/20 flex flex-col items-center justify-center text-center gap-4 min-h-[300px]">
