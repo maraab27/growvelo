@@ -33,7 +33,6 @@ function LessonPage() {
     fetchLessons();
   }, [slug]);
 
-  // ইউটিউব লিংক থেকে ক্লিন সিকিউর প্যারামিটার যুক্ত করা
   const formatVideoUrl = (url: string) => {
     if (!url) return "";
     let videoId = "";
@@ -78,15 +77,15 @@ function LessonPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* মেইন কনটেন্ট এরিয়া */}
+              {/* মেইন কনটেন্ট এরিয়া */}
               <div className="lg:col-span-2 space-y-6">
                 {!isLive ? (
                   <div 
                     className="sticky-card relative overflow-hidden !p-0 aspect-video bg-black rounded-2xl ring-1 ring-black/5 shadow-2xl select-none"
                     onContextMenu={(e) => e.preventDefault()}
                   >
-                    {/* ৫০% বাড়তি ক্রপ ও অফসেট: ওপরের টাইটেল ও বাটন পুরোপুরি বাইরে চলে যাবে */}
-                    <div className="relative w-full h-[135%] -top-[18%] overflow-hidden">
+                    {/* পারফেক্ট ক্রপিং: ওপরের টাইটেল বাইরে থাকবে কিন্তু নিচের সিকবার একদম ক্লিয়ার দেখাবে */}
+                    <div className="relative w-full h-[126%] -top-[13%] overflow-hidden">
                       <iframe
                         src={formatVideoUrl(currentLesson?.video_url)}
                         title={currentLesson?.title}
@@ -96,16 +95,16 @@ function LessonPage() {
                       ></iframe>
                     </div>
 
-                    {/* ওপরের অংশে অতিরিক্ত ক্লিক গার্ড */}
+                    {/* ওপরের টাইটেল ব্লকার */}
                     <div 
-                      className="absolute top-0 left-0 right-0 h-16 z-20 cursor-default"
+                      className="absolute top-0 left-0 right-0 h-14 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
                       onContextMenu={(e) => e.preventDefault()}
                     />
 
-                    {/* নিচের ডানপাশের ইউটিউব লোগো ও সাজেস্টেড বাটন ব্লকার */}
+                    {/* নিচের ডানপাশের লোগো ব্লকার লেয়ার */}
                     <div 
-                      className="absolute bottom-0 right-0 w-44 h-16 z-20 cursor-default"
+                      className="absolute bottom-0 right-0 w-36 h-12 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
                       onContextMenu={(e) => e.preventDefault()}
                     />
