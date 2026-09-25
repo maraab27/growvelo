@@ -13,7 +13,7 @@ function LessonPage() {
   const [lessons, setLessons] = useState<any[]>([]);
   const [currentLesson, setCurrentLesson] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false); // ভিডিও চালু হয়েছে কি না ট্র্যাক করার স্টেট
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const fetchLessons = async () => {
@@ -34,13 +34,11 @@ function LessonPage() {
     fetchLessons();
   }, [slug]);
 
-  // অন্য লেসনে ক্লিক করলে প্লেয়ার স্টেট রিসেট হবে
   const handleSelectLesson = (lesson: any) => {
     setCurrentLesson(lesson);
     setIsPlaying(false);
   };
 
-  // ইউটিউব আইডি বের করার হেল্পার
   const getYouTubeId = (url: string) => {
     if (!url) return "";
     let videoId = "";
@@ -56,7 +54,6 @@ function LessonPage() {
 
   const videoId = getYouTubeId(currentLesson?.video_url);
 
-  // প্লে বাটনে চাপলে স্বয়ংক্রিয়ভাবে ভিডিও চলবে (autoplay=1)
   const formatVideoUrl = (id: string, autoPlay: boolean) => {
     if (!id) return "";
     return `https://www.youtube-nocookie.com/embed/${id}?controls=1&modestbranding=1&rel=0&iv_load_policy=3&disablekb=0&playsinline=1${autoPlay ? "&autoplay=1" : ""}`;
@@ -66,7 +63,6 @@ function LessonPage() {
 
   return (
     <SiteShell>
-      {/* গ্লোবাল সাইটশেলের বড় ফুটার হাইড রাখার নিয়ম */}
       <style>{`
         footer {
           display: none !important;
@@ -116,41 +112,40 @@ function LessonPage() {
                       )}
                     </div>
 
-                    {/* অরিজিনাল সাইজ থাম্বনেইল কভার লেয়ার (প্লে করার আগে ১০০% অরিজিনাল রেশিওতে থাকবে) */}
+                    {/* পারফেক্ট সেন্ট্রালাইজড থাম্বনেইল কভার লেয়ার */}
                     {!isPlaying && (
                       <div 
                         onClick={() => setIsPlaying(true)}
-                        className="absolute inset-0 z-30 cursor-pointer flex items-center justify-center group overflow-hidden bg-black"
+                        className="absolute inset-0 z-30 cursor-pointer w-full h-full overflow-hidden bg-black group"
                       >
-                        {/* অরিজিনাল হাই-কোয়ালিটি থাম্বনেইল ইমেজ */}
                         <img 
                           src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
                           alt={currentLesson?.title}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                           onError={(e: any) => {
-                            // যদি maxresdefault না পাওয়া যায় তবে hqdefault লোড হবে
                             e.target.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
                           }}
                         />
 
-                        {/* ড্রপশ্যাডো ডার্ক ওভারলে */}
-                        <div className="absolute inset-0 bg-black/25 group-hover:bg-black/10 transition-colors" />
+                        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/15 transition-colors" />
 
-                        {/* গ্লোসি প্রিমিয়াম প্লে বাটন */}
-                        <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-purple-600/90 text-white flex items-center justify-center shadow-2xl shadow-purple-600/50 group-hover:scale-110 group-hover:bg-purple-500 transition-all duration-300">
-                          <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-white translate-x-0.5" />
+                        {/* মোবাইল এবং পিসিতে একদম নিখুঁত কেন্দ্রে (Dead Center) প্লে বাটন */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-purple-600/90 text-white flex items-center justify-center shadow-2xl shadow-purple-600/60 group-hover:scale-110 group-hover:bg-purple-500 transition-all duration-300 border border-white/20">
+                            <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-white translate-x-0.5" />
+                          </div>
                         </div>
                       </div>
                     )}
 
-                    {/* ওপরের টাইটেল ব্লকার গার্ড */}
+                    {/* ওপরের টাইটেল ব্লকার */}
                     <div 
                       className="absolute top-0 left-0 right-0 h-16 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
                       onContextMenu={(e) => e.preventDefault()}
                     />
 
-                    {/* নিচের ডানপাশের লোগো ব্লকার লেয়ার */}
+                    {/* নিচের ডানপাশের লোগো ব্লকার */}
                     <div 
                       className="absolute bottom-0 right-0 w-36 h-12 z-20 cursor-default"
                       onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
@@ -257,7 +252,7 @@ function LessonPage() {
           )}
         </div>
 
-        {/* ছিমছাম মিনিমাল সিঙ্গেল-লাইন ফুটার */}
+        {/* ছিমছাম ফুটার */}
         <div className="border-t border-border/40 py-6 text-center text-xs text-foreground/50 mt-12">
           <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p>© {new Date().getFullYear()} GrowVelo. All rights reserved.</p>
