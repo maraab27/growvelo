@@ -9,9 +9,9 @@ import {
   Edit3, 
   Trash2, 
   PlusCircle, 
-  CheckCircle2, 
   XCircle,
-  Radio
+  Radio,
+  Layers
 } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
@@ -21,8 +21,12 @@ export const Route = createFileRoute("/admin")({
 function AdminPage() {
   const [session, setSession] = useState<any>(null);
 
+  // বর্তমানে নির্বাচিত ব্যাচ (Batch 02 অথবা Batch 03)
+  const [selectedCourse, setSelectedCourse] = useState("video-editing-batch-2");
+
   // স্টুডেন্ট অ্যাপ্রুভাল স্টেট
   const [studentEmail, setStudentEmail] = useState("");
+  const [enrollCourse, setEnrollCourse] = useState("video-editing-batch-2");
   const [approveLoading, setApproveLoading] = useState(false);
 
   // লেসন ম্যানেজার স্টেট
@@ -35,12 +39,12 @@ function AdminPage() {
   const [zoomUrl, setZoomUrl] = useState("");
   const [lessonLoading, setLessonLoading] = useState(false);
 
-  // লেসন লিস্ট ফেচ করার ফাংশন
-  const fetchLessons = async () => {
+  // নির্বাচিত ব্যাচের লেসন লিস্ট ফেচ করার ফাংশন
+  const fetchLessons = async (courseSlug = selectedCourse) => {
     const { data, error } = await supabase
       .from("lessons")
       .select("*")
-      .eq("course_slug", "video-editing-batch-3")
+      .eq("course_slug", courseSlug)
       .order("lesson_order", { ascending: true });
 
     if (!error && data) {
@@ -51,11 +55,13 @@ function AdminPage() {
     }
   };
 
+  // যখনই নির্বাচিত ব্যাচ পরিবর্তন হবে, সাথে সাথে সেই ব্যাচের লেসন লোড হবে
   useEffect(() => {
-    fetchLessons();
-  }, []);
+    handleCancelEdit();
+    fetchLessons(selectedCourse);
+  }, [selectedCourse]);
 
-  // স্টুডেন্ট অ্যাপ্রুভ ফাংশন
+  // স্টুডেন্ট অ্যাপ্রুভ ফাংশন (নির্দিষ্ট ব্যাচের জন্য)
   const handleApproveStudent = async () => {
     if (!studentEmail) {
       alert("দয়া করে স্টুডেন্টের ইমেইল দিন!");
@@ -64,7 +70,7 @@ function AdminPage() {
     setApproveLoading(true);
     const { data, error } = await supabase.rpc("approve_student_by_email", {
       student_email: studentEmail,
-      course_name: "video-editing-batch-3",
+      course_name: enrollCourse,
     });
 
     if (error) {
@@ -72,7 +78,8 @@ function AdminPage() {
     } else if (data === "Not Found") {
       alert("এই ইমেইল দিয়ে কোনো অ্যাকাউন্ট পাওয়া যায়নি! স্টুডেন্টকে আগে সাইন-আপ করতে বলুন।");
     } else {
-      alert("সাকসেস! " + studentEmail + " কে Batch 03 এর অ্যাক্সেস দেওয়া হয়েছে।");
+      const batchName = enrollCourse === "video-editing-batch-2" ? "Batch 02" : "Batch 03";
+      alert(`সাকসেস! ${studentEmail} কে ${batchName} এর অ্যাক্সেস দেওয়া হয়েছে।`);
       setStudentEmail("");
     }
     setApproveLoading(false);
@@ -110,7 +117,7 @@ function AdminPage() {
     setLessonLoading(true);
 
     const payload = {
-      course_slug: "video-editing-batch-3",
+      course_slug: selectedCourse,
       title: lessonTitle,
       lesson_order: parseInt(lessonOrder) || 1,
       type: lessonType,
@@ -119,7 +126,6 @@ function AdminPage() {
     };
 
     if (editingId) {
-      // বিদ্যমান লেসন আপডেট করা (যেমন: লাইভ থেকে রেকর্ডেড ভিডিও লিঙ্ক বসানো)
       const { error } = await supabase
         .from("lessons")
         .update(payload)
@@ -130,10 +136,9 @@ function AdminPage() {
       } else {
         alert("লেসন সফলভাবে আপডেট করা হয়েছে!");
         handleCancelEdit();
-        fetchLessons();
+        fetchLessons(selectedCourse);
       }
     } else {
-      // নতুন লেসন তৈরি করা
       const { error } = await supabase
         .from("lessons")
         .insert([payload]);
@@ -143,7 +148,7 @@ function AdminPage() {
       } else {
         alert("নতুন লেসন সফলভাবে যোগ করা হয়েছে!");
         handleCancelEdit();
-        fetchLessons();
+        fetchLessons(selectedCourse);
       }
     }
 
@@ -159,7 +164,7 @@ function AdminPage() {
       alert("ডিলিট করতে সমস্যা হয়েছে: " + error.message);
     } else {
       if (editingId === id) handleCancelEdit();
-      fetchLessons();
+      fetchLessons(selectedCourse);
     }
   };
 
@@ -172,7 +177,7 @@ function AdminPage() {
     <div className="min-h-screen bg-[#090a0f] text-slate-100 font-bangla p-4 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8">
         
-        {/* টপ ন্যাভবার ও হেডার */}
+        {/* টপ হেডার */}
         <header className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white/[0.03] backdrop-blur-xl border border-white/10 p-5 rounded-2xl">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
@@ -182,7 +187,7 @@ function AdminPage() {
               <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
                 GrowVelo Studio Admin
               </h1>
-              <p className="text-xs text-slate-400">Batch 03 Management Console</p>
+              <p className="text-xs text-slate-400">Multi-Batch Management Console</p>
             </div>
           </div>
 
@@ -205,10 +210,36 @@ function AdminPage() {
           </div>
         </header>
 
+        {/* ব্যাচ সিলেকশন কন্ট্রোল বার */}
+        <div className="flex items-center justify-between bg-white/[0.02] border border-white/10 p-2.5 rounded-2xl">
+          <div className="flex items-center gap-2 px-3 text-xs text-slate-400 font-semibold">
+            <Layers className="w-4 h-4 text-purple-400" />
+            <span>Select Active Batch:</span>
+          </div>
+          <div className="flex gap-2">
+            {[
+              { id: "video-editing-batch-2", name: "Batch 02 (Current)" },
+              { id: "video-editing-batch-3", name: "Batch 03 (Upcoming)" },
+            ].map((batch) => (
+              <button
+                key={batch.id}
+                onClick={() => setSelectedCourse(batch.id)}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  selectedCourse === batch.id
+                    ? "bg-purple-600 text-white shadow-lg shadow-purple-600/30"
+                    : "bg-white/5 text-slate-400 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                {batch.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* মেইন গ্রিড */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* বাম কলাম: কন্ট্রোল ফর্মগুলো (৫ কলাম) */}
+          {/* বাম কলাম: কন্ট্রোল ফর্মগুলো */}
           <div className="lg:col-span-5 space-y-6">
             
             {/* ১. স্টুডেন্ট এনরোলমেন্ট কার্ড */}
@@ -219,25 +250,41 @@ function AdminPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-base text-white">Student Enrollment</h3>
-                  <p className="text-xs text-slate-400">অনবোর্ড স্টুডেন্টদের কোর্স অ্যাক্সেস দিন</p>
+                  <p className="text-xs text-slate-400">নির্দিষ্ট ব্যাচে স্টুডেন্টকে অ্যাক্সেস দিন</p>
                 </div>
               </div>
 
               <div className="space-y-3">
-                <input
-                  type="email"
-                  placeholder="student@gmail.com"
-                  value={studentEmail}
-                  onChange={(e) => setStudentEmail(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/10 focus:border-emerald-500/50 outline-none text-sm placeholder:text-slate-600 transition-all"
-                />
+                <div>
+                  <label className="text-[11px] text-slate-400 font-medium mb-1 block">টার্গেট ব্যাচ সিলেক্ট করুন</label>
+                  <select
+                    value={enrollCourse}
+                    onChange={(e) => setEnrollCourse(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/10 focus:border-emerald-500/50 outline-none text-xs text-slate-200 transition-all cursor-pointer"
+                  >
+                    <option value="video-editing-batch-2">Video Editing Batch 02</option>
+                    <option value="video-editing-batch-3">Video Editing Batch 03</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-[11px] text-slate-400 font-medium mb-1 block">স্টুডেন্টের ইমেইল</label>
+                  <input
+                    type="email"
+                    placeholder="student@gmail.com"
+                    value={studentEmail}
+                    onChange={(e) => setStudentEmail(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/10 focus:border-emerald-500/50 outline-none text-xs placeholder:text-slate-600 transition-all"
+                  />
+                </div>
+
                 <button
                   type="button"
                   onClick={handleApproveStudent}
                   disabled={approveLoading}
                   className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs transition-all disabled:opacity-50"
                 >
-                  {approveLoading ? "অ্যাপ্রুভ হচ্ছে..." : "Approve Student for Batch 03"}
+                  {approveLoading ? "অ্যাপ্রুভ হচ্ছে..." : `Approve Student for ${enrollCourse === "video-editing-batch-2" ? "Batch 02" : "Batch 03"}`}
                 </button>
               </div>
             </div>
@@ -257,10 +304,10 @@ function AdminPage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-base text-white">
-                      {editingId ? "Edit Lesson Content" : "Create New Lesson"}
+                      {editingId ? "Edit Lesson" : `Add Lesson to ${selectedCourse === "video-editing-batch-2" ? "Batch 02" : "Batch 03"}`}
                     </h3>
                     <p className="text-xs text-slate-400">
-                      {editingId ? "লাইভ ক্লাস পরিবর্তন করে রেকর্ডিং লিঙ্ক বসান" : "নতুন ক্লাস বা লাইভ লিঙ্ক অ্যাড করুন"}
+                      {editingId ? "ক্লাস কনটেন্ট বা লিংক পরিবর্তন করুন" : "নতুন ক্লাস বা লাইভ লিংক যোগ করুন"}
                     </p>
                   </div>
                 </div>
@@ -282,7 +329,7 @@ function AdminPage() {
                     <label className="text-slate-300 font-medium mb-1.5 block">লেসন টাইটেল</label>
                     <input
                       type="text"
-                      placeholder="e.g. Class 02: Advanced Color Grading"
+                      placeholder="e.g. Class 01: Introduction & Basics"
                       value={lessonTitle}
                       onChange={(e) => setLessonTitle(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/10 focus:border-purple-500/50 outline-none text-slate-200"
@@ -366,25 +413,27 @@ function AdminPage() {
                     ? "প্রসেসিং হচ্ছে..." 
                     : editingId 
                     ? "Update Lesson Details" 
-                    : "Add Lesson to Batch 03"}
+                    : `Add Lesson to ${selectedCourse === "video-editing-batch-2" ? "Batch 02" : "Batch 03"}`}
                 </button>
               </form>
             </div>
           </div>
 
-          {/* ডান কলাম: লাইভ লেসন টেবিল ও ম্যানেজমেন্ট (৭ কলাম) */}
+          {/* ডান কলাম: লাইভ লেসন টেবিল */}
           <div className="lg:col-span-7">
             <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-6 backdrop-blur-md">
               <div className="flex items-center justify-between mb-5">
                 <div>
                   <h3 className="font-bold text-lg text-white flex items-center gap-2">
                     <Video className="w-5 h-5 text-purple-400" />
-                    <span>Active Lessons ({lessons.length})</span>
+                    <span>
+                      {selectedCourse === "video-editing-batch-2" ? "Batch 02 Lessons" : "Batch 03 Lessons"} ({lessons.length})
+                    </span>
                   </h3>
-                  <p className="text-xs text-slate-400">সকল ক্লাস এডিট বা ডিলিট করার নিয়ন্ত্রণ</p>
+                  <p className="text-xs text-slate-400">সিলেক্টেড ব্যাচের সব ক্লাস এখানে দেখাবে</p>
                 </div>
                 <button
-                  onClick={fetchLessons}
+                  onClick={() => fetchLessons(selectedCourse)}
                   className="text-xs text-slate-400 hover:text-white bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg transition-all"
                 >
                   Refresh
@@ -393,7 +442,7 @@ function AdminPage() {
 
               {lessons.length === 0 ? (
                 <div className="py-12 text-center text-slate-500 text-sm border border-dashed border-white/10 rounded-xl">
-                  এখনো কোনো লেসন যোগ করা হয়নি।
+                  {selectedCourse === "video-editing-batch-2" ? "Batch 02" : "Batch 03"} এ এখনো কোনো ক্লাস যোগ করা হয়নি। বাম পাশ থেকে প্রথম ক্লাসটি যোগ করুন।
                 </div>
               ) : (
                 <div className="space-y-2.5 max-h-[620px] overflow-y-auto pr-1">
