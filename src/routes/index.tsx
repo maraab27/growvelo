@@ -26,7 +26,7 @@ export const Route = createFileRoute("/")({
         rel: "preload",
         as: "image",
         type: "image/jpeg",
-        href: "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/ChatGPT%20Image%20Sep%201,%202026,%2010_25_45%20AM_upscayl_4x_upscayl-lite-4x%20(1).webp",
+        href: "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp",
         fetchPriority: "high",
       },
     ],
