@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "GrowVelo – Professional Video Editing Courses" },
       { property: "og:description", content: "Learn professional video editing through live Bengali courses and expert mentoring." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary_large_image" }, 
     ],
     links: [
       {
