@@ -338,12 +338,14 @@ export function Hero() {
                 </div>
                 
                 <div className="relative mt-5 w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black aspect-video">
-  <EditableImage 
-    id="course.thumb.video-editing-batch-3" 
-    defaultSrc={batch01Thumbnail.url} 
-    className="w-full h-full" 
-    imgClassName="w-full h-full object-cover" 
-  />
+  <EditableImage
+                      id="course.thumb.video-editing-batch-3"
+                      defaultSrc={batch01Thumbnail.url}
+                      className="w-full h-full"
+                      imgClassName="w-full h-full object-cover"
+                      loading="eager"
+                      fetchPriority="high"
+                    />
   <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-coral-500/20 to-brand-500/40 mix-blend-overlay" />
   <div className="pointer-events-none absolute left-3 top-3 z-10">
     <span className="mono-readout rounded-md bg-black/50 px-2 py-1 text-white/90 backdrop-blur-sm">
@@ -389,11 +391,12 @@ export function Hero() {
                   </h4>
                   <div className="mt-4 flex items-center gap-4">
                     <EditableImage
-  id="mentor.avatar.main"
-  defaultSrc={instructorAtaullahNew.url}
-  className="h-12 w-12 shrink-0 rounded-full ring-2 ring-white shadow-sm"
-  imgClassName="rounded-full object-cover"
-/>
+                      id="mentor.avatar.main"
+                      defaultSrc={instructorAtaullahNew.url}
+                      className="h-12 w-12 shrink-0 rounded-full ring-2 ring-white shadow-sm"
+                      imgClassName="rounded-full object-cover"
+                      loading="eager"
+                    />
                     <div className="min-w-0">
                       <div className="font-display text-base font-semibold leading-tight"><EditableText id="hero.instructor.name">Muhammad Ataullah</EditableText></div>
                       <div className="mono-readout truncate text-[10px]"><EditableText id="hero.instructor.role">Lead Mentor</EditableText></div>
@@ -1094,11 +1097,13 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
               >
                 <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-black/10">
   <EditableImage
-    id={`course.thumb.${c.slug}`}
-    defaultSrc={c.slug === 'video-editing-bootcamp' ? batch01Thumbnail.url : ''}
-    className="w-full h-full"
-    imgClassName="w-full h-full object-cover"
-  />
+                        id={`course.thumb.${c.slug}`}
+                        defaultSrc={c.slug === 'video-editing-bootcamp' ? batch01Thumbnail.url : ''}
+                        className="w-full h-full"
+                        imgClassName="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
   <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
   <div className="pointer-events-none absolute left-2.5 top-2.5 z-10">
     <Chip color={c.chipColor}><EditableText id={`courses.${c.slug}.level`}>{c.level}</EditableText></Chip>
