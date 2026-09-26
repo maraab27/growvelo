@@ -340,7 +340,7 @@ export function Hero() {
                 <div className="relative mt-5 w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black aspect-video">
   <EditableImage
                       id="course.thumb.video-editing-batch-3"
-                      defaultSrc={batch01Thumbnail.url}
+                      defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_3_1790392616445.jpg"
                       className="w-full h-full"
                       imgClassName="w-full h-full object-cover"
                       loading="eager"
