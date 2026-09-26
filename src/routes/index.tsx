@@ -26,7 +26,7 @@ export const Route = createFileRoute("/")({
         rel: "preload",
         as: "image",
         type: "image/jpeg",
-        href: "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_3_1790392616445.jpg",
+        href: "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_3_1790392616445.jpg?v=12345",
         fetchPriority: "high",
       },
     ],
