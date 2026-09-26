@@ -337,15 +337,17 @@ export function Hero() {
                   <Chip color="brand" icon={<Film className="h-3.5 w-3.5" />} className="!whitespace-nowrap"><EditableText id="hero.card.badge">লেটেস্ট কোর্স · ব্যাচ ০৩</EditableText></Chip>
                 </div>
                 
-                <div className="relative mt-5 w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black aspect-video">
-  <EditableImage
-                      id="course.thumb.video-editing-batch-3"
-                      defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_3_1790392616445.jpg"
-                      className="w-full h-full"
-                      imgClassName="w-full h-full object-cover"
-                      loading="eager"
-                      fetchPriority="high"
-                    />
+               <div className="relative mt-5 w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black aspect-video">
+  <img
+    src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_3_1790141496013.jpg"
+    alt="Batch 03 Masterclass"
+    width="640"
+    height="360"
+    loading="eager"
+    fetchPriority="high"
+    decoding="async"
+    className="w-full h-full object-cover"
+  />
   <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-coral-500/20 to-brand-500/40 mix-blend-overlay" />
   <div className="pointer-events-none absolute left-3 top-3 z-10">
     <span className="mono-readout rounded-md bg-black/50 px-2 py-1 text-white/90 backdrop-blur-sm">
