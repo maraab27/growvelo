@@ -339,7 +339,7 @@ export function Hero() {
                 
                <div className="relative mt-5 w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black aspect-video">
   <img
-    src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_3_1790128805987.jpg"
+    src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/ChatGPT%20Image%20Sep%201,%202026,%2010_25_45%20AM_upscayl_4x_upscayl-lite-4x%20(2).jpg"
     alt="Batch 03 Masterclass"
     width="640"
     height="360"
