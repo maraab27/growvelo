@@ -394,7 +394,7 @@ export function Hero() {
                   <div className="mt-4 flex items-center gap-4">
                     <EditableImage
                       id="mentor.avatar.main"
-                      defaultSrc={instructorAtaullahNew.url + "?v=12345"}
+                      defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/ataullah_avatar_v2_small.webp"
                       className="h-12 w-12 shrink-0 rounded-full ring-2 ring-white shadow-sm"
                       imgClassName="rounded-full object-cover"
                       loading="eager"
