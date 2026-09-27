@@ -1030,7 +1030,7 @@ export const COURSES: Course[] = [
     length: "30 days · Upcoming",
     price: "৳৩,০০০",
     oldPrice: "৳৫,০০০",
-    thumb: `linear-gradient(135deg, var(--coral), var(--blush))`,
+    thumb: "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp",
     desc: "Advanced Video Editing & Retelling — ব্যাচ ০৩। আমাদের পরবর্তী ব্যাচ। এখন এনরোলমেন্ট চলছে।",
     tint: "brand", pin: "brand", chipColor: "brand", featured: true,
     start: "ব্যাচ ০৩ · শীঘ্রই শুরু",
