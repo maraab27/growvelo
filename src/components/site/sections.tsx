@@ -259,7 +259,7 @@ export const editors: Editor[] = [
     slug: "ataullah",
     name: "Muhammad Ataullah",
     role: "Lead Video Mentor",
-    avatar: instructorAtaullahNew.url,
+    avatar: "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/ataullah_avatar_v2_250.webp",
     bio: "Cinematic storytelling expert. Helping 500+ students master the art of video editing.",
     skills: ["Premiere Pro", "DaVinci Resolve", "Color Grading", "Sound Design"],
     years: 8,
@@ -267,7 +267,7 @@ export const editors: Editor[] = [
     tint: "mint",
     pin: "brand",
     works: [
-      { title: "Cinematic Breakdown", type: "Education", thumb: "linear-gradient(135deg,#ff9966,#ff5e62)", client: "growVelo" },
+      { title: "Cinematic Breakdown", type: "Education", thumb: "linear-gradient(135deg,#ff9966,#ff5e62)", client: "GrowVelo" },
     ],
   },
 ];
@@ -581,8 +581,8 @@ const PORTFOLIO_ITEMS: {
   youtubeId?: string;
   reel?: boolean;
 }[] = [
-  { title: "growVelo · Featured Edit", cat: "YouTube", len: "Watch", thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)", tag: "Featured", tint: "brand", pin: "brand", chipColor: "brand", youtubeId: "daUeU1VtS_M" },
-  { title: "growVelo · Cinematic Cut", cat: "YouTube", len: "Watch", thumb: "linear-gradient(135deg,#ec4899,#f472b6)", tag: "Cinematic", tint: "coral", pin: "coral", chipColor: "coral", youtubeId: "yDf03E_XWW4" },
+  { title: "GrowVelo · Featured Edit", cat: "YouTube", len: "Watch", thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)", tag: "Featured", tint: "brand", pin: "brand", chipColor: "brand", youtubeId: "daUeU1VtS_M" },
+  { title: "GrowVelo · Cinematic Cut", cat: "YouTube", len: "Watch", thumb: "linear-gradient(135deg,#ec4899,#f472b6)", tag: "Cinematic", tint: "coral", pin: "coral", chipColor: "coral", youtubeId: "yDf03E_XWW4" },
   { title: "Reel · Hook 01", cat: "Short-Form", len: "Reel", thumb: "linear-gradient(135deg,#7c5cff,#22d3ee)", tag: "Reel", tint: "brand", pin: "brand", chipColor: "brand", youtubeId: "2vukCg-KKZU", reel: true },
   { title: "Reel · Hook 02", cat: "Short-Form", len: "Reel", thumb: "linear-gradient(135deg,#ec4899,#f472b6)", tag: "Reel", tint: "coral", pin: "coral", chipColor: "coral", youtubeId: "PKtQUBdts9c", reel: true },
   { title: "Reel · Hook 03", cat: "Short-Form", len: "Reel", thumb: "linear-gradient(135deg,#22d3ee,#a78bfa)", tag: "Reel", tint: "mint", pin: "mint", chipColor: "mint", youtubeId: "HJft21ln2pM", reel: true },
@@ -1165,7 +1165,7 @@ const REVIEWS: {
   name: string; role: string; body: string; initial: string; avatar: string;
   tint: "mint" | "coral" | "lemon" | "blush" | "sky" | "brand"; pin: ChipColor;
 }[] = [
-  { name: "Tanvir Mahmud", role: "Student · Batch 01", body: "growVelo থেকে এডিটিং শিখে আমি এখন প্রফেশনাল ফিল্ডে কাজ করছি। মেন্টরদের গাইডেন্স ছিল অসাধারণ।", initial: "T", avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)", tint: "mint", pin: "mint" },
+  { name: "Tanvir Mahmud", role: "Student · Batch 01", body: "GrowVelo থেকে এডিটিং শিখে আমি এখন প্রফেশনাল ফিল্ডে কাজ করছি। মেন্টরদের গাইডেন্স ছিল অসাধারণ।", initial: "T", avatar: "linear-gradient(135deg,#7c5cff,#22d3ee)", tint: "mint", pin: "mint" },
   { name: "Abdullah Maraab", role: "Student · Batch 02", body: "কোর্সের মডিউলগুলো খুব সুন্দরভাবে সাজানো। বিগিনার হিসেবে আমার জন্য শেখাটা অনেক সহজ হয়েছে।", initial: "A", avatar: "linear-gradient(135deg,#ec4899,#f97316)", tint: "coral", pin: "coral" },
   { name: "Rohan Das", role: "Student · Batch 01", body: "মোশন গ্রাফিক্সের মডিউলটি ছিল আমার প্রিয়। এখন আমি নিজে থেকেই অনেক জটিল এনিমেশন তৈরি করতে পারি।", initial: "R", avatar: "linear-gradient(135deg,#22c55e,#0ea5e9)", tint: "lemon", pin: "lemon" },
   { name: "Zara Ahmed", role: "Student · Batch 03", body: "মেন্টররা সবসময় প্রশ্নের উত্তর দেন এবং পার্সোনাল ফিডব্যাক দেন, যা শেখার গতিকে অনেক বাড়িয়ে দেয়।", initial: "Z", avatar: "linear-gradient(135deg,#f43f5e,#a78bfa)", tint: "blush", pin: "blush" },
@@ -1231,12 +1231,12 @@ export function About() {
       <div className="mx-auto max-w-[1200px] px-5">
         <SectionHead
           cmsId="about.head"
-          eyebrow="About growVelo"
+          eyebrow="About GrowVelo"
           eyebrowColor="mint"
           eyebrowIcon={<Sparkles className="h-3.5 w-3.5" />}
           before="Our"
           gradWord="Academy"
-          sub="growVelo একাডেমি শুরু হয়েছিল একদল দক্ষ মেন্টরদের নিয়ে, যাদের মূল লক্ষ্য শিক্ষার্থীদের প্রফেশনাল এডিটর হিসেবে গড়ে তোলা।"
+          sub="GrowVelo একাডেমি শুরু হয়েছিল একদল দক্ষ মেন্টরদের নিয়ে, যাদের মূল লক্ষ্য শিক্ষার্থীদের প্রফেশনাল এডিটর হিসেবে গড়ে তোলা।"
         />
         <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-4">
           {stats.map((s, i) => (
@@ -1470,7 +1470,7 @@ export function Footer() {
         </div>
       </div>
       <div className="mx-auto mt-12 max-w-[1200px] border-t border-foreground/10 px-5 pt-6 text-center text-xs text-foreground/45">
-        <EditableText id="footer.copyright">© 2026 growVelo Studio · Crafted frame by frame.</EditableText>
+        <EditableText id="footer.copyright">© 2026 GrowVelo Studio · Crafted frame by frame.</EditableText>
       </div>
     </footer>
   );
