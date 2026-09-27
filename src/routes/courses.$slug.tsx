@@ -1756,6 +1756,11 @@ useEffect(() => {
                       ) : (
                         <button
                           onClick={async () => {
+                            // --- Facebook Pixel Event Tracking ---
+            if (typeof window !== 'undefined' && (window as any).fbq) {
+              (window as any).fbq('track', 'InitiateCheckout'); 
+            }
+            // -------------------------------------
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) {
     window.location.href = "/auth";
@@ -2161,6 +2166,11 @@ useEffect(() => {
                   ) : (
                     <button
                       onClick={async () => {
+                        // --- Facebook Pixel Event Tracking ---
+              if (typeof window !== 'undefined' && (window as any).fbq) {
+                (window as any).fbq('track', 'InitiateCheckout'); 
+              }
+              // -------------------------------------
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) {
     
