@@ -156,7 +156,7 @@ export function Nav({ session }: { session?: any }) {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 10px -4px color-mix(in oklab, var(--brand) 40%, transparent)",
               }}
             >
-              <EditableImage id="global.site.logo" defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/global_site_logo_1790476133069.webp" className="h-full w-full" imgClassName="h-full w-full object-cover" />
+              <EditableImage id="global.site.logo" defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized%20(1).webp" className="h-full w-full" imgClassName="h-full w-full object-cover" />
             </div>
             <span className="truncate font-display text-base font-semibold tracking-tight sm:text-lg">
               <EditableText id="nav.brand.prefix">grow</EditableText><EditableText id="nav.brand.accent" className="grad-text">Velo</EditableText>
@@ -1439,7 +1439,7 @@ export function Footer() {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5), 0 8px 16px -4px color-mix(in oklab, var(--brand) 50%, transparent)",
               }}
             >
-              <EditableImage id="global.site.logo" defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/global_site_logo_1790476133069.webp" className="h-full w-full" imgClassName="h-full w-full object-cover" />
+              <EditableImage id="global.site.logo" defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized%20(1).webp" className="h-full w-full" imgClassName="h-full w-full object-cover" />
             </div>
             <div>
               <div className="font-display text-lg font-semibold">
