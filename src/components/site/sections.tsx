@@ -1100,7 +1100,13 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
                 <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-black/10">
   <EditableImage
                         id={`course.thumb.${c.slug}`}
-                        defaultSrc={c.slug === 'video-editing-bootcamp' ? batch01Thumbnail.url : ''}
+                        defaultSrc={
+        c.slug === 'video-editing-batch-3' 
+          ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/আপনার_নতুন_ব্যাচ_৩_এর_লিংক.webp" 
+          : c.slug === 'video-editing-bootcamp' 
+          ? batch01Thumbnail.url 
+          : ''
+      }
                         className="w-full h-full"
                         imgClassName="w-full h-full object-cover"
                         loading="lazy"
