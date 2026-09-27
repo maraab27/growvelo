@@ -444,6 +444,14 @@ TrxID: ${formData.trxId}`;
           </>
         ) : (
           <div className="py-8 text-center space-y-4">
+            {/* --- Facebook Pixel Purchase Event --- */}
+    {typeof window !== 'undefined' && (window as any).fbq && (
+      (window as any).fbq('track', 'Purchase', {
+        value: 3000,
+        currency: 'BDT'
+      })
+    )}
+    {/* ------------------------------------- */}
             <div className="w-14 h-14 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-8 h-8" />
             </div>
