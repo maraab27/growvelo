@@ -156,7 +156,14 @@ export function Nav({ session }: { session?: any }) {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 10px -4px color-mix(in oklab, var(--brand) 40%, transparent)",
               }}
             >
-              <img src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized%20(1).webp" alt="growVelo" width="160" height="40" className="w-full h-full object-contain" />
+              <img 
+  src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized%20(1).webp" 
+  alt="growVelo" 
+  width="160" 
+  height="40" 
+  fetchPriority="high"
+  className="w-full h-full object-contain" 
+/>
             </div>
             <span className="truncate font-display text-base font-semibold tracking-tight sm:text-lg">
               <EditableText id="nav.brand.prefix">grow</EditableText><EditableText id="nav.brand.accent" className="grad-text">Velo</EditableText>
@@ -338,14 +345,16 @@ export function Hero() {
                 </div>
                 
                <div className="relative mt-5 w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black aspect-video">
-  <EditableImage
-                  id="hero.card.thumbnail"
-                  defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp"
-                  alt="Batch 03 Masterclass"
-                  className="w-full h-full"
-                  imgClassName="w-full h-full object-cover"
-                  priority={true}
-                />
+  <img
+  id="hero.card.thumbnail"
+  src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp"
+  alt="Batch 03 Masterclass"
+  width="640"
+  height="360"
+  fetchPriority="high"
+  decoding="async"
+  className="w-full h-full object-cover"
+/>
   <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-coral-500/20 to-brand-500/40 mix-blend-overlay" />
   <div className="pointer-events-none absolute left-3 top-3 z-10">
     <span className="mono-readout rounded-md bg-black/50 px-2 py-1 text-white/90 backdrop-blur-sm">
