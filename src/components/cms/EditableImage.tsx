@@ -7,16 +7,18 @@ const memoryCache: Record<string, string> = {};
 
 export const EditableImage = ({
   id,
-  defaultSrc = '',
+  defaultSrc,
   alt = 'growVelo course preview',
-  className = '',
-  imgClassName = '',
+  className = "",
+  imgClassName = "",
+  priority = false,
 }: {
   id: string;
   defaultSrc?: string;
   alt?: string;
   className?: string;
   imgClassName?: string;
+  priority?: boolean;
 }) => {
   const { isAdmin } = useAdminSession();
 
