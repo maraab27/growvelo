@@ -156,7 +156,7 @@ export function Nav({ session }: { session?: any }) {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 10px -4px color-mix(in oklab, var(--brand) 40%, transparent)",
               }}
             >
-              <EditableImage id="global.site.logo" defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized.webp" alt="growVelo Logo" />
+              <img src={logoAsset.url} alt="growVelo" className="w-full h-full object-contain" />
             </div>
             <span className="truncate font-display text-base font-semibold tracking-tight sm:text-lg">
               <EditableText id="nav.brand.prefix">grow</EditableText><EditableText id="nav.brand.accent" className="grad-text">Velo</EditableText>
@@ -1095,15 +1095,19 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
                 className={`sticky-card tint-${c.tint} block p-3 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl active:scale-[0.98] cursor-pointer group`}
               >
                 <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-black/10">
-  <EditableImage
-                        id={`course.thumb.${c.slug}`}
-                        defaultSrc={
-        c.slug === 'video-editing-batch-3' 
-          ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/আপনার_নতুন_ব্যাচ_৩_এর_লিংক.webp" 
-          : c.slug === 'video-editing-bootcamp' 
-          ? batch01Thumbnail.url 
-          : ''
-      }
+  <img
+                  src={
+                    c.slug === 'video-editing-batch-3'
+                      ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp"
+                      : c.slug === 'video-editing-bootcamp'
+                      ? batch01Thumbnail.url
+                      : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp"
+                  }
+                  alt={c.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
                         className="w-full h-full"
                         imgClassName="w-full h-full object-cover"
                         loading="lazy"
@@ -1442,7 +1446,7 @@ export function Footer() {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5), 0 8px 16px -4px color-mix(in oklab, var(--brand) 50%, transparent)",
               }}
             >
-              <EditableImage id="global.site.logo" defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized.webp" alt="growVelo Logo" />
+              <img src={logoAsset.url} alt="growVelo" className="w-full h-full object-contain" />
             </div>
             <div>
               <div className="font-display text-lg font-semibold">
