@@ -156,7 +156,7 @@ export function Nav({ session }: { session?: any }) {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 10px -4px color-mix(in oklab, var(--brand) 40%, transparent)",
               }}
             >
-              <img src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized%20(1).webp" alt="growVelo" className="w-full h-full object-contain" />
+              <<img src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized%20(1).webp" alt="growVelo" width="160" height="40" fetchPriority="high" className="w-full h-full object-contain" />
             </div>
             <span className="truncate font-display text-base font-semibold tracking-tight sm:text-lg">
               <EditableText id="nav.brand.prefix">grow</EditableText><EditableText id="nav.brand.accent" className="grad-text">Velo</EditableText>
@@ -395,6 +395,7 @@ export function Hero() {
                   defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/ataullah_avatar_v2_250.webp"
                   className="h-12 w-12 shrink-0 rounded-full ring-2 ring-white shadow-sm"
                   imgClassName="rounded-full object-cover"
+                  priority={false}
                 />
                     <div className="min-w-0">
                       <div className="font-display text-base font-semibold leading-tight"><EditableText id="hero.instructor.name">Muhammad Ataullah</EditableText></div>
@@ -1441,7 +1442,7 @@ export function Footer() {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5), 0 8px 16px -4px color-mix(in oklab, var(--brand) 50%, transparent)",
               }}
             >
-              <img src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized%20(1).webp" alt="growVelo" className="w-full h-full object-contain" />
+              <img src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized%20(1).webp" alt="growVelo" width="160" height="40" loading="lazy" decoding="async" className="w-full h-full object-contain" />
             </div>
             <div>
               <div className="font-display text-lg font-semibold">
