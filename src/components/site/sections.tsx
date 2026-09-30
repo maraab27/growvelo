@@ -156,7 +156,7 @@ export function Nav({ session }: { session?: any }) {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 10px -4px color-mix(in oklab, var(--brand) 40%, transparent)",
               }}
             >
-              <<img src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized%20(1).webp" alt="growVelo" width="160" height="40" fetchPriority="high" className="w-full h-full object-contain" />
+              <img src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized%20(1).webp" alt="growVelo" width="160" height="40" className="w-full h-full object-contain" />
             </div>
             <span className="truncate font-display text-base font-semibold tracking-tight sm:text-lg">
               <EditableText id="nav.brand.prefix">grow</EditableText><EditableText id="nav.brand.accent" className="grad-text">Velo</EditableText>
