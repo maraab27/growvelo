@@ -347,7 +347,7 @@ export function Hero() {
                <div className="relative mt-5 w-full overflow-hidden rounded-2xl ring-1 ring-black/10 bg-black aspect-video">
   <img
   id="hero.card.thumbnail"
-  src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp"
+  src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
   alt="Batch 03 Masterclass"
   width="640"
   height="360"
@@ -1108,7 +1108,7 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
  <img
                   src={
                     c.slug === 'video-editing-batch-3'
-                      ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp"
+                      ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
                       : c.slug === 'video-editing-bootcamp'
                       ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_bootcamp_1790392749275.jpg"
                       : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_1790392675165.jpg"
