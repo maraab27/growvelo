@@ -156,7 +156,7 @@ export function Nav({ session }: { session?: any }) {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 10px -4px color-mix(in oklab, var(--brand) 40%, transparent)",
               }}
             >
-              <img src={logoAsset.url} alt="growVelo" className="w-full h-full object-contain" />
+              <img src={logoAsset?.url || "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized.webp"} alt="growVelo" className="w-full h-full object-contain" />
             </div>
             <span className="truncate font-display text-base font-semibold tracking-tight sm:text-lg">
               <EditableText id="nav.brand.prefix">grow</EditableText><EditableText id="nav.brand.accent" className="grad-text">Velo</EditableText>
@@ -1100,7 +1100,7 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
                     c.slug === 'video-editing-batch-3'
                       ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp"
                       : c.slug === 'video-editing-bootcamp'
-                      ? batch01Thumbnail.url
+                      ? (batch01Thumbnail?.url || "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp")
                       : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp"
                   }
                   alt={c.title}
@@ -1441,7 +1441,7 @@ export function Footer() {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5), 0 8px 16px -4px color-mix(in oklab, var(--brand) 50%, transparent)",
               }}
             >
-              <img src={logoAsset.url} alt="growVelo" className="w-full h-full object-contain" />
+              <img src={logoAsset?.url || "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized.webp"} alt="growVelo" className="w-full h-full object-contain" />
             </div>
             <div>
               <div className="font-display text-lg font-semibold">
