@@ -97,7 +97,7 @@ function DashboardPage() {
                         <img
                       src={
                         enrollment.course_slug === "video-editing-batch-3"
-                          ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp"
+                          ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
                           : enrollment.course_slug === "video-editing-bootcamp"
                           ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_bootcamp_1790392749275.jpg"
                           : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_1790392675165.jpg"
