@@ -95,15 +95,21 @@ function DashboardPage() {
                       {/* থাম্বনেইল */}
                       <div className="relative aspect-video w-full overflow-hidden bg-black/40 border-b border-white/5">
                         <img
-  src={
-    enrollment.course_slug === "video-editing-batch-2"
-      ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_1790048453894.png"
-      : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_3_1790141496013.jpg"
-  }
-  alt="Course Cover"
-  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-/>
-
+                      src={
+                        enrollment.course_slug === "video-editing-batch-3"
+                          ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp"
+                          : enrollment.course_slug === "video-editing-bootcamp"
+                          ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_bootcamp_1790392749275.jpg"
+                          : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_1790392675165.jpg"
+                      }
+                      alt="Course Cover"
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                         // কোনো কারণে লিংক ফেইল করলে যাতে ব্যাকআপ ইমেজ দেখায়
+                         e.currentTarget.src = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp";
+                      }}
+                    />
                         {/* ব্যাচ ট্যাগ (Batch 02 / Batch 03) */}
                         <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md text-xs font-bold bg-black/70 backdrop-blur-md text-white border border-white/10">
                           {enrollment.course_slug === "video-editing-batch-2"
