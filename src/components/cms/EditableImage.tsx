@@ -118,10 +118,20 @@ export const EditableImage = ({
         <img
           src={displaySrc}
           alt={alt}
-          loading="eager"
+          loading={priority ? "eager" : "lazy"}
           decoding="async"
-          fetchPriority="high"
+          fetchPriority={priority ? "high" : "low"}
           className={`w-full h-full object-cover ${imgClassName}`}
+          onError={(e) => {
+            // লোকালস্টোরেজে নষ্ট লিংক থাকলে তা মুছে ফেলবে
+            if (typeof window !== 'undefined') {
+              localStorage.removeItem(`cache_img_${id}`);
+            }
+            // ইমেজ 400 এরর খেলে ডিফল্ট ব্যাকআপ ইমেজে সুইচ করবে, গায়েব হবে না
+            if (defaultSrc && e.currentTarget.src !== defaultSrc) {
+              e.currentTarget.src = defaultSrc;
+            }
+          }}
         />
       ) : (
         <div className="w-full h-full bg-neutral-800" />
