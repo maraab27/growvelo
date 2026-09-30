@@ -1095,7 +1095,7 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
                 className={`sticky-card tint-${c.tint} block p-3 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl active:scale-[0.98] cursor-pointer group`}
               >
                 <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-black/10">
-  <img
+ <img
                   src={
                     c.slug === 'video-editing-batch-3'
                       ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp"
@@ -1108,11 +1108,6 @@ export function FeaturedCourses({ limit, isHomePage }: { limit?: number; isHomeP
                   decoding="async"
                   className="w-full h-full object-cover"
                 />
-                        className="w-full h-full"
-                        imgClassName="w-full h-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                      />
   <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
   <div className="pointer-events-none absolute left-2.5 top-2.5 z-10">
     <Chip color={c.chipColor}><EditableText id={`courses.${c.slug}.level`}>{c.level}</EditableText></Chip>
