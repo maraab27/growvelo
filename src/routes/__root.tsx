@@ -148,10 +148,7 @@ function RootShell({ children }: { children: ReactNode }) {
           />
         </noscript>
         {/* --- End Meta Pixel Code --- */}
-        {/* Google Fonts প্রি-কানেক্ট */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" />
+        
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <style dangerouslySetInnerHTML={{ __html: `
           #lovable-badge, 
