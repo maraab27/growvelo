@@ -1662,6 +1662,7 @@ useEffect(() => {
                 decoding="async"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
               />
+              </div>
               {previewVideoId && (
                 <>
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors">
@@ -1877,6 +1878,7 @@ useEffect(() => {
                 decoding="async"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
+            </div>
                     {previewVideoId && (
                       <div 
                         onClick={() => setActiveVideo(previewVideoId)}
