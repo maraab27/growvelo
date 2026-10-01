@@ -1662,7 +1662,6 @@ useEffect(() => {
                 decoding="async"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
               />
-              </div>
               {previewVideoId && (
                 <>
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors">
@@ -1868,36 +1867,40 @@ useEffect(() => {
   </div>
 </div>
               </div>
-
-              <img
-                src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
-                alt={course.title}
-                width="1280"
-                height="533"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-                    {previewVideoId && (
-                      <div 
-                        onClick={() => setActiveVideo(previewVideoId)}
-                        className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors cursor-pointer pointer-events-auto z-10"
-                      >
-                        <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
-                          <Play className="w-5 h-5 fill-white ml-0.5" />
-                        </div>
-                      </div>
-                    )}
-                    <div className="absolute top-3 left-3 pointer-events-auto z-20">
-                      <span className="px-2.5 py-1 rounded-[4px] text-xs font-medium bg-black/70 text-white backdrop-blur-md border border-white/10 font-sans">
-                        <EditableText id={`course.${course.slug}.preview.badge`}>
-                          Curriculum Preview
-                        </EditableText>
-                      </span>
+{/* Right: Sticky Card */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28">
+            <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
+              <div
+                onContextMenu={(e) => e.preventDefault()}
+                className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5"
+              >
+                <img
+                  src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
+                  alt={course.title}
+                  width="1280"
+                  height="533"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                {previewVideoId && (
+                  <div
+                    onClick={() => setActiveVideo(previewVideoId)}
+                    className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover:bg-black/25 transition-colors cursor-pointer"
+                  >
+                    <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg">
+                      <Play className="w-5 h-5 fill-white ml-0.5" />
                     </div>
                   </div>
-
+                )}
+                <div className="absolute top-3 left-3 pointer-events-auto z-20">
+                  <span className="px-2.5 py-1 rounded-[4px] text-xs font-medium bg-black/70 text-white backdrop-blur-md border border-white/10">
+                    <EditableText id={`course.${course.slug}.preview.badge`}>
+                      Curriculum Preview
+                    </EditableText>
+                  </span>
+                </div>
+              </div>
                   {/* Price & Offer Badge */}
                   <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pb-1 relative z-20">
                     <div className="flex items-baseline gap-2.5">
