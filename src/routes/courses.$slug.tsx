@@ -1653,13 +1653,15 @@ useEffect(() => {
                       onContextMenu={(e) => e.preventDefault()}
                       className={`relative aspect-video w-full group select-none ${previewVideoId ? "cursor-pointer" : ""}`}
                     >
-                      <EditableImage
-                        id={`course.thumb.${course.slug}`}
-                        defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
-                        alt={course.title}
-                        className="w-full h-full pointer-events-none select-none"
-                        imgClassName="transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none [user-drag:none] [-webkit-user-drag:none]"
-                      />
+                      <img
+                  src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
+                  alt={course.title}
+                  width="1280"
+                  height="533"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
+                />
                       {previewVideoId && (
                         <>
                           <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors pointer-events-auto">
@@ -1867,13 +1869,15 @@ useEffect(() => {
 </div>
               </div>
 
-              {/* Right: Sticky Card */}
-              <div className="lg:col-span-5 lg:sticky lg:top-28">
-                <div className="glass-strong rounded-3xl p-6 sm:p-7 border border-border/60 shadow-xl overflow-hidden backdrop-blur-md">
-                  <div
-                    onContextMenu={(e) => e.preventDefault()}
-                    className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5"
-                  >
+              <img
+                src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
+                alt={course.title}
+                width="1280"
+                height="533"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
                     <EditableImage
                       id={`course.thumb.${course.slug}`}
                       defaultSrc={course.thumb?.startsWith("http") ? course.thumb : ""}
