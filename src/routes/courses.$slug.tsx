@@ -1647,39 +1647,38 @@ useEffect(() => {
                 {/* Course Banner Card */}
                 <div className="glass-strong rounded-3xl border border-border/70 shadow-lg relative overflow-hidden backdrop-blur-md select-none">
                   {/* Mobile Edge-to-Edge Banner */}
-                  <div className="block lg:hidden w-full border-b border-border/40 select-none">
-                    <div
-                      onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
-                      onContextMenu={(e) => e.preventDefault()}
-                      className={`relative aspect-video w-full group select-none ${previewVideoId ? "cursor-pointer" : ""}`}
-                    >
-                      <img
-                  src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
-                  alt={course.title}
-                  width="1280"
-                  height="533"
-                  fetchPriority="high"
-                  decoding="async"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
-                />
-                      {previewVideoId && (
-                        <>
-                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors pointer-events-auto">
-                            <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg group-hover:scale-110 transition-transform">
-                              <Play className="w-5 h-5 fill-white ml-0.5" />
-                            </div>
-                          </div>
-                          <div className="absolute top-3 left-3 pointer-events-auto">
-                            <span className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-black/75 text-white backdrop-blur-md border border-white/10 font-sans">
-                              <Play className="w-3 h-3 fill-white inline mr-1" />
-                              <span>Watch Preview</span>
-                            </span>
-                          </div>
-                        </>
-                      )}
+          <div className="block lg:hidden w-full border-b border-border/40 select-none">
+            <div
+              onClick={() => previewVideoId && setActiveVideo(previewVideoId)}
+              onContextMenu={(e) => e.preventDefault()}
+              className={`relative aspect-video w-full group select-none ${previewVideoId ? "cursor-pointer" : ""}`}
+            >
+              <img
+                src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
+                alt={course.title}
+                width="1280"
+                height="533"
+                fetchPriority="high"
+                decoding="async"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
+              />
+              {previewVideoId && (
+                <>
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors">
+                    <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-white border border-white/20 shadow-lg">
+                      <Play className="w-5 h-5 fill-white ml-0.5" />
                     </div>
                   </div>
-
+                  <div className="absolute top-3 left-3 pointer-events-auto">
+                    <span className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-black/75 text-white backdrop-blur-md border border-white/10">
+                      <Play className="w-3 h-3 fill-white inline mr-1" />
+                      <span>Watch Preview</span>
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
                   {/* Headline & Meta tags */}
                   <div className="p-5 sm:p-7 space-y-4">
                     <div className="flex flex-wrap items-center gap-2 text-xs font-mono font-semibold uppercase text-primary tracking-wider">
