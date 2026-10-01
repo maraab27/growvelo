@@ -121,6 +121,26 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
+        
+        
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <style dangerouslySetInnerHTML={{ __html: `
+          #lovable-badge, 
+          [id*="lovable-badge"], 
+          a[href*="lovable.app/?utm_source=badge"] { 
+            display: none !important; 
+            visibility: hidden !important; 
+            pointer-events: none !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            width: 0 !important;
+          }
+        ` }} />
+      </head>
+      <body>
+        {children}
+        <Toaster position="top-center" richColors />
+        <Scripts />
         {/* --- Meta Pixel Base Code --- */}
         <script
           dangerouslySetInnerHTML={{
@@ -148,25 +168,6 @@ function RootShell({ children }: { children: ReactNode }) {
           />
         </noscript>
         {/* --- End Meta Pixel Code --- */}
-        
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <style dangerouslySetInnerHTML={{ __html: `
-          #lovable-badge, 
-          [id*="lovable-badge"], 
-          a[href*="lovable.app/?utm_source=badge"] { 
-            display: none !important; 
-            visibility: hidden !important; 
-            pointer-events: none !important;
-            opacity: 0 !important;
-            height: 0 !important;
-            width: 0 !important;
-          }
-        ` }} />
-      </head>
-      <body>
-        {children}
-        <Toaster position="top-center" richColors />
-        <Scripts />
       </body>
     </html>
   );
