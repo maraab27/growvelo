@@ -1662,12 +1662,6 @@ useEffect(() => {
             >
               <img
   src={bannerUrl}
-    course.slug === 'video-editing-batch-3'
-      ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
-      : course.slug === 'video-editing-bootcamp'
-      ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_bootcamp_1790392749.webp"
-      : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_1790392675.webp"
-  }
   alt={course.title}
   width="1280"
   height="533"
@@ -1889,12 +1883,6 @@ useEffect(() => {
               >
                 <img
   src={bannerUrl}
-    course.slug === 'video-editing-batch-3'
-      ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
-      : course.slug === 'video-editing-bootcamp'
-      ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_bootcamp_1790392749.webp"
-      : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_1790392675.webp"
-  }
   alt={course.title}
   width="1280"
   height="533"
