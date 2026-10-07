@@ -7,7 +7,7 @@ import {
   ArrowLeft,
   CalendarDays,
   Clock,
-  User,
+  User, 
   X,
   Radio,
   MessageSquare,
