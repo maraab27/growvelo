@@ -7,7 +7,7 @@ import {
   ArrowLeft,
   CalendarDays,
   Clock,
-  User, 
+  User,
   X,
   Radio,
   MessageSquare,
@@ -1481,13 +1481,6 @@ function CourseDetail() {
   const { slug } = Route.useParams();
   const search = Route.useSearch();
   const course = COURSES.find((c) => c.slug === slug)!;
-  let bannerUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_1790392675.webp";
-
-if (course.slug === 'video-editing-batch-3') {
-  bannerUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp";
-} else if (course.slug === 'video-editing-bootcamp') {
-  bannerUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_bootcamp_1790392749.webp";
-}
   const [enrolled, setEnrolled] = useState(false);
 
   // URL-এ ?enroll=true থাকলে অটো মডাল ওপেন হবে (Auth Check Added)
@@ -1661,14 +1654,14 @@ useEffect(() => {
               className={`relative aspect-video w-full group select-none ${previewVideoId ? "cursor-pointer" : ""}`}
             >
               <img
-  src={bannerUrl}
-  alt={course.title}
-  width="1280"
-  height="533"
-  fetchPriority="high"
-  decoding="async"
-  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
-/>
+                src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
+                alt={course.title}
+                width="1280"
+                height="533"
+                fetchPriority="high"
+                decoding="async"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
+              />
               {previewVideoId && (
                 <>
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors">
@@ -1882,14 +1875,14 @@ useEffect(() => {
                 className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5"
               >
                 <img
-  src={bannerUrl}
-  alt={course.title}
-  width="1280"
-  height="533"
-  loading="lazy"
-  decoding="async"
-  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-/>
+                  src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
+                  alt={course.title}
+                  width="1280"
+                  height="533"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
                 {previewVideoId && (
                   <div
                     onClick={() => setActiveVideo(previewVideoId)}
