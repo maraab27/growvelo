@@ -859,67 +859,138 @@ function TabCurriculum({ courseSlug, isBatch1 }: { courseSlug: string; isBatch1:
   ];
 
   const batchRegularModules = [
-    {
-      moduleNo: "Module 01",
-      title: "Premiere Pro Fundamentals & Fast Workflow",
-      desc: "ইন্টারফেস কাস্টমাইজেশন, টাইমলাইন সিক্রেট, প্রো লেভেল শর্টকাট ও অর্গানাইজড ফাইল ম্যানেজমেন্ট।",
-      lessons: [
-        "লেসন ১: প্রোডাকশন রেডি টাইমলাইন ও প্রোজেক্ট সেটআপ",
-        "লেসন ২: রাফ কাট ও প্রিসিশন ট্রিম টেকনিক",
-        "লেসন ৩: ইনজেস্ট সেটিংস ও ক্যাশ অপটিমাইজেশন",
-      ],
-    },
-    {
-      moduleNo: "Module 02",
-      title: "The Art of Storytelling & Pacing",
-      desc: "দর্শকদের স্ক্রিনে আটকে রাখার সাইকোলজি, রিলস ও শর্টস হুক এবং রিটেনশন টেকনিক।",
-      lessons: [
-        "লেসন ১: ৩ সেকেন্ড হুক ও জাম্প কাটের সঠিক ব্যবহার",
-        "লেসন ২: ম্যাচ কাট, ইনভিজিবল কাট ও রিদম ব্যালেন্স",
-        "লেসন ৩: ডকুমেন্টারি বনাম সোশ্যাল মিডিয়া স্টোরিটেলিং",
-      ],
-    },
-    {
-      moduleNo: "Module 03",
-      title: "Advanced Sound Design & Foley",
-      desc: "ভিডিওর প্রাণ হলো সাউন্ড। অডিও ব্যালেন্সিং, সাউন্ড ইফেক্ট লেয়ারিং ও অডিও এনহ্যান্সমেন্ট।",
-      lessons: [
-        "লেসন ১: সাউন্ড ইফেক্টস (SFX) ও রাইজার সিঙ্কিং",
-        "লেসন ২: ভয়েস ওভার মাস্টারিং ও ব্যাকগ্রাউন্ড নয়েজ রিমুভাল",
-        "লেসন ৩: ভিডিওর মুড অনুযায়ী ব্যাকগ্রাউন্ড মিউজিক লেয়ারিং",
-      ],
-    },
-    {
-      moduleNo: "Module 04",
-      title: "Cinematic Color Grading",
-      desc: "কালার স্পেস, স্কিন টোন কারেকশন ও সিনেমাটিক লুক তৈরির ইন ডেপথ গাইডলাইন।",
-      lessons: [
-        "লেসন ১: Lumetri Color স্কোপস ও প্রাইমারি কারেকশন",
-        "লেসন ২: প্রফেশনাল স্কিন টোন প্রোটেকশন",
-        "লেসন ৩: কাস্টম সিনেমাটিক LUTs ও মুড ক্রিয়েশন",
-      ],
-    },
-    {
-      moduleNo: "Module 05",
-      title: "Motion Graphics in After Effects",
-      desc: "আকর্ষণীয় টেক্সট অ্যানিমেশন, লোয়ার থার্ড, মোশন ট্র্যাকিং ও ডায়নামিক ট্রানজিশন।",
-      lessons: [
-        "লেসন ১: কাইনেটিক টাইপোগ্রাফি ও হুক টাইটেলস",
-        "লেসন ২: ট্র্যাকিং, মাস্কিং ও মোশন ব্লার টেকনিক",
-        "লেসন ৩: মডার্ন পেপার টিয়ার ও ডকুমেন্টারি স্টাইল অ্যানিমেশন",
-      ],
-    },
-    {
-      moduleNo: "Module 06",
-      title: "Client Acquisition & Portfolio Building",
-      desc: "স্কিল শেখার পর আসল ক্লায়েন্ট পাওয়া এবং ডিল ক্লোজ করার কার্যকর স্ট্র্যাটেজি।",
-      lessons: [
-        "লেসন ১: হাই কনভার্টিং ভিডিও এডিটিং পোর্টফোলিও তৈরি",
-        "লেসন ২: আন্তর্জাতিক ও লোকাল ক্লায়েন্টদের আউটরিচ করার ফ্রেমওয়ার্ক",
-        "লেসন ৩: ডিসকর্ড সাপোর্ট সিস্টেম ও লং টার্ম ক্যারিয়ার রোডম্যাপ",
-      ],
-    },
-  ];
+  {
+    moduleNo: "Module 01",
+    title: "Ae Basics",
+    desc: "ইন্টারফেস, composition তৈরি, ফুটেজ ইম্পোর্ট, টুলবার, লেয়ার প্রপার্টিজ এবং কিফ্রেমিং বেসিক।",
+    lessons: [
+      "1.1 INTRODUCTION to AFTER EFFECT — ইন্টারফেস, composition তৈরি, ফুটেজ ইম্পোর্ট+Render",
+      "1.2 Toolbar of After Effects",
+      "1.3 Layer properties (position/scale/rotation/opacity) + কিফ্রেমিং বেসিক",
+      "1.4 After Effects Keyboard Shortcuts",
+      "1.5 Assignment"
+    ],
+  },
+  {
+    moduleNo: "Module 02",
+    title: "Line & Path Animation",
+    desc: "লাইন এবং পাথ অ্যানিমেশনের খুঁটিনাটি ও প্র্যাকটিস রিসোর্স।",
+    lessons: [
+      "2.1 What we will learn today?",
+      "2.2 Line Animation",
+      "2.3 Path Animation",
+      "2.4 Practice Resources",
+      "2.5 Assignment"
+    ],
+  },
+  {
+    moduleNo: "Module 03",
+    title: "Saber Effect Basics",
+    desc: "সাইবার ইফেক্ট ফ্রি প্লাগ-ইন এবং স্ট্যাটিক ভিডিওতে এর ব্যবহার।",
+    lessons: [
+      "3.1 What we will learn today?",
+      "3.2 Saber Effect Free Plug-in",
+      "3.3 Saber Effect on Static Video"
+    ],
+  },
+  {
+    moduleNo: "Module 04",
+    title: "Adjustment Layer and Null Object",
+    desc: "অ্যাডজাস্টমেন্ট লেয়ার এবং নাল অবজেক্টের প্রোফেশনাল ব্যবহার।",
+    lessons: [
+      "Adjustment Layer and Null Object Masterclass"
+    ],
+  },
+  {
+    moduleNo: "Module 05",
+    title: "Text Animation Basics",
+    desc: "বাংলা এবং ইংলিশ টেক্সট অ্যানিমেশনের বেসিক ধারণা।",
+    lessons: [
+      "Text Animation Basics (বাংলা + English টেক্সট)"
+    ],
+  },
+  {
+    moduleNo: "Module 06",
+    title: "Advanced Text Animation",
+    desc: "অ্যাডভান্সড লেভেলের টেক্সট অ্যানিমেশন ও অ্যাসাইনমেন্ট।",
+    lessons: [
+      "Advanced Text Animation",
+      "Assignment"
+    ],
+  },
+  {
+    moduleNo: "Module 07",
+    title: "Floating Text",
+    desc: "ফ্লোটিং টেক্সট এডিটিং এবং প্র্যাকটিস রিসোর্স।",
+    lessons: [
+      "7.1 What we will learn today?",
+      "7.2 Floating Text Editing",
+      "7.3 Practice Resources",
+      "7.4 Assignment"
+    ],
+  },
+  {
+    moduleNo: "Module 08",
+    title: "Floating Object",
+    desc: "ফ্লোটিং অবজেক্ট এডিটিং এবং প্র্যাকটিস ফাইল।",
+    lessons: [
+      "8.1 What we will learn today?",
+      "8.2 Floating Object Editing",
+      "8.3 Practice Resources",
+      "8.4 Assignment"
+    ],
+  },
+  {
+    moduleNo: "Module 09",
+    title: "Tracking",
+    desc: "ট্র্যাকিং টেকনিক, প্র্যাকটিস রিসোর্স ও অ্যাসাইনমেন্ট।",
+    lessons: [
+      "9.1 Practice Resources",
+      "9.2 Assignment"
+    ],
+  },
+  {
+    moduleNo: "Module 10",
+    title: "Stabilization",
+    desc: "ওয়ার্প স্টাবিলাইজার এবং মোশন স্টাবিলাইজেশন।",
+    lessons: [
+      "10.1 Warp Stabilizer",
+      "10.2 Motion Stabilization",
+      "10.3 Practice Resources",
+      "10.4 Assignment"
+    ],
+  },
+  {
+    moduleNo: "Module 11",
+    title: "Rotoscoping",
+    desc: "রোটোস্কোপিং টেকনিক এবং প্র্যাকটিস ফাইল।",
+    lessons: [
+      "11.1 Rotoscoping",
+      "11.2 Practice Resources",
+      "11.3 Assignment"
+    ],
+  },
+  {
+    moduleNo: "Module 12",
+    title: "Export Settings",
+    desc: "আফটার ইফেক্টসে এক্সপোর্টিং এবং ট্রান্সপারেন্ট ভিডিও এক্সপোর্ট।",
+    lessons: [
+      "12.1 Exporting in After Effects",
+      "12.2 Transparent Video Export",
+      "12.3 Practice Resources",
+      "12.4 Assignment"
+    ],
+  },
+  {
+    moduleNo: "Module 13",
+    title: "How to Get Clients?",
+    desc: "ক্লায়েন্ট হান্টিং এবং ফ্রিল্যান্সিং ক্যারিয়ার গাইডলাইন।",
+    lessons: [
+      "13.1 How to get Clients & Conclusion",
+      "Extra Bonus Classes..."
+    ],
+  },
+];
 
   const storageSuffix = isBatch1 ? "b1_v2" : "regular";
 
