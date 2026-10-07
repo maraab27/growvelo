@@ -1655,11 +1655,11 @@ useEffect(() => {
             >
               <img
             src={
-              course.slug === 'video-editing-batch-3'
-                ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
-                : course.slug === 'video-editing-bootcamp'
+              isBatch1
                 ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_bootcamp_1790392749.webp"
-                : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_17903926751.webp"
+                : isBatch2
+                ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_17903926751.webp"
+                : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
             }
             alt={course.title}
             width="1280"
@@ -1882,18 +1882,18 @@ useEffect(() => {
               >
                 <img
             src={
-              course.slug === 'video-editing-batch-3'
-                ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
-                : course.slug === 'video-editing-bootcamp'
+              isBatch1
                 ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_bootcamp_1790392749.webp"
-                : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_17903926751.webp"
+                : isBatch2
+                ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_17903926751.webp"
+                : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
             }
             alt={course.title}
             width="1280"
             height="533"
-            fetchPriority="high"
+            loading="lazy"
             decoding="async"
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
                 {previewVideoId && (
                   <div
