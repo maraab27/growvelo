@@ -1481,6 +1481,13 @@ function CourseDetail() {
   const { slug } = Route.useParams();
   const search = Route.useSearch();
   const course = COURSES.find((c) => c.slug === slug)!;
+  let bannerUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_1790392675.webp";
+
+if (course.slug === 'video-editing-batch-3') {
+  bannerUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp";
+} else if (course.slug === 'video-editing-bootcamp') {
+  bannerUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_bootcamp_1790392749.webp";
+}
   const [enrolled, setEnrolled] = useState(false);
 
   // URL-এ ?enroll=true থাকলে অটো মডাল ওপেন হবে (Auth Check Added)
@@ -1654,7 +1661,7 @@ useEffect(() => {
               className={`relative aspect-video w-full group select-none ${previewVideoId ? "cursor-pointer" : ""}`}
             >
               <img
-  src={
+  src={bannerUrl}
     course.slug === 'video-editing-batch-3'
       ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
       : course.slug === 'video-editing-bootcamp'
@@ -1881,7 +1888,7 @@ useEffect(() => {
                 className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5"
               >
                 <img
-  src={
+  src={bannerUrl}
     course.slug === 'video-editing-batch-3'
       ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
       : course.slug === 'video-editing-bootcamp'
