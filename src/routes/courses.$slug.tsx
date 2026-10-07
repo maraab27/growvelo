@@ -1654,7 +1654,7 @@ useEffect(() => {
               className={`relative aspect-video w-full group select-none ${previewVideoId ? "cursor-pointer" : ""}`}
             >
               <img
-                src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
+                src={course.slug.includes("batch-3") || course.slug.includes("batch-03") ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp" : course.thumbnail}
                 alt={course.title}
                 width="1280"
                 height="533"
@@ -1875,7 +1875,7 @@ useEffect(() => {
                 className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5"
               >
                 <img
-                  src="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
+                  src={course.slug.includes("batch-3") || course.slug.includes("batch-03") ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp" : course.thumbnail}
                   alt={course.title}
                   width="1280"
                   height="533"
