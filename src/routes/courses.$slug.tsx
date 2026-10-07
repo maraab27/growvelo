@@ -1654,7 +1654,13 @@ useEffect(() => {
               className={`relative aspect-video w-full group select-none ${previewVideoId ? "cursor-pointer" : ""}`}
             >
               <img
-                src={course.thumb}
+                src={
+            course.slug === 'video-editing-batch-3'
+              ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp"
+              : course.slug === 'video-editing-bootcamp'
+              ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_bootcamp_1790392749.webp"
+              : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_17903926751.webp"
+          }
                 alt={course.title}
                 width="1280"
                 height="533"
@@ -1875,7 +1881,13 @@ useEffect(() => {
                 className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5"
               >
                 <img
-                  src={course.thumb}
+                  src={
+            course.slug === 'video-editing-batch-3'
+              ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/batch_03_final_compressed_v99.webp"
+              : course.slug === 'video-editing-bootcamp'
+              ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_bootcamp_1790392749.webp"
+              : "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/course_thumb_video_editing_batch_2_17903926751.webp"
+          }
                   alt={course.title}
                   width="1280"
                   height="533"
