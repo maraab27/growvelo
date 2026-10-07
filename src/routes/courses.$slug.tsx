@@ -1654,14 +1654,14 @@ useEffect(() => {
               className={`relative aspect-video w-full group select-none ${previewVideoId ? "cursor-pointer" : ""}`}
             >
               <img
-                src={course.slug.includes("batch-3") || course.slug.includes("batch-03") ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp" : course.thumbnail}
-                alt={course.title}
-                width="1280"
-                height="533"
-                fetchPriority="high"
-                decoding="async"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
-              />
+  src={course.slug.includes("batch-3") || course.slug.includes("batch-03") ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp" : course.banner || "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_course_preview.webp"}
+  alt={course.title}
+  width="1280"
+  height="533"
+  fetchPriority="high"
+  decoding="async"
+  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none select-none"
+/>
               {previewVideoId && (
                 <>
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors">
@@ -1875,14 +1875,14 @@ useEffect(() => {
                 className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 group mb-5"
               >
                 <img
-                  src={course.slug.includes("batch-3") || course.slug.includes("batch-03") ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp" : course.thumbnail}
-                  alt={course.title}
-                  width="1280"
-                  height="533"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+  src={course.slug.includes("batch-3") || course.slug.includes("batch-03") ? "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp" : course.banner || "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_course_preview.webp"}
+  alt={course.title}
+  width="1280"
+  height="533"
+  loading="lazy"
+  decoding="async"
+  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+/>
                 {previewVideoId && (
                   <div
                     onClick={() => setActiveVideo(previewVideoId)}
