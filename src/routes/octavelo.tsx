@@ -9,7 +9,6 @@ import {
   ShieldCheck,
   Send,
   Check,
-  Sparkles,
   BookOpen,
 } from "lucide-react";
 import { EditableText } from "../components/cms/EditableText";
@@ -64,23 +63,23 @@ TrxID: ${formData.trxId}`;
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0c0a] text-zinc-100 selection:bg-[#d4ff32] selection:text-black font-sans antialiased relative pb-24 lg:pb-16">
+    <div className="min-h-screen bg-[#0e110e] text-zinc-100 selection:bg-[#cde18e] selection:text-black font-sans antialiased relative pb-24 lg:pb-16">
       
-      {/* 2D Flat Minimal Header */}
+      {/* 2D Flat Minimal Header (Reduced Curves) */}
       <div className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-3 pointer-events-none">
-        <header className="pointer-events-auto flex w-full max-w-4xl items-center justify-between rounded-full border border-white/10 bg-[#111411]/95 px-4 py-2 sm:px-6 sm:py-2.5 backdrop-blur-md shadow-md">
+        <header className="pointer-events-auto flex w-full max-w-5xl items-center justify-between rounded-2xl border border-white/10 bg-[#141814]/95 px-4 py-2.5 sm:px-6 sm:py-3 backdrop-blur-md shadow-sm">
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-full bg-[#d4ff32] flex items-center justify-center font-mono font-black text-black text-xs">
+            <div className="w-8 h-8 rounded-xl bg-[#cde18e] flex items-center justify-center font-mono font-black text-black text-xs">
               O
             </div>
             <span className="font-black text-xs sm:text-sm tracking-wider uppercase font-mono text-white">
-              OCTA<span className="text-[#d4ff32]">VELO</span>
+              OCTA<span className="text-[#cde18e]">VELO</span>
             </span>
           </div>
 
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-[#d4ff32] text-black font-black text-xs sm:text-sm hover:bg-[#c2f022] active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
+            className="px-4 py-2 rounded-xl bg-[#cde18e] text-black font-extrabold text-xs sm:text-sm hover:bg-[#bdd37d] active:scale-95 transition-all cursor-pointer flex items-center gap-1.5 shadow-none"
           >
             <span>
               <EditableText id="octavelo.nav.btn">পিডিএফ গাইড (৯৯৳)</EditableText>
@@ -94,44 +93,52 @@ TrxID: ${formData.trxId}`;
       <main className="max-w-6xl mx-auto px-4 sm:px-8 pt-24 sm:pt-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Left Column: Editorial Content */}
+          {/* Left Column: Editorial 2D Content */}
           <div className="lg:col-span-7 text-left space-y-6">
             
-            {/* Minimal Editorial Badge */}
-            <div className="inline-block text-[11px] font-mono uppercase tracking-widest text-[#d4ff32] font-semibold">
-              <EditableText id="octavelo.badge">[ Behavioral Science • Communication ]</EditableText>
+            {/* 2D Sticker Badges Stack */}
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <span className="px-3 py-1 rounded-lg bg-[#cde18e] text-black text-[11px] font-black uppercase font-mono tracking-normal">
+                <EditableText id="octavelo.tag.1">Behavioral Science</EditableText>
+              </span>
+              <span className="px-3 py-1 rounded-lg bg-[#2dd4bf] text-black text-[11px] font-black uppercase font-mono">
+                <EditableText id="octavelo.tag.2">Frame Control</EditableText>
+              </span>
+              <span className="px-3 py-1 rounded-lg bg-[#f43f5e] text-white text-[11px] font-black uppercase font-mono">
+                <EditableText id="octavelo.tag.3">৮০% অফার</EditableText>
+              </span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black leading-[1.2] text-white">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black leading-[1.25] text-white tracking-normal">
               <EditableText id="octavelo.title1">গলার জোর নয়,</EditableText> <br />
-              <span className="text-[#d4ff32]">
+              <span className="text-[#cde18e]">
                 <EditableText id="octavelo.title2">সাইকোলজি দিয়ে জিতুন!</EditableText>
               </span>
             </h1>
 
             <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-lg">
               <EditableText id="octavelo.desc">
-                তর্কে প্রতিপক্ষকে পরাজিত করতে অহেতুক তর্ক নয়, প্রয়োজন ফ্রেম কন্ট্রোল। মানুষের অবচেতন আচরণ ও ইগো নিয়ন্ত্রণ করার সম্পূর্ণ প্র্যাকটিক্যাল মনস্তাত্ত্বিক ব্লু-প্রিন্ট গাইড।
+                তর্কে প্রতিপক্ষকে পরাজিত করতে অহেতুক কথা নয়, প্রয়োজন ফ্রেম কন্ট্রোল। মানুষের অবচেতন আচরণ ও ইগো নিয়ন্ত্রণ করার সম্পূর্ণ প্র্যাকটিক্যাল মনস্তাত্ত্বিক ব্লু-প্রিন্ট গাইড।
               </EditableText>
             </p>
 
-            {/* 2D Pricing & Clean Action Button */}
+            {/* 2D Flat Pricing Card & Clean Button */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
-              <div className="flex items-center justify-between sm:justify-start gap-3 px-5 py-3 rounded-full bg-[#151915] border border-white/10">
+              <div className="flex items-center justify-between sm:justify-start gap-3 px-5 py-3 rounded-xl bg-[#141814] border border-white/10">
                 <span className="text-2xl font-black font-mono text-white">
                   <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
                 </span>
                 <span className="text-xs text-zinc-500 line-through font-mono">
                   <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
                 </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-[#e11d48] text-white text-[10px] font-black uppercase">
+                <span className="px-2.5 py-1 rounded-lg bg-[#f43f5e] text-white text-[10px] font-black uppercase">
                   <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
                 </span>
               </div>
 
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="px-8 py-3.5 rounded-full bg-[#d4ff32] hover:bg-[#c2f022] text-black font-black text-sm flex items-center justify-center gap-2 active:scale-95 transition-all cursor-pointer shadow-sm"
+                className="px-7 py-3.5 rounded-xl bg-[#cde18e] hover:bg-[#bdd37d] text-black font-black text-sm flex items-center justify-center gap-2 active:scale-95 transition-all cursor-pointer shadow-none"
               >
                 <Download className="w-4 h-4 text-black stroke-[2.5]" />
                 <span>
@@ -140,11 +147,11 @@ TrxID: ${formData.trxId}`;
               </button>
             </div>
 
-            {/* Storyboard Step Pills (Reference 1 Style) */}
+            {/* Storyboard 2D Step Cards */}
             <div className="pt-2 space-y-2.5 max-w-md">
-              <div className="flex items-center gap-3 p-2.5 rounded-2xl bg-[#141814] border border-white/5">
-                <div className="w-6 h-6 rounded-full bg-[#064e3b] text-[#86efac] flex items-center justify-center text-xs font-bold shrink-0">
-                  ১
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-[#141814] border border-white/10">
+                <div className="w-7 h-7 rounded-lg bg-[#cde18e] text-black flex items-center justify-center text-xs font-black shrink-0">
+                  ০১
                 </div>
                 <div className="text-xs text-zinc-200">
                   <span className="font-bold text-white block">
@@ -156,23 +163,23 @@ TrxID: ${formData.trxId}`;
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 p-2.5 rounded-2xl bg-[#141814] border border-white/5">
-                <div className="w-6 h-6 rounded-full bg-[#064e3b] text-[#86efac] flex items-center justify-center text-xs font-bold shrink-0">
-                  ২
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-[#141814] border border-white/10">
+                <div className="w-7 h-7 rounded-lg bg-[#2dd4bf] text-black flex items-center justify-center text-xs font-black shrink-0">
+                  ০২
                 </div>
                 <div className="text-xs text-zinc-200">
                   <span className="font-bold text-white block">
                     <EditableText id="octavelo.step2.t">ইগো বনাম যুক্তি ডিটেকশন</EditableText>
                   </span>
                   <span className="text-zinc-400 text-[11px]">
-                    <EditableText id="octavelo.step2.d">ব্যক্তিগত আক্রমণ এড়িয়ে আলাপে আধিপত্য বিস্তার।</EditableText>
+                    <EditableText id="octavelo.step2.d">ব্যক্তিগত আক্রমণ এড়িয়ে আলাপে কর্তৃত্ব ধরে রাখা।</EditableText>
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 p-2.5 rounded-2xl bg-[#141814] border border-white/5">
-                <div className="w-6 h-6 rounded-full bg-[#064e3b] text-[#86efac] flex items-center justify-center text-xs font-bold shrink-0">
-                  ৩
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-[#141814] border border-white/10">
+                <div className="w-7 h-7 rounded-lg bg-[#f43f5e] text-white flex items-center justify-center text-xs font-black shrink-0">
+                  ০৩
                 </div>
                 <div className="text-xs text-zinc-200">
                   <span className="font-bold text-white block">
@@ -187,12 +194,12 @@ TrxID: ${formData.trxId}`;
 
           </div>
 
-          {/* Right Column: Prominent Large 2D Cover Frame */}
+          {/* Right Column: 2D Large Cover Frame */}
           <div className="lg:col-span-5 flex justify-center">
-            <div className="w-full max-w-sm rounded-3xl bg-[#131713] border border-white/10 p-5 text-center shadow-lg">
+            <div className="w-full max-w-sm rounded-2xl bg-[#141814] border border-white/10 p-5 text-center">
               
               {/* Large Cover Box */}
-              <div className="w-full aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 bg-black relative mb-4">
+              <div className="w-full aspect-[4/5] rounded-xl overflow-hidden border border-white/10 bg-black relative mb-4">
                 <EditableImage
                   id="octavelo.main.cover"
                   defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
@@ -204,7 +211,7 @@ TrxID: ${formData.trxId}`;
               {/* Cover Details */}
               <div className="space-y-1.5 text-left px-1">
                 <div className="flex items-center justify-between">
-                  <span className="px-2 py-0.5 rounded-full bg-[#d4ff32] text-black text-[10px] font-black uppercase font-mono">
+                  <span className="px-2.5 py-0.5 rounded-md bg-[#cde18e] text-black text-[10px] font-black uppercase font-mono">
                     <EditableText id="octavelo.cover.badge">Verified Guide</EditableText>
                   </span>
                   <span className="text-xs font-mono text-zinc-400">PDF Slide Format</span>
@@ -222,18 +229,18 @@ TrxID: ${formData.trxId}`;
 
         </div>
 
-        {/* Minimal 3-Point Footer Strip */}
+        {/* Minimal 3-Point Strip */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16 pt-8 border-t border-white/10 text-left">
-          <div className="p-4 rounded-2xl bg-[#121512] border border-white/5">
-            <span className="text-xs font-bold text-[#d4ff32] block">সরাসরি প্রয়োগযোগ্য</span>
+          <div className="p-4 rounded-xl bg-[#141814] border border-white/5">
+            <span className="text-xs font-black text-[#cde18e] block">সরাসরি প্রয়োগযোগ্য</span>
             <p className="text-xs text-zinc-400 mt-1">বাস্তব জীবনের কথোপকথনে সহজে কাজে লাগানোর মতো কৌশল।</p>
           </div>
-          <div className="p-4 rounded-2xl bg-[#121512] border border-white/5">
-            <span className="text-xs font-bold text-white block">লাইফটাইম অ্যাক্সেস</span>
+          <div className="p-4 rounded-xl bg-[#141814] border border-white/5">
+            <span className="text-xs font-black text-[#2dd4bf] block">লাইফটাইম অ্যাক্সেস</span>
             <p className="text-xs text-zinc-400 mt-1">কোনো মেয়াদ নেই, ফাইলটি আজীবন আপনার ডিভাইসে সংরক্ষিত থাকবে।</p>
           </div>
-          <div className="p-4 rounded-2xl bg-[#121512] border border-white/5">
-            <span className="text-xs font-bold text-[#86efac] block">লগইন ঝামেলাহীন</span>
+          <div className="p-4 rounded-xl bg-[#141814] border border-white/5">
+            <span className="text-xs font-black text-[#f43f5e] block">লগইন ঝামেলাহীন</span>
             <p className="text-xs text-zinc-400 mt-1">কোনো অ্যাকাউন্ট বা সাইন-আপ করার প্রয়োজন নেই।</p>
           </div>
         </div>
@@ -244,14 +251,14 @@ TrxID: ${formData.trxId}`;
       </main>
 
       {/* Floating Mobile Sticky Bar */}
-      <div className="fixed bottom-0 inset-x-0 z-40 lg:hidden bg-[#101310]/95 border-t border-white/10 p-3 flex items-center justify-between gap-3">
+      <div className="fixed bottom-0 inset-x-0 z-40 lg:hidden bg-[#141814]/95 border-t border-white/10 p-3 flex items-center justify-between gap-3">
         <div>
           <span className="text-[10px] text-zinc-400 block font-mono">অফার মূল্য</span>
-          <span className="text-base font-bold font-mono text-[#d4ff32]">৯৯ ৳</span>
+          <span className="text-base font-bold font-mono text-[#cde18e]">৯৯ ৳</span>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex-1 py-2.5 px-4 rounded-full bg-[#d4ff32] text-black font-black text-xs flex items-center justify-center gap-1.5 active:scale-95 shadow-sm"
+          className="flex-1 py-2.5 px-4 rounded-xl bg-[#cde18e] text-black font-black text-xs flex items-center justify-center gap-1.5 active:scale-95 shadow-none"
         >
           <span>পিডিএফ আনলক করুন</span>
           <ArrowRight className="w-3.5 h-3.5 text-black" />
@@ -260,9 +267,9 @@ TrxID: ${formData.trxId}`;
 
       {/* 2D Guest Checkout Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-150">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm animate-in fade-in duration-150">
           <div
-            className="w-full max-w-md rounded-3xl bg-[#131713] border border-white/15 p-6 shadow-2xl relative max-h-[92vh] overflow-y-auto"
+            className="w-full max-w-md rounded-2xl bg-[#141814] border border-white/15 p-6 shadow-2xl relative max-h-[92vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -270,7 +277,7 @@ TrxID: ${formData.trxId}`;
                 setIsModalOpen(false);
                 setIsSubmitted(false);
               }}
-              className="absolute top-4 right-4 p-1.5 rounded-full bg-white/10 text-zinc-300 hover:text-white transition-colors cursor-pointer"
+              className="absolute top-4 right-4 p-1.5 rounded-lg bg-white/10 text-zinc-300 hover:text-white transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -278,23 +285,23 @@ TrxID: ${formData.trxId}`;
             {!isSubmitted ? (
               <>
                 <div className="text-center mb-4">
-                  <span className="px-3 py-0.5 rounded-full bg-[#d4ff32] text-black text-[10px] font-mono font-black uppercase tracking-wider">
+                  <span className="px-3 py-0.5 rounded-md bg-[#cde18e] text-black text-[10px] font-mono font-black uppercase tracking-wider">
                     Instant Access
                   </span>
                   <div className="text-3xl font-black font-mono text-white mt-1.5">৯৯ ৳</div>
-                  <h3 className="text-xs text-zinc-300 mt-0.5">
+                  <h3 className="text-xs text-zinc-300 mt-0.5 font-medium">
                     তর্কে জেতার মনস্তাত্ত্বিক মাস্টারক্লাস ব্লু-প্রিন্ট
                   </h3>
                 </div>
 
                 {/* Method Switcher */}
-                <div className="grid grid-cols-2 gap-2 p-1 rounded-full bg-black/40 border border-white/10 mb-3.5">
+                <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-black/40 border border-white/10 mb-3.5">
                   <button
                     type="button"
                     onClick={() => setSelectedMethod("bKash")}
-                    className={`py-2 px-3 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                    className={`py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       selectedMethod === "bKash"
-                        ? "bg-[#E2136E] text-white shadow-sm"
+                        ? "bg-[#E2136E] text-white"
                         : "text-zinc-400 hover:text-white"
                     }`}
                   >
@@ -303,9 +310,9 @@ TrxID: ${formData.trxId}`;
                   <button
                     type="button"
                     onClick={() => setSelectedMethod("Nagad")}
-                    className={`py-2 px-3 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                    className={`py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       selectedMethod === "Nagad"
-                        ? "bg-[#F7921E] text-white shadow-sm"
+                        ? "bg-[#F7921E] text-white"
                         : "text-zinc-400 hover:text-white"
                     }`}
                   >
@@ -314,24 +321,24 @@ TrxID: ${formData.trxId}`;
                 </div>
 
                 {/* Send Money Card */}
-                <div className="rounded-2xl p-3 border border-white/10 bg-black/40 mb-3 space-y-1.5">
+                <div className="rounded-xl p-3 border border-white/10 bg-black/40 mb-3 space-y-1.5">
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-zinc-300 font-medium">
                       সেন্ড মানি নম্বর ({selectedMethod}):
                     </span>
-                    <span className="px-2 py-0.5 rounded-full bg-[#064e3b] text-[#86efac] text-[10px] font-mono font-bold">
+                    <span className="px-2 py-0.5 rounded bg-white/10 text-[#cde18e] text-[10px] font-mono font-bold">
                       Personal
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between gap-2 bg-black/60 p-2 rounded-xl border border-white/10">
+                  <div className="flex items-center justify-between gap-2 bg-black/60 p-2 rounded-lg border border-white/10">
                     <code className="text-sm font-mono font-bold text-white">
                       {paymentNumber}
                     </code>
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="px-2.5 py-1 text-xs rounded-full bg-[#d4ff32] text-black font-bold flex items-center gap-1 hover:bg-[#c2f022] transition-all cursor-pointer"
+                      className="px-2.5 py-1 text-xs rounded-md bg-[#cde18e] text-black font-bold flex items-center gap-1 hover:bg-[#bdd37d] transition-all cursor-pointer"
                     >
                       {copied ? <Check className="w-3 h-3 text-black" /> : <Copy className="w-3 h-3 text-black" />}
                       <span className="text-[11px]">{copied ? "Copied" : "Copy"}</span>
@@ -339,7 +346,7 @@ TrxID: ${formData.trxId}`;
                   </div>
                 </div>
 
-                <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] mb-3 flex items-center gap-2">
+                <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] mb-3 flex items-center gap-2">
                   <AlertCircle className="w-3.5 h-3.5 shrink-0 text-amber-400" />
                   <span>দয়া করে <strong>"Send Money" (সেন্ড মানি)</strong> করবেন।</span>
                 </div>
@@ -354,7 +361,7 @@ TrxID: ${formData.trxId}`;
                       placeholder="যেমন: আব্দুল্লাহ মারাব"
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white focus:outline-none focus:border-[#d4ff32]"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-black/40 border border-white/15 text-white focus:outline-none focus:border-[#cde18e]"
                     />
                   </div>
 
@@ -366,7 +373,7 @@ TrxID: ${formData.trxId}`;
                       placeholder="name@example.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white focus:outline-none focus:border-[#d4ff32]"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-black/40 border border-white/15 text-white focus:outline-none focus:border-[#cde18e]"
                     />
                   </div>
 
@@ -377,7 +384,7 @@ TrxID: ${formData.trxId}`;
                       placeholder="01XXXXXXXXX"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white focus:outline-none focus:border-[#d4ff32]"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-black/40 border border-white/15 text-white focus:outline-none focus:border-[#cde18e]"
                     />
                   </div>
 
@@ -389,29 +396,29 @@ TrxID: ${formData.trxId}`;
                       placeholder="যেমন: BL92XK82"
                       value={formData.trxId}
                       onChange={(e) => setFormData({ ...formData, trxId: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white focus:outline-none focus:border-[#d4ff32]"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-black/40 border border-white/15 text-white focus:outline-none focus:border-[#cde18e]"
                     />
                   </div>
 
-                  {/* Bonus Opt-in */}
+                  {/* Bonus Checkbox */}
                   <div
                     onClick={() => setWantBonus(!wantBonus)}
-                    className="p-2.5 rounded-xl border border-white/10 bg-black/30 flex items-start gap-2.5 cursor-pointer hover:border-[#d4ff32]/40 transition-colors"
+                    className="p-2.5 rounded-lg border border-white/10 bg-black/30 flex items-start gap-2.5 cursor-pointer hover:border-[#cde18e]/40 transition-colors"
                   >
                     <input
                       type="checkbox"
                       checked={wantBonus}
                       onChange={() => {}}
-                      className="mt-0.5 rounded border-white/20 text-[#d4ff32] focus:ring-0"
+                      className="mt-0.5 rounded border-white/20 text-[#cde18e] focus:ring-0"
                     />
                     <div className="text-[11px] leading-relaxed text-zinc-300">
-                      <span className="font-bold text-[#d4ff32]">🎁 ফ্রি বোনাস:</span> ভবিষ্যতে ক্যারিয়ার ও সাইকোলজি রিসোর্সে ফ্রি অ্যাক্সেস পেতে চাই।
+                      <span className="font-bold text-[#cde18e]">🎁 ফ্রি বোনাস:</span> ভবিষ্যতে ক্যারিয়ার ও সাইকোলজি রিসোর্সে ফ্রি অ্যাক্সেস পেতে চাই।
                     </div>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full mt-2 py-3 rounded-full bg-[#d4ff32] hover:bg-[#c2f022] text-black font-black text-xs flex items-center justify-center gap-1.5 active:scale-95 transition-all cursor-pointer shadow-sm"
+                    className="w-full mt-2 py-3 rounded-xl bg-[#cde18e] hover:bg-[#bdd37d] text-black font-black text-xs flex items-center justify-center gap-1.5 active:scale-95 transition-all cursor-pointer shadow-none"
                   >
                     <Send className="w-3.5 h-3.5 text-black stroke-[2.5]" />
                     <span>পেমেন্ট নিশ্চিত ও পিডিএফ আনলক করুন</span>
@@ -420,7 +427,7 @@ TrxID: ${formData.trxId}`;
               </>
             ) : (
               <div className="py-6 text-center space-y-3">
-                <div className="w-12 h-12 bg-[#064e3b] text-[#86efac] rounded-full flex items-center justify-center mx-auto border border-[#059669]/50">
+                <div className="w-12 h-12 bg-[#2dd4bf]/20 text-[#2dd4bf] rounded-xl flex items-center justify-center mx-auto border border-[#2dd4bf]/40">
                   <ShieldCheck className="w-6 h-6 stroke-[2.5]" />
                 </div>
                 <h3 className="text-base font-bold text-white">রিকোয়েস্ট গ্রহণ করা হয়েছে!</h3>
@@ -433,7 +440,7 @@ TrxID: ${formData.trxId}`;
                     href={pdfDownloadUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#d4ff32] text-black font-black text-xs hover:bg-[#c2f022] transition-all shadow-sm"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#cde18e] text-black font-black text-xs hover:bg-[#bdd37d] transition-all shadow-none"
                   >
                     <Download className="w-3.5 h-3.5 text-black stroke-[2.5]" />
                     <span>সরাসরি পিডিএফ ডাউনলোড করুন</span>
