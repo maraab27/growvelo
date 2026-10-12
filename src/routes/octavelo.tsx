@@ -9,7 +9,7 @@ import {
   ShieldCheck,
   Send,
   Check,
-  BookOpen,
+  Diamond,
 } from "lucide-react";
 import { EditableText } from "../components/cms/EditableText";
 import { EditableImage } from "../components/cms/EditableImage";
@@ -63,213 +63,189 @@ TrxID: ${formData.trxId}`;
   };
 
   return (
-    <div className="min-h-screen bg-[#0e110e] text-zinc-100 selection:bg-[#cde18e] selection:text-black font-sans antialiased relative pb-24 lg:pb-16">
-      
-      {/* 2D Flat Minimal Header (Reduced Curves) */}
-      <div className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-3 pointer-events-none">
-        <header className="pointer-events-auto flex w-full max-w-5xl items-center justify-between rounded-2xl border border-white/10 bg-[#141814]/95 px-4 py-2.5 sm:px-6 sm:py-3 backdrop-blur-md shadow-sm">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#cde18e] flex items-center justify-center font-mono font-black text-black text-xs">
+    <div
+      className="min-h-screen text-zinc-100 selection:bg-[#d4ff32] selection:text-black font-sans antialiased relative pb-24 lg:pb-16"
+      style={{
+        backgroundColor: "#000000",
+        backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px)`,
+        backgroundSize: "28px 28px",
+      }}
+    >
+      {/* Frozen Pill Header */}
+      <div className="fixed top-4 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
+        <header className="pointer-events-auto flex w-full max-w-5xl items-center justify-between rounded-full border border-white/10 bg-black/70 backdrop-blur-xl px-4 py-2 sm:px-6 sm:py-2.5">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full border border-white/20 bg-white/5 flex items-center justify-center font-mono font-bold text-white text-xs">
               O
             </div>
-            <span className="font-black text-xs sm:text-sm tracking-wider uppercase font-mono text-white">
-              OCTA<span className="text-[#cde18e]">VELO</span>
+            <span className="font-bold text-sm tracking-wider uppercase font-mono text-white">
+              OCTA<span className="text-[#d4ff32]">VELO</span>
             </span>
           </div>
 
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-4 py-2 rounded-xl bg-[#cde18e] text-black font-extrabold text-xs sm:text-sm hover:bg-[#bdd37d] active:scale-95 transition-all cursor-pointer flex items-center gap-1.5 shadow-none"
+            className="px-5 py-2 rounded-full bg-[#d4ff32] text-black font-bold text-xs sm:text-sm hover:bg-[#c2f022] active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
           >
             <span>
               <EditableText id="octavelo.nav.btn">পিডিএফ গাইড (৯৯৳)</EditableText>
             </span>
-            <ArrowRight className="w-3.5 h-3.5 text-black" />
           </button>
         </header>
       </div>
 
-      {/* Main Hero & Storyboard Grid */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-8 pt-24 sm:pt-32">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      {/* Main Responsive Grid */}
+      <main className="max-w-6xl mx-auto px-4 sm:px-8 pt-32 sm:pt-40">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
-          {/* Left Column: Editorial 2D Content */}
-          <div className="lg:col-span-7 text-left space-y-6">
+          {/* Left Column: Clean Editorial Content */}
+          <div className="text-left space-y-8">
             
-            {/* 2D Sticker Badges Stack */}
-            <div className="flex flex-wrap items-center gap-2 pt-1">
-              <span className="px-3 py-1 rounded-lg bg-[#cde18e] text-black text-[11px] font-black uppercase font-mono tracking-normal">
-                <EditableText id="octavelo.tag.1">Behavioral Science</EditableText>
-              </span>
-              <span className="px-3 py-1 rounded-lg bg-[#2dd4bf] text-black text-[11px] font-black uppercase font-mono">
-                <EditableText id="octavelo.tag.2">Frame Control</EditableText>
-              </span>
-              <span className="px-3 py-1 rounded-lg bg-[#f43f5e] text-white text-[11px] font-black uppercase font-mono">
-                <EditableText id="octavelo.tag.3">৮০% অফার</EditableText>
-              </span>
+            <div className="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-zinc-300 text-xs font-mono font-medium tracking-normal">
+              <EditableText id="octavelo.badge">Behavioral Science Masterclass</EditableText>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black leading-[1.25] text-white tracking-normal">
+            <h1 className="text-4xl sm:text-5xl lg:text-[64px] font-black leading-[1.1] text-white tracking-normal">
               <EditableText id="octavelo.title1">গলার জোর নয়,</EditableText> <br />
-              <span className="text-[#cde18e]">
+              <span className="text-white">
                 <EditableText id="octavelo.title2">সাইকোলজি দিয়ে জিতুন!</EditableText>
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-lg">
+            <p className="text-base text-zinc-400 leading-relaxed max-w-md">
               <EditableText id="octavelo.desc">
-                তর্কে প্রতিপক্ষকে পরাজিত করতে অহেতুক কথা নয়, প্রয়োজন ফ্রেম কন্ট্রোল। মানুষের অবচেতন আচরণ ও ইগো নিয়ন্ত্রণ করার সম্পূর্ণ প্র্যাকটিক্যাল মনস্তাত্ত্বিক ব্লু-প্রিন্ট গাইড।
+                তর্কে প্রতিপক্ষকে পরাজিত করতে অহেতুক কথা নয়, প্রয়োজন ফ্রেম কন্ট্রোল। মানুষের অবচেতন আচরণ ও ইগো নিয়ন্ত্রণ করার সম্পূর্ণ মনস্তাত্ত্বিক ব্লু-প্রিন্ট গাইড।
               </EditableText>
             </p>
 
-            {/* 2D Flat Pricing Card & Clean Button */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
-              <div className="flex items-center justify-between sm:justify-start gap-3 px-5 py-3 rounded-xl bg-[#141814] border border-white/10">
-                <span className="text-2xl font-black font-mono text-white">
+            {/* Price & CTA Block */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+              <div className="flex items-center gap-3">
+                <span className="text-4xl font-black font-mono text-white">
                   <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
                 </span>
-                <span className="text-xs text-zinc-500 line-through font-mono">
-                  <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
-                </span>
-                <span className="px-2.5 py-1 rounded-lg bg-[#f43f5e] text-white text-[10px] font-black uppercase">
-                  <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
-                </span>
+                <div className="flex flex-col justify-center">
+                  <span className="text-xs text-zinc-500 line-through font-mono">
+                    <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
+                  </span>
+                  <span className="text-[11px] font-bold text-[#d4ff32] uppercase">
+                    <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
+                  </span>
+                </div>
               </div>
+
+              <div className="hidden sm:block w-px h-10 bg-white/10 mx-2" />
 
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="px-7 py-3.5 rounded-xl bg-[#cde18e] hover:bg-[#bdd37d] text-black font-black text-sm flex items-center justify-center gap-2 active:scale-95 transition-all cursor-pointer shadow-none"
+                className="px-8 py-4 rounded-full bg-[#d4ff32] text-black font-black text-sm flex items-center justify-center gap-2 hover:bg-[#c2f022] active:scale-95 transition-all cursor-pointer"
               >
-                <Download className="w-4 h-4 text-black stroke-[2.5]" />
                 <span>
-                  <EditableText id="octavelo.buy.btn">ব্লু-প্রিন্ট পিডিএফ এখনই পান</EditableText>
+                  <EditableText id="octavelo.buy.btn">পিডিএফ এখনই সংগ্রহ করুন</EditableText>
                 </span>
+                <ArrowRight className="w-4 h-4 text-black stroke-[3]" />
               </button>
             </div>
 
-            {/* Storyboard 2D Step Cards */}
-            <div className="pt-2 space-y-2.5 max-w-md">
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-[#141814] border border-white/10">
-                <div className="w-7 h-7 rounded-lg bg-[#cde18e] text-black flex items-center justify-center text-xs font-black shrink-0">
-                  ০১
+            {/* Minimal Bullet Points */}
+            <div className="pt-6 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                  <Check className="w-3 h-3 text-white" />
                 </div>
-                <div className="text-xs text-zinc-200">
-                  <span className="font-bold text-white block">
-                    <EditableText id="octavelo.step1.t">ফ্রেম কন্ট্রোল ও সাইলেন্ট পজ</EditableText>
-                  </span>
-                  <span className="text-zinc-400 text-[11px]">
-                    <EditableText id="octavelo.step1.d">প্রতিপক্ষকে নিজের যুক্তিতে নিজেই আটকে দেওয়ার আর্ট।</EditableText>
-                  </span>
-                </div>
+                <span className="text-sm text-zinc-300">
+                  <EditableText id="octavelo.b1">আক্রমণাত্মক লজিক ভাঙার ফ্রেমওয়ার্ক</EditableText>
+                </span>
               </div>
-
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-[#141814] border border-white/10">
-                <div className="w-7 h-7 rounded-lg bg-[#2dd4bf] text-black flex items-center justify-center text-xs font-black shrink-0">
-                  ০২
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                  <Check className="w-3 h-3 text-white" />
                 </div>
-                <div className="text-xs text-zinc-200">
-                  <span className="font-bold text-white block">
-                    <EditableText id="octavelo.step2.t">ইগো বনাম যুক্তি ডিটেকশন</EditableText>
-                  </span>
-                  <span className="text-zinc-400 text-[11px]">
-                    <EditableText id="octavelo.step2.d">ব্যক্তিগত আক্রমণ এড়িয়ে আলাপে কর্তৃত্ব ধরে রাখা।</EditableText>
-                  </span>
-                </div>
+                <span className="text-sm text-zinc-300">
+                  <EditableText id="octavelo.b2">ইমোশনাল ম্যানিপুলেশন কাউন্টার করার কৌশল</EditableText>
+                </span>
               </div>
-
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-[#141814] border border-white/10">
-                <div className="w-7 h-7 rounded-lg bg-[#f43f5e] text-white flex items-center justify-center text-xs font-black shrink-0">
-                  ০৩
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                  <Check className="w-3 h-3 text-white" />
                 </div>
-                <div className="text-xs text-zinc-200">
-                  <span className="font-bold text-white block">
-                    <EditableText id="octavelo.step3.t">আনব্রেকবল কনক্লুশন</EditableText>
-                  </span>
-                  <span className="text-zinc-400 text-[11px]">
-                    <EditableText id="octavelo.step3.d">কথোপকথন নিজের অনুকূলে শেষ করার সাইকোলজিক্যাল সূত্র।</EditableText>
-                  </span>
-                </div>
+                <span className="text-sm text-zinc-300">
+                  <EditableText id="octavelo.b3">লগইন ছাড়া আজীবন অ্যাক্সেস (পিডিএফ)</EditableText>
+                </span>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: 2D Large Cover Frame */}
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="w-full max-w-sm rounded-2xl bg-[#141814] border border-white/10 p-5 text-center">
+          {/* Right Column: "Top Gainers" Style Card Section */}
+          <div className="flex flex-col items-center lg:items-end w-full mt-10 lg:mt-0">
+            
+            {/* Board Header (Matching "WGMI Top Gainers" Pill) */}
+            <div className="flex items-center justify-start w-full max-w-[340px] gap-4 mb-5 px-1">
+              <h2 className="text-lg font-bold text-white tracking-normal">
+                <EditableText id="octavelo.board.title">Octavelo Top Guides</EditableText>
+              </h2>
+              <div className="px-3 py-1 rounded-full bg-white text-black text-xs font-bold">
+                <EditableText id="octavelo.board.pill">New</EditableText>
+              </div>
+            </div>
+
+            {/* The Actual Display Card (100% Match with Reference) */}
+            <div className="w-full max-w-[340px] rounded-[2rem] border border-white/10 bg-[#090909] p-2 flex flex-col hover:border-white/20 transition-colors">
               
-              {/* Large Cover Box */}
-              <div className="w-full aspect-[4/5] rounded-xl overflow-hidden border border-white/10 bg-black relative mb-4">
+              {/* Image Container */}
+              <div className="w-full aspect-[4/5] rounded-[1.5rem] overflow-hidden bg-zinc-900 border border-white/5 relative">
                 <EditableImage
                   id="octavelo.main.cover"
                   defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
-                  alt="Masterclass PDF Cover"
+                  alt="Masterclass Cover"
                   className="w-full h-full object-cover"
                 />
               </div>
 
-              {/* Cover Details */}
-              <div className="space-y-1.5 text-left px-1">
-                <div className="flex items-center justify-between">
-                  <span className="px-2.5 py-0.5 rounded-md bg-[#cde18e] text-black text-[10px] font-black uppercase font-mono">
-                    <EditableText id="octavelo.cover.badge">Verified Guide</EditableText>
-                  </span>
-                  <span className="text-xs font-mono text-zinc-400">PDF Slide Format</span>
-                </div>
-                <h3 className="text-base font-bold text-white pt-1">
-                  <EditableText id="octavelo.cover.name">তর্কে জেতার মনস্তাত্ত্বিক মাস্টারক্লাস</EditableText>
+              {/* Title & Price Below Image */}
+              <div className="pt-6 pb-4 text-center space-y-1.5">
+                <h3 className="text-[22px] font-bold text-white tracking-normal">
+                  <EditableText id="octavelo.cover.title">তর্কে জেতার মাস্টারক্লাস</EditableText>
                 </h3>
-                <p className="text-xs text-zinc-400">
-                  <EditableText id="octavelo.cover.note">পেমেন্ট কনফার্মেশনের সাথে সাথে ইনস্ট্যান্ট ডাউনলোড করুন।</EditableText>
-                </p>
+                <div className="flex items-center justify-center gap-1.5 text-xs text-zinc-400 font-mono">
+                  {/* Subtle Lime Touch */}
+                  <Diamond className="w-3.5 h-3.5 text-[#d4ff32] fill-[#d4ff32]" />
+                  <span>
+                    <EditableText id="octavelo.cover.price">৯৯ ৳ (One-time)</EditableText>
+                  </span>
+                </div>
               </div>
-
             </div>
-          </div>
-
-        </div>
-
-        {/* Minimal 3-Point Strip */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16 pt-8 border-t border-white/10 text-left">
-          <div className="p-4 rounded-xl bg-[#141814] border border-white/5">
-            <span className="text-xs font-black text-[#cde18e] block">সরাসরি প্রয়োগযোগ্য</span>
-            <p className="text-xs text-zinc-400 mt-1">বাস্তব জীবনের কথোপকথনে সহজে কাজে লাগানোর মতো কৌশল।</p>
-          </div>
-          <div className="p-4 rounded-xl bg-[#141814] border border-white/5">
-            <span className="text-xs font-black text-[#2dd4bf] block">লাইফটাইম অ্যাক্সেস</span>
-            <p className="text-xs text-zinc-400 mt-1">কোনো মেয়াদ নেই, ফাইলটি আজীবন আপনার ডিভাইসে সংরক্ষিত থাকবে।</p>
-          </div>
-          <div className="p-4 rounded-xl bg-[#141814] border border-white/5">
-            <span className="text-xs font-black text-[#f43f5e] block">লগইন ঝামেলাহীন</span>
-            <p className="text-xs text-zinc-400 mt-1">কোনো অ্যাকাউন্ট বা সাইন-আপ করার প্রয়োজন নেই।</p>
+            
           </div>
         </div>
 
-        <footer className="mt-12 text-center text-xs text-zinc-600 font-mono">
-          <EditableText id="octavelo.footer">© 2026 Octavelo Studio • Psychological Masterclass</EditableText>
+        <footer className="mt-24 text-center text-xs text-zinc-600 font-mono pb-8 border-t border-white/10 pt-8">
+          <EditableText id="octavelo.footer">© 2026 Octavelo Studio • All Rights Reserved</EditableText>
         </footer>
       </main>
 
       {/* Floating Mobile Sticky Bar */}
-      <div className="fixed bottom-0 inset-x-0 z-40 lg:hidden bg-[#141814]/95 border-t border-white/10 p-3 flex items-center justify-between gap-3">
-        <div>
-          <span className="text-[10px] text-zinc-400 block font-mono">অফার মূল্য</span>
-          <span className="text-base font-bold font-mono text-[#cde18e]">৯৯ ৳</span>
+      <div className="fixed bottom-0 inset-x-0 z-40 lg:hidden bg-black/95 border-t border-white/10 p-3 flex items-center justify-between gap-4">
+        <div className="flex flex-col">
+          <span className="text-xs text-zinc-400 font-mono line-through decoration-zinc-500">৫০০ ৳</span>
+          <span className="text-lg font-black font-mono text-white">৯৯ ৳</span>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex-1 py-2.5 px-4 rounded-xl bg-[#cde18e] text-black font-black text-xs flex items-center justify-center gap-1.5 active:scale-95 shadow-none"
+          className="flex-1 py-3 px-4 rounded-full bg-[#d4ff32] text-black font-bold text-sm flex items-center justify-center gap-2 active:scale-95"
         >
           <span>পিডিএফ আনলক করুন</span>
-          <ArrowRight className="w-3.5 h-3.5 text-black" />
+          <ArrowRight className="w-4 h-4 text-black stroke-[3]" />
         </button>
       </div>
 
-      {/* 2D Guest Checkout Modal */}
+      {/* Minimal Guest Checkout Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm animate-in fade-in duration-150">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-150">
           <div
-            className="w-full max-w-md rounded-2xl bg-[#141814] border border-white/15 p-6 shadow-2xl relative max-h-[92vh] overflow-y-auto"
+            className="w-full max-w-md rounded-[2rem] bg-[#090909] border border-white/10 p-6 sm:p-8 relative max-h-[92vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -277,173 +253,156 @@ TrxID: ${formData.trxId}`;
                 setIsModalOpen(false);
                 setIsSubmitted(false);
               }}
-              className="absolute top-4 right-4 p-1.5 rounded-lg bg-white/10 text-zinc-300 hover:text-white transition-colors cursor-pointer"
+              className="absolute top-5 right-5 p-2 rounded-full bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
 
             {!isSubmitted ? (
               <>
-                <div className="text-center mb-4">
-                  <span className="px-3 py-0.5 rounded-md bg-[#cde18e] text-black text-[10px] font-mono font-black uppercase tracking-wider">
-                    Instant Access
-                  </span>
+                <div className="text-center mb-6">
                   <div className="text-3xl font-black font-mono text-white mt-1.5">৯৯ ৳</div>
-                  <h3 className="text-xs text-zinc-300 mt-0.5 font-medium">
-                    তর্কে জেতার মনস্তাত্ত্বিক মাস্টারক্লাস ব্লু-প্রিন্ট
+                  <h3 className="text-sm text-zinc-400 mt-1">
+                    তর্কে জেতার মনস্তাত্ত্বিক মাস্টারক্লাস পিডিএফ
                   </h3>
                 </div>
 
                 {/* Method Switcher */}
-                <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-black/40 border border-white/10 mb-3.5">
+                <div className="grid grid-cols-2 gap-2 p-1 rounded-full bg-white/5 border border-white/10 mb-4">
                   <button
                     type="button"
                     onClick={() => setSelectedMethod("bKash")}
-                    className={`py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    className={`py-2 px-3 rounded-full text-xs font-bold transition-all cursor-pointer ${
                       selectedMethod === "bKash"
-                        ? "bg-[#E2136E] text-white"
+                        ? "bg-white text-black"
                         : "text-zinc-400 hover:text-white"
                     }`}
                   >
-                    bKash (বিকাশ)
+                    bKash
                   </button>
                   <button
                     type="button"
                     onClick={() => setSelectedMethod("Nagad")}
-                    className={`py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    className={`py-2 px-3 rounded-full text-xs font-bold transition-all cursor-pointer ${
                       selectedMethod === "Nagad"
-                        ? "bg-[#F7921E] text-white"
+                        ? "bg-white text-black"
                         : "text-zinc-400 hover:text-white"
                     }`}
                   >
-                    Nagad (নগদ)
+                    Nagad
                   </button>
                 </div>
 
                 {/* Send Money Card */}
-                <div className="rounded-xl p-3 border border-white/10 bg-black/40 mb-3 space-y-1.5">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-zinc-300 font-medium">
-                      সেন্ড মানি নম্বর ({selectedMethod}):
-                    </span>
-                    <span className="px-2 py-0.5 rounded bg-white/10 text-[#cde18e] text-[10px] font-mono font-bold">
+                <div className="rounded-2xl p-4 border border-white/10 bg-white/5 mb-4">
+                  <div className="flex items-center justify-between text-xs mb-2">
+                    <span className="text-zinc-400">সেন্ড মানি নম্বর ({selectedMethod}):</span>
+                    <span className="px-2 py-0.5 rounded bg-white/10 text-white text-[10px] font-mono font-bold uppercase">
                       Personal
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between gap-2 bg-black/60 p-2 rounded-lg border border-white/10">
-                    <code className="text-sm font-mono font-bold text-white">
+                  <div className="flex items-center justify-between gap-2">
+                    <code className="text-lg font-mono font-bold text-white tracking-widest">
                       {paymentNumber}
                     </code>
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="px-2.5 py-1 text-xs rounded-md bg-[#cde18e] text-black font-bold flex items-center gap-1 hover:bg-[#bdd37d] transition-all cursor-pointer"
+                      className="px-3 py-1.5 text-xs rounded-full bg-white text-black font-bold flex items-center gap-1.5 active:scale-95 transition-transform cursor-pointer"
                     >
-                      {copied ? <Check className="w-3 h-3 text-black" /> : <Copy className="w-3 h-3 text-black" />}
-                      <span className="text-[11px]">{copied ? "Copied" : "Copy"}</span>
+                      {copied ? <Check className="w-3.5 h-3.5 text-black" /> : <Copy className="w-3.5 h-3.5 text-black" />}
+                      <span>{copied ? "Copied" : "Copy"}</span>
                     </button>
                   </div>
                 </div>
 
-                <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] mb-3 flex items-center gap-2">
-                  <AlertCircle className="w-3.5 h-3.5 shrink-0 text-amber-400" />
-                  <span>দয়া করে <strong>"Send Money" (সেন্ড মানি)</strong> করবেন।</span>
-                </div>
-
                 {/* Purchase Form */}
-                <form onSubmit={handleSubmit} className="space-y-2.5 text-xs">
+                <form onSubmit={handleSubmit} className="space-y-3 text-sm">
                   <div>
-                    <label className="block text-zinc-300 mb-1 font-medium">আপনার পূর্ণ নাম *</label>
                     <input
                       type="text"
                       required
-                      placeholder="যেমন: আব্দুল্লাহ মারাব"
+                      placeholder="আপনার পূর্ণ নাম *"
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-black/40 border border-white/15 text-white focus:outline-none focus:border-[#cde18e]"
+                      className="w-full px-4 py-3 rounded-xl bg-black border border-white/10 text-white focus:outline-none focus:border-white/30 placeholder:text-zinc-600"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-zinc-300 mb-1 font-medium">ইমেইল এড্রেস *</label>
                     <input
                       type="email"
                       required
-                      placeholder="name@example.com"
+                      placeholder="ইমেইল এড্রেস *"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-black/40 border border-white/15 text-white focus:outline-none focus:border-[#cde18e]"
+                      className="w-full px-4 py-3 rounded-xl bg-black border border-white/10 text-white focus:outline-none focus:border-white/30 placeholder:text-zinc-600"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-zinc-300 mb-1 font-medium">হোয়াটসঅ্যাপ নম্বর (ঐচ্ছিক)</label>
                     <input
                       type="tel"
-                      placeholder="01XXXXXXXXX"
+                      placeholder="হোয়াটসঅ্যাপ নম্বর (ঐচ্ছিক)"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-black/40 border border-white/15 text-white focus:outline-none focus:border-[#cde18e]"
+                      className="w-full px-4 py-3 rounded-xl bg-black border border-white/10 text-white focus:outline-none focus:border-white/30 placeholder:text-zinc-600"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-zinc-300 mb-1 font-medium">Transaction ID (TrxID) *</label>
                     <input
                       type="text"
                       required
-                      placeholder="যেমন: BL92XK82"
+                      placeholder="Transaction ID (TrxID) *"
                       value={formData.trxId}
                       onChange={(e) => setFormData({ ...formData, trxId: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-black/40 border border-white/15 text-white focus:outline-none focus:border-[#cde18e]"
+                      className="w-full px-4 py-3 rounded-xl bg-black border border-white/10 text-white focus:outline-none focus:border-[#d4ff32] placeholder:text-zinc-600"
                     />
                   </div>
 
                   {/* Bonus Checkbox */}
                   <div
                     onClick={() => setWantBonus(!wantBonus)}
-                    className="p-2.5 rounded-lg border border-white/10 bg-black/30 flex items-start gap-2.5 cursor-pointer hover:border-[#cde18e]/40 transition-colors"
+                    className="py-2 flex items-start gap-3 cursor-pointer group"
                   >
-                    <input
-                      type="checkbox"
-                      checked={wantBonus}
-                      onChange={() => {}}
-                      className="mt-0.5 rounded border-white/20 text-[#cde18e] focus:ring-0"
-                    />
-                    <div className="text-[11px] leading-relaxed text-zinc-300">
-                      <span className="font-bold text-[#cde18e]">🎁 ফ্রি বোনাস:</span> ভবিষ্যতে ক্যারিয়ার ও সাইকোলজি রিসোর্সে ফ্রি অ্যাক্সেস পেতে চাই।
+                    <div className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${wantBonus ? 'bg-[#d4ff32] border-[#d4ff32]' : 'border-white/20 group-hover:border-white/40'}`}>
+                      {wantBonus && <Check className="w-3 h-3 text-black stroke-[3]" />}
+                    </div>
+                    <div className="text-xs text-zinc-400 leading-relaxed select-none">
+                      <strong className="text-white font-medium">ফ্রি বোনাস:</strong> ভবিষ্যতে ক্যারিয়ার ও সাইকোলজি রিসোর্সে ফ্রি অ্যাক্সেস পেতে চাই।
                     </div>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full mt-2 py-3 rounded-xl bg-[#cde18e] hover:bg-[#bdd37d] text-black font-black text-xs flex items-center justify-center gap-1.5 active:scale-95 transition-all cursor-pointer shadow-none"
+                    className="w-full mt-2 py-4 rounded-full bg-[#d4ff32] hover:bg-[#c2f022] text-black font-black text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer"
                   >
-                    <Send className="w-3.5 h-3.5 text-black stroke-[2.5]" />
-                    <span>পেমেন্ট নিশ্চিত ও পিডিএফ আনলক করুন</span>
+                    <Send className="w-4 h-4 text-black stroke-[2.5]" />
+                    <span>পেমেন্ট নিশ্চিত করুন</span>
                   </button>
                 </form>
               </>
             ) : (
-              <div className="py-6 text-center space-y-3">
-                <div className="w-12 h-12 bg-[#2dd4bf]/20 text-[#2dd4bf] rounded-xl flex items-center justify-center mx-auto border border-[#2dd4bf]/40">
-                  <ShieldCheck className="w-6 h-6 stroke-[2.5]" />
+              <div className="py-8 text-center space-y-4">
+                <div className="w-16 h-16 bg-white/5 text-white rounded-full flex items-center justify-center mx-auto border border-white/10">
+                  <ShieldCheck className="w-8 h-8 stroke-[2]" />
                 </div>
-                <h3 className="text-base font-bold text-white">রিকোয়েস্ট গ্রহণ করা হয়েছে!</h3>
-                <p className="text-xs text-zinc-300 leading-relaxed">
+                <h3 className="text-xl font-bold text-white">রিকোয়েস্ট সফল!</h3>
+                <p className="text-sm text-zinc-400 leading-relaxed max-w-[250px] mx-auto">
                   আপনার হোয়াটসঅ্যাপ উইন্ডো ওপেন হয়েছে। নিচের বাটনে ক্লিক করে সরাসরি ফাইলটি ডাউনলোড করুন।
                 </p>
 
-                <div className="pt-2">
+                <div className="pt-4">
                   <a
                     href={pdfDownloadUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#cde18e] text-black font-black text-xs hover:bg-[#bdd37d] transition-all shadow-none"
+                    className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#d4ff32] text-black font-bold text-sm hover:bg-[#c2f022] transition-colors"
                   >
-                    <Download className="w-3.5 h-3.5 text-black stroke-[2.5]" />
-                    <span>সরাসরি পিডিএফ ডাউনলোড করুন</span>
+                    <Download className="w-4 h-4 text-black stroke-[2.5]" />
+                    <span>পিডিএফ ডাউনলোড করুন</span>
                   </a>
                 </div>
               </div>
