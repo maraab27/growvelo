@@ -203,9 +203,9 @@ TrxID: ${formData.trxId}`;
                   <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none">
                     <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
                   </span>
-                  <span className="text-sm text-zinc-500 line-through font-mono mb-1">
-                    <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
-                  </span>
+                  <span className="text-xl sm:text-2xl text-zinc-400 line-through decoration-[#f43f5e] decoration-[3px] font-mono mb-0.5">
+  <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
+</span>
                 </div>
                 <span className="px-3 py-1.5 rounded-lg bg-[#f43f5e]/10 text-[#f43f5e] border border-[#f43f5e]/20 text-[11px] font-bold uppercase tracking-wider">
                   <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
