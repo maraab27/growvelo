@@ -13,6 +13,7 @@ import {
   Quote,
 } from "lucide-react";
 import { EditableText } from "../components/cms/EditableText";
+import { EditableImage } from "../components/cms/EditableImage";
 
 export const Route = createFileRoute("/octavelo")({
   component: OctaveloLandingPage,
@@ -34,10 +35,6 @@ function OctaveloLandingPage() {
 
   const paymentNumber = "01790055690";
   const supportWhatsapp = "8801410341220";
-  
-  // আপনার সুপাবেস লিংকগুলো এখানে দেওয়া আছে। এখান থেকেই লিংক পরিবর্তন করবেন।
-  const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
-  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Psychological%20masterclass%20on%20winning%20arguments.webp"; // এখানে নতুন ইউটিউব থাম্বনেইলের লিংক দিবেন
   const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf";
 
   const handleCopy = () => {
@@ -84,13 +81,14 @@ TrxID: ${formData.trxId}`;
         .font-bengali { font-family: 'Hind Siliguri', sans-serif; }
       `}</style>
 
-      {/* Unfrozen Header */}
-      <div className="w-full flex justify-center px-4 pt-4 sm:pt-6">
-        <header className="flex w-full max-w-5xl items-center justify-between rounded-full border border-[#1E2230] bg-[#08090C]/80 backdrop-blur-2xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-lg">
+      {/* Floating Header */}
+      <div className="fixed top-4 inset-x-4 z-50 flex justify-center pointer-events-none">
+        <header className="pointer-events-auto flex w-full max-w-5xl items-center justify-between rounded-full border border-[#1E2230] bg-[#08090C]/80 backdrop-blur-2xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full border border-white/10 bg-[#050608] flex items-center justify-center overflow-hidden shrink-0">
-              <img
-                src={logoUrl}
+              <EditableImage
+                id="octavelo.header.logo"
+                defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized.webp"
                 alt="Octavelo Logo"
                 className="w-full h-full object-cover block rounded-full"
               />
@@ -111,7 +109,7 @@ TrxID: ${formData.trxId}`;
         </header>
       </div>
 
-      <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16">
+      <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-32 sm:pt-40">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 w-full">
@@ -147,6 +145,32 @@ TrxID: ${formData.trxId}`;
               </EditableText>
             </p>
 
+            {/* Mobile Pricing Block - UPGRADED 500৳ HIGHLIGHT */}
+            <div className="w-full max-w-md bg-[#111318] border border-[#1E2230] rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-lg lg:hidden mt-2">
+              <div className="flex flex-col items-center sm:items-start gap-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl sm:text-2xl text-zinc-500 line-through decoration-[#f43f5e] decoration-[3px] font-mono font-bold">
+                    <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-lg bg-[#f43f5e] text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider">
+                    <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
+                  </span>
+                </div>
+                <span className="text-5xl font-black font-mono text-white leading-none mt-1">
+                  <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
+                </span>
+              </div>
+
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.4)] border border-[#00F0FF]/50"
+              >
+                <span>
+                  <EditableText id="octavelo.buy.btn">পিডিএফ সংগ্রহ করুন</EditableText>
+                </span>
+              </button>
+            </div>
+
             <div className="pt-2 space-y-3.5 w-full max-w-md mx-auto lg:mx-0">
               <div className="flex items-start justify-start gap-3.5 text-left">
                 <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
@@ -181,10 +205,10 @@ TrxID: ${formData.trxId}`;
               <div className="rounded-2xl border border-[#1E2230] bg-[#0A0C10] p-3 sm:p-4 shadow-2xl relative">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#00F0FF]/10 blur-3xl pointer-events-none" />
                 
-                {/* YouTube Thumbnail Size Container (aspect-video = 16:9) */}
                 <div className="w-full aspect-video rounded-xl overflow-hidden bg-black border border-white/5 relative z-10">
-                  <img
-                    src={coverUrl}
+                  <EditableImage
+                    id="octavelo.main.cover"
+                    defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
                     alt="Masterclass Cover"
                     className="w-full h-full object-cover block transition-transform duration-700 hover:scale-105"
                   />
@@ -197,24 +221,25 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            <div className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] bg-[#111318] border border-[#1E2230] rounded-2xl p-5 sm:p-6 shadow-xl">
-              <div className="flex items-center justify-between mb-5">
-                <div className="flex items-end gap-3">
-                  <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none">
-                    <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
-                  </span>
-                  <span className="text-sm text-zinc-500 line-through font-mono mb-1">
+            {/* Desktop Pricing Box - UPGRADED 500৳ HIGHLIGHT */}
+            <div className="hidden lg:flex w-full max-w-[480px] bg-[#111318] border border-[#1E2230] rounded-2xl p-6 shadow-xl flex-col mt-4">
+              <div className="flex flex-col items-start gap-1 mb-6">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl sm:text-3xl text-zinc-400 line-through decoration-[#f43f5e] decoration-4 font-mono font-bold">
                     <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
                   </span>
+                  <span className="px-3 py-1 rounded-lg bg-[#f43f5e] text-white text-xs font-bold uppercase tracking-wider">
+                    <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
+                  </span>
                 </div>
-                <span className="px-3 py-1.5 rounded-lg bg-[#f43f5e]/10 text-[#f43f5e] border border-[#f43f5e]/20 text-[11px] font-bold uppercase tracking-wider">
-                  <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
+                <span className="text-6xl font-black font-mono text-white leading-none mt-2">
+                  <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
                 </span>
               </div>
 
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-transform cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.25)] border border-[#00F0FF]/30"
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-transform cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.25)] border border-[#00F0FF]/30"
               >
                 <Download className="w-5 h-5 text-white" />
                 <span>
@@ -300,7 +325,7 @@ TrxID: ${formData.trxId}`;
                   <EditableText id="octavelo.review3.initial">S</EditableText>
                 </div>
                 <div>
-                  <span className="block text-xs font-bold text-white"><EditableText id="octavelo.review3.name">সাদিয়া ইসলাম</EditableText></span>
+                  <span className="block text-xs font-bold text-white"><EditableText id="octavelo.review3.name">সادিয়া ইসলাম</EditableText></span>
                   <span className="block text-[10px] text-zinc-500 font-mono"><EditableText id="octavelo.review3.role">Agency Owner</EditableText></span>
                 </div>
               </div>
@@ -315,8 +340,8 @@ TrxID: ${formData.trxId}`;
 
       <div className="fixed bottom-4 inset-x-4 z-40 lg:hidden rounded-2xl bg-[#08090C]/85 backdrop-blur-2xl border border-[#1E2230] p-3 sm:p-4 flex items-center justify-between gap-4 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
         <div className="flex flex-col px-2">
-          <span className="text-[10px] text-zinc-400 font-mono line-through decoration-zinc-500 mb-0.5">৫০০ ৳</span>
-          <span className="text-xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
+          <span className="text-sm text-zinc-400 font-mono line-through decoration-[#f43f5e] decoration-2 mb-0.5">৫০০ ৳</span>
+          <span className="text-2xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
@@ -346,8 +371,12 @@ TrxID: ${formData.trxId}`;
             {!isSubmitted ? (
               <>
                 <div className="text-center mb-6 mt-2">
-                  <div className="text-3xl font-bold font-mono text-white mt-1.5">৯৯ ৳</div>
-                  <h3 className="text-sm text-[#94A3B8] mt-1">
+                  <div className="inline-flex items-center justify-center gap-3 mb-2">
+                    <span className="text-xl text-zinc-400 font-mono line-through decoration-[#f43f5e] decoration-[3px]">৫০০ ৳</span>
+                    <span className="px-2 py-0.5 rounded bg-[#f43f5e] text-white text-xs font-bold uppercase tracking-wider">৮০% ছাড়</span>
+                  </div>
+                  <div className="text-4xl font-bold font-mono text-white mt-1">৯৯ ৳</div>
+                  <h3 className="text-sm text-[#94A3B8] mt-2">
                     তর্কে জেতার মনস্তাত্ত্বিক মাস্টারক্লাস পিডিএফ
                   </h3>
                 </div>
