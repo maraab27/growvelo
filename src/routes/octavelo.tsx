@@ -81,9 +81,9 @@ TrxID: ${formData.trxId}`;
         .font-bengali { font-family: 'Hind Siliguri', sans-serif; }
       `}</style>
 
-      {/* Floating Header */}
-      <div className="fixed top-4 inset-x-4 z-50 flex justify-center pointer-events-none">
-        <header className="pointer-events-auto flex w-full max-w-5xl items-center justify-between rounded-full border border-[#1E2230] bg-[#08090C]/80 backdrop-blur-2xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+      {/* Unfrozen Header (Will scroll naturally) */}
+      <div className="w-full flex justify-center px-4 pt-4 sm:pt-6">
+        <header className="flex w-full max-w-5xl items-center justify-between rounded-full border border-[#1E2230] bg-[#08090C]/80 backdrop-blur-2xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-lg">
           <div className="flex items-center gap-3">
             {/* Fixed Round Logo */}
             <div className="w-8 h-8 rounded-full border border-white/10 bg-[#050608] flex items-center justify-center overflow-hidden shrink-0">
@@ -110,19 +110,19 @@ TrxID: ${formData.trxId}`;
         </header>
       </div>
 
-      {/* Desktop 2-Column & Mobile Centered Flow */}
-      <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-32 sm:pt-40">
+      {/* Main Content Area */}
+      <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Left Text Column (Mobile Center, Desktop Left) */}
+          {/* Left Text Column */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 w-full">
             
-            {/* Trust Badge with Realistic Avatars & Golden Stars */}
+            {/* Trust Badge with Bengali/South Asian Avatars */}
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
               <div className="flex -space-x-2">
-                 <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Student" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
-                 <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Student" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
-                 <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Student" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100" alt="Student" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=100&h=100" alt="Student" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" alt="Student" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="flex gap-0.5">
@@ -149,9 +149,9 @@ TrxID: ${formData.trxId}`;
               </EditableText>
             </p>
 
-            {/* Bullet Points */}
-            <div className="pt-2 space-y-3.5 w-full max-w-md">
-              <div className="flex items-start justify-center lg:justify-start gap-3.5">
+            {/* Bullet Points - Now Perfectly Left Aligned on all devices */}
+            <div className="pt-2 space-y-3.5 w-full max-w-md mx-auto lg:mx-0">
+              <div className="flex items-start justify-start gap-3.5 text-left">
                 <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
                   <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
                 </div>
@@ -159,7 +159,7 @@ TrxID: ${formData.trxId}`;
                   <EditableText id="octavelo.b1">আক্রমণাত্মক লজিক ভাঙার সাইকোলজিক্যাল ফ্রেমওয়ার্ক</EditableText>
                 </span>
               </div>
-              <div className="flex items-start justify-center lg:justify-start gap-3.5">
+              <div className="flex items-start justify-start gap-3.5 text-left">
                 <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
                   <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
                 </div>
@@ -167,7 +167,7 @@ TrxID: ${formData.trxId}`;
                   <EditableText id="octavelo.b2">ইমোশনাল ম্যানিপুলেশন কাউন্টার করার কৌশল</EditableText>
                 </span>
               </div>
-              <div className="flex items-start justify-center lg:justify-start gap-3.5">
+              <div className="flex items-start justify-start gap-3.5 text-left">
                 <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
                   <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
                 </div>
@@ -344,7 +344,7 @@ TrxID: ${formData.trxId}`;
                 setIsModalOpen(false);
                 setIsSubmitted(false);
               }}
-              className="absolute top-5 right-5 p-2 rounded-lg bg-[#111318] text-[#94A3B8] border border-[#1E2230] hover:text-white hover:border-white/20 transition-colors cursor-pointer"
+              className="absolute top-5 right-5 p-2 rounded-md bg-[#111318] text-[#94A3B8] border border-[#1E2230] hover:text-white hover:border-white/20 transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -362,7 +362,7 @@ TrxID: ${formData.trxId}`;
                   <button
                     type="button"
                     onClick={() => setSelectedMethod("bKash")}
-                    className={`py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    className={`py-2.5 px-3 rounded-md text-xs font-bold transition-all cursor-pointer ${
                       selectedMethod === "bKash"
                         ? "bg-white text-black"
                         : "text-[#94A3B8] hover:text-white"
@@ -373,7 +373,7 @@ TrxID: ${formData.trxId}`;
                   <button
                     type="button"
                     onClick={() => setSelectedMethod("Nagad")}
-                    className={`py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    className={`py-2.5 px-3 rounded-md text-xs font-bold transition-all cursor-pointer ${
                       selectedMethod === "Nagad"
                         ? "bg-white text-black"
                         : "text-[#94A3B8] hover:text-white"
