@@ -37,7 +37,7 @@ function OctaveloLandingPage() {
   
   // আপনার সুপাবেস লিংকগুলো এখানে দেওয়া আছে। এখান থেকেই লিংক পরিবর্তন করবেন।
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized.webp";
-  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"; // এখানে নতুন ইউটিউব থাম্বনেইলের লিংক দিবেন
+  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Psychological%20masterclass%20on%20winning%20arguments.webp"; // এখানে নতুন ইউটিউব থাম্বনেইলের লিংক দিবেন
   const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf";
 
   const handleCopy = () => {
