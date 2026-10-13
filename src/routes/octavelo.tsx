@@ -13,7 +13,6 @@ import {
   Quote,
 } from "lucide-react";
 import { EditableText } from "../components/cms/EditableText";
-import { EditableImage } from "../components/cms/EditableImage";
 
 export const Route = createFileRoute("/octavelo")({
   component: OctaveloLandingPage,
@@ -35,6 +34,9 @@ function OctaveloLandingPage() {
 
   const paymentNumber = "01790055690";
   const supportWhatsapp = "8801410341220";
+  // আপনার সুপাবেস লিংকগুলো এখানে দেওয়া আছে
+  const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized.webp";
+  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp";
   const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf";
 
   const handleCopy = () => {
@@ -81,15 +83,14 @@ TrxID: ${formData.trxId}`;
         .font-bengali { font-family: 'Hind Siliguri', sans-serif; }
       `}</style>
 
-      {/* Unfrozen Header (Will scroll naturally) */}
-      <div className="w-full flex justify-center px-4 pt-4 sm:pt-6">
-        <header className="flex w-full max-w-5xl items-center justify-between rounded-full border border-[#1E2230] bg-[#08090C]/80 backdrop-blur-2xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-lg">
+      {/* Floating Header */}
+      <div className="fixed top-4 inset-x-4 z-50 flex justify-center pointer-events-none">
+        <header className="pointer-events-auto flex w-full max-w-5xl items-center justify-between rounded-full border border-[#1E2230] bg-[#08090C]/80 backdrop-blur-2xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
           <div className="flex items-center gap-3">
-            {/* Fixed Round Logo */}
+            {/* Hardcoded Logo Image */}
             <div className="w-8 h-8 rounded-full border border-white/10 bg-[#050608] flex items-center justify-center overflow-hidden shrink-0">
-              <EditableImage
-                id="octavelo.header.logo"
-                defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized.webp"
+              <img
+                src={logoUrl}
                 alt="Octavelo Logo"
                 className="w-full h-full object-cover block rounded-full"
               />
@@ -111,13 +112,12 @@ TrxID: ${formData.trxId}`;
       </div>
 
       {/* Main Content Area */}
-      <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-32 sm:pt-40">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center lg:items-start">
           
           {/* Left Text Column */}
-          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 w-full">
+          <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 w-full pt-2">
             
-            {/* Trust Badge with Bengali/South Asian Avatars */}
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
               <div className="flex -space-x-2">
                  <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100" alt="Student" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
@@ -149,7 +149,6 @@ TrxID: ${formData.trxId}`;
               </EditableText>
             </p>
 
-            {/* Bullet Points - Now Perfectly Left Aligned on all devices */}
             <div className="pt-2 space-y-3.5 w-full max-w-md mx-auto lg:mx-0">
               <div className="flex items-start justify-start gap-3.5 text-left">
                 <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
@@ -178,20 +177,23 @@ TrxID: ${formData.trxId}`;
             </div>
           </div>
 
-          {/* Right Column: Cover & Action Panel */}
-          <div className="lg:col-span-5 flex flex-col items-center w-full mt-4 lg:mt-0 space-y-6">
+          {/* Right Column: Hardcoded Cover Image & Action Panel */}
+          <div className="lg:col-span-6 flex flex-col items-center lg:items-end w-full mt-6 lg:mt-0 space-y-6">
             
-            {/* Dynamic Cover Card */}
-            <div className="w-full max-w-[340px] sm:max-w-[380px]">
-              <div className="rounded-2xl border border-[#1E2230] bg-[#0A0C10] p-3 shadow-2xl relative">
-                <div className="w-full rounded-xl overflow-hidden bg-black border border-white/5 relative z-10">
-                  <EditableImage
-                    id="octavelo.main.cover"
-                    defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
+            {/* Dynamic Cover Card - Optimized Sizing for Desktop */}
+            <div className="w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[460px]">
+              <div className="rounded-2xl border border-[#1E2230] bg-[#0A0C10] p-3 sm:p-4 shadow-2xl relative">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#00F0FF]/10 blur-3xl pointer-events-none" />
+                
+                {/* Fixed Image Container */}
+                <div className="w-full aspect-[4/5] rounded-xl overflow-hidden bg-black border border-white/5 relative z-10">
+                  <img
+                    src={coverUrl}
                     alt="Masterclass Cover"
-                    className="w-full h-auto object-contain block"
+                    className="w-full h-full object-cover block transition-transform duration-700 hover:scale-105"
                   />
                 </div>
+
                 <div className="pt-4 pb-1 px-2 flex justify-between items-center text-xs font-mono text-zinc-400">
                   <span className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-[#00F0FF]"/> Verified</span>
                   <span>Digital PDF</span>
@@ -200,17 +202,17 @@ TrxID: ${formData.trxId}`;
             </div>
 
             {/* Pricing & Button Box */}
-            <div className="w-full max-w-[340px] sm:max-w-[380px] bg-[#111318] border border-[#1E2230] rounded-2xl p-5 shadow-xl">
-              <div className="flex items-center justify-between mb-4">
+            <div className="w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[460px] bg-[#111318] border border-[#1E2230] rounded-2xl p-5 sm:p-6 shadow-xl">
+              <div className="flex items-center justify-between mb-5">
                 <div className="flex items-end gap-3">
-                  <span className="text-4xl font-bold font-mono text-white leading-none">
+                  <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none">
                     <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
                   </span>
-                  <span className="text-sm text-zinc-500 line-through font-mono mb-0.5">
+                  <span className="text-sm text-zinc-500 line-through font-mono mb-1">
                     <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
                   </span>
                 </div>
-                <span className="px-2.5 py-1 rounded-lg bg-[#f43f5e]/10 text-[#f43f5e] border border-[#f43f5e]/20 text-[11px] font-bold uppercase tracking-wider">
+                <span className="px-3 py-1.5 rounded-lg bg-[#f43f5e]/10 text-[#f43f5e] border border-[#f43f5e]/20 text-[11px] font-bold uppercase tracking-wider">
                   <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
                 </span>
               </div>
@@ -229,7 +231,7 @@ TrxID: ${formData.trxId}`;
           </div>
         </div>
 
-        {/* Testimonials / Feedback Section with Golden Stars */}
+        {/* Testimonials / Feedback Section */}
         <div className="w-full max-w-5xl mx-auto mt-24 pt-16 border-t border-[#1E2230]">
           <div className="text-center mb-10">
             <span className="text-[#00F0FF] text-xs font-mono tracking-widest uppercase font-semibold block mb-2">
