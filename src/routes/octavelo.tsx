@@ -81,17 +81,17 @@ TrxID: ${formData.trxId}`;
         .font-bengali { font-family: 'Hind Siliguri', sans-serif; }
       `}</style>
 
-      {/* Unfrozen Normal Header */}
-      <div className="w-full flex justify-center px-4 pt-4 sm:pt-6">
-        <header className="flex w-full max-w-4xl items-center justify-between rounded-2xl border border-[#1E2230] bg-[#08090C]/70 backdrop-blur-md px-4 py-2.5 sm:px-5 sm:py-3 shadow-lg">
+      {/* Floating Header */}
+      <div className="fixed top-4 inset-x-4 z-50 flex justify-center pointer-events-none">
+        <header className="pointer-events-auto flex w-full max-w-5xl items-center justify-between rounded-full border border-[#1E2230] bg-[#08090C]/80 backdrop-blur-2xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
           <div className="flex items-center gap-3">
-            {/* Uploadable Logo with Theme Background */}
-            <div className="w-8 h-8 rounded-lg border border-white/10 bg-[#050608] flex items-center justify-center overflow-hidden shrink-0">
+            {/* Fixed Round Logo */}
+            <div className="w-8 h-8 rounded-full border border-white/10 bg-[#050608] flex items-center justify-center overflow-hidden shrink-0">
               <EditableImage
                 id="octavelo.header.logo"
                 defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized.webp"
                 alt="Octavelo Logo"
-                className="w-full h-full object-contain p-1"
+                className="w-full h-full object-cover block rounded-full"
               />
             </div>
             <span className="font-bold text-sm tracking-widest uppercase font-mono text-white hidden sm:block">
@@ -99,140 +99,138 @@ TrxID: ${formData.trxId}`;
             </span>
           </div>
 
-          <div className="flex items-center gap-5">
-             <button
-               onClick={() => setIsModalOpen(true)}
-               className="px-5 py-2 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-xs sm:text-sm hover:brightness-110 active:scale-95 transition-transform cursor-pointer flex items-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.2)]"
-             >
-               <span>
-                 <EditableText id="octavelo.nav.btn">PDF Guide (99৳)</EditableText>
-               </span>
-             </button>
-          </div>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="px-5 py-2 rounded-full bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-xs sm:text-sm hover:brightness-110 active:scale-95 transition-transform cursor-pointer flex items-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.2)]"
+          >
+            <span>
+              <EditableText id="octavelo.nav.btn">PDF Guide (99৳)</EditableText>
+            </span>
+          </button>
         </header>
       </div>
 
-      {/* Main Centered Reading Flow */}
-      <main className="max-w-3xl mx-auto px-5 sm:px-8 pt-12 sm:pt-16 flex flex-col items-center text-center">
-        
-        {/* Title & Trust Badge */}
-        <div className="space-y-6 w-full">
+      {/* Desktop 2-Column & Mobile Centered Flow */}
+      <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-32 sm:pt-40">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Prominent Trust Badge (Replaced Behavioral Science) */}
-          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
-            <div className="flex -space-x-1.5">
-               <div className="w-5 h-5 rounded-full border border-[#050608] bg-zinc-800" />
-               <div className="w-5 h-5 rounded-full border border-[#050608] bg-zinc-700" />
-               <div className="w-5 h-5 rounded-full border border-[#050608] bg-zinc-600" />
-            </div>
-            <div className="flex items-center gap-1.5">
-              <div className="flex gap-0.5">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star key={star} className="w-3 h-3 text-[#00F0FF] fill-[#00F0FF]" />
-                ))}
+          {/* Left Text Column (Mobile Center, Desktop Left) */}
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 w-full">
+            
+            {/* Trust Badge with Realistic Avatars & Golden Stars */}
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
+              <div className="flex -space-x-2">
+                 <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Student" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Student" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Student" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
               </div>
-              <span className="text-[#00F0FF] text-[11px] sm:text-xs font-mono font-bold tracking-wide">
-                <EditableText id="octavelo.trust.badge">Trusted by 6,000+ Students</EditableText>
-              </span>
-            </div>
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.2] text-white">
-            <EditableText id="octavelo.title1">গলার জোর নয়,</EditableText> <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">
-              <EditableText id="octavelo.title2">সাইকোলজি দিয়ে জিতুন!</EditableText>
-            </span>
-          </h1>
-
-          <p className="text-base sm:text-lg text-[#94A3B8] leading-relaxed max-w-2xl mx-auto">
-            <EditableText id="octavelo.desc">
-              তর্কে প্রতিপক্ষকে পরাজিত করতে অহেতুক কথা নয়, প্রয়োজন ফ্রেম কন্ট্রোল। মানুষের অবচেতন আচরণ ও ইগো নিয়ন্ত্রণ করার একটি ঠান্ডা মাথার স্ট্র্যাটেজিক ব্লু-প্রিন্ট গাইড।
-            </EditableText>
-          </p>
-        </div>
-
-        {/* Dynamic Size Image Container */}
-        <div className="w-full max-w-[340px] sm:max-w-md mx-auto mt-10">
-          <div className="rounded-2xl border border-[#1E2230] bg-[#0A0C10] p-2.5 sm:p-3 shadow-2xl relative group">
-            {/* Ambient inner glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#00F0FF]/10 blur-3xl pointer-events-none" />
-            
-            {/* The Image (Adapts to uploaded size) */}
-            <div className="w-full rounded-xl overflow-hidden bg-black border border-white/5 relative z-10">
-              <EditableImage
-                id="octavelo.main.cover"
-                defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
-                alt="Masterclass Cover"
-                className="w-full h-auto object-contain"
-              />
-            </div>
-            
-            <div className="pt-4 pb-2 px-2 flex justify-between items-center text-xs font-mono text-zinc-400">
-              <span className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-[#00F0FF]"/> Verified</span>
-              <span>Digital PDF</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Action & Pricing Block */}
-        <div className="w-full max-w-[340px] sm:max-w-md mt-8">
-          <div className="bg-[#111318] border border-[#1E2230] rounded-2xl p-5 shadow-xl flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-end gap-3">
-                <span className="text-4xl font-bold font-mono text-white leading-none">
-                  <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
-                </span>
-                <span className="text-sm text-zinc-500 line-through font-mono mb-0.5">
-                  <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
+              <div className="flex items-center gap-1.5">
+                <div className="flex gap-0.5">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star key={star} className="w-3 h-3 text-amber-400 fill-amber-400" />
+                  ))}
+                </div>
+                <span className="text-[#00F0FF] text-[11px] sm:text-xs font-mono font-bold tracking-wide">
+                  <EditableText id="octavelo.trust.badge">Trusted by 6,000+ Students</EditableText>
                 </span>
               </div>
-              <span className="px-2.5 py-1 rounded-lg bg-[#f43f5e]/10 text-[#f43f5e] border border-[#f43f5e]/20 text-[11px] font-bold uppercase tracking-wider">
-                <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
-              </span>
             </div>
 
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-transform cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.25)] border border-[#00F0FF]/30"
-            >
-              <Download className="w-5 h-5 text-white" />
-              <span>
-                <EditableText id="octavelo.buy.btn">পিডিএফটি এখনই ডাউনলোড করুন</EditableText>
+            <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.2] text-white">
+              <EditableText id="octavelo.title1">গলার জোর নয়,</EditableText> <br className="hidden sm:block" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">
+                <EditableText id="octavelo.title2">সাইকোলজি দিয়ে জিতুন!</EditableText>
               </span>
-            </button>
+            </h1>
+
+            <p className="text-base sm:text-lg text-[#94A3B8] leading-relaxed max-w-xl">
+              <EditableText id="octavelo.desc">
+                তর্কে প্রতিপক্ষকে পরাজিত করতে অহেতুক কথা নয়, প্রয়োজন ফ্রেম কন্ট্রোল। মানুষের অবচেতন আচরণ ও ইগো নিয়ন্ত্রণ করার একটি ঠান্ডা মাথার স্ট্র্যাটেজিক ব্লু-প্রিন্ট গাইড।
+              </EditableText>
+            </p>
+
+            {/* Bullet Points */}
+            <div className="pt-2 space-y-3.5 w-full max-w-md">
+              <div className="flex items-start justify-center lg:justify-start gap-3.5">
+                <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
+                </div>
+                <span className="text-sm text-zinc-300">
+                  <EditableText id="octavelo.b1">আক্রমণাত্মক লজিক ভাঙার সাইকোলজিক্যাল ফ্রেমওয়ার্ক</EditableText>
+                </span>
+              </div>
+              <div className="flex items-start justify-center lg:justify-start gap-3.5">
+                <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
+                </div>
+                <span className="text-sm text-zinc-300">
+                  <EditableText id="octavelo.b2">ইমোশনাল ম্যানিপুলেশন কাউন্টার করার কৌশল</EditableText>
+                </span>
+              </div>
+              <div className="flex items-start justify-center lg:justify-start gap-3.5">
+                <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
+                </div>
+                <span className="text-sm text-zinc-300">
+                  <EditableText id="octavelo.b3">লগইন ছাড়া সরাসরি ডাউনলোড ও লাইফটাইম অ্যাক্সেস</EditableText>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Cover & Action Panel */}
+          <div className="lg:col-span-5 flex flex-col items-center w-full mt-4 lg:mt-0 space-y-6">
+            
+            {/* Dynamic Cover Card */}
+            <div className="w-full max-w-[340px] sm:max-w-[380px]">
+              <div className="rounded-2xl border border-[#1E2230] bg-[#0A0C10] p-3 shadow-2xl relative">
+                <div className="w-full rounded-xl overflow-hidden bg-black border border-white/5 relative z-10">
+                  <EditableImage
+                    id="octavelo.main.cover"
+                    defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"
+                    alt="Masterclass Cover"
+                    className="w-full h-auto object-contain block"
+                  />
+                </div>
+                <div className="pt-4 pb-1 px-2 flex justify-between items-center text-xs font-mono text-zinc-400">
+                  <span className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-[#00F0FF]"/> Verified</span>
+                  <span>Digital PDF</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Pricing & Button Box */}
+            <div className="w-full max-w-[340px] sm:max-w-[380px] bg-[#111318] border border-[#1E2230] rounded-2xl p-5 shadow-xl">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-end gap-3">
+                  <span className="text-4xl font-bold font-mono text-white leading-none">
+                    <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
+                  </span>
+                  <span className="text-sm text-zinc-500 line-through font-mono mb-0.5">
+                    <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
+                  </span>
+                </div>
+                <span className="px-2.5 py-1 rounded-lg bg-[#f43f5e]/10 text-[#f43f5e] border border-[#f43f5e]/20 text-[11px] font-bold uppercase tracking-wider">
+                  <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
+                </span>
+              </div>
+
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-transform cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.25)] border border-[#00F0FF]/30"
+              >
+                <Download className="w-5 h-5 text-white" />
+                <span>
+                  <EditableText id="octavelo.buy.btn">পিডিএফটি এখনই ডাউনলোড করুন</EditableText>
+                </span>
+              </button>
+            </div>
+
           </div>
         </div>
 
-        {/* Minimal Bullet Points */}
-        <div className="mt-8 space-y-3.5 w-full max-w-md text-left px-2">
-          <div className="flex items-start gap-3.5">
-            <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-              <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
-            </div>
-            <span className="text-sm text-zinc-300">
-              <EditableText id="octavelo.b1">আক্রমণাত্মক লজিক ভাঙার সাইকোলজিক্যাল ফ্রেমওয়ার্ক</EditableText>
-            </span>
-          </div>
-          <div className="flex items-start gap-3.5">
-            <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-              <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
-            </div>
-            <span className="text-sm text-zinc-300">
-              <EditableText id="octavelo.b2">ইমোশনাল ম্যানিপুলেশন কাউন্টার করার কৌশল</EditableText>
-            </span>
-          </div>
-          <div className="flex items-start gap-3.5">
-            <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-              <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
-            </div>
-            <span className="text-sm text-zinc-300">
-              <EditableText id="octavelo.b3">লগইন ছাড়া সরাসরি ডাউনলোড ও লাইফটাইম অ্যাক্সেস</EditableText>
-            </span>
-          </div>
-        </div>
-
-        {/* Testimonials / Feedback Section */}
-        <div className="w-full max-w-4xl mt-20 pt-16 border-t border-[#1E2230]">
+        {/* Testimonials / Feedback Section with Golden Stars */}
+        <div className="w-full max-w-5xl mx-auto mt-24 pt-16 border-t border-[#1E2230]">
           <div className="text-center mb-10">
             <span className="text-[#00F0FF] text-xs font-mono tracking-widest uppercase font-semibold block mb-2">
               <EditableText id="octavelo.review.badge">Success Stories</EditableText>
@@ -247,7 +245,7 @@ TrxID: ${formData.trxId}`;
               <Quote className="absolute top-5 right-5 w-6 h-6 text-[#1E2230] group-hover:text-[#00F0FF]/20 transition-colors" />
               <div className="flex gap-1 mb-4">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <Star key={star} className="w-3.5 h-3.5 text-[#00F0FF] fill-[#00F0FF]" />
+                  <Star key={star} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                 ))}
               </div>
               <p className="text-sm text-zinc-300 leading-relaxed mb-6">
@@ -270,7 +268,7 @@ TrxID: ${formData.trxId}`;
               <Quote className="absolute top-5 right-5 w-6 h-6 text-[#1E2230] group-hover:text-[#00F0FF]/20 transition-colors" />
               <div className="flex gap-1 mb-4">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <Star key={star} className="w-3.5 h-3.5 text-[#00F0FF] fill-[#00F0FF]" />
+                  <Star key={star} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                 ))}
               </div>
               <p className="text-sm text-zinc-300 leading-relaxed mb-6">
@@ -293,7 +291,7 @@ TrxID: ${formData.trxId}`;
               <Quote className="absolute top-5 right-5 w-6 h-6 text-[#1E2230] group-hover:text-[#00F0FF]/20 transition-colors" />
               <div className="flex gap-1 mb-4">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <Star key={star} className="w-3.5 h-3.5 text-[#00F0FF] fill-[#00F0FF]" />
+                  <Star key={star} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                 ))}
               </div>
               <p className="text-sm text-zinc-300 leading-relaxed mb-6">
@@ -338,7 +336,7 @@ TrxID: ${formData.trxId}`;
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md animate-in fade-in duration-150">
           <div
-            className="w-full max-w-md rounded-xl bg-[#08090C] border border-[#1E2230] p-6 sm:p-8 relative max-h-[92vh] overflow-y-auto shadow-[0_0_50px_rgba(0,82,255,0.1)]"
+            className="w-full max-w-md rounded-2xl bg-[#08090C] border border-[#1E2230] p-6 sm:p-8 relative max-h-[92vh] overflow-y-auto shadow-[0_0_50px_rgba(0,82,255,0.15)]"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -346,7 +344,7 @@ TrxID: ${formData.trxId}`;
                 setIsModalOpen(false);
                 setIsSubmitted(false);
               }}
-              className="absolute top-5 right-5 p-2 rounded-md bg-[#111318] text-[#94A3B8] border border-[#1E2230] hover:text-white hover:border-white/20 transition-colors cursor-pointer"
+              className="absolute top-5 right-5 p-2 rounded-lg bg-[#111318] text-[#94A3B8] border border-[#1E2230] hover:text-white hover:border-white/20 transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -364,7 +362,7 @@ TrxID: ${formData.trxId}`;
                   <button
                     type="button"
                     onClick={() => setSelectedMethod("bKash")}
-                    className={`py-2 px-3 rounded-md text-xs font-bold transition-all cursor-pointer ${
+                    className={`py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       selectedMethod === "bKash"
                         ? "bg-white text-black"
                         : "text-[#94A3B8] hover:text-white"
@@ -375,7 +373,7 @@ TrxID: ${formData.trxId}`;
                   <button
                     type="button"
                     onClick={() => setSelectedMethod("Nagad")}
-                    className={`py-2 px-3 rounded-md text-xs font-bold transition-all cursor-pointer ${
+                    className={`py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       selectedMethod === "Nagad"
                         ? "bg-white text-black"
                         : "text-[#94A3B8] hover:text-white"
@@ -388,7 +386,7 @@ TrxID: ${formData.trxId}`;
                 <div className="rounded-xl p-4 border border-[#1E2230] bg-[#111318] mb-4">
                   <div className="flex items-center justify-between text-xs mb-2">
                     <span className="text-[#94A3B8]">সেন্ড মানি নম্বর ({selectedMethod}):</span>
-                    <span className="px-2 py-0.5 rounded bg-[#00F0FF]/10 text-[#00F0FF] text-[10px] font-mono font-bold uppercase border border-[#00F0FF]/20">
+                    <span className="px-2 py-1 rounded-md bg-[#00F0FF]/10 text-[#00F0FF] text-[10px] font-mono font-bold uppercase border border-[#00F0FF]/20">
                       Personal
                     </span>
                   </div>
@@ -416,7 +414,7 @@ TrxID: ${formData.trxId}`;
                       placeholder="আপনার পূর্ণ নাম *"
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full px-4 py-3 rounded-lg bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
+                      className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
                     />
                   </div>
 
@@ -427,7 +425,7 @@ TrxID: ${formData.trxId}`;
                       placeholder="ইমেইল এড্রেস *"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-lg bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
+                      className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
                     />
                   </div>
 
@@ -437,7 +435,7 @@ TrxID: ${formData.trxId}`;
                       placeholder="হোয়াটসঅ্যাপ নম্বর (ঐচ্ছিক)"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3 rounded-lg bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
+                      className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
                     />
                   </div>
 
@@ -448,7 +446,7 @@ TrxID: ${formData.trxId}`;
                       placeholder="Transaction ID (TrxID) *"
                       value={formData.trxId}
                       onChange={(e) => setFormData({ ...formData, trxId: e.target.value })}
-                      className="w-full px-4 py-3 rounded-lg bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
+                      className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
                     />
                   </div>
 
@@ -466,7 +464,7 @@ TrxID: ${formData.trxId}`;
 
                   <button
                     type="submit"
-                    className="w-full mt-2 py-4 rounded-lg bg-gradient-to-r from-[#0052FF] to-[#00F0FF] hover:brightness-110 text-white font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer shadow-[0_0_15px_rgba(0,240,255,0.3)]"
+                    className="w-full mt-2 py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] hover:brightness-110 text-white font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer shadow-[0_0_15px_rgba(0,240,255,0.3)]"
                   >
                     <Send className="w-4 h-4 text-white stroke-[2.5]" />
                     <span>পেমেন্ট নিশ্চিত করুন</span>
@@ -488,7 +486,7 @@ TrxID: ${formData.trxId}`;
                     href={pdfDownloadUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm hover:brightness-110 transition-colors shadow-[0_0_15px_rgba(0,240,255,0.3)]"
+                    className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm hover:brightness-110 transition-colors shadow-[0_0_15px_rgba(0,240,255,0.3)]"
                   >
                     <Download className="w-4 h-4 text-white stroke-[2.5]" />
                     <span>পিডিএফ ডাউনলোড করুন</span>
