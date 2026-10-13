@@ -9,7 +9,6 @@ import {
   ShieldCheck,
   Send,
   Check,
-  Users,
   Star,
   Quote,
 } from "lucide-react";
@@ -82,11 +81,12 @@ TrxID: ${formData.trxId}`;
         .font-bengali { font-family: 'Hind Siliguri', sans-serif; }
       `}</style>
 
-      {/* Premium Floating Header (Not edge-to-edge) */}
-      <div className="fixed top-4 inset-x-4 z-50 flex justify-center pointer-events-none">
-        <header className="pointer-events-auto flex w-full max-w-4xl items-center justify-between rounded-2xl border border-[#1E2230] bg-[#08090C]/70 backdrop-blur-2xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-[0_10px_40px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)]">
+      {/* Unfrozen Normal Header */}
+      <div className="w-full flex justify-center px-4 pt-4 sm:pt-6">
+        <header className="flex w-full max-w-4xl items-center justify-between rounded-2xl border border-[#1E2230] bg-[#08090C]/70 backdrop-blur-md px-4 py-2.5 sm:px-5 sm:py-3 shadow-lg">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg border border-white/10 bg-black/50 flex items-center justify-center overflow-hidden shrink-0">
+            {/* Uploadable Logo with Theme Background */}
+            <div className="w-8 h-8 rounded-lg border border-white/10 bg-[#050608] flex items-center justify-center overflow-hidden shrink-0">
               <EditableImage
                 id="octavelo.header.logo"
                 defaultSrc="https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized.webp"
@@ -100,11 +100,6 @@ TrxID: ${formData.trxId}`;
           </div>
 
           <div className="flex items-center gap-5">
-             <div className="hidden md:flex items-center gap-2 text-xs text-zinc-400 font-mono">
-               <Users className="w-3.5 h-3.5 text-[#00F0FF]" />
-               <span><EditableText id="octavelo.header.trust">৬,০০০+ স্টুডেন্ট</EditableText></span>
-             </div>
-             
              <button
                onClick={() => setIsModalOpen(true)}
                className="px-5 py-2 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-xs sm:text-sm hover:brightness-110 active:scale-95 transition-transform cursor-pointer flex items-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.2)]"
@@ -118,12 +113,28 @@ TrxID: ${formData.trxId}`;
       </div>
 
       {/* Main Centered Reading Flow */}
-      <main className="max-w-3xl mx-auto px-5 sm:px-8 pt-32 sm:pt-40 flex flex-col items-center text-center">
+      <main className="max-w-3xl mx-auto px-5 sm:px-8 pt-12 sm:pt-16 flex flex-col items-center text-center">
         
-        {/* Title & Description */}
+        {/* Title & Trust Badge */}
         <div className="space-y-6 w-full">
-          <div className="inline-block px-4 py-1.5 rounded-full border border-[#00F0FF]/30 bg-[#00F0FF]/[0.05] text-[#00F0FF] text-xs font-mono font-medium tracking-wide shadow-[0_0_15px_rgba(0,240,255,0.1)]">
-            <EditableText id="octavelo.badge">[ Behavioral Science • Intellectual Dominance ]</EditableText>
+          
+          {/* Prominent Trust Badge (Replaced Behavioral Science) */}
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
+            <div className="flex -space-x-1.5">
+               <div className="w-5 h-5 rounded-full border border-[#050608] bg-zinc-800" />
+               <div className="w-5 h-5 rounded-full border border-[#050608] bg-zinc-700" />
+               <div className="w-5 h-5 rounded-full border border-[#050608] bg-zinc-600" />
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="flex gap-0.5">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star key={star} className="w-3 h-3 text-[#00F0FF] fill-[#00F0FF]" />
+                ))}
+              </div>
+              <span className="text-[#00F0FF] text-[11px] sm:text-xs font-mono font-bold tracking-wide">
+                <EditableText id="octavelo.trust.badge">Trusted by 6,000+ Students</EditableText>
+              </span>
+            </div>
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.2] text-white">
@@ -140,7 +151,7 @@ TrxID: ${formData.trxId}`;
           </p>
         </div>
 
-        {/* Dynamic Size Image Container (Right below description) */}
+        {/* Dynamic Size Image Container */}
         <div className="w-full max-w-[340px] sm:max-w-md mx-auto mt-10">
           <div className="rounded-2xl border border-[#1E2230] bg-[#0A0C10] p-2.5 sm:p-3 shadow-2xl relative group">
             {/* Ambient inner glow */}
@@ -232,7 +243,6 @@ TrxID: ${formData.trxId}`;
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-left">
-            {/* Feedback Card 1 */}
             <div className="p-6 rounded-2xl bg-[#0B0D12] border border-[#1E2230] relative group hover:border-[#00F0FF]/30 transition-colors">
               <Quote className="absolute top-5 right-5 w-6 h-6 text-[#1E2230] group-hover:text-[#00F0FF]/20 transition-colors" />
               <div className="flex gap-1 mb-4">
@@ -256,7 +266,6 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            {/* Feedback Card 2 */}
             <div className="p-6 rounded-2xl bg-[#0B0D12] border border-[#1E2230] relative group hover:border-[#00F0FF]/30 transition-colors">
               <Quote className="absolute top-5 right-5 w-6 h-6 text-[#1E2230] group-hover:text-[#00F0FF]/20 transition-colors" />
               <div className="flex gap-1 mb-4">
@@ -280,7 +289,6 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            {/* Feedback Card 3 */}
             <div className="p-6 rounded-2xl bg-[#0B0D12] border border-[#1E2230] relative group hover:border-[#00F0FF]/30 transition-colors sm:col-span-2 lg:col-span-1">
               <Quote className="absolute top-5 right-5 w-6 h-6 text-[#1E2230] group-hover:text-[#00F0FF]/20 transition-colors" />
               <div className="flex gap-1 mb-4">
@@ -311,7 +319,7 @@ TrxID: ${formData.trxId}`;
         </footer>
       </main>
 
-      {/* Floating Premium Mobile Footer (Not edge-to-edge) */}
+      {/* Floating Premium Mobile Footer */}
       <div className="fixed bottom-4 inset-x-4 z-40 lg:hidden rounded-2xl bg-[#08090C]/85 backdrop-blur-2xl border border-[#1E2230] p-3 sm:p-4 flex items-center justify-between gap-4 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
         <div className="flex flex-col px-2">
           <span className="text-[10px] text-zinc-400 font-mono line-through decoration-zinc-500 mb-0.5">৫০০ ৳</span>
@@ -330,7 +338,7 @@ TrxID: ${formData.trxId}`;
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md animate-in fade-in duration-150">
           <div
-            className="w-full max-w-md rounded-2xl bg-[#08090C] border border-[#1E2230] p-6 sm:p-8 relative max-h-[92vh] overflow-y-auto shadow-[0_0_50px_rgba(0,82,255,0.15)]"
+            className="w-full max-w-md rounded-xl bg-[#08090C] border border-[#1E2230] p-6 sm:p-8 relative max-h-[92vh] overflow-y-auto shadow-[0_0_50px_rgba(0,82,255,0.1)]"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -338,7 +346,7 @@ TrxID: ${formData.trxId}`;
                 setIsModalOpen(false);
                 setIsSubmitted(false);
               }}
-              className="absolute top-5 right-5 p-2 rounded-lg bg-[#111318] text-[#94A3B8] border border-[#1E2230] hover:text-white hover:border-white/20 transition-colors cursor-pointer"
+              className="absolute top-5 right-5 p-2 rounded-md bg-[#111318] text-[#94A3B8] border border-[#1E2230] hover:text-white hover:border-white/20 transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -352,12 +360,11 @@ TrxID: ${formData.trxId}`;
                   </h3>
                 </div>
 
-                {/* Method Switcher */}
-                <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-[#111318] border border-[#1E2230] mb-4">
+                <div className="grid grid-cols-2 gap-2 p-1 rounded-lg bg-[#111318] border border-[#1E2230] mb-4">
                   <button
                     type="button"
                     onClick={() => setSelectedMethod("bKash")}
-                    className={`py-2.5 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    className={`py-2 px-3 rounded-md text-xs font-bold transition-all cursor-pointer ${
                       selectedMethod === "bKash"
                         ? "bg-white text-black"
                         : "text-[#94A3B8] hover:text-white"
@@ -368,7 +375,7 @@ TrxID: ${formData.trxId}`;
                   <button
                     type="button"
                     onClick={() => setSelectedMethod("Nagad")}
-                    className={`py-2.5 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    className={`py-2 px-3 rounded-md text-xs font-bold transition-all cursor-pointer ${
                       selectedMethod === "Nagad"
                         ? "bg-white text-black"
                         : "text-[#94A3B8] hover:text-white"
@@ -378,11 +385,10 @@ TrxID: ${formData.trxId}`;
                   </button>
                 </div>
 
-                {/* Send Money Card */}
                 <div className="rounded-xl p-4 border border-[#1E2230] bg-[#111318] mb-4">
-                  <div className="flex items-center justify-between text-xs mb-3">
+                  <div className="flex items-center justify-between text-xs mb-2">
                     <span className="text-[#94A3B8]">সেন্ড মানি নম্বর ({selectedMethod}):</span>
-                    <span className="px-2 py-1 rounded-md bg-[#00F0FF]/10 text-[#00F0FF] text-[10px] font-mono font-bold uppercase border border-[#00F0FF]/20">
+                    <span className="px-2 py-0.5 rounded bg-[#00F0FF]/10 text-[#00F0FF] text-[10px] font-mono font-bold uppercase border border-[#00F0FF]/20">
                       Personal
                     </span>
                   </div>
@@ -394,7 +400,7 @@ TrxID: ${formData.trxId}`;
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="px-3 py-2 text-xs rounded-lg bg-[#1E2230] text-white font-bold flex items-center gap-1.5 active:scale-95 hover:bg-[#2A2F42] transition-colors cursor-pointer"
+                      className="px-3 py-1.5 text-xs rounded-md bg-[#1E2230] text-white font-bold flex items-center gap-1.5 active:scale-95 hover:bg-[#2A2F42] transition-colors cursor-pointer"
                     >
                       {copied ? <Check className="w-3.5 h-3.5 text-[#00F0FF]" /> : <Copy className="w-3.5 h-3.5 text-white" />}
                       <span>{copied ? "Copied" : "Copy"}</span>
@@ -402,7 +408,6 @@ TrxID: ${formData.trxId}`;
                   </div>
                 </div>
 
-                {/* Purchase Form */}
                 <form onSubmit={handleSubmit} className="space-y-3 text-sm">
                   <div>
                     <input
@@ -411,7 +416,7 @@ TrxID: ${formData.trxId}`;
                       placeholder="আপনার পূর্ণ নাম *"
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
+                      className="w-full px-4 py-3 rounded-lg bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
                     />
                   </div>
 
@@ -422,7 +427,7 @@ TrxID: ${formData.trxId}`;
                       placeholder="ইমেইল এড্রেস *"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
+                      className="w-full px-4 py-3 rounded-lg bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
                     />
                   </div>
 
@@ -432,7 +437,7 @@ TrxID: ${formData.trxId}`;
                       placeholder="হোয়াটসঅ্যাপ নম্বর (ঐচ্ছিক)"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
+                      className="w-full px-4 py-3 rounded-lg bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
                     />
                   </div>
 
@@ -443,11 +448,10 @@ TrxID: ${formData.trxId}`;
                       placeholder="Transaction ID (TrxID) *"
                       value={formData.trxId}
                       onChange={(e) => setFormData({ ...formData, trxId: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
+                      className="w-full px-4 py-3 rounded-lg bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
                     />
                   </div>
 
-                  {/* Bonus Checkbox */}
                   <div
                     onClick={() => setWantBonus(!wantBonus)}
                     className="py-2 flex items-start gap-3 cursor-pointer group"
@@ -462,7 +466,7 @@ TrxID: ${formData.trxId}`;
 
                   <button
                     type="submit"
-                    className="w-full mt-2 py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] hover:brightness-110 text-white font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer shadow-[0_0_15px_rgba(0,240,255,0.3)]"
+                    className="w-full mt-2 py-4 rounded-lg bg-gradient-to-r from-[#0052FF] to-[#00F0FF] hover:brightness-110 text-white font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer shadow-[0_0_15px_rgba(0,240,255,0.3)]"
                   >
                     <Send className="w-4 h-4 text-white stroke-[2.5]" />
                     <span>পেমেন্ট নিশ্চিত করুন</span>
@@ -484,7 +488,7 @@ TrxID: ${formData.trxId}`;
                     href={pdfDownloadUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm hover:brightness-110 transition-colors shadow-[0_0_15px_rgba(0,240,255,0.3)]"
+                    className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm hover:brightness-110 transition-colors shadow-[0_0_15px_rgba(0,240,255,0.3)]"
                   >
                     <Download className="w-4 h-4 text-white stroke-[2.5]" />
                     <span>পিডিএফ ডাউনলোড করুন</span>
