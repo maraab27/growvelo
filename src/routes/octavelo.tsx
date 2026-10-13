@@ -35,7 +35,7 @@ function OctaveloLandingPage() {
   const paymentNumber = "01790055690";
   const supportWhatsapp = "8801410341220";
   
-  // আপনার সুপাবেস লিংকগুলো এখানে দেওয়া আছে। এখান থেকেই লিংক পরিবর্তন করবেন।
+  // আপনার সুপাবেস লিংকগুলো এখানে দেওয়া আছে। এখান থেকেই লিংক পরিবর্তন করবেন।
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
   const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Psychological%20masterclass%20on%20winning%20arguments.webp"; // এখানে নতুন ইউটিউব থাম্বনেইলের লিংক দিবেন
   const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf";
@@ -143,7 +143,7 @@ TrxID: ${formData.trxId}`;
 
             <p className="text-base sm:text-lg text-[#94A3B8] leading-relaxed max-w-xl">
               <EditableText id="octavelo.desc">
-                তর্কে প্রতিপক্ষকে পরাজিত করতে অহেতুক কথা নয়, প্রয়োজন ফ্রেম কন্ট্রোল। মানুষের অবচেতন আচরণ ও ইগো নিয়ন্ত্রণ করার একটি ঠান্ডা মাথার স্ট্র্যাটেজিক ব্লু-প্রিন্ট গাইড।
+                তর্কে প্রতিপক্ষকে পরাজিত করতে অহেতুক কথা নয়, প্রয়োজন ফ্রেম কন্ট্রোল। মানুষের অবচেতন আচরণ ও ইগো নিয়ন্ত্রণ করার একটি ঠান্ডা মাথার স্ট্র্যাটেজিক ব্লু-প্রিন্ট গাইড।
               </EditableText>
             </p>
 
@@ -153,7 +153,7 @@ TrxID: ${formData.trxId}`;
                   <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
                 </div>
                 <span className="text-sm text-zinc-300">
-                  <EditableText id="octavelo.b1">আক্রমণাত্মক লজিক ভাঙার সাইকোলজিক্যাল ফ্রেমওয়ার্ক</EditableText>
+                  <EditableText id="octavelo.b1">আক্রমণাত্মক লজিক ভাঙার সাইকোলজিক্যাল ফ্রেমওয়ার্ক</EditableText>
                 </span>
               </div>
               <div className="flex items-start justify-start gap-3.5 text-left">
@@ -169,7 +169,7 @@ TrxID: ${formData.trxId}`;
                   <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
                 </div>
                 <span className="text-sm text-zinc-300">
-                  <EditableText id="octavelo.b3">লগইন ছাড়া সরাসরি ডাউনলোড ও লাইফটাইম অ্যাক্সেস</EditableText>
+                  <EditableText id="octavelo.b3">লগইন ছাড়া সরাসরি ডাউনলোড ও লাইফটাইম অ্যাক্সেস</EditableText>
                 </span>
               </div>
             </div>
@@ -203,12 +203,13 @@ TrxID: ${formData.trxId}`;
                   <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none">
                     <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
                   </span>
-                  <span className="text-xl sm:text-2xl text-zinc-400 line-through decoration-[#f43f5e] decoration-[3px] font-mono mb-0.5">
-  <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
-</span>
+                  {/* CHANGE 1: Desktop Pricing Box */}
+                  <span className="text-xl sm:text-2xl text-zinc-400 line-through decoration-[#f43f5e]/70 decoration-2 font-mono mb-0.5">
+                    <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
+                  </span>
                 </div>
                 <span className="px-3 py-1.5 rounded-lg bg-[#f43f5e]/10 text-[#f43f5e] border border-[#f43f5e]/20 text-[11px] font-bold uppercase tracking-wider">
-                  <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
+                  <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
                 </span>
               </div>
 
@@ -246,7 +247,7 @@ TrxID: ${formData.trxId}`;
               </div>
               <p className="text-sm text-zinc-300 leading-relaxed mb-6">
                 <EditableText id="octavelo.review1.text">
-                  "আগে মিটিংয়ে কেউ জোরে কথা বললে নার্ভাস হয়ে যেতাম। এই স্লাইডের ফ্রেম কন্ট্রোল থিওরিটা জাস্ট মাইন্ড-ব্লোয়িং। এখন অনেক কুলভাবে সিচুয়েশন হ্যান্ডেল করতে পারি।"
+                  "আগে মিটিংয়ে কেউ জোরে কথা বললে নার্ভাস হয়ে যেতাম। এই স্লাইডের ফ্রেম কন্ট্রোল থিওরিটা জাস্ট মাইন্ড-ব্লোয়িং। এখন অনেক কুলভাবে সিচুয়েশন হ্যান্ডেল করতে পারি।"
                 </EditableText>
               </p>
               <div className="flex items-center gap-3">
@@ -269,7 +270,7 @@ TrxID: ${formData.trxId}`;
               </div>
               <p className="text-sm text-zinc-300 leading-relaxed mb-6">
                 <EditableText id="octavelo.review2.text">
-                  "বই পড়ে সাধারণত বোরিং লাগে, কিন্তু এই পিডিএফটার প্রেজেন্টেশন ও পয়েন্টগুলো এতটাই শার্প যে এক বসায় পড়ে শেষ করেছি। ক্লায়েন্ট ডিলিংয়ে দারুণ কাজে দিচ্ছে।"
+                  "বই পড়ে সাধারণত বোরিং লাগে, কিন্তু এই পিডিএফটার প্রেজেন্টেশন ও পয়েন্টগুলো এতটাই শার্প যে এক বসায় পড়ে শেষ করেছি। ক্লায়েন্ট ডিলিংয়ে দারুণ কাজে দিচ্ছে।"
                 </EditableText>
               </p>
               <div className="flex items-center gap-3">
@@ -292,7 +293,7 @@ TrxID: ${formData.trxId}`;
               </div>
               <p className="text-sm text-zinc-300 leading-relaxed mb-6">
                 <EditableText id="octavelo.review3.text">
-                  "লজিক দিয়ে যে মানুষের ইগো কন্ট্রোল করা যায়, এটা আগে ভাবিনি। পার্সোনাল লাইফেও এই ফ্রেমওয়ার্কগুলো অনেক হেল্পফুল।"
+                  "লজিক দিয়ে যে মানুষের ইগো কন্ট্রোল করা যায়, এটা আগে ভাবিনি। পার্সোনাল লাইফেও এই ফ্রেমওয়ার্কগুলো অনেক হেল্পফুল।"
                 </EditableText>
               </p>
               <div className="flex items-center gap-3">
@@ -300,7 +301,7 @@ TrxID: ${formData.trxId}`;
                   <EditableText id="octavelo.review3.initial">S</EditableText>
                 </div>
                 <div>
-                  <span className="block text-xs font-bold text-white"><EditableText id="octavelo.review3.name">সাদিয়া ইসলাম</EditableText></span>
+                  <span className="block text-xs font-bold text-white"><EditableText id="octavelo.review3.name">সাদিয়া ইসলাম</EditableText></span>
                   <span className="block text-[10px] text-zinc-500 font-mono"><EditableText id="octavelo.review3.role">Agency Owner</EditableText></span>
                 </div>
               </div>
@@ -315,7 +316,8 @@ TrxID: ${formData.trxId}`;
 
       <div className="fixed bottom-4 inset-x-4 z-40 lg:hidden rounded-2xl bg-[#08090C]/85 backdrop-blur-2xl border border-[#1E2230] p-3 sm:p-4 flex items-center justify-between gap-4 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
         <div className="flex flex-col px-2">
-          <span className="text-[10px] text-zinc-400 font-mono line-through decoration-zinc-500 mb-0.5">৫০০ ৳</span>
+          {/* CHANGE 2: Mobile Footer */}
+          <span className="text-sm text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2 mb-0.5">৫০০ ৳</span>
           <span className="text-xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
         </div>
         <button
@@ -346,8 +348,13 @@ TrxID: ${formData.trxId}`;
             {!isSubmitted ? (
               <>
                 <div className="text-center mb-6 mt-2">
-                  <div className="text-3xl font-bold font-mono text-white mt-1.5">৯৯ ৳</div>
-                  <h3 className="text-sm text-[#94A3B8] mt-1">
+                  <div className="inline-flex items-center justify-center gap-2 mb-1">
+                    {/* CHANGE 3: Checkout Modal */}
+                    <span className="text-lg text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2">৫০০ ৳</span>
+                    <span className="px-2 py-0.5 rounded bg-[#f43f5e] text-white text-[10px] font-bold uppercase tracking-wider">৮০% ছাড়</span>
+                  </div>
+                  <div className="text-4xl font-bold font-mono text-white mt-1">৯৯ ৳</div>
+                  <h3 className="text-sm text-[#94A3B8] mt-2">
                     তর্কে জেতার মনস্তাত্ত্বিক মাস্টারক্লাস পিডিএফ
                   </h3>
                 </div>
@@ -452,7 +459,7 @@ TrxID: ${formData.trxId}`;
                       {wantBonus && <Check className="w-3 h-3 text-black stroke-[3]" />}
                     </div>
                     <div className="text-xs text-[#94A3B8] leading-relaxed select-none">
-                      <strong className="text-white font-medium">ফ্রি বোনাস:</strong> ভবিষ্যতে ক্যারিয়ার ও সাইকোলজি রিসোর্সে ফ্রি অ্যাক্সেস পেতে চাই।
+                      <strong className="text-white font-medium">ফ্রি বোনাস:</strong> ভবিষ্যতে ক্যারিয়ার ও সাইকোলজি রিসোর্সে ফ্রি অ্যাক্সেস পেতে চাই।
                     </div>
                   </div>
 
@@ -472,7 +479,7 @@ TrxID: ${formData.trxId}`;
                 </div>
                 <h3 className="text-xl font-bold text-white">রিকোয়েস্ট সফল!</h3>
                 <p className="text-sm text-[#94A3B8] leading-relaxed max-w-[250px] mx-auto">
-                  আপনার হোয়াটসঅ্যাপ উইন্ডো ওপেন হয়েছে। নিচের বাটনে ক্লিক করে সরাসরি ফাইলটি ডাউনলোড করুন।
+                  আপনার হোয়াটসঅ্যাপ উইন্ডো ওপেন হয়েছে। নিচের বাটনে ক্লিক করে সরাসরি ফাইলটি ডাউনলোড করুন।
                 </p>
 
                 <div className="pt-4">
