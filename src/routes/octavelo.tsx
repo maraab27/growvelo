@@ -34,9 +34,10 @@ function OctaveloLandingPage() {
 
   const paymentNumber = "01790055690";
   const supportWhatsapp = "8801410341220";
-  // আপনার সুপাবেস লিংকগুলো এখানে দেওয়া আছে
+  
+  // আপনার সুপাবেস লিংকগুলো এখানে দেওয়া আছে। এখান থেকেই লিংক পরিবর্তন করবেন।
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/growvelo_logo_v2_optimized.webp";
-  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp";
+  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/newthum.webp"; // এখানে নতুন ইউটিউব থাম্বনেইলের লিংক দিবেন
   const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf";
 
   const handleCopy = () => {
@@ -83,11 +84,10 @@ TrxID: ${formData.trxId}`;
         .font-bengali { font-family: 'Hind Siliguri', sans-serif; }
       `}</style>
 
-      {/* Floating Header */}
-      <div className="fixed top-4 inset-x-4 z-50 flex justify-center pointer-events-none">
-        <header className="pointer-events-auto flex w-full max-w-5xl items-center justify-between rounded-full border border-[#1E2230] bg-[#08090C]/80 backdrop-blur-2xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+      {/* Unfrozen Header */}
+      <div className="w-full flex justify-center px-4 pt-4 sm:pt-6">
+        <header className="flex w-full max-w-5xl items-center justify-between rounded-full border border-[#1E2230] bg-[#08090C]/80 backdrop-blur-2xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-lg">
           <div className="flex items-center gap-3">
-            {/* Hardcoded Logo Image */}
             <div className="w-8 h-8 rounded-full border border-white/10 bg-[#050608] flex items-center justify-center overflow-hidden shrink-0">
               <img
                 src={logoUrl}
@@ -111,12 +111,10 @@ TrxID: ${formData.trxId}`;
         </header>
       </div>
 
-      {/* Main Content Area */}
-      <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-32 sm:pt-40">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center lg:items-start">
+      <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Left Text Column */}
-          <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 w-full pt-2">
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 w-full">
             
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
               <div className="flex -space-x-2">
@@ -177,16 +175,14 @@ TrxID: ${formData.trxId}`;
             </div>
           </div>
 
-          {/* Right Column: Hardcoded Cover Image & Action Panel */}
-          <div className="lg:col-span-6 flex flex-col items-center lg:items-end w-full mt-6 lg:mt-0 space-y-6">
+          <div className="lg:col-span-5 flex flex-col items-center w-full mt-4 lg:mt-0 space-y-6">
             
-            {/* Dynamic Cover Card - Optimized Sizing for Desktop */}
-            <div className="w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[460px]">
+            <div className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px]">
               <div className="rounded-2xl border border-[#1E2230] bg-[#0A0C10] p-3 sm:p-4 shadow-2xl relative">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#00F0FF]/10 blur-3xl pointer-events-none" />
                 
-                {/* Fixed Image Container */}
-                <div className="w-full aspect-[4/5] rounded-xl overflow-hidden bg-black border border-white/5 relative z-10">
+                {/* YouTube Thumbnail Size Container (aspect-video = 16:9) */}
+                <div className="w-full aspect-video rounded-xl overflow-hidden bg-black border border-white/5 relative z-10">
                   <img
                     src={coverUrl}
                     alt="Masterclass Cover"
@@ -201,8 +197,7 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            {/* Pricing & Button Box */}
-            <div className="w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[460px] bg-[#111318] border border-[#1E2230] rounded-2xl p-5 sm:p-6 shadow-xl">
+            <div className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] bg-[#111318] border border-[#1E2230] rounded-2xl p-5 sm:p-6 shadow-xl">
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-end gap-3">
                   <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none">
@@ -231,7 +226,6 @@ TrxID: ${formData.trxId}`;
           </div>
         </div>
 
-        {/* Testimonials / Feedback Section */}
         <div className="w-full max-w-5xl mx-auto mt-24 pt-16 border-t border-[#1E2230]">
           <div className="text-center mb-10">
             <span className="text-[#00F0FF] text-xs font-mono tracking-widest uppercase font-semibold block mb-2">
@@ -319,7 +313,6 @@ TrxID: ${formData.trxId}`;
         </footer>
       </main>
 
-      {/* Floating Premium Mobile Footer */}
       <div className="fixed bottom-4 inset-x-4 z-40 lg:hidden rounded-2xl bg-[#08090C]/85 backdrop-blur-2xl border border-[#1E2230] p-3 sm:p-4 flex items-center justify-between gap-4 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
         <div className="flex flex-col px-2">
           <span className="text-[10px] text-zinc-400 font-mono line-through decoration-zinc-500 mb-0.5">৫০০ ৳</span>
@@ -334,7 +327,6 @@ TrxID: ${formData.trxId}`;
         </button>
       </div>
 
-      {/* Guest Checkout Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md animate-in fade-in duration-150">
           <div
