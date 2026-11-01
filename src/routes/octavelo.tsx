@@ -136,9 +136,10 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-[62px] font-bold leading-tight lg:leading-[1.15] text-white">
-              <EditableText id="octavelo.title1">তর্কে জেতার সাইকোলজি:</EditableText> <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">
+            {/* FIXED: Title structure changed to strictly drop to the next line on mobile */}
+            <h1 className="text-[28px] sm:text-4xl lg:text-[62px] font-bold leading-snug lg:leading-[1.15] text-white">
+              <span className="block"><EditableText id="octavelo.title1">তর্কে জেতার সাইকোলজি:</EditableText></span>
+              <span className="block mt-1 lg:mt-0 text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">
                 <EditableText id="octavelo.title2">দ্য আল্টিমেট মাস্টারক্লাস</EditableText>
               </span>
             </h1>
@@ -181,8 +182,8 @@ TrxID: ${formData.trxId}`;
             
             <div className="w-full max-w-[340px] sm:max-w-[380px] flex flex-col items-center relative">
               
-              {/* NEW: Beige/Metallic Golden Faded Glow Behind the Book */}
-              <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[70%] h-[60%] bg-[#E6C27A] opacity-25 blur-[60px] rounded-full pointer-events-none z-0" />
+              {/* FIXED: Theme-matching Neon Blue/Cyan Faded Glow Behind the Book */}
+              <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[75%] h-[65%] bg-gradient-to-r from-[#0052FF] to-[#00F0FF] opacity-30 blur-[60px] rounded-full pointer-events-none z-0" />
 
               {/* TOP: E-Book Cover Plate (z-10 to stay above the glow) */}
               <div className="w-[82%] relative z-10 rounded-t-3xl overflow-hidden shadow-2xl bg-[#050608] border border-b-0 border-[#0052FF]/40">
@@ -229,7 +230,7 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            {/* NEW: URGENCY CARD with Golden/Neon Border & Glow */}
+            {/* URGENCY CARD */}
             <div className="w-full max-w-[340px] sm:max-w-[380px] bg-[#0A0C12]/90 backdrop-blur-md border border-amber-400/50 rounded-2xl p-3 sm:p-4 flex items-center gap-3.5 shadow-[0_0_20px_rgba(251,191,36,0.15)] relative overflow-hidden">
               <div className="shrink-0 relative w-12 h-12 rounded-xl bg-[#050608] border border-[#1E2230] flex items-center justify-center overflow-hidden shadow-inner">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#0052FF]/10 to-[#00F0FF]/5" />
@@ -238,7 +239,6 @@ TrxID: ${formData.trxId}`;
                 <Sparkles className="w-2.5 h-2.5 text-amber-400 absolute top-1.5 right-1.5" />
               </div>
               <div className="flex flex-col text-left">
-                {/* Text added drop-shadow for extra pop */}
                 <span className="text-[10px] font-black tracking-wider text-amber-400 drop-shadow-[0_0_5px_rgba(251,191,36,0.5)] uppercase mb-0.5">
                   <EditableText id="octavelo.urgency.badge">🎁 Limited Offer</EditableText>
                 </span>
