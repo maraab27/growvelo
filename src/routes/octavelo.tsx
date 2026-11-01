@@ -39,7 +39,7 @@ function OctaveloLandingPage() {
   const supportWhatsapp = "8801410341220";
   
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
-  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/ecover.webp"; 
+  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Psychological%20masterclass%20on%20winning%20arguments.webp";
   const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf";
 
   const handleCopy = () => {
@@ -177,57 +177,54 @@ TrxID: ${formData.trxId}`;
             </div>
           </div>
 
-          <div className="lg:col-span-5 flex flex-col items-center w-full mt-4 lg:mt-0 space-y-6">
+          <div className="lg:col-span-5 flex flex-col items-center w-full mt-10 lg:mt-0 space-y-6">
             
-            {/* UPDATED: E-Book Cover - Perfectly Sized & Glossy Vibe */}
-            <div className="w-full max-w-[260px] sm:max-w-[300px] lg:max-w-[320px] relative group mt-4">
-              {/* Glossy Ambient Glow */}
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#0052FF] to-[#00F0FF] rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-700" />
+            {/* 🚀 NEW UNIFIED CARD DESIGN (Like Reference) */}
+            <div className="w-full max-w-[340px] sm:max-w-[400px] relative pt-32 sm:pt-40 mt-4">
               
-              {/* Glassy Plate Container */}
-              <div className="relative rounded-2xl border border-white/10 bg-[#050608]/60 backdrop-blur-xl p-2.5 sm:p-3 shadow-2xl flex flex-col items-center justify-center">
-                
-                {/* The Image (Uncropped, auto-height) */}
-                <div className="w-full rounded-xl overflow-hidden relative z-10 bg-black shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-                  <img
-                    src={coverUrl}
-                    alt="Masterclass Cover"
-                    className="w-full h-auto object-contain block transition-transform duration-700 hover:scale-105"
-                  />
-                  {/* Gloss Reflection Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/20 pointer-events-none" />
-                </div>
-
+              {/* E-Book Cover Emerging from Behind */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[180px] sm:w-[220px] z-0 transition-transform duration-500 hover:-translate-y-3">
+                <img
+                  src={coverUrl}
+                  alt="Masterclass Cover"
+                  className="w-full h-auto object-cover rounded-xl shadow-2xl border border-[#1E2230]"
+                />
               </div>
-            </div>
 
-            <div className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] bg-[#111318] border border-[#1E2230] rounded-2xl p-5 sm:p-6 shadow-xl">
-              <div className="flex items-center justify-between mb-5">
-                <div className="flex items-end gap-3">
-                  <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none">
-                    <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
+              {/* Pricing & Action Plate */}
+              <div className="relative z-10 w-full bg-gradient-to-b from-[#181A24] to-[#0D0F15] border border-[#2A2F42] rounded-[2rem] p-6 sm:p-8 shadow-[0_30px_60px_rgba(0,0,0,0.8)] flex flex-col items-center text-center">
+                
+                {/* Overlapping Badge Like Reference Image */}
+                <div className="absolute -top-4 right-6 px-4 py-1.5 rounded-full bg-[#181A24] border border-[#2A2F42] shadow-xl flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[#f43f5e] animate-pulse"></div>
+                  <span className="text-[#f43f5e] text-[11px] font-bold uppercase tracking-wider">
+                    <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
                   </span>
-                  <span className="text-xl sm:text-2xl text-zinc-400 line-through decoration-[#f43f5e]/70 decoration-2 font-mono mb-0.5">
+                </div>
+                
+                <div className="flex flex-col items-center gap-1 mb-6 mt-2">
+                  <span className="text-xl sm:text-2xl text-zinc-500 line-through decoration-[#f43f5e]/70 decoration-[3px] font-mono font-bold">
                     <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
                   </span>
+                  <span className="text-5xl sm:text-6xl font-black font-mono text-white leading-none">
+                    <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
+                  </span>
                 </div>
-                <span className="px-3 py-1.5 rounded-lg bg-[#f43f5e]/10 text-[#f43f5e] border border-[#f43f5e]/20 text-[11px] font-bold uppercase tracking-wider">
-                  <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
-                </span>
-              </div>
 
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-transform cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.25)] border border-[#00F0FF]/30"
-              >
-                <Download className="w-5 h-5 text-white" />
-                <span>
-                  <EditableText id="octavelo.buy.btn">পিডিএফটি এখনই ডাউনলোড করুন</EditableText>
-                </span>
-              </button>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-transform cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.25)] border border-[#00F0FF]/30"
+                >
+                  <Download className="w-5 h-5 text-white" />
+                  <span>
+                    <EditableText id="octavelo.buy.btn">পিডিএফটি এখনই ডাউনলোড করুন</EditableText>
+                  </span>
+                </button>
+              </div>
             </div>
 
-            <div className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] bg-gradient-to-r from-[#00F0FF]/[0.05] to-transparent border border-[#00F0FF]/20 rounded-2xl p-3 sm:p-4 flex items-center gap-4 shadow-lg">
+            {/* Urgency Card */}
+            <div className="w-full max-w-[340px] sm:max-w-[400px] bg-gradient-to-r from-[#00F0FF]/[0.05] to-transparent border border-[#00F0FF]/20 rounded-2xl p-3 sm:p-4 flex items-center gap-4 shadow-lg">
               <div className="shrink-0 relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-[#050608] border border-[#1E2230] flex items-center justify-center overflow-hidden shadow-inner">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#0052FF]/10 to-[#00F0FF]/5" />
                 <FolderOpen className="w-7 h-7 sm:w-8 sm:h-8 text-[#0052FF] absolute -translate-y-1" />
@@ -335,6 +332,11 @@ TrxID: ${formData.trxId}`;
       </main>
 
       <div className="fixed bottom-4 inset-x-4 z-40 lg:hidden rounded-2xl bg-[#08090C]/85 backdrop-blur-2xl border border-[#1E2230] p-3 sm:p-4 flex flex-col gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
+        <div className="w-full text-center bg-[#00F0FF]/10 border border-[#00F0FF]/20 rounded-md py-1.5 px-2">
+          <span className="text-[10px] sm:text-xs text-[#00F0FF] font-medium">
+            <EditableText id="octavelo.urgency.mobile">💡 অফার অ্যালার্ট: আজই বইটি সংগ্রহ করলে সাথে পাচ্ছেন এক্সক্লুসিভ '২-মিনিটের পকেট চিট শিট' সম্পূর্ণ ফ্রি!</EditableText>
+          </span>
+        </div>
         <div className="flex items-center justify-between gap-4 w-full">
           <div className="flex flex-col px-2">
             <span className="text-sm text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2 mb-0.5">৫০০ ৳</span>
