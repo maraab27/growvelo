@@ -16,6 +16,7 @@ import {
   Sparkles,
   Plus,
   Minus,
+  Loader2,
 } from "lucide-react";
 import { EditableText } from "../components/cms/EditableText";
 
@@ -25,51 +26,70 @@ export const Route = createFileRoute("/octavelo")({
 
 function OctaveloLandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedMethod, setSelectedMethod] = useState<"bKash" | "Nagad">("bKash");
-  const [copied, setCopied] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [wantBonus, setWantBonus] = useState(true);
-  const [isIntroExpanded, setIsIntroExpanded] = useState(false);
-  const [openChapter, setOpenChapter] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false); // API Loading state
+  const [apiError, setApiError] = useState(""); // Error state
 
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
-    trxId: "",
   });
 
-  const paymentNumber = "01790055690";
   const supportWhatsapp = "8801410341220";
+  const ziniApiKey = "1a182d1372347e011ebf60b13ce854ce8afd59e46a768253"; // Your ZiniPay Brand API Key
+  const priceAmount = 99; // Total amount to charge
   
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
   const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/ecover.webp";
-  const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf";
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(paymentNumber);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  // ZiniPay Create Invoice Integration
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.email || !formData.trxId) {
-      alert("অনুগ্রহ করে আপনার নাম, ইমেইল এবং TrxID দিন।");
+    setApiError("");
+
+    if (!formData.fullName || !formData.email) {
+      setApiError("অনুগ্রহ করে আপনার নাম এবং ইমেইল দিন।");
       return;
     }
 
-    const message = `Hello Octavelo! I purchased the Psychological Masterclass Blueprint.
-Name: ${formData.fullName}
-Email: ${formData.email}
-WhatsApp: ${formData.phone || "Not provided"}
-Bonus Access: ${wantBonus ? "Yes" : "No"}
-Method: ${selectedMethod} Personal
-TrxID: ${formData.trxId}`;
+    setIsLoading(true);
 
-    const whatsappUrl = `https://wa.me/${supportWhatsapp}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, "_blank");
-    setIsSubmitted(true);
+    try {
+      const response = await fetch("https://api.zinipay.com/v1/payment/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "zini-api-key": ziniApiKey,
+        },
+        body: JSON.stringify({
+          cus_name: formData.fullName,
+          cus_email: formData.email,
+          amount: priceAmount,
+          metadata: {
+            want_bonus: wantBonus,
+            phone: formData.phone || "Not provided",
+            item: "Psychological Masterclass E-Book",
+          },
+          redirect_url: `${window.location.origin}/octavelo-success`, // Redirect here after payment
+          cancel_url: window.location.href, // Back to this page if cancelled
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.payment_url) {
+        // Redirect user to ZiniPay hosted payment page
+        window.location.href = data.payment_url;
+      } else {
+        setApiError(data.message || "পেমেন্ট গেটওয়ে লোড হতে সমস্যা হচ্ছে। অনুগ্রহ করে আবার চেষ্টা করুন।");
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error("Payment API Error:", error);
+      setApiError("ইন্টারনেট সংযোগ চেক করুন অথবা একটু পর আবার চেষ্টা করুন।");
+      setIsLoading(false);
+    }
   };
 
   // সূচিপত্রের ডাটা
@@ -150,6 +170,9 @@ TrxID: ${formData.trxId}`;
       ]
     }
   ];
+  
+  const [isIntroExpanded, setIsIntroExpanded] = useState(false);
+  const [openChapter, setOpenChapter] = useState<number | null>(null);
 
   return (
     <div
@@ -341,7 +364,6 @@ TrxID: ${formData.trxId}`;
           </div>
 
           <div className="relative bg-[#0B0D12] border border-[#1E2230] rounded-3xl p-6 sm:p-10 shadow-xl">
-            {/* Height exactly adjusted to reveal up to "দিনের পর দিন হতাশায় ভোগেন।" when collapsed */}
             <div className={`relative text-[15px] sm:text-[17px] text-zinc-300 leading-relaxed space-y-5 transition-all duration-500 ease-in-out ${!isIntroExpanded ? 'max-h-[145px] sm:max-h-[140px] overflow-hidden' : ''}`}>
               <p><EditableText id="octavelo.intro.p1">শতভাগ সঠিক হওয়ার পরও অন্যের কাছে বারবার ভুল প্রমাণিত হওয়া বা হেরে যাওয়ার মতো অসহায় অনুভূতি পৃথিবীতে খুব কমই আছে।</EditableText></p>
               <p><EditableText id="octavelo.intro.p2">আমাদের চারপাশে এমন অসংখ্য মানুষ আছেন, যারা নিজেরা ১০০% সঠিক হওয়া সত্ত্বেও শুধু গুছিয়ে কথা বলতে না পারার কারণে বা নেগোসিয়েশন স্কিলের অভাবে অন্যের কাছে বারবার ভুল প্রমাণিত হন। নিরেট সত্য আর অকাট্য লজিক পক্ষে থাকার পরও তারা তর্কে হেরে গিয়ে দিনের পর দিন হতাশায় ভোগেন।</EditableText></p>
@@ -378,7 +400,7 @@ TrxID: ${formData.trxId}`;
           </div>
         </div>
 
-        {/* NEW: TABLE OF CONTENTS (ACCORDION) */}
+        {/* TABLE OF CONTENTS SECTION */}
         <div className="w-full max-w-4xl mx-auto mt-24 pt-16 border-t border-[#1E2230]">
           <div className="text-center mb-10">
             <span className="text-[#00F0FF] text-xs font-mono tracking-widest uppercase font-semibold block mb-2">
@@ -391,12 +413,12 @@ TrxID: ${formData.trxId}`;
 
           <div className="space-y-4">
             {chapters.map((chapter, idx) => (
-              <div key={idx} className="border border-[#1E2230] bg-[#0B0D12] rounded-2xl overflow-hidden transition-all duration-300 shadow-md">
+              <div key={idx} className="border border-[#1E2230] bg-[#0B0D12] rounded-2xl overflow-hidden transition-all duration-300 shadow-md hover:border-[#00F0FF]/30">
                 <button
                   onClick={() => setOpenChapter(openChapter === idx ? null : idx)}
                   className="w-full flex items-center justify-between p-4 sm:p-5 text-left hover:bg-[#111318] transition-colors cursor-pointer"
                 >
-                  <span className="text-[15px] sm:text-base font-bold text-zinc-100 pr-4 leading-snug">
+                  <span className="text-[15px] sm:text-[17px] font-bold text-zinc-200 pr-4 leading-snug">
                     {chapter.title}
                   </span>
                   <div className="shrink-0 w-8 h-8 rounded-full bg-[#050608] border border-[#1E2230] flex items-center justify-center shadow-inner">
@@ -410,7 +432,7 @@ TrxID: ${formData.trxId}`;
                       {chapter.topics.map((topic, tIdx) => (
                         <li key={tIdx} className="flex items-start gap-3">
                           <div className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] mt-2 shrink-0 shadow-[0_0_8px_#00F0FF]" />
-                          <span className="text-sm sm:text-[15px] text-zinc-300 leading-relaxed">{topic}</span>
+                          <span className="text-[14px] sm:text-[15.5px] text-zinc-400 leading-relaxed">{topic}</span>
                         </li>
                       ))}
                     </ul>
@@ -522,6 +544,7 @@ TrxID: ${formData.trxId}`;
         </button>
       </div>
 
+      {/* CHECKOUT MODAL: Updated to connect with ZiniPay API */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md animate-in fade-in duration-150">
           <div
@@ -531,162 +554,104 @@ TrxID: ${formData.trxId}`;
             <button
               onClick={() => {
                 setIsModalOpen(false);
-                setIsSubmitted(false);
+                setApiError("");
               }}
-              className="absolute top-5 right-5 p-2 rounded-md bg-[#111318] text-[#94A3B8] border border-[#1E2230] hover:text-white hover:border-white/20 transition-colors cursor-pointer"
+              className="absolute top-5 right-5 p-2 rounded-md bg-[#111318] text-[#94A3B8] border border-[#1E2230] hover:text-white hover:border-white/20 transition-colors cursor-pointer disabled:opacity-50"
+              disabled={isLoading}
             >
               <X className="w-4 h-4" />
             </button>
 
-            {!isSubmitted ? (
-              <>
-                <div className="text-center mb-6 mt-2">
-                  <div className="inline-flex items-center justify-center gap-2 mb-1">
-                    <span className="text-lg text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2">৫০০ ৳</span>
-                    <span className="px-2 py-0.5 rounded bg-[#f43f5e] text-white text-[10px] font-bold uppercase tracking-wider">৮০% ছাড়</span>
-                  </div>
-                  <div className="text-4xl font-bold font-mono text-white mt-1">৯৯ ৳</div>
-                  <h3 className="text-sm text-[#94A3B8] mt-2">
-                    তর্কে জেতার মনস্তাত্ত্বিক মাস্টারক্লাস ই-বুক
-                  </h3>
-                </div>
+            <div className="text-center mb-6 mt-2">
+              <div className="inline-flex items-center justify-center gap-2 mb-1">
+                <span className="text-lg text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2">৫০০ ৳</span>
+                <span className="px-2 py-0.5 rounded bg-[#f43f5e] text-white text-[10px] font-bold uppercase tracking-wider">৮০% ছাড়</span>
+              </div>
+              <div className="text-4xl font-bold font-mono text-white mt-1">৯৯ ৳</div>
+              <h3 className="text-sm text-[#94A3B8] mt-2">
+                তর্কে জেতার মনস্তাত্ত্বিক মাস্টারক্লাস ই-বুক
+              </h3>
+            </div>
 
-                <div className="grid grid-cols-2 gap-2 p-1 rounded-lg bg-[#111318] border border-[#1E2230] mb-4">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedMethod("bKash")}
-                    className={`py-2.5 px-3 rounded-md text-xs font-bold transition-all cursor-pointer ${
-                      selectedMethod === "bKash"
-                        ? "bg-white text-black"
-                        : "text-[#94A3B8] hover:text-white"
-                    }`}
-                  >
-                    bKash
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedMethod("Nagad")}
-                    className={`py-2.5 px-3 rounded-md text-xs font-bold transition-all cursor-pointer ${
-                      selectedMethod === "Nagad"
-                        ? "bg-white text-black"
-                        : "text-[#94A3B8] hover:text-white"
-                    }`}
-                  >
-                    Nagad
-                  </button>
-                </div>
-
-                <div className="rounded-xl p-4 border border-[#1E2230] bg-[#111318] mb-4">
-                  <div className="flex items-center justify-between text-xs mb-2">
-                    <span className="text-[#94A3B8]">সেন্ড মানি নম্বর ({selectedMethod}):</span>
-                    <span className="px-2 py-1 rounded-md bg-[#00F0FF]/10 text-[#00F0FF] text-[10px] font-mono font-bold uppercase border border-[#00F0FF]/20">
-                      Personal
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between gap-2">
-                    <code className="text-lg font-mono font-bold text-white tracking-widest">
-                      {paymentNumber}
-                    </code>
-                    <button
-                      type="button"
-                      onClick={handleCopy}
-                      className="px-3 py-1.5 text-xs rounded-md bg-[#1E2230] text-white font-bold flex items-center gap-1.5 active:scale-95 hover:bg-[#2A2F42] transition-colors cursor-pointer"
-                    >
-                      {copied ? <Check className="w-3.5 h-3.5 text-[#00F0FF]" /> : <Copy className="w-3.5 h-3.5 text-white" />}
-                      <span>{copied ? "Copied" : "Copy"}</span>
-                    </button>
-                  </div>
-                </div>
-
-                <form onSubmit={handleSubmit} className="space-y-3 text-sm">
-                  <div>
-                    <input
-                      type="text"
-                      required
-                      placeholder="আপনার পূর্ণ নাম *"
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
-                    />
-                  </div>
-
-                  <div>
-                    <input
-                      type="email"
-                      required
-                      placeholder="ইমেইল এড্রেস *"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
-                    />
-                  </div>
-
-                  <div>
-                    <input
-                      type="tel"
-                      placeholder="হোয়াটসঅ্যাপ নম্বর (ঐচ্ছিক)"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
-                    />
-                  </div>
-
-                  <div>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Transaction ID (TrxID) *"
-                      value={formData.trxId}
-                      onChange={(e) => setFormData({ ...formData, trxId: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors"
-                    />
-                  </div>
-
-                  <div
-                    onClick={() => setWantBonus(!wantBonus)}
-                    className="py-2 flex items-start gap-3 cursor-pointer group"
-                  >
-                    <div className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${wantBonus ? 'bg-[#00F0FF] border-[#00F0FF]' : 'bg-[#111318] border-[#1E2230] group-hover:border-white/40'}`}>
-                      {wantBonus && <Check className="w-3 h-3 text-black stroke-[3]" />}
-                    </div>
-                    <div className="text-xs text-[#94A3B8] leading-relaxed select-none">
-                      <strong className="text-white font-medium">ফ্রি বোনাস:</strong> ভবিষ্যতে ক্যারিয়ার ও সাইকোলজি রিসোর্সে ফ্রি অ্যাক্সেস পেতে চাই।
-                    </div>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full mt-2 py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] hover:brightness-110 text-white font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer shadow-[0_0_15px_rgba(0,240,255,0.3)]"
-                  >
-                    <Send className="w-4 h-4 text-white stroke-[2.5]" />
-                    <span>পেমেন্ট নিশ্চিত করুন</span>
-                  </button>
-                </form>
-              </>
-            ) : (
-              <div className="py-8 text-center space-y-4">
-                <div className="w-16 h-16 bg-[#00F0FF]/10 text-[#00F0FF] rounded-2xl flex items-center justify-center mx-auto border border-[#00F0FF]/30">
-                  <ShieldCheck className="w-8 h-8 stroke-[2]" />
-                </div>
-                <h3 className="text-xl font-bold text-white">রিকোয়েস্ট সফল!</h3>
-                <p className="text-sm text-[#94A3B8] leading-relaxed max-w-[250px] mx-auto">
-                  আপনার হোয়াটসঅ্যাপ উইন্ডো ওপেন হয়েছে। নিচের বাটনে ক্লিক করে সরাসরি ফাইলটি ডাউনলোড করুন।
-                </p>
-
-                <div className="pt-4">
-                  <a
-                    href={pdfDownloadUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm hover:brightness-110 transition-colors shadow-[0_0_15px_rgba(0,240,255,0.3)]"
-                  >
-                    <Download className="w-4 h-4 text-white stroke-[2.5]" />
-                    <span>ই-বুক ডাউনলোড করুন</span>
-                  </a>
-                </div>
+            {/* Error Message Display */}
+            {apiError && (
+              <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs sm:text-sm text-center flex items-center justify-center gap-2">
+                <AlertCircle className="w-4 h-4" />
+                <span>{apiError}</span>
               </div>
             )}
+
+            <form onSubmit={handleSubmit} className="space-y-3 text-sm">
+              <div>
+                <input
+                  type="text"
+                  required
+                  placeholder="আপনার পূর্ণ নাম *"
+                  value={formData.fullName}
+                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                  disabled={isLoading}
+                  className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors disabled:opacity-50"
+                />
+              </div>
+
+              <div>
+                <input
+                  type="email"
+                  required
+                  placeholder="ইমেইল এড্রেস *"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  disabled={isLoading}
+                  className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors disabled:opacity-50"
+                />
+              </div>
+
+              <div>
+                <input
+                  type="tel"
+                  placeholder="হোয়াটসঅ্যাপ নম্বর (ঐচ্ছিক)"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  disabled={isLoading}
+                  className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors disabled:opacity-50"
+                />
+              </div>
+
+              <div
+                onClick={() => !isLoading && setWantBonus(!wantBonus)}
+                className={`py-2 flex items-start gap-3 cursor-pointer group ${isLoading ? 'opacity-50' : ''}`}
+              >
+                <div className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${wantBonus ? 'bg-[#00F0FF] border-[#00F0FF]' : 'bg-[#111318] border-[#1E2230] group-hover:border-white/40'}`}>
+                  {wantBonus && <Check className="w-3 h-3 text-black stroke-[3]" />}
+                </div>
+                <div className="text-xs text-[#94A3B8] leading-relaxed select-none">
+                  <strong className="text-white font-medium">ফ্রি বোনাস:</strong> ভবিষ্যতে ক্যারিয়ার ও সাইকোলজি রিসোর্সে ফ্রি অ্যাক্সেস পেতে চাই।
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full mt-2 py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] hover:brightness-110 text-white font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform cursor-pointer shadow-[0_0_15px_rgba(0,240,255,0.3)] disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-5 h-5 text-white animate-spin" />
+                    <span>পেমেন্ট প্রসেস হচ্ছে...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4 text-white stroke-[2.5]" />
+                    <span>পেমেন্ট নিশ্চিত করুন (৯৯ ৳)</span>
+                  </>
+                )}
+              </button>
+            </form>
+
+            <div className="mt-6 flex items-center justify-center gap-2 text-xs text-zinc-500 font-mono">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>Secured by ZiniPay Gateway</span>
+            </div>
           </div>
         </div>
       )}
