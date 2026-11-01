@@ -76,7 +76,7 @@ TrxID: ${formData.trxId}`;
         backgroundImage: `
           radial-gradient(circle at 50% 0%, rgba(0, 82, 255, 0.12) 0%, transparent 60%),
           radial-gradient(circle at 85% 40%, rgba(0, 240, 255, 0.04) 0%, transparent 50%),
-          radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px)
+          radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)
         `,
         backgroundSize: "100% 100%, 100% 100%, 24px 24px",
       }}
@@ -116,8 +116,8 @@ TrxID: ${formData.trxId}`;
       <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center lg:items-start">
           
-          {/* LEFT SECTION (TEXT) */}
-          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8 w-full">
+          {/* LEFT SECTION (TEXT): Spacing increased for mobile readability */}
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-8 lg:space-y-10 w-full">
             
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
               <div className="flex -space-x-2">
@@ -131,64 +131,60 @@ TrxID: ${formData.trxId}`;
                     <Star key={star} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                   ))}
                 </div>
-                {/* Mobile size adjusted */}
-                <span className="text-[#00F0FF] text-[10px] sm:text-xs lg:text-sm font-mono font-bold tracking-wide">
-                  <EditableText id="octavelo.trust.badge">Trusted by 6,000+ Students</EditableText>
+                <span className="text-[#00F0FF] text-xs sm:text-sm font-mono font-bold tracking-wide">
+                  <EditableText id="octavelo.trust.badge">Trusted by 10,000+ Professionals & Readers</EditableText>
                 </span>
               </div>
             </div>
 
-            {/* Mobile size reduced to text-4xl so it doesn't span 4 lines */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[62px] font-bold leading-[1.25] lg:leading-[1.15] text-white">
-              <EditableText id="octavelo.title1">গলার জোর নয়,</EditableText> <br className="hidden sm:block" />
+            <h1 className="text-5xl sm:text-6xl lg:text-[62px] font-bold leading-[1.15] text-white">
+              <EditableText id="octavelo.title1">তর্কে জেতার সাইকোলজি:</EditableText> <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">
-                <EditableText id="octavelo.title2">সাইকোলজি দিয়ে জিতুন!</EditableText>
+                <EditableText id="octavelo.title2">দ্য আল্টিমেট মাস্টারক্লাস</EditableText>
               </span>
             </h1>
 
-            {/* Mobile text size adjusted */}
-            <p className="text-[15px] sm:text-lg lg:text-xl text-[#94A3B8] leading-relaxed max-w-2xl">
+            <p className="text-lg sm:text-xl text-[#94A3B8] leading-relaxed max-w-2xl">
               <EditableText id="octavelo.desc">
-                তর্কে প্রতিপক্ষকে পরাজিত করতে অহেতুক কথা নয়, প্রয়োজন ফ্রেম কন্ট্রোল। মানুষের অবচেতন আচরণ ও ইগো নিয়ন্ত্রণ করার একটি ঠান্ডা মাথার স্ট্র্যাটেজিক ব্লু-প্রিন্ট গাইড।
+                গলার জোর নয়, বরং নীরবতা আর স্মার্টনেস দিয়ে মানুষের অবচেতন মন নিয়ন্ত্রণ করার এবং যেকোনো কঠিন পরিস্থিতি নিজের শান্ত আয়ত্তে নিয়ে আসার চূড়ান্ত মনস্তাত্ত্বিক ব্লু-প্রিন্ট।
               </EditableText>
             </p>
 
-            <div className="pt-2 space-y-4 sm:space-y-5 w-full max-w-lg mx-auto lg:mx-0">
+            {/* Adjusted spacing (pt-4, space-y-5) to fix the clashing on mobile */}
+            <div className="pt-4 lg:pt-6 space-y-5 sm:space-y-6 w-full max-w-lg mx-auto lg:mx-0">
               <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
+                <div className="w-6 h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-4 h-4 text-[#00F0FF]" />
                 </div>
-                {/* Mobile text size adjusted */}
-                <span className="text-sm sm:text-base lg:text-lg text-zinc-300">
-                  <EditableText id="octavelo.b1">আক্রমণাত্মক লজিক ভাঙার সাইকোলজিক্যাল ফ্রেমওয়ার্ক</EditableText>
+                <span className="text-base sm:text-lg text-zinc-300">
+                  <EditableText id="octavelo.b1">'এফবিআই (FBI) মিররিং' ও কনভারসেশনাল জুডোর পরীক্ষিত কৌশল</EditableText>
                 </span>
               </div>
               <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
+                <div className="w-6 h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-4 h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-lg text-zinc-300">
-                  <EditableText id="octavelo.b2">ইমোশনাল ম্যানিপুলেশন কাউন্টার করার কৌশল</EditableText>
+                <span className="text-base sm:text-lg text-zinc-300">
+                  <EditableText id="octavelo.b2">নোংরা ব্যক্তিগত আক্রমণ ও ইগোর দেয়াল শান্তভাবে ভেঙে দেওয়ার আর্ট</EditableText>
                 </span>
               </div>
               <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
+                <div className="w-6 h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-4 h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-lg text-zinc-300">
-                  <EditableText id="octavelo.b3">লগইন ছাড়া সরাসরি ডাউনলোড ও লাইফটাইম অ্যাক্সেস</EditableText>
+                <span className="text-base sm:text-lg text-zinc-300">
+                  <EditableText id="octavelo.b3">আজীবন ফ্রি এক্সেস: পার্সোনাল গাইডেন্স কমিউনিটি + ২-মিনিটের চিট শিট</EditableText>
                 </span>
               </div>
             </div>
           </div>
 
-          {/* RIGHT SECTION (CARD) */}
           <div className="lg:col-span-5 flex flex-col items-center lg:items-end w-full space-y-5">
             
             <div className="w-full max-w-[340px] sm:max-w-[380px] flex flex-col items-center">
               
-              {/* TOP: E-Book Cover Plate */}
-              <div className="w-[82%] relative z-0 rounded-t-3xl overflow-hidden shadow-2xl bg-black">
+              {/* TOP: E-Book Cover Plate with subtle blue border edge */}
+              <div className="w-[82%] relative z-0 rounded-t-3xl overflow-hidden shadow-2xl bg-[#050608] border border-b-0 border-[#0052FF]/40">
                 <img
                   src={coverUrl}
                   alt="Masterclass Cover"
@@ -221,12 +217,11 @@ TrxID: ${formData.trxId}`;
                     </span>
                   </div>
 
-                  {/* RESTORED: Glossy Original Gradient Button */}
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.3)] border border-[#00F0FF]/30 relative z-20"
+                    className="w-full py-4 rounded-xl bg-white text-black font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:bg-zinc-200 active:scale-95 transition-all cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)] relative z-20"
                   >
-                    <Download className="w-5 h-5 text-white" />
+                    <Download className="w-5 h-5 text-black" />
                     <span>
                       <EditableText id="octavelo.buy.btn">পিডিএফটি এখনই ডাউনলোড করুন</EditableText>
                     </span>
@@ -348,7 +343,6 @@ TrxID: ${formData.trxId}`;
           <span className="text-sm text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2 mb-0.5">৫০০ ৳</span>
           <span className="text-xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
         </div>
-        {/* RESTORED: Mobile Sticky Footer Button */}
         <button
           onClick={() => setIsModalOpen(true)}
           className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm flex items-center justify-center gap-1.5 active:scale-95 transition-transform shadow-[0_0_15px_rgba(0,240,255,0.3)] border border-[#00F0FF]/30"
