@@ -215,7 +215,7 @@ TrxID: ${formData.trxId}`;
               {/* 💡 Urgency Message Added Here (Desktop) */}
               <div className="w-full text-center bg-[#00F0FF]/10 border border-[#00F0FF]/20 rounded-lg py-2 px-3 mb-4">
                 <span className="text-xs sm:text-sm text-[#00F0FF] font-medium leading-relaxed block">
-                  <EditableText id="octavelo.urgency.desktop">💡 অফার অ্যালার্ট: আজই বইটি সংগ্রহ করলে সাথে পাচ্ছেন এক্সক্লুসিভ '২-মিনিটের পকেট চিট শিট' সম্পূর্ণ ফ্রি!</EditableText>
+                  <EditableText id="octavelo.urgency.desktop">💡 সাথে পাচ্ছেন এক্সক্লুসিভ '২-মিনিটের পকেট চিট শিট' সম্পূর্ণ ফ্রি!</EditableText>
                 </span>
               </div>
 
