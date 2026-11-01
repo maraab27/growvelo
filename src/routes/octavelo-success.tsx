@@ -9,8 +9,8 @@ function OctaveloSuccessPage() {
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
   const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/ecover.webp";
   
-  // আপনার তৈরি করা গুগল ড্রাইভের ডাইরেক্ট ডাউনলোড লিংক
-  const pdfDownloadUrl = "https://drive.google.com/uc?export=download&id=1IPdMsZxETcY6BwKmtj9Nu-kIVyTDInLH"; 
+  // আপনার জেনারেট করা গুগল ড্রাইভের ডাইরেক্ট ডাউনলোড লিংক
+  const pdfDownloadUrl = "https://drive.google.com/uc?export=download&id=1IENj2fMVU3l1l4X1gOAjO1UYxs1YW6lR"; 
 
   return (
     <div
@@ -81,9 +81,6 @@ function OctaveloSuccessPage() {
           {/* Download Button */}
           <a
             href={pdfDownloadUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            download
             className="w-full py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)] border border-[#00F0FF]/30"
           >
             <Download className="w-5 h-5" />
