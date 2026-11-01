@@ -116,8 +116,8 @@ TrxID: ${formData.trxId}`;
       <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center lg:items-start">
           
-          {/* LEFT SECTION (TEXT): Spacing increased for mobile readability */}
-          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-8 lg:space-y-10 w-full">
+          {/* LEFT SECTION (TEXT): Mobile sizes reduced, Desktop sizes preserved */}
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-10 w-full">
             
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
               <div className="flex -space-x-2">
@@ -131,48 +131,50 @@ TrxID: ${formData.trxId}`;
                     <Star key={star} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                   ))}
                 </div>
-                <span className="text-[#00F0FF] text-xs sm:text-sm font-mono font-bold tracking-wide">
+                <span className="text-[#00F0FF] text-[10px] sm:text-xs lg:text-sm font-mono font-bold tracking-wide">
                   <EditableText id="octavelo.trust.badge">Trusted by 10,000+ Professionals & Readers</EditableText>
                 </span>
               </div>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-[62px] font-bold leading-[1.15] text-white">
+            {/* Title size reduced for mobile (text-3xl) to avoid 4 lines, kept lg:text-[62px] */}
+            <h1 className="text-3xl sm:text-4xl lg:text-[62px] font-bold leading-tight lg:leading-[1.15] text-white">
               <EditableText id="octavelo.title1">তর্কে জেতার সাইকোলজি:</EditableText> <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">
                 <EditableText id="octavelo.title2">দ্য আল্টিমেট মাস্টারক্লাস</EditableText>
               </span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-[#94A3B8] leading-relaxed max-w-2xl">
+            {/* Description size reduced for mobile (text-sm), kept lg:text-xl */}
+            <p className="text-sm sm:text-base lg:text-xl text-[#94A3B8] leading-relaxed max-w-2xl">
               <EditableText id="octavelo.desc">
                 গলার জোর নয়, বরং নীরবতা আর স্মার্টনেস দিয়ে মানুষের অবচেতন মন নিয়ন্ত্রণ করার এবং যেকোনো কঠিন পরিস্থিতি নিজের শান্ত আয়ত্তে নিয়ে আসার চূড়ান্ত মনস্তাত্ত্বিক ব্লু-প্রিন্ট।
               </EditableText>
             </p>
 
-            {/* Adjusted spacing (pt-4, space-y-5) to fix the clashing on mobile */}
-            <div className="pt-4 lg:pt-6 space-y-5 sm:space-y-6 w-full max-w-lg mx-auto lg:mx-0">
+            <div className="pt-2 lg:pt-6 space-y-4 lg:space-y-6 w-full max-w-lg mx-auto lg:mx-0">
               <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-6 h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-4 h-4 text-[#00F0FF]" />
+                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-base sm:text-lg text-zinc-300">
+                {/* Checklist size reduced for mobile (text-sm), kept lg:text-lg */}
+                <span className="text-sm sm:text-base lg:text-lg text-zinc-300">
                   <EditableText id="octavelo.b1">'এফবিআই (FBI) মিররিং' ও কনভারসেশনাল জুডোর পরীক্ষিত কৌশল</EditableText>
                 </span>
               </div>
               <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-6 h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-4 h-4 text-[#00F0FF]" />
+                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-base sm:text-lg text-zinc-300">
+                <span className="text-sm sm:text-base lg:text-lg text-zinc-300">
                   <EditableText id="octavelo.b2">নোংরা ব্যক্তিগত আক্রমণ ও ইগোর দেয়াল শান্তভাবে ভেঙে দেওয়ার আর্ট</EditableText>
                 </span>
               </div>
               <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-6 h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-4 h-4 text-[#00F0FF]" />
+                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-base sm:text-lg text-zinc-300">
+                <span className="text-sm sm:text-base lg:text-lg text-zinc-300">
                   <EditableText id="octavelo.b3">আজীবন ফ্রি এক্সেস: পার্সোনাল গাইডেন্স কমিউনিটি + ২-মিনিটের চিট শিট</EditableText>
                 </span>
               </div>
@@ -183,7 +185,7 @@ TrxID: ${formData.trxId}`;
             
             <div className="w-full max-w-[340px] sm:max-w-[380px] flex flex-col items-center">
               
-              {/* TOP: E-Book Cover Plate with subtle blue border edge */}
+              {/* TOP: E-Book Cover Plate */}
               <div className="w-[82%] relative z-0 rounded-t-3xl overflow-hidden shadow-2xl bg-[#050608] border border-b-0 border-[#0052FF]/40">
                 <img
                   src={coverUrl}
@@ -196,7 +198,7 @@ TrxID: ${formData.trxId}`;
               {/* BOTTOM: Glossy Pricing Plate */}
               <div className="w-full relative z-10 -mt-16 sm:-mt-20 rounded-3xl p-[1px] bg-gradient-to-b from-[#0052FF]/40 via-transparent to-transparent shadow-[0_0_40px_rgba(0,82,255,0.15)] overflow-hidden">
                 
-                {/* Glossy Inner Container (Pure Dark Theme Color) */}
+                {/* Glossy Inner Container */}
                 <div className="relative h-full w-full bg-[#050608]/95 backdrop-blur-2xl rounded-[23px] border border-white/5 p-6 sm:p-7 flex flex-col items-center justify-center">
                   
                   {/* Pure Blue Top Glow */}
@@ -205,10 +207,10 @@ TrxID: ${formData.trxId}`;
 
                   <div className="flex items-center justify-between w-full mb-6 relative z-20">
                     <div className="flex items-end gap-3">
-                      <span className="text-5xl font-bold font-mono text-white leading-none tracking-tight">
+                      <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none tracking-tight">
                         <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
                       </span>
-                      <span className="text-2xl text-zinc-500 line-through decoration-[#f43f5e]/70 decoration-2 font-mono mb-0.5">
+                      <span className="text-xl sm:text-2xl text-zinc-500 line-through decoration-[#f43f5e]/70 decoration-2 font-mono mb-0.5">
                         <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
                       </span>
                     </div>
@@ -217,11 +219,12 @@ TrxID: ${formData.trxId}`;
                     </span>
                   </div>
 
+                  {/* RESTORED: Gradient Button with White Text */}
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="w-full py-4 rounded-xl bg-white text-black font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:bg-zinc-200 active:scale-95 transition-all cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)] relative z-20"
+                    className="w-full py-3.5 sm:py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.3)] border border-[#00F0FF]/30 relative z-20"
                   >
-                    <Download className="w-5 h-5 text-black" />
+                    <Download className="w-5 h-5 text-white" />
                     <span>
                       <EditableText id="octavelo.buy.btn">পিডিএফটি এখনই ডাউনলোড করুন</EditableText>
                     </span>
@@ -343,6 +346,7 @@ TrxID: ${formData.trxId}`;
           <span className="text-sm text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2 mb-0.5">৫০০ ৳</span>
           <span className="text-xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
         </div>
+        {/* RESTORED: Gradient Button with White Text */}
         <button
           onClick={() => setIsModalOpen(true)}
           className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm flex items-center justify-center gap-1.5 active:scale-95 transition-transform shadow-[0_0_15px_rgba(0,240,255,0.3)] border border-[#00F0FF]/30"
