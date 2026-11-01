@@ -8,8 +8,9 @@ export const Route = createFileRoute("/octavelo-success")({
 function OctaveloSuccessPage() {
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
   const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/ecover.webp";
-  // আপনার ই-বুকের পিডিএফ লিংক
-  const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf"; 
+  
+  // আপনার তৈরি করা গুগল ড্রাইভের ডাইরেক্ট ডাউনলোড লিংক
+  const pdfDownloadUrl = "https://drive.google.com/uc?export=download&id=1IPdMsZxETcY6BwKmtj9Nu-kIVyTDInLH"; 
 
   return (
     <div
