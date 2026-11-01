@@ -5,7 +5,6 @@ import {
   AlertCircle,
   ArrowRight,
   X,
-  Copy,
   ShieldCheck,
   Send,
   Check,
@@ -26,9 +25,8 @@ export const Route = createFileRoute("/octavelo")({
 
 function OctaveloLandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [wantBonus, setWantBonus] = useState(true);
-  const [isLoading, setIsLoading] = useState(false); // API Loading state
-  const [apiError, setApiError] = useState(""); // Error state
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -36,14 +34,12 @@ function OctaveloLandingPage() {
     phone: "",
   });
 
-  const supportWhatsapp = "8801410341220";
-  const ziniApiKey = "1a182d1372347e011ebf60b13ce854ce8afd59e46a768253"; // Your ZiniPay Brand API Key
-  const priceAmount = 99; // Total amount to charge
+  const ziniApiKey = "1a182d1372347e011ebf60b13ce854ce8afd59e46a768253";
+  const priceAmount = 99;
   
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
   const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/ecover.webp";
 
-  // ZiniPay Create Invoice Integration
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setApiError("");
@@ -67,19 +63,17 @@ function OctaveloLandingPage() {
           cus_email: formData.email,
           amount: priceAmount,
           metadata: {
-            want_bonus: wantBonus,
             phone: formData.phone || "Not provided",
             item: "Psychological Masterclass E-Book",
           },
-          redirect_url: `${window.location.origin}/octavelo-success`, // Redirect here after payment
-          cancel_url: window.location.href, // Back to this page if cancelled
+          redirect_url: `${window.location.origin}/octavelo-success`,
+          cancel_url: window.location.href,
         }),
       });
 
       const data = await response.json();
 
       if (response.ok && data.payment_url) {
-        // Redirect user to ZiniPay hosted payment page
         window.location.href = data.payment_url;
       } else {
         setApiError(data.message || "পেমেন্ট গেটওয়ে লোড হতে সমস্যা হচ্ছে। অনুগ্রহ করে আবার চেষ্টা করুন।");
@@ -92,7 +86,6 @@ function OctaveloLandingPage() {
     }
   };
 
-  // সূচিপত্রের ডাটা
   const chapters = [
     {
       title: "অধ্যায় ১: লড়াইয়ের সাইকোলজি: মুখ খোলার আগেই অর্ধেক তর্ক জিতে থাকার ব্লুপ্রিন্ট",
@@ -370,7 +363,7 @@ function OctaveloLandingPage() {
               <p><EditableText id="octavelo.intro.p3">আবার এর উল্টো পিঠের গল্পটাও কিন্তু বেশ ট্র্যাজিক! জীবনে আমরা সবাই হয়তো গলার জোরে বা প্রমাণ দিয়ে কোনো না কোনো তর্কে জিতি। কিন্তু দিনশেষে হঠাৎ করেই আবিষ্কার করি- তর্কে জিততে গিয়ে আমরা আসলে প্রিয় মানুষটিকেই হেরে বসে আছি, কিংবা নিজের অজান্তেই খুব গুরুত্বপূর্ণ কোনো প্রফেশনাল সম্পর্কে একটা অদৃশ্য দেয়াল তুলে ফেলেছি।</EditableText></p>
               <p><EditableText id="octavelo.intro.p4">আমাদের একটা খুব সাধারণ ভুল ধারণা আছে যে, 'তর্ক' মানেই বুঝি গলা ফাটিয়ে ঝগড়া করা বা প্রতিপক্ষকে গলার জোরে দমিয়ে দেওয়া।</EditableText></p>
               <p><EditableText id="octavelo.intro.p5">কিন্তু একটু ভেবে দেখুন, বাস্তবে প্রিয়জনকে নিজের কোনো কথা বা অনুভূতি বোঝানো, বসের সাথে নিজের ন্যায্য অধিকার নিয়ে নেগোসিয়েট করা, কিংবা ক্লায়েন্টকে নিজের আইডিয়াটা বিশ্বাস করানো, এই সবকিছুই কিন্তু মনস্তাত্ত্বিক তর্কেরই অংশ।</EditableText></p>
-              <p><EditableText id="octavelo.intro.p6">এই মনস্তাত্ত্বিক ময়দানে শুধু গলার জোর, চিৎকার বা নিরেট প্রমাণ দিয়ে জেতা যায় না; এখানে সত্যিকার অর্থে জিততে হলে বুঝতে হয় মানুষের সাইকোলজি।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p6">এই মনস্তাত্ত্বিক ময়দানে শুধু গলার জোর, চিৎকার বা নিরেট প্রমাণ দিয়ে জেতা যায় যায় না; এখানে সত্যিকার অর্থে জিততে হলে বুঝতে হয় মানুষের সাইকোলজি।</EditableText></p>
               <p><EditableText id="octavelo.intro.p7">এই বইটির পেছনের গল্পটা বেশ চমৎকার। প্রায় এক বছর আগের কথা। তর্কের সাইকোলজি নিয়ে আমি মাত্র ৪-৫টি পয়েন্টের ছোট একটি পিডিএফ তৈরি করেছিলাম। উদ্দেশ্য ছিল খুব সাধারণ, কিছু মানুষের হয়তো কাজে লাগবে। কিন্তু সেটি শেয়ার করার পর মাত্র ৪৮ ঘণ্টার মধ্যে লক্ষ লক্ষ মানুষের কাছ থেকে যে অভূতপূর্ব সাড়া পেয়েছি, তা আমাকে রীতিমতো অবাক করেছে।</EditableText></p>
               <p><EditableText id="octavelo.intro.p8">অসংখ্য মানুষের ভালোবাসা আর অনুপ্রেরণায় আমি মুগ্ধ হয়েছি। শত শত মানুষ ইনবক্সে মেসেজ দিয়ে জানিয়েছেন, সেই ছোট টিপসগুলো তাদের ব্যক্তিগত ও প্রফেশনাল জীবনে কতটা দারুণভাবে কাজে লেগেছে। অনেকেই নিজেদের জীবনের গল্প শেয়ার করেছেন, আমার জন্য মন খুলে দু'আ করেছেন।</EditableText></p>
               <p><EditableText id="octavelo.intro.p9">সবচেয়ে বিস্ময়কর ব্যাপার ছিল- প্রায় ৮ থেকে ১০ হাজার মানুষ আমাকে বিভিন্নভাবে মেসেজ, ফিডব্যাক ও কমেন্টে অনুরোধ জানিয়েছেন, আমি যেন এই বিষয়গুলো নিয়ে আরও বিস্তারিত কাজ করি বা ভবিষ্যতে এমন একটি পূর্ণাঙ্গ গাইডলাইন নিয়ে আসি।</EditableText></p>
@@ -544,7 +537,6 @@ function OctaveloLandingPage() {
         </button>
       </div>
 
-      {/* CHECKOUT MODAL: Updated to connect with ZiniPay API */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md animate-in fade-in duration-150">
           <div
@@ -573,7 +565,6 @@ function OctaveloLandingPage() {
               </h3>
             </div>
 
-            {/* Error Message Display */}
             {apiError && (
               <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs sm:text-sm text-center flex items-center justify-center gap-2">
                 <AlertCircle className="w-4 h-4" />
@@ -615,18 +606,6 @@ function OctaveloLandingPage() {
                   disabled={isLoading}
                   className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors disabled:opacity-50"
                 />
-              </div>
-
-              <div
-                onClick={() => !isLoading && setWantBonus(!wantBonus)}
-                className={`py-2 flex items-start gap-3 cursor-pointer group ${isLoading ? 'opacity-50' : ''}`}
-              >
-                <div className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${wantBonus ? 'bg-[#00F0FF] border-[#00F0FF]' : 'bg-[#111318] border-[#1E2230] group-hover:border-white/40'}`}>
-                  {wantBonus && <Check className="w-3 h-3 text-black stroke-[3]" />}
-                </div>
-                <div className="text-xs text-[#94A3B8] leading-relaxed select-none">
-                  <strong className="text-white font-medium">ফ্রি বোনাস:</strong> ভবিষ্যতে ক্যারিয়ার ও সাইকোলজি রিসোর্সে ফ্রি অ্যাক্সেস পেতে চাই।
-                </div>
               </div>
 
               <button
