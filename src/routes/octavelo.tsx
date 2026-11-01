@@ -11,6 +11,9 @@ import {
   Check,
   Star,
   Quote,
+  FolderOpen,
+  FileText,
+  Sparkles,
 } from "lucide-react";
 import { EditableText } from "../components/cms/EditableText";
 
@@ -35,9 +38,9 @@ function OctaveloLandingPage() {
   const paymentNumber = "01790055690";
   const supportWhatsapp = "8801410341220";
   
-  // আপনার সুপাবেস লিংকগুলো এখানে দেওয়া আছে। এখান থেকেই লিংক পরিবর্তন করবেন।
+  // আপনার সুপাবেস লিংকগুলো
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
-  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Psychological%20masterclass%20on%20winning%20arguments.webp";
+  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Psychological%20masterclass%20on%20winning%20arguments.webp"; 
   const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf";
 
   const handleCopy = () => {
@@ -181,7 +184,6 @@ TrxID: ${formData.trxId}`;
               <div className="rounded-2xl border border-[#1E2230] bg-[#0A0C10] p-3 sm:p-4 shadow-2xl relative">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#00F0FF]/10 blur-3xl pointer-events-none" />
                 
-                {/* YouTube Thumbnail Size Container (aspect-video = 16:9) */}
                 <div className="w-full aspect-video rounded-xl overflow-hidden bg-black border border-white/5 relative z-10">
                   <img
                     src={coverUrl}
@@ -198,7 +200,7 @@ TrxID: ${formData.trxId}`;
             </div>
 
             <div className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] bg-[#111318] border border-[#1E2230] rounded-2xl p-5 sm:p-6 shadow-xl">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-5">
                 <div className="flex items-end gap-3">
                   <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none">
                     <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
@@ -212,13 +214,6 @@ TrxID: ${formData.trxId}`;
                 </span>
               </div>
 
-              {/* 💡 Urgency Message Added Here (Desktop) */}
-              <div className="w-full text-center bg-[#00F0FF]/10 border border-[#00F0FF]/20 rounded-lg py-2 px-3 mb-4">
-                <span className="text-xs sm:text-sm text-[#00F0FF] font-medium leading-relaxed block">
-                  <EditableText id="octavelo.urgency.desktop">💡 সাথে পাচ্ছেন এক্সক্লুসিভ '২-মিনিটের পকেট চিট শিট' সম্পূর্ণ ফ্রি!</EditableText>
-                </span>
-              </div>
-
               <button
                 onClick={() => setIsModalOpen(true)}
                 className="w-full py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-transform cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.25)] border border-[#00F0FF]/30"
@@ -229,6 +224,30 @@ TrxID: ${formData.trxId}`;
                 </span>
               </button>
             </div>
+
+            {/* 💡 NEW URGENCY CARD (Placed below the Pricing Box for both Mobile & Desktop) */}
+            <div className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] bg-gradient-to-r from-[#00F0FF]/[0.05] to-transparent border border-[#00F0FF]/20 rounded-2xl p-3 sm:p-4 flex items-center gap-4 shadow-lg">
+              
+              {/* File Extracting Visual Icon */}
+              <div className="shrink-0 relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-[#050608] border border-[#1E2230] flex items-center justify-center overflow-hidden shadow-inner">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#0052FF]/10 to-[#00F0FF]/5" />
+                <FolderOpen className="w-7 h-7 sm:w-8 sm:h-8 text-[#0052FF] absolute -translate-y-1" />
+                <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-[#00F0FF] absolute translate-y-2 translate-x-2 rotate-12 drop-shadow-lg" />
+                <Sparkles className="w-3 h-3 text-amber-400 absolute top-1 right-1" />
+              </div>
+              
+              {/* Text Content */}
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] sm:text-[11px] font-black tracking-wider text-amber-400 uppercase mb-0.5">
+                  <EditableText id="octavelo.urgency.badge">🎁 Limited Offer</EditableText>
+                </span>
+                <span className="text-xs sm:text-sm text-zinc-300 font-medium leading-snug">
+                  <EditableText id="octavelo.urgency.text">আজই বইটি সংগ্রহ করলে সাথে পাচ্ছেন এক্সক্লুসিভ <strong className="text-[#00F0FF]">২-মিনিটের পকেট চিট শিট</strong> সম্পূর্ণ ফ্রি!</EditableText>
+                </span>
+              </div>
+
+            </div>
+            {/* End of Urgency Card */}
 
           </div>
         </div>
@@ -320,29 +339,19 @@ TrxID: ${formData.trxId}`;
         </footer>
       </main>
 
-      {/* Floating Premium Mobile Footer */}
-      <div className="fixed bottom-4 inset-x-4 z-40 lg:hidden rounded-2xl bg-[#08090C]/85 backdrop-blur-2xl border border-[#1E2230] p-3 sm:p-4 flex flex-col gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
-        
-        {/* 💡 Urgency Message Added Here (Mobile) */}
-        <div className="w-full text-center bg-[#00F0FF]/10 border border-[#00F0FF]/20 rounded-md py-1.5 px-2">
-          <span className="text-[10px] sm:text-xs text-[#00F0FF] font-medium">
-            <EditableText id="octavelo.urgency.mobile">💡 সাথে পাচ্ছেন এক্সক্লুসিভ '২-মিনিটের পকেট চিট শিট' সম্পূর্ণ ফ্রি!</EditableText>
-          </span>
+      {/* REVERTED: Floating Mobile Footer (Clean & Slim Again) */}
+      <div className="fixed bottom-4 inset-x-4 z-40 lg:hidden rounded-2xl bg-[#08090C]/85 backdrop-blur-2xl border border-[#1E2230] p-3 sm:p-4 flex items-center justify-between gap-4 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
+        <div className="flex flex-col px-2">
+          <span className="text-sm text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2 mb-0.5">৫০০ ৳</span>
+          <span className="text-xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
         </div>
-
-        <div className="flex items-center justify-between gap-4 w-full">
-          <div className="flex flex-col px-2">
-            <span className="text-sm text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2 mb-0.5">৫০০ ৳</span>
-            <span className="text-xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
-          </div>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm flex items-center justify-center gap-1.5 active:scale-95 transition-transform"
-          >
-            <span>পিডিএফ আনলক করুন</span>
-            <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
-          </button>
-        </div>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm flex items-center justify-center gap-1.5 active:scale-95 transition-transform"
+        >
+          <span>পিডিএফ আনলক করুন</span>
+          <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
+        </button>
       </div>
 
       {isModalOpen && (
