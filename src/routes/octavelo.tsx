@@ -14,6 +14,8 @@ import {
   FolderOpen,
   FileText,
   Sparkles,
+  Plus,
+  Minus,
 } from "lucide-react";
 import { EditableText } from "../components/cms/EditableText";
 
@@ -27,7 +29,8 @@ function OctaveloLandingPage() {
   const [copied, setCopied] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [wantBonus, setWantBonus] = useState(true);
-  const [isIntroExpanded, setIsIntroExpanded] = useState(false); // New state for Introduction Read More
+  const [isIntroExpanded, setIsIntroExpanded] = useState(false);
+  const [openChapter, setOpenChapter] = useState<number | null>(null);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -68,6 +71,85 @@ TrxID: ${formData.trxId}`;
     window.open(whatsappUrl, "_blank");
     setIsSubmitted(true);
   };
+
+  // সূচিপত্রের ডাটা
+  const chapters = [
+    {
+      title: "অধ্যায় ১: লড়াইয়ের সাইকোলজি: মুখ খোলার আগেই অর্ধেক তর্ক জিতে থাকার ব্লুপ্রিন্ট",
+      topics: [
+        "আমরা কেন তর্ক করি? (ইগো বনাম যুক্তি)",
+        "ভুল ধরার আদিম নেশা ও ৩-সেকেন্ড রুল",
+        "দ্য RISA ফিল্টার: কোন তর্কে লড়বেন আর কোনটি হাসিমুখে এড়িয়ে যাবেন?",
+        "ব্রেইনের হাইজ্যাক ও আত্মরক্ষা",
+        "কুইক রিক্যাপ: প্রথম অধ্যায়"
+      ]
+    },
+    {
+      title: "অধ্যায় ২: মাইন্ড রিডিং: প্রতিপক্ষের মনের ভেতরে উঁকি দিয়ে তার লুকানো দুর্বলতা পড়ার কৌশল",
+      topics: [
+        "বডি ল্যাঙ্গুয়েজ ও চোখের ভাষা",
+        "প্রতিপক্ষ আসলে কী চায়? লুকানো উদ্দেশ্য ও ভয় ডিকোড করার কৌশল",
+        "এফবিআই (FBI) মিররিং: গোপন তথ্য বের করে আনার সাইকোলজি",
+        "যুক্তির বদলে 'ইমোশনাল লেবেলিং' দিয়ে রাগের সুইচ অফ করার উপায়",
+        "কুইক রিক্যাপ: দ্বিতীয় অধ্যায়"
+      ]
+    },
+    {
+      title: "অধ্যায় ৩: কনভারসেশনাল জুডো: প্রতিপক্ষের রাগ আর আক্রমণকেই নিজের সবচেয়ে বড় হাতিয়ার বানানোর কৌশল",
+      topics: [
+        "দ্য সিনকোরিসিস ইফেক্ট: ছোট হারে বড় জয়",
+        "দ্য আর্ট অব রিফ্রেমিং: তর্ক বিপক্ষে গেলে পুরো ন্যারেটিভ বদলে দেওয়ার কৌশল",
+        "'আমি বনাম তুমি' নয়, 'আমরা বনাম সমস্যা'",
+        "কুইক রিক্যাপ: তৃতীয় অধ্যায়"
+      ]
+    },
+    {
+      title: "অধ্যায় ৪: দ্য সক্রেটিক ট্র্যাপ: সরাসরি দ্বিমত না করে প্রশ্ন দিয়েই প্রতিপক্ষকে নিরস্ত্র করার কৌশল",
+      topics: [
+        "সক্রেটিক মেথড",
+        "দ্য ম্যাজিক কোয়েশ্চেন: প্রতিপক্ষের আক্রমণ তার দিকেই ঘুরিয়ে দেওয়ার আর্ট",
+        "বুবি ট্র্যাপ: প্রতিপক্ষের কথার জালেই তাকে আটকে ফেলার মনস্তাত্ত্বিক কৌশল",
+        "প্রমাণের ভার চাপিয়ে প্রতিপক্ষকে নিরস্ত্র করার কৌশল",
+        "কুইক রিক্যাপ: চতুর্থ অধ্যায়"
+      ]
+    },
+    {
+      title: "অধ্যায় ৫: লজিক বনাম ইমোশন: শুধু প্রমাণ বা ডেটা দিয়ে কেন তর্কে জেতা যায় না?",
+      topics: [
+        "যুক্তির সাথে আবেগ মিশিয়ে মন জয়ের সাইকোলজি",
+        "স্ট্র্যাটেজিক এভিডেন্স: সঠিক মুহূর্তে অকাট্য প্রমাণ ব্যবহারের মাস্টারস্ট্রোক",
+        "দ্য রুল অব থ্রি: যুক্তি বিশ্বাস করানোর সাইকোলজি",
+        "কুইক রিক্যাপ: পঞ্চম অধ্যায়"
+      ]
+    },
+    {
+      title: "অধ্যায় ৬: প্রিয়জনের সাইকোলজি: ইগো না ভেঙেও তর্কে এবং সম্পর্কে জেতার মাস্টারস্ট্রোক",
+      topics: [
+        "ফ্যাক্টস নয়, ফিলিংস: কথার আড়ালে লুকানো অভিমান ডিকোড করার সাইকোলজি",
+        "দ্য শিফট: ইগোর দেয়াল ভেঙে সঙ্গীকে 'পরম মিত্র' বানানোর আর্ট",
+        "রিলেশনশিপ ফার্স্ট-এইড: পাল্টা সাফাই না দিয়ে সঙ্গীকে শান্ত করার সাইকোলজি",
+        "সীমানা নির্ধারণ ও 'তুমি' বনাম 'আমি'",
+        "কুইক রিক্যাপ: ষষ্ঠ অধ্যায়"
+      ]
+    },
+    {
+      title: "অধ্যায় ৭: ডার্ক সাইকোলজি: নোংরা আক্রমণ, অপমান ও মিথ্যার বন্যা ঠেকানোর 'অ্যান্টি-ভেনম'",
+      topics: [
+        "গিশ গ্যালপ ডিফেন্স: মিথ্যার বন্যা সামলানোর মনস্তাত্ত্বিক সূত্র",
+        "দ্য ক্যারেক্টার শিল্ড: ব্যক্তিগত আক্রমণকারীকে শান্তভাবে নিরস্ত্র করার আর্ট",
+        "দ্য কিলার কামব্যাক: এক লাইনের জবাবে প্রতিপক্ষকে 'স্পিচলেস' করে দেওয়ার সাইকোলজি",
+        "কুইক রিক্যাপ: সপ্তম অধ্যায়"
+      ]
+    },
+    {
+      title: "অধ্যায় ৮: দ্য গোল্ডেন এক্সিট: তর্কে জিতেও সম্পর্ক না হেরে, প্রতিপক্ষকে নিজের অনুগত মিত্র বানানোর মাস্টারস্ট্রোক",
+      topics: [
+        "দ্য গোল্ডেন ব্রিজ: সম্মানজনক বিদায়",
+        "ফেস-সেভিং আর্ট: প্রতিপক্ষকে ছোট না করেই চিরস্থায়ী মিত্র বানানোর সাইকোলজি",
+        "কুইক রিক্যাপ: অষ্টম অধ্যায়"
+      ]
+    }
+  ];
 
   return (
     <div
@@ -138,8 +220,8 @@ TrxID: ${formData.trxId}`;
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-[62px] font-bold leading-tight lg:leading-[1.15] text-white">
-              <EditableText id="octavelo.title1">তর্কে জেতার সাইকোলজি:</EditableText> <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">
+              <span className="block"><EditableText id="octavelo.title1">তর্কে জেতার সাইকোলজি:</EditableText></span>
+              <span className="block mt-1 lg:mt-0 text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">
                 <EditableText id="octavelo.title2">দ্য আল্টিমেট মাস্টারক্লাস</EditableText>
               </span>
             </h1>
@@ -182,7 +264,7 @@ TrxID: ${formData.trxId}`;
             
             <div className="w-full max-w-[340px] sm:max-w-[380px] flex flex-col items-center relative">
               
-              <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[70%] h-[60%] bg-[#E6C27A] opacity-25 blur-[60px] rounded-full pointer-events-none z-0" />
+              <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[75%] h-[65%] bg-gradient-to-r from-[#0052FF] to-[#00F0FF] opacity-30 blur-[60px] rounded-full pointer-events-none z-0" />
 
               <div className="w-[82%] relative z-10 rounded-t-3xl overflow-hidden shadow-2xl bg-[#050608] border border-b-0 border-[#0052FF]/40">
                 <img
@@ -247,8 +329,8 @@ TrxID: ${formData.trxId}`;
           </div>
         </div>
 
-        {/* NEW: INTRODUCTION SECTION WITH READ MORE FEATURE */}
-        <div className="w-full max-w-5xl mx-auto mt-24 pt-16 border-t border-[#1E2230]">
+        {/* INTRODUCTION SECTION */}
+        <div className="w-full max-w-4xl mx-auto mt-24 pt-16 border-t border-[#1E2230]">
           <div className="text-center mb-10">
             <span className="text-[#00F0FF] text-xs font-mono tracking-widest uppercase font-semibold block mb-2">
               <EditableText id="octavelo.intro.badge">The Story Behind</EditableText>
@@ -258,8 +340,9 @@ TrxID: ${formData.trxId}`;
             </h2>
           </div>
 
-          <div className="relative bg-[#0B0D12] border border-[#1E2230] rounded-3xl p-6 sm:p-10 shadow-xl mx-auto max-w-4xl">
-            <div className={`relative text-[15px] sm:text-lg text-zinc-300 leading-relaxed space-y-5 transition-all duration-500 ease-in-out ${!isIntroExpanded ? 'max-h-[380px] overflow-hidden' : ''}`}>
+          <div className="relative bg-[#0B0D12] border border-[#1E2230] rounded-3xl p-6 sm:p-10 shadow-xl">
+            {/* Height exactly adjusted to reveal up to "দিনের পর দিন হতাশায় ভোগেন।" when collapsed */}
+            <div className={`relative text-[15px] sm:text-[17px] text-zinc-300 leading-relaxed space-y-5 transition-all duration-500 ease-in-out ${!isIntroExpanded ? 'max-h-[145px] sm:max-h-[140px] overflow-hidden' : ''}`}>
               <p><EditableText id="octavelo.intro.p1">শতভাগ সঠিক হওয়ার পরও অন্যের কাছে বারবার ভুল প্রমাণিত হওয়া বা হেরে যাওয়ার মতো অসহায় অনুভূতি পৃথিবীতে খুব কমই আছে।</EditableText></p>
               <p><EditableText id="octavelo.intro.p2">আমাদের চারপাশে এমন অসংখ্য মানুষ আছেন, যারা নিজেরা ১০০% সঠিক হওয়া সত্ত্বেও শুধু গুছিয়ে কথা বলতে না পারার কারণে বা নেগোসিয়েশন স্কিলের অভাবে অন্যের কাছে বারবার ভুল প্রমাণিত হন। নিরেট সত্য আর অকাট্য লজিক পক্ষে থাকার পরও তারা তর্কে হেরে গিয়ে দিনের পর দিন হতাশায় ভোগেন।</EditableText></p>
               <p><EditableText id="octavelo.intro.p3">আবার এর উল্টো পিঠের গল্পটাও কিন্তু বেশ ট্র্যাজিক! জীবনে আমরা সবাই হয়তো গলার জোরে বা প্রমাণ দিয়ে কোনো না কোনো তর্কে জিতি। কিন্তু দিনশেষে হঠাৎ করেই আবিষ্কার করি- তর্কে জিততে গিয়ে আমরা আসলে প্রিয় মানুষটিকেই হেরে বসে আছি, কিংবা নিজের অজান্তেই খুব গুরুত্বপূর্ণ কোনো প্রফেশনাল সম্পর্কে একটা অদৃশ্য দেয়াল তুলে ফেলেছি।</EditableText></p>
@@ -272,19 +355,17 @@ TrxID: ${formData.trxId}`;
               <p><EditableText id="octavelo.intro.p10">মানুষের এই বিপুল আগ্রহ এবং ভালোবাসা আমাকে একটি বিষয় খুব গভীরভাবে উপলব্ধি করতে সাহায্য করেছে- মানুষ আসলে তর্কে যুক্তির অভাবে হারে না, তারা হারে প্রতিপক্ষের মনস্তত্ত্ব বা সাইকোলজি বুঝতে না পারার কারণে।</EditableText></p>
               <p><EditableText id="octavelo.intro.p11">মানুষের এই বিপুল আগ্রহ আমাকে প্রবলভাবে অনুপ্রাণিত করেছে বিষয়টির আরও গভীরে ডুব দিতে। এরপর গত প্রায় এক বছর ধরে, আমার অন্যান্য ব্যস্ততার পাশাপাশি যখনই সময় পেয়েছি, আমি এই বিষয়টি নিয়ে নতুন করে পড়াশোনা ও গবেষণা করেছি।</EditableText></p>
               <p><EditableText id="octavelo.intro.p12">মানুষের অবচেতন মন আসলে কীভাবে কাজ করে, এফবিআই (FBI) নেগোশিয়েটররা চরম উত্তপ্ত মুহূর্তে কীভাবে পরিস্থিতি নিজেদের নিয়ন্ত্রণে নেন, হার্ভার্ডের (Harvard) সাইকোলজিস্টরা কীভাবে ইগোর লড়াই থামিয়ে দেন, কিংবা সিআইএ (CIA) এক্সপার্টদের কৌশল ব্যবহার করে ডার্ক সাইকোলজির নোংরা চালগুলো কীভাবে নিমেষেই গুঁড়িয়ে দিতে হয়, বিশ্বমানের এই শক্তিশালী মনস্তাত্ত্বিক কৌশলগুলোকে আমি সুনিপুণভাবে একটি পূর্ণাঙ্গ গাইডলাইনে সাজিয়ে তোলার চেষ্টা করেছি।</EditableText></p>
-              <p><EditableText id="octavelo.intro.p13">আপনাদের ভালোবাসা পাওয়া সেই ছোট্ট পিডিএফটির একটি পূর্ণাঙ্গ, আপগ্রেডেড এবং বিস্তারিত রূপই হলো আজকের এই 'তর্কে জেতার সাইকোলজি: দ্য আল্টিমেট মাস্টারক্লাস'।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p13">আপনাদের ভালোবাসা পাওয়া সেই ছোট্ট পিডিএফটির একটি পূর্ণাঙ্গ, আপগ্রেডেড এবং বিস্তারিত রূপই হলো আজকের এই 'তর্কে জেতার সাইকোলজি: দ্য আল্টিমেট মাস্টারক্লাস'。</EditableText></p>
               <p><EditableText id="octavelo.intro.p14">আমি কথা দিচ্ছি, এটি ভারী কোনো অ্যাকাডেমিক থিওরি বা বোরিং লেকচারে ভরা বই নয়। বিশ্বমানের এই মনস্তাত্ত্বিক কৌশলগুলোকে আমি এমনভাবে সাজিয়েছি, যা আপনার প্রতিদিনের জীবনের একটি রিয়েল-লাইফ 'সাইকোলজিক্যাল ম্যানুয়াল' হিসেবে কাজ করবে।</EditableText></p>
               <p><EditableText id="octavelo.intro.p15">কর্মক্ষেত্রের জটিল মতবিরোধ ও নেগোসিয়েশন, প্রিয়জনের সাথে ইগো বা আবেগের সংঘাত, কিংবা যুক্তির বদলে ধেয়ে আসা যেকোনো ভিত্তিহীন নোংরা আক্রমণ, জীবনের প্রতিটি ক্ষেত্রে নিজেকে মানসিকভাবে এক ধাপ এগিয়ে রাখার এবং যেকোনো উত্তপ্ত পরিস্থিতি সম্পূর্ণ নিজের শান্ত নিয়ন্ত্রণে নেওয়ার পরীক্ষিত সব ট্যাকটিক্স এখানে খুব সহজ ও সাবলীল ভাষায় তুলে ধরা হয়েছে।</EditableText></p>
               <p><EditableText id="octavelo.intro.p16">মনে রাখবেন, তর্কে জেতার সবচেয়ে বড় স্কিল প্রতিপক্ষকে ধ্বংস করে দেওয়া নয়, বরং ইগোতে আঘাত না করে তাকে হাসিমুখে নিজের দলে টেনে নেওয়া।</EditableText></p>
               <p><EditableText id="octavelo.intro.p17">তর্কের নতুন এই মনস্তাত্ত্বিক দুনিয়ায় আপনাকে স্বাগতম!</EditableText></p>
 
-              {/* Faded Overlay when collapsed */}
               {!isIntroExpanded && (
-                <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0B0D12] via-[#0B0D12]/90 to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#0B0D12] via-[#0B0D12]/90 to-transparent pointer-events-none" />
               )}
             </div>
 
-            {/* Read More Toggle Button */}
             <div className="flex justify-center mt-6">
               <button
                 onClick={() => setIsIntroExpanded(!isIntroExpanded)}
@@ -294,6 +375,49 @@ TrxID: ${formData.trxId}`;
                 <span>{isIntroExpanded ? "▲" : "▼"}</span>
               </button>
             </div>
+          </div>
+        </div>
+
+        {/* NEW: TABLE OF CONTENTS (ACCORDION) */}
+        <div className="w-full max-w-4xl mx-auto mt-24 pt-16 border-t border-[#1E2230]">
+          <div className="text-center mb-10">
+            <span className="text-[#00F0FF] text-xs font-mono tracking-widest uppercase font-semibold block mb-2">
+              <EditableText id="octavelo.toc.badge">What's Inside</EditableText>
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white">
+              <EditableText id="octavelo.toc.title">বইটিতে যা যা শিখবেন (সূচিপত্র)</EditableText>
+            </h2>
+          </div>
+
+          <div className="space-y-4">
+            {chapters.map((chapter, idx) => (
+              <div key={idx} className="border border-[#1E2230] bg-[#0B0D12] rounded-2xl overflow-hidden transition-all duration-300 shadow-md">
+                <button
+                  onClick={() => setOpenChapter(openChapter === idx ? null : idx)}
+                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left hover:bg-[#111318] transition-colors cursor-pointer"
+                >
+                  <span className="text-[15px] sm:text-base font-bold text-zinc-100 pr-4 leading-snug">
+                    {chapter.title}
+                  </span>
+                  <div className="shrink-0 w-8 h-8 rounded-full bg-[#050608] border border-[#1E2230] flex items-center justify-center shadow-inner">
+                    {openChapter === idx ? <Minus className="w-4 h-4 text-[#00F0FF]" /> : <Plus className="w-4 h-4 text-[#00F0FF]" />}
+                  </div>
+                </button>
+                
+                <div className={`transition-all duration-300 ease-in-out ${openChapter === idx ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
+                  <div className="p-4 sm:p-5 pt-0 border-t border-[#1E2230]/50 bg-[#0A0C10]">
+                    <ul className="space-y-3 mt-4">
+                      {chapter.topics.map((topic, tIdx) => (
+                        <li key={tIdx} className="flex items-start gap-3">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] mt-2 shrink-0 shadow-[0_0_8px_#00F0FF]" />
+                          <span className="text-sm sm:text-[15px] text-zinc-300 leading-relaxed">{topic}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
