@@ -114,10 +114,11 @@ TrxID: ${formData.trxId}`;
       </div>
 
       <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        {/* CHANGED: lg:items-start ensures both columns start from the exact top line */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center lg:items-start">
           
-          {/* LEFT SECTION (TEXT): Sizes adjusted down for perfect balance */}
-          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 w-full">
+          {/* LEFT SECTION (TEXT): Sizes increased to beautifully fill the box */}
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8 w-full">
             
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
               <div className="flex -space-x-2">
@@ -128,81 +129,81 @@ TrxID: ${formData.trxId}`;
               <div className="flex items-center gap-1.5">
                 <div className="flex gap-0.5">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <Star key={star} className="w-3 h-3 text-amber-400 fill-amber-400" />
+                    <Star key={star} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                   ))}
                 </div>
-                <span className="text-[#00F0FF] text-[11px] sm:text-xs font-mono font-bold tracking-wide">
+                <span className="text-[#00F0FF] text-xs sm:text-sm font-mono font-bold tracking-wide">
                   <EditableText id="octavelo.trust.badge">Trusted by 6,000+ Students</EditableText>
                 </span>
               </div>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.2] text-white">
+            <h1 className="text-5xl sm:text-6xl lg:text-[62px] font-bold leading-[1.15] text-white">
               <EditableText id="octavelo.title1">গলার জোর নয়,</EditableText> <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">
                 <EditableText id="octavelo.title2">সাইকোলজি দিয়ে জিতুন!</EditableText>
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg text-[#94A3B8] leading-relaxed max-w-xl">
+            <p className="text-lg sm:text-xl text-[#94A3B8] leading-relaxed max-w-2xl">
               <EditableText id="octavelo.desc">
                 তর্কে প্রতিপক্ষকে পরাজিত করতে অহেতুক কথা নয়, প্রয়োজন ফ্রেম কন্ট্রোল। মানুষের অবচেতন আচরণ ও ইগো নিয়ন্ত্রণ করার একটি ঠান্ডা মাথার স্ট্র্যাটেজিক ব্লু-প্রিন্ট গাইড।
               </EditableText>
             </p>
 
-            <div className="pt-2 space-y-3.5 w-full max-w-md mx-auto lg:mx-0">
+            <div className="pt-2 space-y-4 sm:space-y-5 w-full max-w-lg mx-auto lg:mx-0">
               <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
+                <div className="w-6 h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-4 h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm text-zinc-300">
+                <span className="text-base sm:text-lg text-zinc-300">
                   <EditableText id="octavelo.b1">আক্রমণাত্মক লজিক ভাঙার সাইকোলজিক্যাল ফ্রেমওয়ার্ক</EditableText>
                 </span>
               </div>
               <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
+                <div className="w-6 h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-4 h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm text-zinc-300">
+                <span className="text-base sm:text-lg text-zinc-300">
                   <EditableText id="octavelo.b2">ইমোশনাল ম্যানিপুলেশন কাউন্টার করার কৌশল</EditableText>
                 </span>
               </div>
               <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-5 h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-3.5 h-3.5 text-[#00F0FF]" />
+                <div className="w-6 h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-4 h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm text-zinc-300">
+                <span className="text-base sm:text-lg text-zinc-300">
                   <EditableText id="octavelo.b3">লগইন ছাড়া সরাসরি ডাউনলোড ও লাইফটাইম অ্যাক্সেস</EditableText>
                 </span>
               </div>
             </div>
           </div>
 
-          {/* RIGHT SECTION (CARD): Scaled up by 25% for balance */}
-          <div className="lg:col-span-5 flex flex-col items-center lg:items-end w-full mt-6 lg:mt-0 space-y-5">
+          {/* RIGHT SECTION (CARD): Sized to max 380px, starting from the exact top line */}
+          <div className="lg:col-span-5 flex flex-col items-center lg:items-end w-full space-y-5">
             
-            {/* GLOSSY COMBINED CARD (Increased width to 380px) */}
+            {/* GLOSSY COMBINED CARD - Pure Blue & Dark Theme (NO GREEN/CYAN TINT) */}
             <div className="w-full max-w-[340px] sm:max-w-[380px] flex flex-col items-center">
               
-              {/* TOP: E-Book Cover Plate (82% width of container) */}
+              {/* TOP: E-Book Cover Plate */}
               <div className="w-[82%] relative z-0 rounded-t-3xl overflow-hidden shadow-2xl bg-black">
                 <img
                   src={coverUrl}
                   alt="Masterclass Cover"
                   className="w-full h-auto object-cover block"
                 />
-                <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#0A0C12] to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#050608] to-transparent pointer-events-none" />
               </div>
 
               {/* BOTTOM: Glossy Pricing Plate */}
-              <div className="w-full relative z-10 -mt-16 sm:-mt-20 rounded-3xl p-[1px] bg-gradient-to-b from-[#00F0FF]/40 via-[#0052FF]/10 to-transparent shadow-[0_0_40px_rgba(0,82,255,0.15)] overflow-hidden">
+              <div className="w-full relative z-10 -mt-16 sm:-mt-20 rounded-3xl p-[1px] bg-gradient-to-b from-[#0052FF]/40 via-transparent to-transparent shadow-[0_0_40px_rgba(0,82,255,0.15)] overflow-hidden">
                 
-                {/* Glossy Inner Container */}
-                <div className="relative h-full w-full bg-[#0A0C12]/90 backdrop-blur-2xl rounded-[23px] p-6 sm:p-7 flex flex-col items-center justify-center">
+                {/* Glossy Inner Container (Pure Dark Theme Color) */}
+                <div className="relative h-full w-full bg-[#050608]/95 backdrop-blur-2xl rounded-[23px] border border-white/5 p-6 sm:p-7 flex flex-col items-center justify-center">
                   
-                  {/* Subtle Top Glow */}
-                  <div className="absolute top-0 inset-x-1/4 h-px bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent opacity-50" />
-                  <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#00F0FF]/10 to-transparent pointer-events-none" />
+                  {/* Pure Blue Top Glow */}
+                  <div className="absolute top-0 inset-x-1/4 h-px bg-gradient-to-r from-transparent via-[#0052FF] to-transparent opacity-80" />
+                  <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#0052FF]/20 to-transparent pointer-events-none" />
 
                   <div className="flex items-center justify-between w-full mb-6 relative z-20">
                     <div className="flex items-end gap-3">
