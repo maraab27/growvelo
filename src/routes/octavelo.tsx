@@ -37,7 +37,7 @@ function OctaveloLandingPage() {
   
   // আপনার সুপাবেস লিংকগুলো এখানে দেওয়া আছে। এখান থেকেই লিংক পরিবর্তন করবেন।
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
-  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Psychological%20masterclass%20on%20winning%20arguments.webp"; // এখানে নতুন ইউটিউব থাম্বনেইলের লিংক দিবেন
+  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Psychological%20masterclass%20on%20winning%20arguments.webp";
   const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf";
 
   const handleCopy = () => {
@@ -198,18 +198,24 @@ TrxID: ${formData.trxId}`;
             </div>
 
             <div className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] bg-[#111318] border border-[#1E2230] rounded-2xl p-5 sm:p-6 shadow-xl">
-              <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center justify-between mb-4">
                 <div className="flex items-end gap-3">
                   <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none">
                     <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
                   </span>
-                  {/* CHANGE 1: Desktop Pricing Box */}
                   <span className="text-xl sm:text-2xl text-zinc-400 line-through decoration-[#f43f5e]/70 decoration-2 font-mono mb-0.5">
                     <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
                   </span>
                 </div>
                 <span className="px-3 py-1.5 rounded-lg bg-[#f43f5e]/10 text-[#f43f5e] border border-[#f43f5e]/20 text-[11px] font-bold uppercase tracking-wider">
                   <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
+                </span>
+              </div>
+
+              {/* 💡 Urgency Message Added Here (Desktop) */}
+              <div className="w-full text-center bg-[#00F0FF]/10 border border-[#00F0FF]/20 rounded-lg py-2 px-3 mb-4">
+                <span className="text-xs sm:text-sm text-[#00F0FF] font-medium leading-relaxed block">
+                  <EditableText id="octavelo.urgency.desktop">💡 অফার অ্যালার্ট: আজই বইটি সংগ্রহ করলে সাথে পাচ্ছেন এক্সক্লুসিভ '২-মিনিটের পকেট চিট শিট' সম্পূর্ণ ফ্রি!</EditableText>
                 </span>
               </div>
 
@@ -314,19 +320,29 @@ TrxID: ${formData.trxId}`;
         </footer>
       </main>
 
-      <div className="fixed bottom-4 inset-x-4 z-40 lg:hidden rounded-2xl bg-[#08090C]/85 backdrop-blur-2xl border border-[#1E2230] p-3 sm:p-4 flex items-center justify-between gap-4 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
-        <div className="flex flex-col px-2">
-          {/* CHANGE 2: Mobile Footer */}
-          <span className="text-sm text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2 mb-0.5">৫০০ ৳</span>
-          <span className="text-xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
+      {/* Floating Premium Mobile Footer */}
+      <div className="fixed bottom-4 inset-x-4 z-40 lg:hidden rounded-2xl bg-[#08090C]/85 backdrop-blur-2xl border border-[#1E2230] p-3 sm:p-4 flex flex-col gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
+        
+        {/* 💡 Urgency Message Added Here (Mobile) */}
+        <div className="w-full text-center bg-[#00F0FF]/10 border border-[#00F0FF]/20 rounded-md py-1.5 px-2">
+          <span className="text-[10px] sm:text-xs text-[#00F0FF] font-medium">
+            <EditableText id="octavelo.urgency.mobile">💡 অফার অ্যালার্ট: আজই বইটি সংগ্রহ করলে সাথে পাচ্ছেন এক্সক্লুসিভ '২-মিনিটের পকেট চিট শিট' সম্পূর্ণ ফ্রি!</EditableText>
+          </span>
         </div>
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm flex items-center justify-center gap-1.5 active:scale-95 transition-transform"
-        >
-          <span>পিডিএফ আনলক করুন</span>
-          <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
-        </button>
+
+        <div className="flex items-center justify-between gap-4 w-full">
+          <div className="flex flex-col px-2">
+            <span className="text-sm text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2 mb-0.5">৫০০ ৳</span>
+            <span className="text-xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
+          </div>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm flex items-center justify-center gap-1.5 active:scale-95 transition-transform"
+          >
+            <span>পিডিএফ আনলক করুন</span>
+            <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
+          </button>
+        </div>
       </div>
 
       {isModalOpen && (
@@ -349,7 +365,6 @@ TrxID: ${formData.trxId}`;
               <>
                 <div className="text-center mb-6 mt-2">
                   <div className="inline-flex items-center justify-center gap-2 mb-1">
-                    {/* CHANGE 3: Checkout Modal */}
                     <span className="text-lg text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2">৫০০ ৳</span>
                     <span className="px-2 py-0.5 rounded bg-[#f43f5e] text-white text-[10px] font-bold uppercase tracking-wider">৮০% ছাড়</span>
                   </div>
