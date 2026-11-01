@@ -38,9 +38,8 @@ function OctaveloLandingPage() {
   const paymentNumber = "01790055690";
   const supportWhatsapp = "8801410341220";
   
-  // আপনার সুপাবেস লিংকগুলো
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
-  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Psychological%20masterclass%20on%20winning%20arguments.webp"; 
+  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Psychological%20masterclass%20on%20winning%20arguments.webp";
   const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf";
 
   const handleCopy = () => {
@@ -108,7 +107,8 @@ TrxID: ${formData.trxId}`;
             className="px-5 py-2 rounded-full bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-xs sm:text-sm hover:brightness-110 active:scale-95 transition-transform cursor-pointer flex items-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.2)]"
           >
             <span>
-              <EditableText id="octavelo.nav.btn">PDF Guide (99৳)</EditableText>
+              {/* English Hooky Button Text */}
+              <EditableText id="octavelo.nav.btn">Unlock Blueprint ⚡</EditableText>
             </span>
           </button>
         </header>
@@ -200,7 +200,7 @@ TrxID: ${formData.trxId}`;
             </div>
 
             <div className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] bg-[#111318] border border-[#1E2230] rounded-2xl p-5 sm:p-6 shadow-xl">
-              <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center justify-between mb-4">
                 <div className="flex items-end gap-3">
                   <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none">
                     <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
@@ -225,29 +225,23 @@ TrxID: ${formData.trxId}`;
               </button>
             </div>
 
-            {/* 💡 NEW URGENCY CARD (Placed below the Pricing Box for both Mobile & Desktop) */}
+            {/* NEW URGENCY CARD (Desktop & Mobile) - OBJECT ERROR FIXED */}
             <div className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] bg-gradient-to-r from-[#00F0FF]/[0.05] to-transparent border border-[#00F0FF]/20 rounded-2xl p-3 sm:p-4 flex items-center gap-4 shadow-lg">
-              
-              {/* File Extracting Visual Icon */}
               <div className="shrink-0 relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-[#050608] border border-[#1E2230] flex items-center justify-center overflow-hidden shadow-inner">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#0052FF]/10 to-[#00F0FF]/5" />
                 <FolderOpen className="w-7 h-7 sm:w-8 sm:h-8 text-[#0052FF] absolute -translate-y-1" />
                 <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-[#00F0FF] absolute translate-y-2 translate-x-2 rotate-12 drop-shadow-lg" />
                 <Sparkles className="w-3 h-3 text-amber-400 absolute top-1 right-1" />
               </div>
-              
-              {/* Text Content */}
               <div className="flex flex-col text-left">
                 <span className="text-[10px] sm:text-[11px] font-black tracking-wider text-amber-400 uppercase mb-0.5">
                   <EditableText id="octavelo.urgency.badge">🎁 Limited Offer</EditableText>
                 </span>
                 <span className="text-xs sm:text-sm text-zinc-300 font-medium leading-snug">
-                  <EditableText id="octavelo.urgency.text">আজই বইটি সংগ্রহ করলে সাথে পাচ্ছেন এক্সক্লুসিভ <strong className="text-[#00F0FF]">২-মিনিটের পকেট চিট শিট</strong> সম্পূর্ণ ফ্রি!</EditableText>
+                  <EditableText id="octavelo.urgency.text">আজই বইটি সংগ্রহ করলে সাথে পাচ্ছেন এক্সক্লুসিভ '২-মিনিটের পকেট চিট শিট' সম্পূর্ণ ফ্রি!</EditableText>
                 </span>
               </div>
-
             </div>
-            {/* End of Urgency Card */}
 
           </div>
         </div>
@@ -339,19 +333,20 @@ TrxID: ${formData.trxId}`;
         </footer>
       </main>
 
-      {/* REVERTED: Floating Mobile Footer (Clean & Slim Again) */}
-      <div className="fixed bottom-4 inset-x-4 z-40 lg:hidden rounded-2xl bg-[#08090C]/85 backdrop-blur-2xl border border-[#1E2230] p-3 sm:p-4 flex items-center justify-between gap-4 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
-        <div className="flex flex-col px-2">
-          <span className="text-sm text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2 mb-0.5">৫০০ ৳</span>
-          <span className="text-xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
+      <div className="fixed bottom-4 inset-x-4 z-40 lg:hidden rounded-2xl bg-[#08090C]/85 backdrop-blur-2xl border border-[#1E2230] p-3 sm:p-4 flex flex-col gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
+        <div className="flex items-center justify-between gap-4 w-full">
+          <div className="flex flex-col px-2">
+            <span className="text-sm text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2 mb-0.5">৫০০ ৳</span>
+            <span className="text-xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
+          </div>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm flex items-center justify-center gap-1.5 active:scale-95 transition-transform"
+          >
+            <span>পিডিএফ আনলক করুন</span>
+            <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
+          </button>
         </div>
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm flex items-center justify-center gap-1.5 active:scale-95 transition-transform"
-        >
-          <span>পিডিএফ আনলক করুন</span>
-          <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
-        </button>
       </div>
 
       {isModalOpen && (
