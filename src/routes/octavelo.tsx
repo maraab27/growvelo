@@ -27,6 +27,7 @@ function OctaveloLandingPage() {
   const [copied, setCopied] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [wantBonus, setWantBonus] = useState(true);
+  const [isIntroExpanded, setIsIntroExpanded] = useState(false); // New state for Introduction Read More
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -136,10 +137,9 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            {/* FIXED: Title structure changed to strictly drop to the next line on mobile */}
-            <h1 className="text-[28px] sm:text-4xl lg:text-[62px] font-bold leading-snug lg:leading-[1.15] text-white">
-              <span className="block"><EditableText id="octavelo.title1">তর্কে জেতার সাইকোলজি:</EditableText></span>
-              <span className="block mt-1 lg:mt-0 text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">
+            <h1 className="text-3xl sm:text-4xl lg:text-[62px] font-bold leading-tight lg:leading-[1.15] text-white">
+              <EditableText id="octavelo.title1">তর্কে জেতার সাইকোলজি:</EditableText> <br className="hidden sm:block" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">
                 <EditableText id="octavelo.title2">দ্য আল্টিমেট মাস্টারক্লাস</EditableText>
               </span>
             </h1>
@@ -182,10 +182,8 @@ TrxID: ${formData.trxId}`;
             
             <div className="w-full max-w-[340px] sm:max-w-[380px] flex flex-col items-center relative">
               
-              {/* FIXED: Theme-matching Neon Blue/Cyan Faded Glow Behind the Book */}
-              <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[75%] h-[65%] bg-gradient-to-r from-[#0052FF] to-[#00F0FF] opacity-30 blur-[60px] rounded-full pointer-events-none z-0" />
+              <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[70%] h-[60%] bg-[#E6C27A] opacity-25 blur-[60px] rounded-full pointer-events-none z-0" />
 
-              {/* TOP: E-Book Cover Plate (z-10 to stay above the glow) */}
               <div className="w-[82%] relative z-10 rounded-t-3xl overflow-hidden shadow-2xl bg-[#050608] border border-b-0 border-[#0052FF]/40">
                 <img
                   src={coverUrl}
@@ -195,7 +193,6 @@ TrxID: ${formData.trxId}`;
                 <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#050608] to-transparent pointer-events-none" />
               </div>
 
-              {/* BOTTOM: Glossy Pricing Plate (z-20 to overlap the cover) */}
               <div className="w-full relative z-20 -mt-16 sm:-mt-20 rounded-3xl p-[1px] bg-gradient-to-b from-[#0052FF]/40 via-transparent to-transparent shadow-[0_0_40px_rgba(0,82,255,0.15)] overflow-hidden">
                 
                 <div className="relative h-full w-full bg-[#050608]/95 backdrop-blur-2xl rounded-[23px] border border-white/5 p-6 sm:p-7 flex flex-col items-center justify-center">
@@ -230,7 +227,6 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            {/* URGENCY CARD */}
             <div className="w-full max-w-[340px] sm:max-w-[380px] bg-[#0A0C12]/90 backdrop-blur-md border border-amber-400/50 rounded-2xl p-3 sm:p-4 flex items-center gap-3.5 shadow-[0_0_20px_rgba(251,191,36,0.15)] relative overflow-hidden">
               <div className="shrink-0 relative w-12 h-12 rounded-xl bg-[#050608] border border-[#1E2230] flex items-center justify-center overflow-hidden shadow-inner">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#0052FF]/10 to-[#00F0FF]/5" />
@@ -248,6 +244,56 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
+          </div>
+        </div>
+
+        {/* NEW: INTRODUCTION SECTION WITH READ MORE FEATURE */}
+        <div className="w-full max-w-5xl mx-auto mt-24 pt-16 border-t border-[#1E2230]">
+          <div className="text-center mb-10">
+            <span className="text-[#00F0FF] text-xs font-mono tracking-widest uppercase font-semibold block mb-2">
+              <EditableText id="octavelo.intro.badge">The Story Behind</EditableText>
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white">
+              <EditableText id="octavelo.intro.title">ভূমিকা</EditableText>
+            </h2>
+          </div>
+
+          <div className="relative bg-[#0B0D12] border border-[#1E2230] rounded-3xl p-6 sm:p-10 shadow-xl mx-auto max-w-4xl">
+            <div className={`relative text-[15px] sm:text-lg text-zinc-300 leading-relaxed space-y-5 transition-all duration-500 ease-in-out ${!isIntroExpanded ? 'max-h-[380px] overflow-hidden' : ''}`}>
+              <p><EditableText id="octavelo.intro.p1">শতভাগ সঠিক হওয়ার পরও অন্যের কাছে বারবার ভুল প্রমাণিত হওয়া বা হেরে যাওয়ার মতো অসহায় অনুভূতি পৃথিবীতে খুব কমই আছে।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p2">আমাদের চারপাশে এমন অসংখ্য মানুষ আছেন, যারা নিজেরা ১০০% সঠিক হওয়া সত্ত্বেও শুধু গুছিয়ে কথা বলতে না পারার কারণে বা নেগোসিয়েশন স্কিলের অভাবে অন্যের কাছে বারবার ভুল প্রমাণিত হন। নিরেট সত্য আর অকাট্য লজিক পক্ষে থাকার পরও তারা তর্কে হেরে গিয়ে দিনের পর দিন হতাশায় ভোগেন।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p3">আবার এর উল্টো পিঠের গল্পটাও কিন্তু বেশ ট্র্যাজিক! জীবনে আমরা সবাই হয়তো গলার জোরে বা প্রমাণ দিয়ে কোনো না কোনো তর্কে জিতি। কিন্তু দিনশেষে হঠাৎ করেই আবিষ্কার করি- তর্কে জিততে গিয়ে আমরা আসলে প্রিয় মানুষটিকেই হেরে বসে আছি, কিংবা নিজের অজান্তেই খুব গুরুত্বপূর্ণ কোনো প্রফেশনাল সম্পর্কে একটা অদৃশ্য দেয়াল তুলে ফেলেছি।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p4">আমাদের একটা খুব সাধারণ ভুল ধারণা আছে যে, 'তর্ক' মানেই বুঝি গলা ফাটিয়ে ঝগড়া করা বা প্রতিপক্ষকে গলার জোরে দমিয়ে দেওয়া।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p5">কিন্তু একটু ভেবে দেখুন, বাস্তবে প্রিয়জনকে নিজের কোনো কথা বা অনুভূতি বোঝানো, বসের সাথে নিজের ন্যায্য অধিকার নিয়ে নেগোসিয়েট করা, কিংবা ক্লায়েন্টকে নিজের আইডিয়াটা বিশ্বাস করানো, এই সবকিছুই কিন্তু মনস্তাত্ত্বিক তর্কেরই অংশ।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p6">এই মনস্তাত্ত্বিক ময়দানে শুধু গলার জোর, চিৎকার বা নিরেট প্রমাণ দিয়ে জেতা যায় না; এখানে সত্যিকার অর্থে জিততে হলে বুঝতে হয় মানুষের সাইকোলজি।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p7">এই বইটির পেছনের গল্পটা বেশ চমৎকার। প্রায় এক বছর আগের কথা। তর্কের সাইকোলজি নিয়ে আমি মাত্র ৪-৫টি পয়েন্টের ছোট একটি পিডিএফ তৈরি করেছিলাম। উদ্দেশ্য ছিল খুব সাধারণ, কিছু মানুষের হয়তো কাজে লাগবে। কিন্তু সেটি শেয়ার করার পর মাত্র ৪৮ ঘণ্টার মধ্যে লক্ষ লক্ষ মানুষের কাছ থেকে যে অভূতপূর্ব সাড়া পেয়েছি, তা আমাকে রীতিমতো অবাক করেছে।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p8">অসংখ্য মানুষের ভালোবাসা আর অনুপ্রেরণায় আমি মুগ্ধ হয়েছি। শত শত মানুষ ইনবক্সে মেসেজ দিয়ে জানিয়েছেন, সেই ছোট টিপসগুলো তাদের ব্যক্তিগত ও প্রফেশনাল জীবনে কতটা দারুণভাবে কাজে লেগেছে। অনেকেই নিজেদের জীবনের গল্প শেয়ার করেছেন, আমার জন্য মন খুলে দু'আ করেছেন।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p9">সবচেয়ে বিস্ময়কর ব্যাপার ছিল- প্রায় ৮ থেকে ১০ হাজার মানুষ আমাকে বিভিন্নভাবে মেসেজ, ফিডব্যাক ও কমেন্টে অনুরোধ জানিয়েছেন, আমি যেন এই বিষয়গুলো নিয়ে আরও বিস্তারিত কাজ করি বা ভবিষ্যতে এমন একটি পূর্ণাঙ্গ গাইডলাইন নিয়ে আসি।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p10">মানুষের এই বিপুল আগ্রহ এবং ভালোবাসা আমাকে একটি বিষয় খুব গভীরভাবে উপলব্ধি করতে সাহায্য করেছে- মানুষ আসলে তর্কে যুক্তির অভাবে হারে না, তারা হারে প্রতিপক্ষের মনস্তত্ত্ব বা সাইকোলজি বুঝতে না পারার কারণে।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p11">মানুষের এই বিপুল আগ্রহ আমাকে প্রবলভাবে অনুপ্রাণিত করেছে বিষয়টির আরও গভীরে ডুব দিতে। এরপর গত প্রায় এক বছর ধরে, আমার অন্যান্য ব্যস্ততার পাশাপাশি যখনই সময় পেয়েছি, আমি এই বিষয়টি নিয়ে নতুন করে পড়াশোনা ও গবেষণা করেছি।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p12">মানুষের অবচেতন মন আসলে কীভাবে কাজ করে, এফবিআই (FBI) নেগোশিয়েটররা চরম উত্তপ্ত মুহূর্তে কীভাবে পরিস্থিতি নিজেদের নিয়ন্ত্রণে নেন, হার্ভার্ডের (Harvard) সাইকোলজিস্টরা কীভাবে ইগোর লড়াই থামিয়ে দেন, কিংবা সিআইএ (CIA) এক্সপার্টদের কৌশল ব্যবহার করে ডার্ক সাইকোলজির নোংরা চালগুলো কীভাবে নিমেষেই গুঁড়িয়ে দিতে হয়, বিশ্বমানের এই শক্তিশালী মনস্তাত্ত্বিক কৌশলগুলোকে আমি সুনিপুণভাবে একটি পূর্ণাঙ্গ গাইডলাইনে সাজিয়ে তোলার চেষ্টা করেছি।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p13">আপনাদের ভালোবাসা পাওয়া সেই ছোট্ট পিডিএফটির একটি পূর্ণাঙ্গ, আপগ্রেডেড এবং বিস্তারিত রূপই হলো আজকের এই 'তর্কে জেতার সাইকোলজি: দ্য আল্টিমেট মাস্টারক্লাস'।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p14">আমি কথা দিচ্ছি, এটি ভারী কোনো অ্যাকাডেমিক থিওরি বা বোরিং লেকচারে ভরা বই নয়। বিশ্বমানের এই মনস্তাত্ত্বিক কৌশলগুলোকে আমি এমনভাবে সাজিয়েছি, যা আপনার প্রতিদিনের জীবনের একটি রিয়েল-লাইফ 'সাইকোলজিক্যাল ম্যানুয়াল' হিসেবে কাজ করবে।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p15">কর্মক্ষেত্রের জটিল মতবিরোধ ও নেগোসিয়েশন, প্রিয়জনের সাথে ইগো বা আবেগের সংঘাত, কিংবা যুক্তির বদলে ধেয়ে আসা যেকোনো ভিত্তিহীন নোংরা আক্রমণ, জীবনের প্রতিটি ক্ষেত্রে নিজেকে মানসিকভাবে এক ধাপ এগিয়ে রাখার এবং যেকোনো উত্তপ্ত পরিস্থিতি সম্পূর্ণ নিজের শান্ত নিয়ন্ত্রণে নেওয়ার পরীক্ষিত সব ট্যাকটিক্স এখানে খুব সহজ ও সাবলীল ভাষায় তুলে ধরা হয়েছে।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p16">মনে রাখবেন, তর্কে জেতার সবচেয়ে বড় স্কিল প্রতিপক্ষকে ধ্বংস করে দেওয়া নয়, বরং ইগোতে আঘাত না করে তাকে হাসিমুখে নিজের দলে টেনে নেওয়া।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p17">তর্কের নতুন এই মনস্তাত্ত্বিক দুনিয়ায় আপনাকে স্বাগতম!</EditableText></p>
+
+              {/* Faded Overlay when collapsed */}
+              {!isIntroExpanded && (
+                <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0B0D12] via-[#0B0D12]/90 to-transparent pointer-events-none" />
+              )}
+            </div>
+
+            {/* Read More Toggle Button */}
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={() => setIsIntroExpanded(!isIntroExpanded)}
+                className="relative z-10 text-[#00F0FF] text-sm font-bold flex items-center gap-2 hover:brightness-125 transition-all bg-[#050608] border border-[#00F0FF]/30 px-6 py-2.5 rounded-full shadow-[0_0_20px_rgba(0,240,255,0.15)]"
+              >
+                <span>{isIntroExpanded ? "সংক্ষিপ্ত করুন (Read Less)" : "পুরোটা পড়ুন (Read More)"}</span>
+                <span>{isIntroExpanded ? "▲" : "▼"}</span>
+              </button>
+            </div>
           </div>
         </div>
 
