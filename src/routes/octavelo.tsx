@@ -38,8 +38,9 @@ function OctaveloLandingPage() {
   const paymentNumber = "01790055690";
   const supportWhatsapp = "8801410341220";
   
+  // আপনার সুপাবেস লিংকগুলো
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
-  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Psychological%20masterclass%20on%20winning%20arguments.webp";
+  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/ecover.webp"; // আপডেটেড কভার লিংক
   const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf";
 
   const handleCopy = () => {
@@ -107,7 +108,6 @@ TrxID: ${formData.trxId}`;
             className="px-5 py-2 rounded-full bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-xs sm:text-sm hover:brightness-110 active:scale-95 transition-transform cursor-pointer flex items-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.2)]"
           >
             <span>
-              {/* English Hooky Button Text */}
               <EditableText id="octavelo.nav.btn">Unlock Blueprint ⚡</EditableText>
             </span>
           </button>
@@ -184,11 +184,12 @@ TrxID: ${formData.trxId}`;
               <div className="rounded-2xl border border-[#1E2230] bg-[#0A0C10] p-3 sm:p-4 shadow-2xl relative">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#00F0FF]/10 blur-3xl pointer-events-none" />
                 
-                <div className="w-full aspect-video rounded-xl overflow-hidden bg-black border border-white/5 relative z-10">
+                {/* E-Book Cover Auto Size Container (Removed aspect-video) */}
+                <div className="w-full rounded-xl overflow-hidden bg-black border border-white/5 relative z-10">
                   <img
                     src={coverUrl}
                     alt="Masterclass Cover"
-                    className="w-full h-full object-cover block transition-transform duration-700 hover:scale-105"
+                    className="w-full h-auto object-cover block transition-transform duration-700 hover:scale-105"
                   />
                 </div>
 
@@ -200,7 +201,7 @@ TrxID: ${formData.trxId}`;
             </div>
 
             <div className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] bg-[#111318] border border-[#1E2230] rounded-2xl p-5 sm:p-6 shadow-xl">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-5">
                 <div className="flex items-end gap-3">
                   <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none">
                     <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
@@ -225,7 +226,6 @@ TrxID: ${formData.trxId}`;
               </button>
             </div>
 
-            {/* NEW URGENCY CARD (Desktop & Mobile) - OBJECT ERROR FIXED */}
             <div className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] bg-gradient-to-r from-[#00F0FF]/[0.05] to-transparent border border-[#00F0FF]/20 rounded-2xl p-3 sm:p-4 flex items-center gap-4 shadow-lg">
               <div className="shrink-0 relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-[#050608] border border-[#1E2230] flex items-center justify-center overflow-hidden shadow-inner">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#0052FF]/10 to-[#00F0FF]/5" />
@@ -238,7 +238,7 @@ TrxID: ${formData.trxId}`;
                   <EditableText id="octavelo.urgency.badge">🎁 Limited Offer</EditableText>
                 </span>
                 <span className="text-xs sm:text-sm text-zinc-300 font-medium leading-snug">
-                  <EditableText id="octavelo.urgency.text">আজই বইটি সংগ্রহ করলে সাথে পাচ্ছেন এক্সক্লুসিভ '2-Minute Pocket Cheat Sheet' সম্পূর্ণ ফ্রি!</EditableText>
+                  <EditableText id="octavelo.urgency.text">আজই বইটি সংগ্রহ করলে সাথে পাচ্ছেন এক্সক্লুসিভ '২-মিনিটের পকেট চিট শিট' সম্পূর্ণ ফ্রি!</EditableText>
                 </span>
               </div>
             </div>
