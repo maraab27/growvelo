@@ -38,9 +38,8 @@ function OctaveloLandingPage() {
   const paymentNumber = "01790055690";
   const supportWhatsapp = "8801410341220";
   
-  // আপনার সুপাবেস লিংকগুলো এখানে দেওয়া আছে। এখান থেকেই লিংক পরিবর্তন করবেন।
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
-  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Psychological%20masterclass%20on%20winning%20arguments.webp";
+  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/ecover.webp"; 
   const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf";
 
   const handleCopy = () => {
@@ -180,29 +179,30 @@ TrxID: ${formData.trxId}`;
 
           <div className="lg:col-span-5 flex flex-col items-center w-full mt-4 lg:mt-0 space-y-6">
             
-            {/* 💡 NEW GLOSSY & ADJUSTED EBOOK COVER PLATE */}
-            <div className="w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[340px]">
-              <div className="rounded-3xl border border-white/5 bg-gradient-to-br from-[#0B0D14] to-[#050608] p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden group flex justify-center items-center">
+            {/* UPDATED: E-Book Cover - Perfectly Sized & Glossy Vibe */}
+            <div className="w-full max-w-[260px] sm:max-w-[300px] lg:max-w-[320px] relative group mt-4">
+              {/* Glossy Ambient Glow */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#0052FF] to-[#00F0FF] rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-700" />
+              
+              {/* Glassy Plate Container */}
+              <div className="relative rounded-2xl border border-white/10 bg-[#050608]/60 backdrop-blur-xl p-2.5 sm:p-3 shadow-2xl flex flex-col items-center justify-center">
                 
-                {/* Ambient Glossy Glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-[#00F0FF]/15 blur-[50px] pointer-events-none group-hover:bg-[#00F0FF]/25 transition-all duration-700" />
-                
-                {/* Glass reflection line at the top */}
-                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-                {/* The Image (Properly scaled, no crop) */}
-                <div className="w-full relative z-10 rounded-md overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.8)] border border-white/10 group-hover:scale-105 group-hover:-translate-y-2 transition-all duration-500">
+                {/* The Image (Uncropped, auto-height) */}
+                <div className="w-full rounded-xl overflow-hidden relative z-10 bg-black shadow-[0_0_15px_rgba(0,0,0,0.5)]">
                   <img
                     src={coverUrl}
                     alt="Masterclass Cover"
-                    className="w-full h-auto object-contain block"
+                    className="w-full h-auto object-contain block transition-transform duration-700 hover:scale-105"
                   />
+                  {/* Gloss Reflection Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/20 pointer-events-none" />
                 </div>
+
               </div>
             </div>
 
             <div className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px] bg-[#111318] border border-[#1E2230] rounded-2xl p-5 sm:p-6 shadow-xl">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-5">
                 <div className="flex items-end gap-3">
                   <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none">
                     <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
