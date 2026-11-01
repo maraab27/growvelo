@@ -179,10 +179,13 @@ TrxID: ${formData.trxId}`;
 
           <div className="lg:col-span-5 flex flex-col items-center lg:items-end w-full space-y-5">
             
-            <div className="w-full max-w-[340px] sm:max-w-[380px] flex flex-col items-center">
+            <div className="w-full max-w-[340px] sm:max-w-[380px] flex flex-col items-center relative">
               
-              {/* TOP: E-Book Cover Plate */}
-              <div className="w-[82%] relative z-0 rounded-t-3xl overflow-hidden shadow-2xl bg-[#050608] border border-b-0 border-[#0052FF]/40">
+              {/* NEW: Beige/Metallic Golden Faded Glow Behind the Book */}
+              <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[70%] h-[60%] bg-[#E6C27A] opacity-25 blur-[60px] rounded-full pointer-events-none z-0" />
+
+              {/* TOP: E-Book Cover Plate (z-10 to stay above the glow) */}
+              <div className="w-[82%] relative z-10 rounded-t-3xl overflow-hidden shadow-2xl bg-[#050608] border border-b-0 border-[#0052FF]/40">
                 <img
                   src={coverUrl}
                   alt="Masterclass Cover"
@@ -191,20 +194,20 @@ TrxID: ${formData.trxId}`;
                 <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#050608] to-transparent pointer-events-none" />
               </div>
 
-              {/* BOTTOM: Glossy Pricing Plate */}
-              <div className="w-full relative z-10 -mt-16 sm:-mt-20 rounded-3xl p-[1px] bg-gradient-to-b from-[#0052FF]/40 via-transparent to-transparent shadow-[0_0_40px_rgba(0,82,255,0.15)] overflow-hidden">
+              {/* BOTTOM: Glossy Pricing Plate (z-20 to overlap the cover) */}
+              <div className="w-full relative z-20 -mt-16 sm:-mt-20 rounded-3xl p-[1px] bg-gradient-to-b from-[#0052FF]/40 via-transparent to-transparent shadow-[0_0_40px_rgba(0,82,255,0.15)] overflow-hidden">
                 
                 <div className="relative h-full w-full bg-[#050608]/95 backdrop-blur-2xl rounded-[23px] border border-white/5 p-6 sm:p-7 flex flex-col items-center justify-center">
                   
                   <div className="absolute top-0 inset-x-1/4 h-px bg-gradient-to-r from-transparent via-[#0052FF] to-transparent opacity-80" />
                   <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#0052FF]/20 to-transparent pointer-events-none" />
 
-                  <div className="flex items-center justify-between w-full mb-6 relative z-20">
+                  <div className="flex items-center justify-between w-full mb-6 relative z-30">
                     <div className="flex items-end gap-3">
-                      <span className="text-5xl font-bold font-mono text-white leading-none tracking-tight">
+                      <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none tracking-tight">
                         <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
                       </span>
-                      <span className="text-2xl text-zinc-500 line-through decoration-[#f43f5e]/70 decoration-2 font-mono mb-0.5">
+                      <span className="text-xl sm:text-2xl text-zinc-500 line-through decoration-[#f43f5e]/70 decoration-2 font-mono mb-0.5">
                         <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
                       </span>
                     </div>
@@ -215,7 +218,7 @@ TrxID: ${formData.trxId}`;
 
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="w-full py-3.5 sm:py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.3)] border border-[#00F0FF]/30 relative z-20"
+                    className="w-full py-3.5 sm:py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.3)] border border-[#00F0FF]/30 relative z-30"
                   >
                     <Download className="w-5 h-5 text-white" />
                     <span>
@@ -226,8 +229,8 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            {/* URGENCY CARD */}
-            <div className="w-full max-w-[340px] sm:max-w-[380px] bg-[#0A0C12]/80 backdrop-blur-md border border-[#1E2230] rounded-2xl p-3 sm:p-4 flex items-center gap-3.5 shadow-lg">
+            {/* NEW: URGENCY CARD with Golden/Neon Border & Glow */}
+            <div className="w-full max-w-[340px] sm:max-w-[380px] bg-[#0A0C12]/90 backdrop-blur-md border border-amber-400/50 rounded-2xl p-3 sm:p-4 flex items-center gap-3.5 shadow-[0_0_20px_rgba(251,191,36,0.15)] relative overflow-hidden">
               <div className="shrink-0 relative w-12 h-12 rounded-xl bg-[#050608] border border-[#1E2230] flex items-center justify-center overflow-hidden shadow-inner">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#0052FF]/10 to-[#00F0FF]/5" />
                 <FolderOpen className="w-6 h-6 text-[#0052FF] absolute -translate-y-1" />
@@ -235,7 +238,8 @@ TrxID: ${formData.trxId}`;
                 <Sparkles className="w-2.5 h-2.5 text-amber-400 absolute top-1.5 right-1.5" />
               </div>
               <div className="flex flex-col text-left">
-                <span className="text-[10px] font-black tracking-wider text-amber-400 uppercase mb-0.5">
+                {/* Text added drop-shadow for extra pop */}
+                <span className="text-[10px] font-black tracking-wider text-amber-400 drop-shadow-[0_0_5px_rgba(251,191,36,0.5)] uppercase mb-0.5">
                   <EditableText id="octavelo.urgency.badge">🎁 Limited Offer</EditableText>
                 </span>
                 <span className="text-xs sm:text-sm text-zinc-300 font-medium leading-snug">
