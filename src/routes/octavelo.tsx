@@ -238,7 +238,7 @@ TrxID: ${formData.trxId}`;
                   <EditableText id="octavelo.urgency.badge">🎁 Limited Offer</EditableText>
                 </span>
                 <span className="text-xs sm:text-sm text-zinc-300 font-medium leading-snug">
-                  <EditableText id="octavelo.urgency.text">আজই বইটি সংগ্রহ করলে সাথে পাচ্ছেন এক্সক্লুসিভ '২-মিনিটের পকেট চিট শিট' সম্পূর্ণ ফ্রি!</EditableText>
+                  <EditableText id="octavelo.urgency.text">আজই বইটি সংগ্রহ করলে সাথে পাচ্ছেন এক্সক্লুসিভ '2-Minute Pocket Cheat Sheet' সম্পূর্ণ ফ্রি!</EditableText>
                 </span>
               </div>
             </div>
