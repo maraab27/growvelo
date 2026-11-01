@@ -107,7 +107,7 @@ TrxID: ${formData.trxId}`;
             className="px-5 py-2 rounded-full bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-xs sm:text-sm hover:brightness-110 active:scale-95 transition-transform cursor-pointer flex items-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.2)]"
           >
             <span>
-              <EditableText id="octavelo.nav.btn">Unlock Blueprint ⚡</EditableText>
+              <EditableText id="octavelo.nav.btn">Get Instant Access 🚀</EditableText>
             </span>
           </button>
         </header>
@@ -116,7 +116,6 @@ TrxID: ${formData.trxId}`;
       <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center lg:items-start">
           
-          {/* LEFT SECTION (TEXT): Mobile sizes reduced, Desktop sizes preserved */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-10 w-full">
             
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
@@ -137,7 +136,6 @@ TrxID: ${formData.trxId}`;
               </div>
             </div>
 
-            {/* Title size reduced for mobile (text-3xl) to avoid 4 lines, kept lg:text-[62px] */}
             <h1 className="text-3xl sm:text-4xl lg:text-[62px] font-bold leading-tight lg:leading-[1.15] text-white">
               <EditableText id="octavelo.title1">তর্কে জেতার সাইকোলজি:</EditableText> <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">
@@ -145,7 +143,6 @@ TrxID: ${formData.trxId}`;
               </span>
             </h1>
 
-            {/* Description size reduced for mobile (text-sm), kept lg:text-xl */}
             <p className="text-sm sm:text-base lg:text-xl text-[#94A3B8] leading-relaxed max-w-2xl">
               <EditableText id="octavelo.desc">
                 গলার জোর নয়, বরং নীরবতা আর স্মার্টনেস দিয়ে মানুষের অবচেতন মন নিয়ন্ত্রণ করার এবং যেকোনো কঠিন পরিস্থিতি নিজের শান্ত আয়ত্তে নিয়ে আসার চূড়ান্ত মনস্তাত্ত্বিক ব্লু-প্রিন্ট।
@@ -157,7 +154,6 @@ TrxID: ${formData.trxId}`;
                 <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
                   <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
                 </div>
-                {/* Checklist size reduced for mobile (text-sm), kept lg:text-lg */}
                 <span className="text-sm sm:text-base lg:text-lg text-zinc-300">
                   <EditableText id="octavelo.b1">'এফবিআই (FBI) মিররিং' ও কনভারসেশনাল জুডোর পরীক্ষিত কৌশল</EditableText>
                 </span>
@@ -198,19 +194,17 @@ TrxID: ${formData.trxId}`;
               {/* BOTTOM: Glossy Pricing Plate */}
               <div className="w-full relative z-10 -mt-16 sm:-mt-20 rounded-3xl p-[1px] bg-gradient-to-b from-[#0052FF]/40 via-transparent to-transparent shadow-[0_0_40px_rgba(0,82,255,0.15)] overflow-hidden">
                 
-                {/* Glossy Inner Container */}
                 <div className="relative h-full w-full bg-[#050608]/95 backdrop-blur-2xl rounded-[23px] border border-white/5 p-6 sm:p-7 flex flex-col items-center justify-center">
                   
-                  {/* Pure Blue Top Glow */}
                   <div className="absolute top-0 inset-x-1/4 h-px bg-gradient-to-r from-transparent via-[#0052FF] to-transparent opacity-80" />
                   <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#0052FF]/20 to-transparent pointer-events-none" />
 
                   <div className="flex items-center justify-between w-full mb-6 relative z-20">
                     <div className="flex items-end gap-3">
-                      <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none tracking-tight">
+                      <span className="text-5xl font-bold font-mono text-white leading-none tracking-tight">
                         <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
                       </span>
-                      <span className="text-xl sm:text-2xl text-zinc-500 line-through decoration-[#f43f5e]/70 decoration-2 font-mono mb-0.5">
+                      <span className="text-2xl text-zinc-500 line-through decoration-[#f43f5e]/70 decoration-2 font-mono mb-0.5">
                         <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
                       </span>
                     </div>
@@ -219,14 +213,13 @@ TrxID: ${formData.trxId}`;
                     </span>
                   </div>
 
-                  {/* RESTORED: Gradient Button with White Text */}
                   <button
                     onClick={() => setIsModalOpen(true)}
                     className="w-full py-3.5 sm:py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.3)] border border-[#00F0FF]/30 relative z-20"
                   >
                     <Download className="w-5 h-5 text-white" />
                     <span>
-                      <EditableText id="octavelo.buy.btn">পিডিএফটি এখনই ডাউনলোড করুন</EditableText>
+                      <EditableText id="octavelo.buy.btn">ই-বুকটি এখনই সংগ্রহ করুন</EditableText>
                     </span>
                   </button>
                 </div>
@@ -297,7 +290,7 @@ TrxID: ${formData.trxId}`;
               </div>
               <p className="text-sm text-zinc-300 leading-relaxed mb-6">
                 <EditableText id="octavelo.review2.text">
-                  "বই পড়ে সাধারণত বোরিং লাগে, কিন্তু এই পিডিএফটার প্রেজেন্টেশন ও পয়েন্টগুলো এতটাই শার্প যে এক বসায় পড়ে শেষ করেছি। ক্লায়েন্ট ডিলিংয়ে দারুণ কাজে দিচ্ছে।"
+                  "বই পড়ে সাধারণত বোরিং লাগে, কিন্তু এই ই-বুকটার প্রেজেন্টেশন ও পয়েন্টগুলো এতটাই শার্প যে এক বসায় পড়ে শেষ করেছি। ক্লায়েন্ট ডিলিংয়ে দারুণ কাজে দিচ্ছে।"
                 </EditableText>
               </p>
               <div className="flex items-center gap-3">
@@ -346,12 +339,11 @@ TrxID: ${formData.trxId}`;
           <span className="text-sm text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2 mb-0.5">৫০০ ৳</span>
           <span className="text-xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
         </div>
-        {/* RESTORED: Gradient Button with White Text */}
         <button
           onClick={() => setIsModalOpen(true)}
           className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm flex items-center justify-center gap-1.5 active:scale-95 transition-transform shadow-[0_0_15px_rgba(0,240,255,0.3)] border border-[#00F0FF]/30"
         >
-          <span>পিডিএফ আনলক করুন</span>
+          <span>ই-বুক আনলক করুন</span>
           <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
         </button>
       </div>
@@ -381,7 +373,7 @@ TrxID: ${formData.trxId}`;
                   </div>
                   <div className="text-4xl font-bold font-mono text-white mt-1">৯৯ ৳</div>
                   <h3 className="text-sm text-[#94A3B8] mt-2">
-                    তর্কে জেতার মনস্তাত্ত্বিক মাস্টারক্লাস পিডিএফ
+                    তর্কে জেতার মনস্তাত্ত্বিক মাস্টারক্লাস ই-বুক
                   </h3>
                 </div>
 
@@ -516,7 +508,7 @@ TrxID: ${formData.trxId}`;
                     className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm hover:brightness-110 transition-colors shadow-[0_0_15px_rgba(0,240,255,0.3)]"
                   >
                     <Download className="w-4 h-4 text-white stroke-[2.5]" />
-                    <span>পিডিএফ ডাউনলোড করুন</span>
+                    <span>ই-বুক ডাউনলোড করুন</span>
                   </a>
                 </div>
               </div>
