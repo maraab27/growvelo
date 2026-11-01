@@ -18,24 +18,7 @@ import {
   Minus,
   Loader2,
 } from "lucide-react";
-import { EditableText } from "../components/cms/EditableText";
-
-export const Route = createFileRoute("/octavelo")({
-  component: OctaveloLandingPage,
-});
-
-function OctaveloLandingPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [wantBonus, setWantBonus] = useState(true);
-  const [isLoading, setIsLoading] = useState(false); // API Loading state
-  const [apiError, setApiError] = useState(""); // Error state
-
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-  });
-
+import { EditableText } from
   const supportWhatsapp = "8801410341220";
   const ziniApiKey = "1a182d1372347e011ebf60b13ce854ce8afd59e46a768253"; // Your ZiniPay Brand API Key
   const priceAmount = 99; // Total amount to charge
