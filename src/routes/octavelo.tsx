@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Download,
   AlertCircle,
@@ -28,6 +28,9 @@ function OctaveloLandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState("");
+  const [isIntroExpanded, setIsIntroExpanded] = useState(false);
+  const [openChapter, setOpenChapter] = useState<number | null>(null);
+  const [isPixelLoaded, setIsPixelLoaded] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -39,28 +42,13 @@ function OctaveloLandingPage() {
   const priceAmount = 99;
   
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
-  // UPDATED: New Optimized E-Book Cover Image URL
   const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Ecoverrr.webp";
+  const pdfDownloadUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/gallery/masterclass_guide.pdf";
 
-  // PERFORMANCE OPTIMIZATION: Google Fonts Preconnect & Delayed Facebook Pixel
-  useEffect(() => {
-    // 1. Inject Google Fonts Preconnect directly into the head
-    if (!document.querySelector('link[href="https://fonts.googleapis.com"]')) {
-      const preconnect1 = document.createElement('link');
-      preconnect1.rel = 'preconnect';
-      preconnect1.href = 'https://fonts.googleapis.com';
-      document.head.appendChild(preconnect1);
-    }
-    if (!document.querySelector('link[href="https://fonts.gstatic.com"]')) {
-      const preconnect2 = document.createElement('link');
-      preconnect2.rel = 'preconnect';
-      preconnect2.href = 'https://fonts.gstatic.com';
-      preconnect2.crossOrigin = 'anonymous';
-      document.head.appendChild(preconnect2);
-    }
-
-    // 2. Delay Facebook Pixel to prevent Render Blocking (Loads after 3.5 seconds)
-    const fbTimer = setTimeout(() => {
+  // PERFORMANCE OPTIMIZATION: Load Facebook Pixel only on user interaction
+  const loadFacebookPixel = useCallback(() => {
+    if (!isPixelLoaded) {
+      setIsPixelLoaded(true);
       if (!(window as any).fbq) {
         !function(f:any,b:any,e:any,v:any,n:any,t:any,s:any)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -75,10 +63,20 @@ function OctaveloLandingPage() {
         // (window as any).fbq('init', 'YOUR_PIXEL_ID'); 
         // (window as any).fbq('track', 'PageView');
       }
-    }, 3500);
+    }
+  }, [isPixelLoaded]);
 
-    return () => clearTimeout(fbTimer);
-  }, []);
+  useEffect(() => {
+    window.addEventListener("scroll", loadFacebookPixel, { once: true, passive: true });
+    window.addEventListener("mousemove", loadFacebookPixel, { once: true, passive: true });
+    window.addEventListener("touchstart", loadFacebookPixel, { once: true, passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", loadFacebookPixel);
+      window.removeEventListener("mousemove", loadFacebookPixel);
+      window.removeEventListener("touchstart", loadFacebookPixel);
+    };
+  }, [loadFacebookPixel]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -203,15 +201,13 @@ function OctaveloLandingPage() {
       ]
     }
   ];
-  
-  const [isIntroExpanded, setIsIntroExpanded] = useState(false);
-  const [openChapter, setOpenChapter] = useState<number | null>(null);
+
+  const [wantBonus, setWantBonus] = useState(true);
 
   return (
     <div
-      className="min-h-screen text-zinc-100 selection:bg-[#00F0FF]/30 selection:text-[#00F0FF] antialiased relative pb-32 lg:pb-20 font-bengali overflow-x-hidden"
+      className="min-h-screen text-zinc-100 selection:bg-[#00F0FF]/30 selection:text-[#00F0FF] antialiased relative pb-32 lg:pb-20 font-bengali overflow-x-hidden bg-[#050608]"
       style={{
-        backgroundColor: "#050608",
         backgroundImage: `
           radial-gradient(circle at 50% 0%, rgba(0, 82, 255, 0.12) 0%, transparent 60%),
           radial-gradient(circle at 85% 40%, rgba(0, 240, 255, 0.04) 0%, transparent 50%),
@@ -220,6 +216,7 @@ function OctaveloLandingPage() {
         backgroundSize: "100% 100%, 100% 100%, 24px 24px",
       }}
     >
+      {/* PERFORMANCE FIX: Combined @import and added font-display: swap */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
         .font-bengali { font-family: 'Hind Siliguri', sans-serif; font-display: swap; }
@@ -327,9 +324,12 @@ function OctaveloLandingPage() {
               <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[75%] h-[65%] bg-gradient-to-r from-[#0052FF] to-[#00F0FF] opacity-30 blur-[60px] rounded-full pointer-events-none z-0" />
 
               <div className="w-[82%] relative z-10 rounded-t-3xl overflow-hidden shadow-2xl bg-[#050608] border border-b-0 border-[#0052FF]/40 aspect-[5/8]">
+                {/* PERFORMANCE FIX: Fetch Priority High and explicit sizes for Main Image */}
                 <img
                   src={coverUrl}
                   alt="Masterclass Cover"
+                  width="311"
+                  height="497"
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
@@ -392,6 +392,7 @@ function OctaveloLandingPage() {
           </div>
         </div>
 
+        {/* INTRODUCTION SECTION */}
         <div className="w-full max-w-4xl mx-auto mt-24 pt-16 border-t border-[#1E2230]">
           <div className="text-center mb-10">
             <span className="text-[#00F0FF] text-xs font-mono tracking-widest uppercase font-semibold block mb-2">
@@ -411,7 +412,7 @@ function OctaveloLandingPage() {
               <p><EditableText id="octavelo.intro.p5">কিন্তু একটু ভেবে দেখুন, বাস্তবে প্রিয়জনকে নিজের কোনো কথা বা অনুভূতি বোঝানো, বসের সাথে নিজের ন্যায্য অধিকার নিয়ে নেগোসিয়েট করা, কিংবা ক্লায়েন্টকে নিজের আইডিয়াটা বিশ্বাস করানো, এই সবকিছুই কিন্তু মনস্তাত্ত্বিক তর্কেরই অংশ।</EditableText></p>
               <p><EditableText id="octavelo.intro.p6">এই মনস্তাত্ত্বিক ময়দানে শুধু গলার জোর, চিৎকার বা নিরেট প্রমাণ দিয়ে জেতা যায় না; এখানে সত্যিকার অর্থে জিততে হলে বুঝতে হয় মানুষের সাইকোলজি।</EditableText></p>
               <p><EditableText id="octavelo.intro.p7">এই বইটির পেছনের গল্পটা বেশ চমৎকার। প্রায় এক বছর আগের কথা। তর্কের সাইকোলজি নিয়ে আমি মাত্র ৪-৫টি পয়েন্টের ছোট একটি পিডিএফ তৈরি করেছিলাম। উদ্দেশ্য ছিল খুব সাধারণ, কিছু মানুষের হয়তো কাজে লাগবে। কিন্তু সেটি শেয়ার করার পর মাত্র ৪৮ ঘণ্টার মধ্যে লক্ষ লক্ষ মানুষের কাছ থেকে যে অভূতপূর্ব সাড়া পেয়েছি, তা আমাকে রীতিমতো অবাক করেছে।</EditableText></p>
-              <p><EditableText id="octavelo.intro.p8">অসংখ্য মানুষের ভালোবাসা আর অনুপ্রেরণায় আমি মুগ্ধ হয়েছি। শত শত মানুষ ইনবক্সে মেসেজ দিয়ে জানিয়েছেন, সেই ছোট টিপসগুলো তাদের ব্যক্তিগত ও প্রফেশনাল জীবনে কতটা দারুণভাবে কাজে লেগেছে। অনেকেই নিজেদের জীবনের গল্প শেয়ার করেছেন, আমার জন্য মন খুলে দু'আ করেছেন।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p8">অসংখ্য মানুষের ভালোবাসা আর অনুপ্রেরণায় আমি মুগ্ধ হয়েছি। শত শত মানুষ ইনবক্সে মেসেজ দিয়ে জানিয়েছেন, সেই ছোট টিpsগুলো তাদের ব্যক্তিগত ও প্রফেশনাল জীবনে কতটা দারুণভাবে কাজে লেগেছে। অনেকেই নিজেদের জীবনের গল্প শেয়ার করেছেন, আমার জন্য মন খুলে দু'আ করেছেন।</EditableText></p>
               <p><EditableText id="octavelo.intro.p9">সবচেয়ে বিস্ময়কর ব্যাপার ছিল- প্রায় ৮ থেকে ১০ হাজার মানুষ আমাকে বিভিন্নভাবে মেসেজ, ফিডব্যাক ও কমেন্টে অনুরোধ জানিয়েছেন, আমি যেন এই বিষয়গুলো নিয়ে আরও বিস্তারিত কাজ করি বা ভবিষ্যতে এমন একটি পূর্ণাঙ্গ গাইডলাইন নিয়ে আসি।</EditableText></p>
               <p><EditableText id="octavelo.intro.p10">মানুষের এই বিপুল আগ্রহ এবং ভালোবাসা আমাকে একটি বিষয় খুব গভীরভাবে উপলব্ধি করতে সাহায্য করেছে- মানুষ আসলে তর্কে যুক্তির অভাবে হারে না, তারা হারে প্রতিপক্ষের মনস্তত্ত্ব বা সাইকোলজি বুঝতে না পারার কারণে।</EditableText></p>
               <p><EditableText id="octavelo.intro.p11">মানুষের এই বিপুল আগ্রহ আমাকে প্রবলভাবে অনুপ্রাণিত করেছে বিষয়টির আরও গভীরে ডুব দিতে। এরপর গত প্রায় এক বছর ধরে, আমার অন্যান্য ব্যস্ততার পাশাপাশি যখনই সময় পেয়েছি, আমি এই বিষয়টি নিয়ে নতুন করে পড়াশোনা ও গবেষণা করেছি।</EditableText></p>
@@ -439,6 +440,7 @@ function OctaveloLandingPage() {
           </div>
         </div>
 
+        {/* TABLE OF CONTENTS SECTION */}
         <div className="w-full max-w-4xl mx-auto mt-24 pt-16 border-t border-[#1E2230]">
           <div className="text-center mb-10">
             <span className="text-[#00F0FF] text-xs font-mono tracking-widest uppercase font-semibold block mb-2">
