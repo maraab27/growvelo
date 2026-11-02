@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import {
   Download,
   AlertCircle,
@@ -31,6 +31,7 @@ function OctaveloLandingPage() {
   const [isIntroExpanded, setIsIntroExpanded] = useState(false);
   const [openChapter, setOpenChapter] = useState<number | null>(null);
   const [wantBonus, setWantBonus] = useState(true);
+  const [isPixelLoaded, setIsPixelLoaded] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -44,9 +45,10 @@ function OctaveloLandingPage() {
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
   const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Ecoverrr.webp";
 
-  // PERFORMANCE HACK: Ultra-delayed Facebook Pixel (Invisible to Google PageSpeed)
-  useEffect(() => {
-    const pixelTimer = setTimeout(() => {
+  // PERFORMANCE HACK: Load Pixel ONLY when user decides to buy (Clicks Button)
+  const initializePixelOnDemand = useCallback(() => {
+    if (!isPixelLoaded) {
+      setIsPixelLoaded(true);
       if (!(window as any).fbq) {
         !function(f:any,b:any,e:any,v:any,n:any,t:any,s:any)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -57,14 +59,16 @@ function OctaveloLandingPage() {
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
         
-        // 💡 আপনার অরিজিনাল পিক্সেল আইডিটি নিচের 'YOUR_PIXEL_ID' এর জায়গায় বসিয়ে দিন
         // (window as any).fbq('init', 'YOUR_PIXEL_ID'); 
         // (window as any).fbq('track', 'PageView');
       }
-    }, 6000); // 6 seconds delay ensures Lighthouse finishes testing before it loads
+    }
+  }, [isPixelLoaded]);
 
-    return () => clearTimeout(pixelTimer);
-  }, []);
+  const handleOpenModal = () => {
+    initializePixelOnDemand(); // Load pixel right before checkout opens
+    setIsModalOpen(true);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -143,7 +147,7 @@ function OctaveloLandingPage() {
       ]
     },
     {
-      title: "অধ্যায় ۴: দ্য সক্রেটিক ট্র্যাপ: সরাসরি দ্বিমত না করে প্রশ্ন দিয়েই প্রতিপক্ষকে নিরস্ত্র করার কৌশল",
+      title: "অধ্যায় ৪: দ্য সক্রেটিক ট্র্যাপ: সরাসরি দ্বিমত না করে প্রশ্ন দিয়েই প্রতিপক্ষকে নিরস্ত্র করার কৌশল",
       topics: [
         "সক্রেটিক মেথড",
         "দ্য ম্যাজিক কোয়েশ্চেন: প্রতিপক্ষের আক্রমণ তার দিকেই ঘুরিয়ে দেওয়ার আর্ট",
@@ -203,10 +207,17 @@ function OctaveloLandingPage() {
         backgroundSize: "100% 100%, 100% 100%, 24px 24px",
       }}
     >
-      {/* PERFORMANCE FIX: Direct HTML Links instead of @import to prevent Render Blocking */}
+      {/* PERFORMANCE FIX: 1. Force LCP Image Preload directly from top */}
+      <link rel="preload" as="image" href={coverUrl} />
+      
+      {/* PERFORMANCE FIX: 2. Async Font Loading (Zero Render Blocking) */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet" />
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" media="print" onLoad={(e) => (e.currentTarget.media = 'all')} />
+      <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" />
+      </noscript>
 
       {/* Unfrozen Header */}
       <div className="w-full flex justify-center px-4 pt-4 sm:pt-6">
@@ -219,7 +230,7 @@ function OctaveloLandingPage() {
                 width="32"
                 height="32"
                 loading="eager"
-                decoding="sync"
+                decoding="async"
                 className="w-full h-full object-cover block rounded-full"
               />
             </div>
@@ -229,7 +240,7 @@ function OctaveloLandingPage() {
           </div>
 
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={handleOpenModal}
             className="px-5 py-2 rounded-full bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-xs sm:text-sm hover:brightness-110 active:scale-95 transition-transform cursor-pointer flex items-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.2)]"
           >
             <span>
@@ -310,7 +321,7 @@ function OctaveloLandingPage() {
               <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[75%] h-[65%] bg-gradient-to-r from-[#0052FF] to-[#00F0FF] opacity-30 blur-[60px] rounded-full pointer-events-none z-0" />
 
               <div className="w-[82%] relative z-10 rounded-t-3xl overflow-hidden shadow-2xl bg-[#050608] border border-b-0 border-[#0052FF]/40 aspect-[5/8]">
-                {/* PERFORMANCE FIX: Removed all constraints, hardcoded pure LCP optimization */}
+                {/* PERFORMANCE FIX: Fetch Priority High and explicit sizes for Main Image */}
                 <img
                   src={coverUrl}
                   alt="Masterclass Cover"
@@ -346,7 +357,7 @@ function OctaveloLandingPage() {
                   </div>
 
                   <button
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={handleOpenModal}
                     className="w-full py-3.5 sm:py-4 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.3)] border border-[#00F0FF]/30 relative z-30"
                   >
                     <Download className="w-5 h-5 text-white" />
@@ -562,7 +573,7 @@ function OctaveloLandingPage() {
           <span className="text-xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
         </div>
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={handleOpenModal}
           className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-[#0052FF] to-[#00F0FF] text-white font-bold text-sm flex items-center justify-center gap-1.5 active:scale-95 transition-transform shadow-[0_0_15px_rgba(0,240,255,0.3)] border border-[#00F0FF]/30"
         >
           <span>ই-বুক আনলক করুন</span>
