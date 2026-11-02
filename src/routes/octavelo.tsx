@@ -5,6 +5,7 @@ import {
   AlertCircle,
   ArrowRight,
   X,
+  Copy,
   ShieldCheck,
   Send,
   Check,
@@ -136,7 +137,7 @@ function OctaveloLandingPage() {
       ]
     },
     {
-      title: "অধ্যায় ৬: প্রিয়জনের সাইকোলজি: ইগো না ভেঙেও তর্কে এবং সম্পর্কে জেতার মাস্টারস্ট্রোক",
+      title: "অধ্যায় ۶: প্রিয়জনের সাইকোলজি: ইগো না ভেঙেও তর্কে এবং সম্পর্কে জেতার মাস্টারস্ট্রোক",
       topics: [
         "ফ্যাক্টস নয়, ফিলিংস: কথার আড়ালে লুকানো অভিমান ডিকোড করার সাইকোলজি",
         "দ্য শিফট: ইগোর দেয়াল ভেঙে সঙ্গীকে 'পরম মিত্র' বানানোর আর্ট",
@@ -182,7 +183,7 @@ function OctaveloLandingPage() {
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
-        .font-bengali { font-family: 'Hind Siliguri', sans-serif; }
+        .font-bengali { font-family: 'Hind Siliguri', sans-serif; font-display: swap; }
       `}</style>
 
       {/* Unfrozen Header */}
@@ -193,6 +194,8 @@ function OctaveloLandingPage() {
               <img
                 src={logoUrl}
                 alt="Octavelo Logo"
+                width="32"
+                height="32"
                 className="w-full h-full object-cover block rounded-full"
               />
             </div>
@@ -219,9 +222,9 @@ function OctaveloLandingPage() {
             
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
               <div className="flex -space-x-2">
-                 <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100" alt="Student" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
-                 <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=100&h=100" alt="Student" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
-                 <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" alt="Student" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100" alt="Student" width="24" height="24" loading="lazy" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=100&h=100" alt="Student" width="24" height="24" loading="lazy" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" alt="Student" width="24" height="24" loading="lazy" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="flex gap-0.5">
@@ -282,11 +285,13 @@ function OctaveloLandingPage() {
               
               <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[75%] h-[65%] bg-gradient-to-r from-[#0052FF] to-[#00F0FF] opacity-30 blur-[60px] rounded-full pointer-events-none z-0" />
 
-              <div className="w-[82%] relative z-10 rounded-t-3xl overflow-hidden shadow-2xl bg-[#050608] border border-b-0 border-[#0052FF]/40">
+              <div className="w-[82%] relative z-10 rounded-t-3xl overflow-hidden shadow-2xl bg-[#050608] border border-b-0 border-[#0052FF]/40 aspect-[5/8]">
                 <img
                   src={coverUrl}
                   alt="Masterclass Cover"
-                  className="w-full h-auto object-cover block"
+                  loading="eager"
+                  fetchPriority="high"
+                  className="w-full h-full object-cover block"
                 />
                 <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#050608] to-transparent pointer-events-none" />
               </div>
@@ -363,7 +368,7 @@ function OctaveloLandingPage() {
               <p><EditableText id="octavelo.intro.p3">আবার এর উল্টো পিঠের গল্পটাও কিন্তু বেশ ট্র্যাজিক! জীবনে আমরা সবাই হয়তো গলার জোরে বা প্রমাণ দিয়ে কোনো না কোনো তর্কে জিতি। কিন্তু দিনশেষে হঠাৎ করেই আবিষ্কার করি- তর্কে জিততে গিয়ে আমরা আসলে প্রিয় মানুষটিকেই হেরে বসে আছি, কিংবা নিজের অজান্তেই খুব গুরুত্বপূর্ণ কোনো প্রফেশনাল সম্পর্কে একটা অদৃশ্য দেয়াল তুলে ফেলেছি।</EditableText></p>
               <p><EditableText id="octavelo.intro.p4">আমাদের একটা খুব সাধারণ ভুল ধারণা আছে যে, 'তর্ক' মানেই বুঝি গলা ফাটিয়ে ঝগড়া করা বা প্রতিপক্ষকে গলার জোরে দমিয়ে দেওয়া।</EditableText></p>
               <p><EditableText id="octavelo.intro.p5">কিন্তু একটু ভেবে দেখুন, বাস্তবে প্রিয়জনকে নিজের কোনো কথা বা অনুভূতি বোঝানো, বসের সাথে নিজের ন্যায্য অধিকার নিয়ে নেগোসিয়েট করা, কিংবা ক্লায়েন্টকে নিজের আইডিয়াটা বিশ্বাস করানো, এই সবকিছুই কিন্তু মনস্তাত্ত্বিক তর্কেরই অংশ।</EditableText></p>
-              <p><EditableText id="octavelo.intro.p6">এই মনস্তাত্ত্বিক ময়দানে শুধু গলার জোর, চিৎকার বা নিরেট প্রমাণ দিয়ে জেতা যায় যায় না; এখানে সত্যিকার অর্থে জিততে হলে বুঝতে হয় মানুষের সাইকোলজি।</EditableText></p>
+              <p><EditableText id="octavelo.intro.p6">এই মনস্তাত্ত্বিক ময়দানে শুধু গলার জোর, চিৎকার বা নিরেট প্রমাণ দিয়ে জেতা যায় না; এখানে সত্যিকার অর্থে জিততে হলে বুঝতে হয় মানুষের সাইকোলজি।</EditableText></p>
               <p><EditableText id="octavelo.intro.p7">এই বইটির পেছনের গল্পটা বেশ চমৎকার। প্রায় এক বছর আগের কথা। তর্কের সাইকোলজি নিয়ে আমি মাত্র ৪-৫টি পয়েন্টের ছোট একটি পিডিএফ তৈরি করেছিলাম। উদ্দেশ্য ছিল খুব সাধারণ, কিছু মানুষের হয়তো কাজে লাগবে। কিন্তু সেটি শেয়ার করার পর মাত্র ৪৮ ঘণ্টার মধ্যে লক্ষ লক্ষ মানুষের কাছ থেকে যে অভূতপূর্ব সাড়া পেয়েছি, তা আমাকে রীতিমতো অবাক করেছে।</EditableText></p>
               <p><EditableText id="octavelo.intro.p8">অসংখ্য মানুষের ভালোবাসা আর অনুপ্রেরণায় আমি মুগ্ধ হয়েছি। শত শত মানুষ ইনবক্সে মেসেজ দিয়ে জানিয়েছেন, সেই ছোট টিপসগুলো তাদের ব্যক্তিগত ও প্রফেশনাল জীবনে কতটা দারুণভাবে কাজে লেগেছে। অনেকেই নিজেদের জীবনের গল্প শেয়ার করেছেন, আমার জন্য মন খুলে দু'আ করেছেন।</EditableText></p>
               <p><EditableText id="octavelo.intro.p9">সবচেয়ে বিস্ময়কর ব্যাপার ছিল- প্রায় ৮ থেকে ১০ হাজার মানুষ আমাকে বিভিন্নভাবে মেসেজ, ফিডব্যাক ও কমেন্টে অনুরোধ জানিয়েছেন, আমি যেন এই বিষয়গুলো নিয়ে আরও বিস্তারিত কাজ করি বা ভবিষ্যতে এমন একটি পূর্ণাঙ্গ গাইডলাইন নিয়ে আসি।</EditableText></p>
