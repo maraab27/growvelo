@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Download, ArrowLeft, Sparkles, CheckCircle2, Send } from "lucide-react";
+import { Download, ArrowLeft, CheckCircle2, Send } from "lucide-react";
 import { useEffect } from "react";
 
 export const Route = createFileRoute("/octavelo-success")({
@@ -100,20 +100,19 @@ function OctaveloSuccessPage() {
           <span>PAYMENT VERIFIED</span>
         </div>
 
-        {/* Big Thank You Text */}
+        {/* Big Thank You Text (Removed Sparkles) */}
         <div className="relative mb-6">
           <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight text-white leading-none">
             Thank <br className="sm:hidden" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">You!</span>
           </h1>
-          <Sparkles className="absolute -top-4 sm:-top-2 -right-6 sm:-right-10 w-8 h-8 sm:w-10 sm:h-10 text-[#00F0FF] animate-pulse" />
         </div>
 
         <p className="text-[#94A3B8] text-sm sm:text-base leading-relaxed mb-10 max-w-sm">
           আপনার পেমেন্ট সফলভাবে সম্পন্ন হয়েছে। মাস্টারক্লাসে আপনাকে স্বাগতম! নিচের বাটন থেকে আপনার ই-বুকটি সংগ্রহ করুন।
         </p>
 
-        {/* Action Buttons (Pill Shaped based on reference) */}
+        {/* Action Buttons (Pill Shaped) */}
         <div className="w-full flex flex-col gap-4">
           
           {/* Download Button (Primary Glossy Pill) */}
@@ -128,7 +127,7 @@ function OctaveloSuccessPage() {
             </a>
           </div>
 
-          {/* Telegram Join Button (Secondary Dark Pill) */}
+          {/* Telegram Join Button (Secondary Dark Pill) - Text Updated */}
           <a
             href={telegramUrl}
             target="_blank"
@@ -136,7 +135,7 @@ function OctaveloSuccessPage() {
             className="w-full py-4 px-6 rounded-full bg-[#111318]/80 backdrop-blur-md text-[#00F0FF] font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:bg-[#1A1D27] active:scale-95 transition-all border border-[#1E2230] hover:border-[#00F0FF]/30 shadow-lg"
           >
             <Send className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span>আমাদের টেলিগ্রাম গ্রুপে জয়েন করুন</span>
+            <span>আমাদের টেলিগ্রাম কমিউনিটিতে যুক্ত হন</span>
           </a>
 
         </div>
