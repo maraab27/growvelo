@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Download, ShieldCheck, ArrowLeft } from "lucide-react";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/octavelo-success")({
   component: OctaveloSuccessPage,
@@ -7,16 +8,39 @@ export const Route = createFileRoute("/octavelo-success")({
 
 function OctaveloSuccessPage() {
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
-  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/ecover.webp";
-  
-  // আপনার জেনারেট করা গুগল ড্রাইভের ডাইরেক্ট ডাউনলোড লিংক
+  const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Ecoverrr.webp";
   const pdfDownloadUrl = "https://drive.google.com/uc?export=download&id=1IENj2fMVU3l1l4X1gOAjO1UYxs1YW6lR"; 
+
+  // FACEBOOK PIXEL: Purchase Event Tracking
+  useEffect(() => {
+    if (!(window as any).fbq) {
+      !function(f:any,b:any,e:any,v:any,n:any,t:any,s:any)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      
+      // Initialize your exact Pixel ID
+      (window as any).fbq('init', '1584926862592432'); 
+      // Track PageView first
+      (window as any).fbq('track', 'PageView');
+    }
+    
+    // Fire the Purchase event when they land on the success page
+    (window as any).fbq('track', 'Purchase', {
+      value: 99.00,
+      currency: 'BDT',
+      content_name: 'Psychological Masterclass E-Book'
+    });
+  }, []);
 
   return (
     <div
-      className="min-h-screen text-zinc-100 flex flex-col antialiased relative font-bengali overflow-x-hidden"
+      className="min-h-screen text-zinc-100 flex flex-col antialiased relative font-bengali overflow-x-hidden bg-[#050608]"
       style={{
-        backgroundColor: "#050608",
         backgroundImage: `
           radial-gradient(circle at 50% 0%, rgba(0, 82, 255, 0.12) 0%, transparent 60%),
           radial-gradient(circle at 85% 40%, rgba(0, 240, 255, 0.04) 0%, transparent 50%),
@@ -27,7 +51,7 @@ function OctaveloSuccessPage() {
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
-        .font-bengali { font-family: 'Hind Siliguri', sans-serif; }
+        .font-bengali { font-family: 'Hind Siliguri', sans-serif; font-display: swap; }
       `}</style>
 
       {/* Header */}
