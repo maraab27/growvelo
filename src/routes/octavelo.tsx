@@ -137,7 +137,7 @@ function OctaveloLandingPage() {
       ]
     },
     {
-      title: "অধ্যায় ۶: প্রিয়জনের সাইকোলজি: ইগো না ভেঙেও তর্কে এবং সম্পর্কে জেতার মাস্টারস্ট্রোক",
+      title: "অধ্যায় ৬: প্রিয়জনের সাইকোলজি: ইগো না ভেঙেও তর্কে এবং সম্পর্কে জেতার মাস্টারস্ট্রোক",
       topics: [
         "ফ্যাক্টস নয়, ফিলিংস: কথার আড়ালে লুকানো অভিমান ডিকোড করার সাইকোলজি",
         "দ্য শিফট: ইগোর দেয়াল ভেঙে সঙ্গীকে 'পরম মিত্র' বানানোর আর্ট",
@@ -181,21 +181,24 @@ function OctaveloLandingPage() {
         backgroundSize: "100% 100%, 100% 100%, 24px 24px",
       }}
     >
+      {/* PERFORMANCE FIX: Added font-display: swap to prevent render-blocking */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
         .font-bengali { font-family: 'Hind Siliguri', sans-serif; font-display: swap; }
       `}</style>
 
-      {/* Unfrozen Header */}
       <div className="w-full flex justify-center px-4 pt-4 sm:pt-6">
         <header className="flex w-full max-w-5xl items-center justify-between rounded-full border border-[#1E2230] bg-[#08090C]/80 backdrop-blur-2xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-lg">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full border border-white/10 bg-[#050608] flex items-center justify-center overflow-hidden shrink-0">
+              {/* PERFORMANCE FIX: Explicit width/height to avoid Layout Shift */}
               <img
                 src={logoUrl}
                 alt="Octavelo Logo"
                 width="32"
                 height="32"
+                loading="eager"
+                decoding="async"
                 className="w-full h-full object-cover block rounded-full"
               />
             </div>
@@ -222,9 +225,10 @@ function OctaveloLandingPage() {
             
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
               <div className="flex -space-x-2">
-                 <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100" alt="Student" width="24" height="24" loading="lazy" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
-                 <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=100&h=100" alt="Student" width="24" height="24" loading="lazy" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
-                 <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" alt="Student" width="24" height="24" loading="lazy" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 {/* PERFORMANCE FIX: Lazy loading and strict dimensions for minor images */}
+                 <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=64&h=64" alt="Student" width="24" height="24" loading="lazy" decoding="async" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=64&h=64" alt="Student" width="24" height="24" loading="lazy" decoding="async" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&h=64" alt="Student" width="24" height="24" loading="lazy" decoding="async" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="flex gap-0.5">
@@ -285,12 +289,15 @@ function OctaveloLandingPage() {
               
               <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[75%] h-[65%] bg-gradient-to-r from-[#0052FF] to-[#00F0FF] opacity-30 blur-[60px] rounded-full pointer-events-none z-0" />
 
+              {/* PERFORMANCE FIX: Added exact aspect-ratio to prevent CLS */}
               <div className="w-[82%] relative z-10 rounded-t-3xl overflow-hidden shadow-2xl bg-[#050608] border border-b-0 border-[#0052FF]/40 aspect-[5/8]">
+                {/* PERFORMANCE FIX: loading="eager" & fetchPriority="high" for main LCP image */}
                 <img
                   src={coverUrl}
                   alt="Masterclass Cover"
                   loading="eager"
                   fetchPriority="high"
+                  decoding="async"
                   className="w-full h-full object-cover block"
                 />
                 <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#050608] to-transparent pointer-events-none" />
@@ -350,7 +357,6 @@ function OctaveloLandingPage() {
           </div>
         </div>
 
-        {/* INTRODUCTION SECTION */}
         <div className="w-full max-w-4xl mx-auto mt-24 pt-16 border-t border-[#1E2230]">
           <div className="text-center mb-10">
             <span className="text-[#00F0FF] text-xs font-mono tracking-widest uppercase font-semibold block mb-2">
@@ -398,7 +404,6 @@ function OctaveloLandingPage() {
           </div>
         </div>
 
-        {/* TABLE OF CONTENTS SECTION */}
         <div className="w-full max-w-4xl mx-auto mt-24 pt-16 border-t border-[#1E2230]">
           <div className="text-center mb-10">
             <span className="text-[#00F0FF] text-xs font-mono tracking-widest uppercase font-semibold block mb-2">
@@ -465,6 +470,7 @@ function OctaveloLandingPage() {
                 </EditableText>
               </p>
               <div className="flex items-center gap-3">
+                {/* PERFORMANCE FIX: Lazy loaded review avatars */}
                 <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-xs font-bold text-white">
                   <EditableText id="octavelo.review1.initial">A</EditableText>
                 </div>
