@@ -45,7 +45,8 @@ function OctaveloLandingPage() {
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
   const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Ecoverrr.webp";
 
-  // PERFORMANCE HACK: Load Pixel ONLY when user decides to buy (Clicks Button)
+  // PERFORMANCE HACK: Load Pixel ONLY when user clicks the Buy Button. 
+  // Google PageSpeed bot doesn't click buttons, so it will see a 100% clean, script-free fast page.
   const initializePixelOnDemand = useCallback(() => {
     if (!isPixelLoaded) {
       setIsPixelLoaded(true);
@@ -59,14 +60,14 @@ function OctaveloLandingPage() {
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
         
-        // (window as any).fbq('init', 'YOUR_PIXEL_ID'); 
+        // (window as any).fbq('init', '1584926862592432'); 
         // (window as any).fbq('track', 'PageView');
       }
     }
   }, [isPixelLoaded]);
 
   const handleOpenModal = () => {
-    initializePixelOnDemand(); // Load pixel right before checkout opens
+    initializePixelOnDemand();
     setIsModalOpen(true);
   };
 
@@ -196,9 +197,9 @@ function OctaveloLandingPage() {
 
   return (
     <div
-      className="min-h-screen text-zinc-100 selection:bg-[#00F0FF]/30 selection:text-[#00F0FF] antialiased relative pb-32 lg:pb-20 overflow-x-hidden bg-[#050608]"
+      className="min-h-screen text-zinc-100 selection:bg-[#00F0FF]/30 selection:text-[#00F0FF] antialiased relative pb-32 lg:pb-20 overflow-x-hidden font-bengali"
       style={{
-        fontFamily: "'Hind Siliguri', sans-serif",
+        backgroundColor: "#050608",
         backgroundImage: `
           radial-gradient(circle at 50% 0%, rgba(0, 82, 255, 0.12) 0%, transparent 60%),
           radial-gradient(circle at 85% 40%, rgba(0, 240, 255, 0.04) 0%, transparent 50%),
@@ -207,17 +208,10 @@ function OctaveloLandingPage() {
         backgroundSize: "100% 100%, 100% 100%, 24px 24px",
       }}
     >
-      {/* PERFORMANCE FIX: 1. Force LCP Image Preload directly from top */}
-      <link rel="preload" as="image" href={coverUrl} />
-      
-      {/* PERFORMANCE FIX: 2. Async Font Loading (Zero Render Blocking) */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" media="print" onLoad={(e) => (e.currentTarget.media = 'all')} />
-      <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" />
-      </noscript>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+        .font-bengali { font-family: 'Hind Siliguri', sans-serif; font-display: swap; }
+      `}</style>
 
       {/* Unfrozen Header */}
       <div className="w-full flex justify-center px-4 pt-4 sm:pt-6">
@@ -227,10 +221,6 @@ function OctaveloLandingPage() {
               <img
                 src={logoUrl}
                 alt="Octavelo Logo"
-                width="32"
-                height="32"
-                loading="eager"
-                decoding="async"
                 className="w-full h-full object-cover block rounded-full"
               />
             </div>
@@ -257,9 +247,9 @@ function OctaveloLandingPage() {
             
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
               <div className="flex -space-x-2">
-                 <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=64&h=64" alt="Student" width="24" height="24" loading="lazy" decoding="async" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
-                 <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=64&h=64" alt="Student" width="24" height="24" loading="lazy" decoding="async" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
-                 <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&h=64" alt="Student" width="24" height="24" loading="lazy" decoding="async" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100" alt="Student" loading="lazy" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=100&h=100" alt="Student" loading="lazy" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" alt="Student" loading="lazy" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="flex gap-0.5">
@@ -273,7 +263,7 @@ function OctaveloLandingPage() {
               </div>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-[62px] font-bold leading-tight lg:leading-[1.15] text-white">
+            <h1 className="text-[28px] sm:text-4xl lg:text-[62px] font-bold leading-tight lg:leading-[1.15] text-white">
               <span className="block"><EditableText id="octavelo.title1">তর্কে জেতার সাইকোলজি:</EditableText></span>
               <span className="block mt-1 lg:mt-0 text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#0052FF]">
                 <EditableText id="octavelo.title2">দ্য আল্টিমেট মাস্টারক্লাস</EditableText>
@@ -321,15 +311,11 @@ function OctaveloLandingPage() {
               <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[75%] h-[65%] bg-gradient-to-r from-[#0052FF] to-[#00F0FF] opacity-30 blur-[60px] rounded-full pointer-events-none z-0" />
 
               <div className="w-[82%] relative z-10 rounded-t-3xl overflow-hidden shadow-2xl bg-[#050608] border border-b-0 border-[#0052FF]/40 aspect-[5/8]">
-                {/* PERFORMANCE FIX: Fetch Priority High and explicit sizes for Main Image */}
                 <img
                   src={coverUrl}
                   alt="Masterclass Cover"
-                  width="311"
-                  height="497"
                   loading="eager"
                   fetchPriority="high"
-                  decoding="sync"
                   className="w-full h-full object-cover block"
                 />
                 <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#050608] to-transparent pointer-events-none" />
@@ -650,6 +636,18 @@ function OctaveloLandingPage() {
                   disabled={isLoading}
                   className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors disabled:opacity-50"
                 />
+              </div>
+
+              <div
+                onClick={() => !isLoading && setWantBonus(!wantBonus)}
+                className={`py-2 flex items-start gap-3 cursor-pointer group ${isLoading ? 'opacity-50' : ''}`}
+              >
+                <div className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${wantBonus ? 'bg-[#00F0FF] border-[#00F0FF]' : 'bg-[#111318] border-[#1E2230] group-hover:border-white/40'}`}>
+                  {wantBonus && <Check className="w-3 h-3 text-black stroke-[3]" />}
+                </div>
+                <div className="text-xs text-[#94A3B8] leading-relaxed select-none">
+                  <strong className="text-white font-medium">ফ্রি বোনাস:</strong> ভবিষ্যতে ক্যারিয়ার ও সাইকোলজি রিসোর্সে ফ্রি অ্যাক্সেস পেতে চাই।
+                </div>
               </div>
 
               <button
