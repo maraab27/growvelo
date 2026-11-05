@@ -282,46 +282,46 @@ function OctaveloLandingPage() {
             <div className="pt-2 lg:pt-6 space-y-3.5 sm:space-y-4 w-full max-w-lg mx-auto lg:mx-0 flex flex-col items-center lg:items-start text-left">
               
               <div className="flex items-start justify-start gap-3.5 w-full">
-                <div className="w-5 h-5 lg:w-4.5 lg:h-4.5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3.5 h-3.5 lg:w-3 lg:h-3 text-[#00F0FF]" />
+                <div className="w-5 h-5 lg:w-5 lg:h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
+                  <Check className="w-3.5 h-3.5 lg:w-3.5 lg:h-3.5 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[14px] text-zinc-300 leading-snug">
+                <span className="text-sm sm:text-base lg:text-[15.5px] text-zinc-300 leading-snug">
                   <strong className="text-white font-semibold">মাইন্ড রিডিং হ্যাকস:</strong> <EditableText id="octavelo.b1">মুখ খোলার আগেই সামনের মানুষের লুকানো ভয়, জেদ আর দুর্বলতা পড়ে ফেলার ম্যাজিক।</EditableText>
                 </span>
               </div>
               
               <div className="flex items-start justify-start gap-3.5 w-full">
-                <div className="w-5 h-5 lg:w-4.5 lg:h-4.5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3.5 h-3.5 lg:w-3 lg:h-3 text-[#00F0FF]" />
+                <div className="w-5 h-5 lg:w-5 lg:h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
+                  <Check className="w-3.5 h-3.5 lg:w-3.5 lg:h-3.5 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[14px] text-zinc-300 leading-snug">
+                <span className="text-sm sm:text-base lg:text-[15.5px] text-zinc-300 leading-snug">
                   <strong className="text-white font-semibold">দ্য 'সক্রেটিক ট্র্যাপ':</strong> <EditableText id="octavelo.b2">গায়ের জোর নয়; শুধু ২-১টি জাদুকরী প্রশ্নে প্রতিপক্ষকে নিজের কথার ফাঁদেই আটকে ফেলার কৌশল।</EditableText>
                 </span>
               </div>
               
               <div className="flex items-start justify-start gap-3.5 w-full">
-                <div className="w-5 h-5 lg:w-4.5 lg:h-4.5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3.5 h-3.5 lg:w-3 lg:h-3 text-[#00F0FF]" />
+                <div className="w-5 h-5 lg:w-5 lg:h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
+                  <Check className="w-3.5 h-3.5 lg:w-3.5 lg:h-3.5 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[14px] text-zinc-300 leading-snug">
+                <span className="text-sm sm:text-base lg:text-[15.5px] text-zinc-300 leading-snug">
                   <strong className="text-white font-semibold">অ্যান্টি-ডার্ক সাইকোলজি:</strong> <EditableText id="octavelo.b3">যেকোনো নোংরা ব্যক্তিগত আক্রমণকে মাত্র '৩-সেকেন্ডের নীরবতা' দিয়ে মুহূর্তেই গুঁড়িয়ে দেওয়ার আর্ট।</EditableText>
                 </span>
               </div>
               
               <div className="flex items-start justify-start gap-3.5 w-full">
-                <div className="w-5 h-5 lg:w-4.5 lg:h-4.5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3.5 h-3.5 lg:w-3 lg:h-3 text-[#00F0FF]" />
+                <div className="w-5 h-5 lg:w-5 lg:h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
+                  <Check className="w-3.5 h-3.5 lg:w-3.5 lg:h-3.5 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[14px] text-zinc-300 leading-snug">
+                <span className="text-sm sm:text-base lg:text-[15.5px] text-zinc-300 leading-snug">
                   <strong className="text-white font-semibold">দ্য 'অ্যালায়েন্স শিফট':</strong> <EditableText id="octavelo.b4">ইগোতে আঘাত না করে, চরম রাগী প্রতিপক্ষকেও হাসিমুখে নিজের দলের মানুষ বানিয়ে ফেলার মাস্টারস্ট্রোক।</EditableText>
                 </span>
               </div>
               
               <div className="flex items-start justify-start gap-3.5 w-full">
-                <div className="w-5 h-5 lg:w-4.5 lg:h-4.5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3.5 h-3.5 lg:w-3 lg:h-3 text-[#00F0FF]" />
+                <div className="w-5 h-5 lg:w-5 lg:h-5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
+                  <Check className="w-3.5 h-3.5 lg:w-3.5 lg:h-3.5 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[14px] text-zinc-300 leading-snug">
+                <span className="text-sm sm:text-base lg:text-[15.5px] text-zinc-300 leading-snug">
                   <strong className="text-white font-semibold">ভিআইপি (VIP) বোনাস আনলক:</strong> <EditableText id="octavelo.b5">প্র্যাকটিক্যাল সাইকোলজি চর্চার আজীবন ফ্রি প্রাইভেট কমিউনিটি + ইমার্জেন্সি '২-মিনিটের পকেট চিট শিট'</EditableText>
                 </span>
               </div>
