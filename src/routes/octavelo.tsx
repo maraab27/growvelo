@@ -40,7 +40,7 @@ function OctaveloLandingPage() {
     phone: "",
   });
 
-  const ziniApiKey = import.meta.env.VITE_ZINIPAY_API_KEY || "1a182d1372347e011ebf60b13ce854ce8afd59e46a768253"; 
+  const ziniApiKey = "1a182d1372347e011ebf60b13ce854ce8afd59e46a768253";
   const priceAmount = 99;
   
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
@@ -58,6 +58,9 @@ function OctaveloLandingPage() {
         t.src=v;s=b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
+        
+        // (window as any).fbq('init', '1584926862592432'); 
+        // (window as any).fbq('track', 'PageView');
       }
     }
   }, [isPixelLoaded]);
@@ -75,13 +78,8 @@ function OctaveloLandingPage() {
     e.preventDefault();
     setApiError("");
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.fullName.trim()) {
-      setApiError("অনুগ্রহ করে আপনার সঠিক নাম দিন।");
-      return;
-    }
-    if (!formData.email.trim() || !emailRegex.test(formData.email)) {
-      setApiError("অনুগ্রহ করে একটি ভ্যালিড ইমেইল এড্রেস দিন।");
+    if (!formData.fullName || !formData.email) {
+      setApiError("অনুগ্রহ করে আপনার নাম এবং ইমেইল দিন।");
       return;
     }
 
@@ -93,7 +91,6 @@ function OctaveloLandingPage() {
         headers: {
           "Content-Type": "application/json",
           "zini-api-key": ziniApiKey,
-          "X-Content-Type-Options": "nosniff", 
         },
         body: JSON.stringify({
           cus_name: formData.fullName,
@@ -113,11 +110,11 @@ function OctaveloLandingPage() {
       if (response.ok && data.payment_url) {
         window.location.href = data.payment_url;
       } else {
-        setApiError("পেমেন্ট গেটওয়ে প্রসেস করতে সমস্যা হচ্ছে। অনুগ্রহ করে আবার চেষ্টা করুন।");
+        setApiError(data.message || "পেমেন্ট গেটওয়ে লোড হতে সমস্যা হচ্ছে। অনুগ্রহ করে আবার চেষ্টা করুন।");
         setIsLoading(false);
       }
     } catch (error) {
-      console.error("Payment API Network Error occurred.");
+      console.error("Payment API Error:", error);
       setApiError("ইন্টারনেট সংযোগ চেক করুন অথবা একটু পর আবার চেষ্টা করুন।");
       setIsLoading(false);
     }
@@ -214,15 +211,10 @@ function OctaveloLandingPage() {
         backgroundSize: "100% 100%, 100% 100%, 24px 24px",
       }}
     >
-      <link rel="preload" as="image" href={coverUrl} />
-      
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" media="print" onLoad={(e) => (e.currentTarget.media = 'all')} />
-      <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" />
-      </noscript>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+        .font-bengali { font-family: 'Hind Siliguri', sans-serif; font-display: swap; }
+      `}</style>
 
       {/* Unfrozen Header */}
       <div className="w-full flex justify-center px-4 pt-4 sm:pt-6">
@@ -232,10 +224,6 @@ function OctaveloLandingPage() {
               <img
                 src={logoUrl}
                 alt="Octavelo Logo"
-                width="32"
-                height="32"
-                loading="eager"
-                decoding="async"
                 className="w-full h-full object-cover block rounded-full"
               />
             </div>
@@ -293,52 +281,47 @@ function OctaveloLandingPage() {
 
             <div className="pt-2 lg:pt-6 space-y-3.5 sm:space-y-4 w-full max-w-lg mx-auto lg:mx-0 flex flex-col items-center lg:items-start text-left">
               
-              {/* Point 1 */}
               <div className="flex items-start justify-start gap-3.5 w-full">
-                <div className="w-4 h-4 lg:w-4.5 lg:h-4.5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3 h-3 lg:w-3.5 lg:h-3.5 text-[#00F0FF]" />
+                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
+                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[14px] text-zinc-300 leading-snug">
+                <span className="text-sm sm:text-base lg:text-[17px] text-zinc-300 leading-snug">
                   <strong className="text-white font-semibold">মাইন্ড রিডিং হ্যাকস:</strong> <EditableText id="octavelo.b1">মুখ খোলার আগেই সামনের মানুষের লুকানো ভয়, জেদ আর দুর্বলতা পড়ে ফেলার ম্যাজিক।</EditableText>
                 </span>
               </div>
               
-              {/* Point 2 */}
               <div className="flex items-start justify-start gap-3.5 w-full">
-                <div className="w-4 h-4 lg:w-4.5 lg:h-4.5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3 h-3 lg:w-3.5 lg:h-3.5 text-[#00F0FF]" />
+                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
+                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[14px] text-zinc-300 leading-snug">
+                <span className="text-sm sm:text-base lg:text-[17px] text-zinc-300 leading-snug">
                   <strong className="text-white font-semibold">দ্য 'সক্রেটিক ট্র্যাপ':</strong> <EditableText id="octavelo.b2">গায়ের জোর নয়; শুধু ২-১টি জাদুকরী প্রশ্নে প্রতিপক্ষকে নিজের কথার ফাঁদেই আটকে ফেলার কৌশল।</EditableText>
                 </span>
               </div>
               
-              {/* Point 3 */}
               <div className="flex items-start justify-start gap-3.5 w-full">
-                <div className="w-4 h-4 lg:w-4.5 lg:h-4.5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3 h-3 lg:w-3.5 lg:h-3.5 text-[#00F0FF]" />
+                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
+                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[14px] text-zinc-300 leading-snug">
+                <span className="text-sm sm:text-base lg:text-[17px] text-zinc-300 leading-snug">
                   <strong className="text-white font-semibold">অ্যান্টি-ডার্ক সাইকোলজি:</strong> <EditableText id="octavelo.b3">যেকোনো নোংরা ব্যক্তিগত আক্রমণকে মাত্র '৩-সেকেন্ডের নীরবতা' দিয়ে মুহূর্তেই গুঁড়িয়ে দেওয়ার আর্ট।</EditableText>
                 </span>
               </div>
               
-              {/* Point 4 */}
               <div className="flex items-start justify-start gap-3.5 w-full">
-                <div className="w-4 h-4 lg:w-4.5 lg:h-4.5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3 h-3 lg:w-3.5 lg:h-3.5 text-[#00F0FF]" />
+                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
+                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[14px] text-zinc-300 leading-snug">
+                <span className="text-sm sm:text-base lg:text-[17px] text-zinc-300 leading-snug">
                   <strong className="text-white font-semibold">দ্য 'অ্যালায়েন্স শিফট':</strong> <EditableText id="octavelo.b4">ইগোতে আঘাত না করে, চরম রাগী প্রতিপক্ষকেও হাসিমুখে নিজের দলের মানুষ বানিয়ে ফেলার মাস্টারস্ট্রোক।</EditableText>
                 </span>
               </div>
               
-              {/* Point 5 */}
               <div className="flex items-start justify-start gap-3.5 w-full">
-                <div className="w-4 h-4 lg:w-4.5 lg:h-4.5 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3 h-3 lg:w-3.5 lg:h-3.5 text-[#00F0FF]" />
+                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
+                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[14px] text-zinc-300 leading-snug">
+                <span className="text-sm sm:text-base lg:text-[17px] text-zinc-300 leading-snug">
                   <strong className="text-white font-semibold">ভিআইপি (VIP) বোনাস আনলক:</strong> <EditableText id="octavelo.b5">প্র্যাকটিক্যাল সাইকোলজি চর্চার আজীবন ফ্রি প্রাইভেট কমিউনিটি + ইমার্জেন্সি '২-মিনিটের পকেট চিট শিট'</EditableText>
                 </span>
               </div>
@@ -366,11 +349,8 @@ function OctaveloLandingPage() {
                 <img
                   src={coverUrl}
                   alt="Masterclass Cover"
-                  width="311"
-                  height="497"
                   loading="eager"
                   fetchPriority="high"
-                  decoding="sync"
                   className="w-full h-full object-cover block"
                 />
                 <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#050608] to-transparent pointer-events-none" />
@@ -691,18 +671,6 @@ function OctaveloLandingPage() {
                   disabled={isLoading}
                   className="w-full px-4 py-3.5 rounded-xl bg-[#050608] border border-[#1E2230] text-white focus:outline-none focus:border-[#00F0FF] placeholder:text-zinc-600 transition-colors disabled:opacity-50"
                 />
-              </div>
-
-              <div
-                onClick={() => !isLoading && setWantBonus(!wantBonus)}
-                className={`py-2 flex items-start gap-3 cursor-pointer group ${isLoading ? 'opacity-50' : ''}`}
-              >
-                <div className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${wantBonus ? 'bg-[#00F0FF] border-[#00F0FF]' : 'bg-[#111318] border-[#1E2230] group-hover:border-white/40'}`}>
-                  {wantBonus && <Check className="w-3 h-3 text-black stroke-[3]" />}
-                </div>
-                <div className="text-xs text-[#94A3B8] leading-relaxed select-none">
-                  <strong className="text-white font-medium">ফ্রি বোনাস:</strong> ভবিষ্যতে ক্যারিয়ার ও সাইকোলজি রিসোর্সে ফ্রি অ্যাক্সেস পেতে চাই।
-                </div>
               </div>
 
               <button
