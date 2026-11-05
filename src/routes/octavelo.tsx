@@ -17,7 +17,7 @@ import {
   Plus,
   Minus,
   Loader2,
-  ChevronDown,
+  ArrowDown,
 } from "lucide-react";
 import { EditableText } from "../components/cms/EditableText";
 
@@ -58,6 +58,9 @@ function OctaveloLandingPage() {
         t.src=v;s=b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
+        
+        // (window as any).fbq('init', '1584926862592432'); 
+        // (window as any).fbq('track', 'PageView');
       }
     }
   }, [isPixelLoaded]);
@@ -67,8 +70,11 @@ function OctaveloLandingPage() {
     setIsModalOpen(true);
   };
 
-  const scrollToTOC = () => {
-    document.getElementById('toc-section')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToToc = () => {
+    const tocElement = document.getElementById("toc-section");
+    if (tocElement) {
+      tocElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -149,8 +155,8 @@ function OctaveloLandingPage() {
       topics: [
         "দ্য সিনকোরিসিস ইফেক্ট: ছোট হারে বড় জয়",
         "দ্য আর্ট অব রিফ্রেমিং: তর্ক বিপক্ষে গেলে পুরো ন্যারেটিভ বদলে দেওয়ার কৌশল",
-        "'আমি বনাম তুমি' নয়, 'আমরা বনাম সমস্যা'",
-        "কুইক রিক্যাপ: তৃতীয় অধ্যায়"
+        "'আমি বনাম তুমি' নয়, 'আমরা বনাম সমস্যা'",
+        "কুইক রিক্যাপ: তৃতীয় অধ্যায়"
       ]
     },
     {
@@ -176,7 +182,7 @@ function OctaveloLandingPage() {
       title: "অধ্যায় ৬: প্রিয়জনের সাইকোলজি: ইগো না ভেঙেও তর্কে এবং সম্পর্কে জেতার মাস্টারস্ট্রোক",
       topics: [
         "ফ্যাক্টস নয়, ফিলিংস: কথার আড়ালে লুকানো অভিমান ডিকোড করার সাইকোলজি",
-        "দ্য শিফট: ইগোর দেয়াল ভেঙে সঙ্গীকে 'পরম মিত্র' বানানোর আর্ট",
+        "দ্য শিফট: ইগোর দেয়াল ভেঙে সঙ্গীকে 'পরম মিত্র' বানানোর আর্ট",
         "রিলেশনশিপ ফার্স্ট-এইড: পাল্টা সাফাই না দিয়ে সঙ্গীকে শান্ত করার সাইকোলজি",
         "সীমানা নির্ধারণ ও 'তুমি' বনাম 'আমি'",
         "কুইক রিক্যাপ: ষষ্ঠ অধ্যায়"
@@ -261,9 +267,9 @@ function OctaveloLandingPage() {
             
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
               <div className="flex -space-x-2">
-                 <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=64&h=64" alt="Student" width="24" height="24" loading="lazy" decoding="async" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
-                 <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=64&h=64" alt="Student" width="24" height="24" loading="lazy" decoding="async" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
-                 <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&h=64" alt="Student" width="24" height="24" loading="lazy" decoding="async" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100" alt="Student" loading="lazy" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=100&h=100" alt="Student" loading="lazy" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
+                 <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" alt="Student" loading="lazy" className="w-6 h-6 rounded-full border-2 border-[#050608] object-cover" />
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="flex gap-0.5">
@@ -290,72 +296,62 @@ function OctaveloLandingPage() {
               </EditableText>
             </p>
 
-            {/* NEW 5 BULLET POINTS & TOC BUTTON */}
+            {/* UPATED: 5 Bullet Points and Table of Contents Button */}
             <div className="pt-2 lg:pt-6 space-y-4 lg:space-y-5 w-full max-w-lg mx-auto lg:mx-0">
               
               <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF] stroke-[3]" />
+                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[17px] text-zinc-300 leading-snug">
-                  <EditableText id="octavelo.b1">
-                    <strong className="text-white font-semibold">'মাইন্ড রিডিং' হ্যাকস:</strong> প্রতিপক্ষের মুখ খোলার আগেই তার কথার পেছনের লুকানো ভয়, অভিমান ও দুর্বলতা ডিকোড করার সাইকোলজি।
-                  </EditableText>
+                <span className="text-sm sm:text-base lg:text-lg text-zinc-300">
+                  <EditableText id="octavelo.b1">'মাইন্ড রিডিং' হ্যাকস: প্রতিপক্ষের মুখ খোলার আগেই তার কথার পেছনের লুকানো ভয়, অভিমান ও দুর্বলতা ডিকোড করার সাইকোলজি।</EditableText>
+                </span>
+              </div>
+              
+              <div className="flex items-start justify-start gap-3.5 text-left">
+                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
+                </div>
+                <span className="text-sm sm:text-base lg:text-lg text-zinc-300">
+                  <EditableText id="octavelo.b2">দ্য 'সক্রেটিক ট্র্যাপ': গায়ের জোর বা পাল্টা যুক্তি নয়; শুধু ২-১টি জাদুকরী প্রশ্ন ছুড়ে দিয়ে প্রতিপক্ষকে নিজের কথার ফাঁদেই আটকে ফেলার কৌশল।</EditableText>
                 </span>
               </div>
 
               <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF] stroke-[3]" />
+                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[17px] text-zinc-300 leading-snug">
-                  <EditableText id="octavelo.b2">
-                    <strong className="text-white font-semibold">দ্য 'সক্রেটিক ট্র্যাপ':</strong> গায়ের জোর বা পাল্টা যুক্তি নয়; শুধু ২-১টি জাদুকরী প্রশ্ন ছুড়ে দিয়ে প্রতিপক্ষকে নিজের কথার ফাঁদেই আটকে ফেলার কৌশল।
-                  </EditableText>
+                <span className="text-sm sm:text-base lg:text-lg text-zinc-300">
+                  <EditableText id="octavelo.b3">অ্যান্টি-ডার্ক সাইকোলজি: যেকোনো নোংরা ব্যক্তিগত আক্রমণ ও মিথ্যার বন্যাকে জর্ডান পিটারসনের '৩-সেকেন্ড রুল' দিয়ে মুহূর্তেই গুঁড়িয়ে দেওয়ার আর্ট।</EditableText>
                 </span>
               </div>
 
               <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF] stroke-[3]" />
+                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[17px] text-zinc-300 leading-snug">
-                  <EditableText id="octavelo.b3">
-                    <strong className="text-white font-semibold">অ্যান্টি-ডার্ক সাইকোলজি:</strong> যেকোনো নোংরা ব্যক্তিগত আক্রমণ ও মিথ্যার বন্যাকে জর্ডান পিটারসনের '৩-সেকেন্ড রুল' দিয়ে মুহূর্তেই গুঁড়িয়ে দেওয়ার আর্ট।
-                  </EditableText>
+                <span className="text-sm sm:text-base lg:text-lg text-zinc-300">
+                  <EditableText id="octavelo.b4">দ্য 'অ্যালায়েন্স শিফট': প্রিয়জন বা ক্লায়েন্টের ইগোতে বিন্দুমাত্র আঘাত না করে, চরম রাগী প্রতিপক্ষকেও হাসিমুখে নিজের দলে টেনে আনার মাস্টারস্ট্রোক।</EditableText>
                 </span>
               </div>
 
               <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF] stroke-[3]" />
+                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF]" />
                 </div>
-                <span className="text-sm sm:text-base lg:text-[17px] text-zinc-300 leading-snug">
-                  <EditableText id="octavelo.b4">
-                    <strong className="text-white font-semibold">দ্য 'অ্যালায়েন্স শিফট':</strong> প্রিয়জন বা ক্লায়েন্টের ইগোতে বিন্দুমাত্র আঘাত না করে, চরম রাগী প্রতিপক্ষকেও হাসিমুখে নিজের দলে টেনে আনার মাস্টারস্ট্রোক।
-                  </EditableText>
+                <span className="text-sm sm:text-base lg:text-lg text-zinc-300">
+                  <EditableText id="octavelo.b5">VIP বোনাস আনলক: আজীবন ফ্রি এক্সেস— প্র্যাকটিক্যাল সাইকোলজি চর্চার প্রাইভেট কমিউনিটি + উত্তপ্ত মুহূর্তের জন্য জাদুকরী '২-মিনিটের পকেট চিট শিট'!</EditableText>
                 </span>
               </div>
 
-              <div className="flex items-start justify-start gap-3.5 text-left">
-                <div className="w-5 h-5 lg:w-6 lg:h-6 rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-                  <Check className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#00F0FF] stroke-[3]" />
-                </div>
-                <span className="text-sm sm:text-base lg:text-[17px] text-zinc-300 leading-snug">
-                  <EditableText id="octavelo.b5">
-                    <strong className="text-amber-400 font-semibold drop-shadow-[0_0_8px_rgba(251,191,36,0.3)]">VIP বোনাস আনলক:</strong> আজীবন ফ্রি এক্সেস— প্র্যাকটিক্যাল সাইকোলজি চর্চার প্রাইভেট কমিউনিটি + উত্তপ্ত মুহূর্তের জন্য জাদুকরী '২-মিনিটের পকেট চিট শিট'।
-                  </EditableText>
-                </span>
-              </div>
-
-              {/* Minimalist Scroll-to-TOC Button */}
+              {/* Minimalist Table of Contents Scroll Button */}
               <div className="pt-3">
                 <button
-                  onClick={scrollToTOC}
-                  className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#00F0FF]/20 bg-[#00F0FF]/[0.05] hover:bg-[#00F0FF]/10 text-[#00F0FF] text-xs sm:text-sm font-medium transition-all shadow-[0_0_15px_rgba(0,240,255,0.05)] hover:shadow-[0_0_20px_rgba(0,240,255,0.1)]"
+                  onClick={scrollToToc}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#00F0FF]/30 bg-[#00F0FF]/10 hover:bg-[#00F0FF]/20 text-[#00F0FF] text-sm font-semibold transition-all active:scale-95 shadow-[0_0_15px_rgba(0,240,255,0.05)] cursor-pointer"
                 >
-                  <EditableText id="octavelo.toc.scroll.btn">সম্পূর্ণ সূচিপত্র দেখুন</EditableText>
-                  <ChevronDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
+                  <span>সম্পূর্ণ সূচিপত্র দেখুন</span>
+                  <ArrowDown className="w-4 h-4 animate-bounce" />
                 </button>
               </div>
 
@@ -372,8 +368,6 @@ function OctaveloLandingPage() {
                 <img
                   src={coverUrl}
                   alt="Masterclass Cover"
-                  width="311"
-                  height="497"
                   loading="eager"
                   fetchPriority="high"
                   className="w-full h-full object-cover block"
@@ -483,8 +477,8 @@ function OctaveloLandingPage() {
           </div>
         </div>
 
-        {/* TABLE OF CONTENTS SECTION - ID ADDDED FOR SCROLLING */}
-        <div id="toc-section" className="w-full max-w-4xl mx-auto mt-24 pt-16 border-t border-[#1E2230] scroll-mt-24">
+        {/* TABLE OF CONTENTS SECTION with an ID for smooth scrolling */}
+        <div id="toc-section" className="w-full max-w-4xl mx-auto mt-24 pt-16 border-t border-[#1E2230]">
           <div className="text-center mb-10">
             <span className="text-[#00F0FF] text-xs font-mono tracking-widest uppercase font-semibold block mb-2">
               <EditableText id="octavelo.toc.badge">What's Inside</EditableText>
