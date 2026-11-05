@@ -34,6 +34,10 @@ function OctaveloLandingPage() {
   const [wantBonus, setWantBonus] = useState(true);
   const [isPixelLoaded, setIsPixelLoaded] = useState(false);
 
+  // Browser Tab Title Customization
+  useEffect(() => {
+    document.title = "তর্কে জেতার সাইকোলজি | অক্টাভ্যালু মাস্টারক্লাস";
+  }, []);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
