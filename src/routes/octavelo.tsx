@@ -36,7 +36,7 @@ function OctaveloLandingPage() {
 
   // Browser Tab Title Customization
   useEffect(() => {
-    document.title = "তর্কে জেতার সাইকোলজি | অক্টাভ্যালু মাস্টারক্লাস";
+    document.title = "তর্কে জেতার সাইকোলজি | Octavelo Masterclass";
   }, []);
   const [formData, setFormData] = useState({
     fullName: "",
