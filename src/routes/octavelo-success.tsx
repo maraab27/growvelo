@@ -14,7 +14,7 @@ function OctaveloSuccessPage() {
   const pdfDownloadUrl = "https://drive.google.com/uc?export=download&id=1IENj2fMVU3l1l4X1gOAjO1UYxs1YW6lR"; 
   const telegramUrl = "https://t.me/+qhG2bNvc6sM0MjZl";
 
-  // FACEBOOK PIXEL: Purchase Event Tracking (Kept exactly as requested)
+  // FACEBOOK PIXEL: Purchase Event Tracking (With LocalStorage & EventID Deduplication)
   useEffect(() => {
     if (!(window as any).fbq) {
       !function(f:any,b:any,e:any,v:any,n:any,t:any,s:any)
@@ -25,16 +25,42 @@ function OctaveloSuccessPage() {
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      
-      (window as any).fbq('init', '1584926862592432'); 
-      (window as any).fbq('track', 'PageView');
+      (window as any).fbq('init', '1584926862592432');
     }
-    
-    (window as any).fbq('track', 'Purchase', {
-      value: 149.00,
-      currency: 'BDT',
-      content_name: 'Psychological Masterclass E-Book'
-    });
+
+    (window as any).fbq('track', 'PageView');
+
+    // URL থেকে ZiniPay-এর invoiceId নেওয়া (যদি থাকে)
+    const params = new URLSearchParams(window.location.search);
+    const invoiceId = params.get("invoiceId") || params.get("invoice_id") || "";
+    const storageKey = invoiceId ? `octavelo_paid_${invoiceId}` : "octavelo_paid_done";
+
+    let alreadyTracked = false;
+    try {
+      alreadyTracked = localStorage.getItem(storageKey) === "true";
+    } catch {
+      // প্রাইভেট/ইনকগনিটো ব্রাউজারে localStorage ব্লক থাকলে যাতে পেজ ক্র্যাশ না করে
+    }
+
+    if (!alreadyTracked) {
+      const eventOptions = invoiceId ? { eventID: invoiceId } : {};
+      (window as any).fbq(
+        'track',
+        'Purchase',
+        {
+          value: 149.00,
+          currency: 'BDT',
+          content_name: 'Psychological Masterclass E-Book',
+        },
+        eventOptions
+      );
+
+      try {
+        localStorage.setItem(storageKey, "true");
+      } catch {
+        // Ignore storage errors
+      }
+    }
   }, []);
 
   return (
