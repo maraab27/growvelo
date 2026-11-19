@@ -31,7 +31,7 @@ function OctaveloSuccessPage() {
     }
     
     (window as any).fbq('track', 'Purchase', {
-      value: 99.00,
+      value: 149.00,
       currency: 'BDT',
       content_name: 'Psychological Masterclass E-Book'
     });
