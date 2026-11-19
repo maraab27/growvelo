@@ -45,7 +45,7 @@ function OctaveloLandingPage() {
   });
 
   const ziniApiKey = "1a182d1372347e011ebf60b13ce854ce8afd59e46a768253";
-  const priceAmount = 99;
+  const priceAmount = 149;
   
   const logoUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Octavelo.webp";
   const coverUrl = "https://zqjgnoycsiwwcklapelt.supabase.co/storage/v1/object/public/octavelo-assets/Ecoverrr.webp";
@@ -370,14 +370,14 @@ function OctaveloLandingPage() {
                   <div className="flex items-center justify-between w-full mb-6 relative z-30">
                     <div className="flex items-end gap-3">
                       <span className="text-4xl sm:text-5xl font-bold font-mono text-white leading-none tracking-tight">
-                        <EditableText id="octavelo.price.new">৯৯ ৳</EditableText>
+                        <EditableText id="octavelo.price.new">১৪৯ ৳</EditableText>
                       </span>
                       <span className="text-xl sm:text-2xl text-zinc-500 line-through decoration-[#f43f5e]/70 decoration-2 font-mono mb-0.5">
                         <EditableText id="octavelo.price.old">৫০০ ৳</EditableText>
                       </span>
                     </div>
                     <span className="px-3 py-1.5 rounded-full bg-[#f43f5e]/10 text-[#f43f5e] border border-[#f43f5e]/20 text-[11px] font-bold uppercase tracking-wider">
-                      <EditableText id="octavelo.discount">৮০% ছাড়</EditableText>
+                      <EditableText id="octavelo.discount">৭০% ছাড়</EditableText>
                     </span>
                   </div>
 
@@ -595,7 +595,7 @@ function OctaveloLandingPage() {
       <div className="fixed bottom-4 inset-x-4 z-40 lg:hidden rounded-2xl bg-[#08090C]/85 backdrop-blur-2xl border border-[#1E2230] p-3 sm:p-4 flex items-center justify-between gap-4 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
         <div className="flex flex-col px-2">
           <span className="text-sm text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2 mb-0.5">৫০০ ৳</span>
-          <span className="text-xl font-bold font-mono text-white leading-none">৯৯ ৳</span>
+          <span className="text-xl font-bold font-mono text-white leading-none">১৪৯ ৳</span>
         </div>
         <button
           onClick={handleOpenModal}
@@ -626,9 +626,9 @@ function OctaveloLandingPage() {
             <div className="text-center mb-6 mt-2">
               <div className="inline-flex items-center justify-center gap-2 mb-1">
                 <span className="text-lg text-zinc-400 font-mono line-through decoration-[#f43f5e]/70 decoration-2">৫০০ ৳</span>
-                <span className="px-2 py-0.5 rounded bg-[#f43f5e] text-white text-[10px] font-bold uppercase tracking-wider">৮০% ছাড়</span>
+                <span className="px-2 py-0.5 rounded bg-[#f43f5e] text-white text-[10px] font-bold uppercase tracking-wider">৭০% ছাড়</span>
               </div>
-              <div className="text-4xl font-bold font-mono text-white mt-1">৯৯ ৳</div>
+              <div className="text-4xl font-bold font-mono text-white mt-1">১৪৯ ৳</div>
               <h3 className="text-sm text-[#94A3B8] mt-2">
                 তর্কে জেতার মনস্তাত্ত্বিক মাস্টারক্লাস ই-বুক
               </h3>
@@ -690,7 +690,7 @@ function OctaveloLandingPage() {
                 ) : (
                   <>
                     <Send className="w-4 h-4 text-white stroke-[2.5]" />
-                    <span>পেমেন্ট নিশ্চিত করুন (৯৯ ৳)</span>
+                    <span>পেমেন্ট নিশ্চিত করুন (১৪৯ ৳)</span>
                   </>
                 )}
               </button>
