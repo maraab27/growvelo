@@ -16,8 +16,19 @@ function OctaveloSuccessPage() {
 
   // FACEBOOK PIXEL: Purchase Event Tracking (With LocalStorage & EventID Deduplication)
   useEffect(() => {
+   // URL থেকে ZiniPay-এর invoiceId নেওয়া (যদি থাকে)
+    const params = new URLSearchParams(window.location.search);
+    const invoiceId = params.get("invoiceId") || params.get("invoice_id") || "";
+    const storageKey = invoiceId ? `octavelo_paid_${invoiceId}` : "octavelo_paid_done";
+
     // localStorage থেকে কাস্টমারের তথ্য নেওয়া (Manual Advanced Matching)
-    const advancedMatchingData: Record<string, string> = {};
+    const advancedMatchingData: Record<string, string> = {
+      country: "bd",
+    };
+    if (invoiceId) {
+      advancedMatchingData.external_id = invoiceId;
+    }
+
     try {
       const savedUser = localStorage.getItem("octavelo_user_data");
       if (savedUser) {
@@ -25,10 +36,13 @@ function OctaveloSuccessPage() {
         if (parsed.email) advancedMatchingData.em = parsed.email;
         if (parsed.firstName) advancedMatchingData.fn = parsed.firstName;
         if (parsed.phone) {
-          // বাংলাদেশের নম্বর হলে সামনে 88 যোগ করে দেওয়া (যেমন: 017... -> 88017...)
-          const cleanPhone = parsed.phone.startsWith("01")
-            ? `88${parsed.phone}`
-            : parsed.phone;
+          // নিখুঁত ফরম্যাট নিশ্চিত করা: 8801XXXXXXXXX (কোনো +, স্পেস বা ডাবল 88 হবে না)
+          let cleanPhone = parsed.phone.replace(/^00/, "");
+          if (cleanPhone.startsWith("01")) {
+            cleanPhone = `88${cleanPhone}`;
+          } else if (cleanPhone.length === 10 && cleanPhone.startsWith("1")) {
+            cleanPhone = `880${cleanPhone}`;
+          }
           advancedMatchingData.ph = cleanPhone;
         }
       }
@@ -49,11 +63,6 @@ function OctaveloSuccessPage() {
 
     (window as any).fbq('init', '1584926862592432', advancedMatchingData);
     (window as any).fbq('track', 'PageView');
-
-    // URL থেকে ZiniPay-এর invoiceId নেওয়া (যদি থাকে)
-    const params = new URLSearchParams(window.location.search);
-    const invoiceId = params.get("invoiceId") || params.get("invoice_id") || "";
-    const storageKey = invoiceId ? `octavelo_paid_${invoiceId}` : "octavelo_paid_done";
 
     let alreadyTracked = false;
     try {
