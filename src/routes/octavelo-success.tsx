@@ -16,6 +16,26 @@ function OctaveloSuccessPage() {
 
   // FACEBOOK PIXEL: Purchase Event Tracking (With LocalStorage & EventID Deduplication)
   useEffect(() => {
+    // localStorage থেকে কাস্টমারের তথ্য নেওয়া (Manual Advanced Matching)
+    const advancedMatchingData: Record<string, string> = {};
+    try {
+      const savedUser = localStorage.getItem("octavelo_user_data");
+      if (savedUser) {
+        const parsed = JSON.parse(savedUser);
+        if (parsed.email) advancedMatchingData.em = parsed.email;
+        if (parsed.firstName) advancedMatchingData.fn = parsed.firstName;
+        if (parsed.phone) {
+          // বাংলাদেশের নম্বর হলে সামনে 88 যোগ করে দেওয়া (যেমন: 017... -> 88017...)
+          const cleanPhone = parsed.phone.startsWith("01")
+            ? `88${parsed.phone}`
+            : parsed.phone;
+          advancedMatchingData.ph = cleanPhone;
+        }
+      }
+    } catch {
+      // Ignore errors
+    }
+
     if (!(window as any).fbq) {
       !function(f:any,b:any,e:any,v:any,n:any,t:any,s:any)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -25,9 +45,9 @@ function OctaveloSuccessPage() {
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      (window as any).fbq('init', '1584926862592432');
     }
 
+    (window as any).fbq('init', '1584926862592432', advancedMatchingData);
     (window as any).fbq('track', 'PageView');
 
     // URL থেকে ZiniPay-এর invoiceId নেওয়া (যদি থাকে)
