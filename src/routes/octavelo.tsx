@@ -112,6 +112,19 @@ function OctaveloLandingPage() {
       const data = await response.json();
 
       if (response.ok && data.payment_url) {
+        // Save user data for Meta Pixel Manual Advanced Matching
+        try {
+          localStorage.setItem(
+            "octavelo_user_data",
+            JSON.stringify({
+              email: formData.email.trim().toLowerCase(),
+              phone: formData.phone.replace(/\D/g, ""),
+              firstName: formData.fullName.trim().split(" ")[0]?.toLowerCase() || "",
+            })
+          );
+        } catch {
+          // Ignore storage errors
+        }
         window.location.href = data.payment_url;
       } else {
         setApiError(data.message || "পেমেন্ট গেটওয়ে লোড হতে সমস্যা হচ্ছে। অনুগ্রহ করে আবার চেষ্টা করুন।");
